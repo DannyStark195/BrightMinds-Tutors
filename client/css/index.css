@@ -274,7 +274,8 @@ h1{
 .step-card .step{
     font-size: 1rem;
     line-height: 1.7;
-    color: rgba(45,45,45,0.9);
+    color: rgba(45,45,45,0.85);
+
 }
 
 .tutors{
@@ -359,7 +360,7 @@ h1{
 
 .tutor-bio{
     font-size: 0.85rem;
-    color: rgba(45,45,45,0.85);
+    color: rgba(45,45,45,0.75);
 }
 
 .testimonials{
@@ -567,7 +568,7 @@ footer{
 }
 
 .footer-link:hover{
-    color: #F5A623;
+    color: var(--Accent);
 }
 
 .footer-bottom{
@@ -581,144 +582,6 @@ footer{
 }
 
 
-.dark-overlay{
-    /* overflow-y: auto; */
-    top: 0;
-    position: fixed;
-    min-height: 100vh;
-    width: 100%;
-    background-color: rgba(0,0,0,0.3);
-    z-index: 999;
-    /* display: flex; */
-    justify-content: center;
-    align-items: center;
-    display: none;
-    animation: fadeIn 0.4s ease alternate;
-}
-.dark-overlay.fade-out{
-    animation: fadeOut 0.4s ease forwards;
-}
-.dark-overlay.active{
-    display: flex;
-}
-.form-container{
-    background-color: #FFF;
-    padding: 25px 25px;
-    border-radius: 20px;
-    text-align: center;
-    width: 100%;
-    max-width: 500px;
-    max-height: 100vh;
-    position: relative;
-    animation: fadeIn 0.4s ease-in-out alternate;
-}
-
-@keyframes fadeIn{
-    0%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-    }
-}
-
-@keyframes fadeOut{
-    0%{
-        opacity: 1;
-    }
-    100%{
-        opacity: 0;
-    }
-}
-
-.form{
-    display: none;
-    animation: fadeIn 0.4s ease-in-out alternate;
-
-}
-.form.active{
-    display: block;
-}
-.form-container .logo{
-    display: block;
-    margin-bottom: 10px;
-}
-
-.form-container h2{
-    font-size: 1.3rem;
-    margin-bottom: 10px;
-}
-.form-container input, 
-.form-container button{
-    inline-size: 80%;
-    border-radius: 15px;
-    padding: 17px 15px;
-    margin: 8px auto;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.87rem;
-    background-color: rgb(247, 247, 247);
-}
-
-.form-container input:focus-visible,
-.form-container button:focus-visible{
-    outline: none;
-}
-
-.form-container .bottom p{
-   color:  var(--Text);
-   font-weight: 600;
-   margin-block: 10px 5px;
-   font-size: 0.9rem;
-}
-.form-container .bottom:nth-child(2){
-    text-decoration: none;
-    color: currentColor;
-    font-size: 0.95rem;
-    cursor: pointer;
-    margin-block: 0;
-}
-
-.form-container button div{
-    display: flex;
-    /* display: grid; */
-    place-items: center;
-    gap: 70px;
-}
-
-.form-container .oauth-btn{
-    /* background-color: transparent; */
-}
-.form-container button img{
-    width: 25px;
-}
-.cross-btn.cancel-form-popup{
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    width: 24px;
-    height: 24px;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-.cross-btn i{
-    font-size: 1rem;
-    color: var(--Text);
-}
-
-input.input-error{
-    /* border: 3px solid var(--Danger); */
-}
-.error-msg{
-    display: block;
-    display: none;
-    color: var(--Danger);
-    font-size: 0.87rem;
-    margin-block: 3px;
-}
 @media(max-width: 1150px){
     .hero{
         grid-template-columns: 1fr;

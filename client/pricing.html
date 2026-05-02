@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="./css/global.css">
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/form.css">
     <link rel="stylesheet" href="./css/pricing.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
 </head>
 <body>
-    <div class="pricing-page">
+    <div class="pricing-page white-bg">
         <header class="header">
                 <div class="logo">
                     <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
@@ -56,87 +57,107 @@
                     <div class="price-toggle">
                         <div class="toggle-slide">
                         </div>
-                        <button class="toggle-btn active">2 Hours</button>
-                        <button class="toggle-btn">4 Hours</button>
+                        <button class="toggle-btn toggle-2hrs active">2 Hours</button>
+                        <button class="toggle-btn toggle-4hrs ">4 Hours</button>
                     </div>
                 </section>
-                <section class="prices">
-                    <div class="price-cards">
-                        <div class="price-card">
-                            <h3 class="price-title">Starter</h3>
-                            <p class="price">₦8,000<small>/month</small></p>
-                            <ul class="why-choose-us">
-                                <li>
-                                    <p class="prop">2x per week</p>
-                                    <p class="prop">8 sessions</p>
-                                    <p class="prop">Qualified vetted tutor</p>
-                                    <p class="prop">Physical or online sessions</p>
-                                    <p class="prop">Flexible scheduling</p>
-                                    <p class="prop">Progress updates to parent</p>
-                                    <p class="prop">WhatsApp support</p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="price-card">
-                            <h3 class="price-title">Standard</h3>
-                            <p class="price">₦12,000<small>/month</small></p>
-                            <ul class="why-choose-us">
-                                <li>
-                                    <p class="prop">3x per week</p>
-                                    <p class="prop">12 sessions</p>
-                                    <p class="prop">Qualified vetted tutor</p>
-                                    <p class="prop">Physical or online sessions</p>
-                                    <p class="prop">Flexible scheduling</p>
-                                    <p class="prop">Progress updates to parent</p>
-                                    <p class="prop">WhatsApp support</p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="price-card">
-                            <h3 class="price-title">Intensive</h3>
-                            <p class="price">₦18,000<small>/month</small></p>
-                            <ul class="why-choose-us">
-                                <li>
-                                    <p class="prop">5x per week</p>
-                                    <p class="prop">20 sessions</p>
-                                    <p class="prop">Qualified vetted tutor</p>
-                                    <p class="prop">Physical or online sessions</p>
-                                    <p class="prop">Flexible scheduling</p>
-                                    <p class="prop">Progress updates to parent</p>
-                                    <p class="prop">WhatsApp support</p>
-                                    <p class="prop">Group sessions</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                <!-- <div class="others white-bg"> -->
+                        <section class="prices">
+                            <div class="price-cards">
+                            </div>
 
-                    <div class="comparison-table">
-                        <p>A clean table that breaks it all down clearly for you</p>
-                        <table></table>
+                            <div class="comparison-table">
+                                <!-- <h2>A clean table that breaks it all down clearly for you</h2> -->
+                                <div class="comparison-table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Starter</th>
+                                                <th>Standard</th>
+                                                <th>Intensive</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Sessions per week</td>
+                                                <td>2x</td>
+                                                <td>3x</td>
+                                                <td>5x</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Sessions per month</td>
+                                                <td>8</td>
+                                                <td>12</td>
+                                                <td>20</td>
+                                            </tr>
+                                            <tr>
+                                                <td>1hr price</td>
+                                                <td>₦8,000</td>
+                                                <td>₦12,000</td>
+                                                <td>₦18,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2hr price</td>
+                                                <td>₦15,000</td>
+                                                <td>₦22,000</td>
+                                                <td>₦32,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Physical sessions</td>
+                                                <td>                                        
+                                                    <i class="fa-solid fa-check"></i>
+                                                </td>
+                                                <td>                                        
+                                                    <i class="fa-solid fa-check"></i>
+                                                </td>
+                                                <td>                                        
+                                                    <i class="fa-solid fa-check"></i>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Online sessions</td>
+                                                <td>                                        
+                                                    <i class="fa-solid fa-check"></i>
+                                                </td>
+                                                <td>                                        
+                                                    <i class="fa-solid fa-check"></i>
+                                                </td>
+                                                <td>                                        
+                                                    <i class="fa-solid fa-check"></i>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            
+                            </div>
+                            
+                        </section>
+
+                        <section class="faq">
+                                <h2>FAQ</h2>
+                                <div class="question-card">
+                                    <p class="question">When do I pay?</p>
+                                    <p class="answer">Payment is made monthly at the start of each cycle after your booking is confirmed.</p>
+                                </div>
+                                <div class="question-card">
+                                    <p class="question">Can I change my plan?</p>
+                                    <p class="answer">Yes, contact us and we'll adjust your schedule for the next month.</p>
+                                </div>
+                                <div class="question-card">
+                                    <p class="question">What if a session is missed?</p>
+                                    <p class="answer">We reschedule missed sessions at no extra charge.</p>
+                                </div>
+                        </section>
+                        <section class="cta-banner">
+                                <h2>Ready to Book?</h2>
+                                <button class="cta-btn gold">
+                                    Book a Tutor Today
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                        </section>
                     </div>
-                    <div class="faq">
-                        <h2>FAQ</h2>
-                        <div class="question-card">
-                            <p class="question"></p>
-                            <p class="answer"></p>
-                        </div>
-                        <div class="question-card">
-                            <p class="question"></p>
-                            <p class="answer"></p>
-                        </div>
-                        <div class="question-card">
-                            <p class="question"></p>
-                            <p class="answer"></p>
-                        </div>
-                    </div>
-                </section>
-                <section class="cta-banner">
-                        <h2>Ready to Book?</h2>
-                        <button class="cta-btn gold">
-                            Book a Tutor Today
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </section>
         </main>
         <footer>
             <div class="footer-top">
