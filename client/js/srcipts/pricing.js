@@ -24,7 +24,8 @@ const prices = [{
                 "4hrs": 20000,
             },
             "times-per-week": "3x per week",
-            "sessions-per-week": "12 sessions per month"
+            "sessions-per-week": "12 sessions per month",
+            "most-popular": true
         },
         {
             "id": 3,
@@ -43,7 +44,7 @@ function renderPriceCards(time){
     let html = "";
     prices.forEach(priceCard =>{
         html += `
-            <div class="price-card">
+            <div class="price-card ${priceCard["most-popular"]?`most-popular`: ``}">
                 <h3 class="price-title">${priceCard.title}</h3>
                 <p class="price">₦${time === 2? formatCurrency(priceCard.price["2hrs"]):  formatCurrency(priceCard.price["4hrs"])}<small>/month</small></p>
                 <ul class="why-choose-us">
