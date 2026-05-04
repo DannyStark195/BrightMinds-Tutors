@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BrightMind Tutors</title>
+        <link rel="stylesheet" href="./css/global.css">
+        <link rel="stylesheet" href="./css/index.css">
+        <link rel="stylesheet" href="./css/header.css">
+        <link rel="stylesheet" href="./css/pricing.css">
+        <link rel="stylesheet" href="./css/form.css">
+        <link rel="stylesheet" href="./css/dashboard.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
+    </head>
+    <body>
+        <div class="dashboard-page">
+            <header class="header">
+                    <div class="logo">
+                        <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
+                        <p>BrightMind Tutors</p>
+                    </div>
+
+                    
+                    <nav class="navbar d">
+                        <div class="cross-btn close-nav-btn">
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                        <div class="profile">
+                            <div class="profile-img">
+                                <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="user profile picture">
+                            </div>
+                            <!-- <p class="profile-name">D</p> -->
+                        </div>
+                        <div class="more-links"></div>
+                    </nav>
+                    <div class="nav-btn d">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+                    </div>
+
+                    <div class="nav-btn-wrapper">
+                        <div class="cross-btn dashboard-close-nav-btn active">
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                        <div class="dashboard-nav-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+                        </div>
+                        <nav class="dashboard-navbar navbar">
+                                <div class="profile">
+                                    <div class="profile-img">
+                                        <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="user profile picture">
+                                    </div>
+                                    <div class="profile-info">
+                                        <p class="profile-name">Daniel</p>
+                                        <a href="http://" target="_blank" rel="noopener noreferrer">
+                                            My profile 
+                                            <i class="fa-solid fa-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="link">
+                                    <i class="fa-solid fa-book"></i>
+                                    <a href="/become-a-tutor"><button class="">Book a tutor</button></a>
+                                </div>
+                                <div class="link">
+                                    <i class="fa-solid fa-receipt"></i>
+                                    <a href="/pricing"><button class="">My payments</button></a>
+                                </div>
+                                <div class="link">
+                                    <i class="fa-solid fa-star"></i>
+                                    <a href="/pricing"><button class="">Reviews</button></a>
+                                </div>
+                                <div class="link">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                    <a href="/pricing"><button class="">Become a tutor</button></a>
+                                </div>
+                                <button type="submit" class="cta-btn gold">Log out</button>
+                            <div class="more-links">
+                                
+                            </div>
+                        </nav>
+                    </div>
+                    
+            </header>
+            <main>
+                <section class="greeting">
+                    <h2>Good Day, Daniel</h2>
+                </section>
+                <section class="d-cards">
+                    <a href="" class="d-card">
+                        <h3>My Payments</h3>
+                        <i class="fa-solid fa-receipt"></i>
+                        <!-- <i class="fa-solid fa-wallet"></i> -->
+                    </a>
+                    <a href=""class="d-card">
+                        <h3>Active bookings</h3>
+                        <!-- <i class="fa-solid fa-graduation-cap"></i> -->
+                         <i class="fa-solid fa-book"></i>
+                    </a>
+                    <a href="" class="d-card">
+                        <h3>Reviews</h3>
+                        <i class="fa-solid fa-star"></i>
+                    </a>
+                </section>
+                <div class="book-cta">
+                    <!-- <h2>Track and manage your tutoring sessions here</h2> -->
+                    <button class="cta-btn gold">
+                        Book a tutor
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+                <section class="bookings">
+                    <div class="active-bookings active">
+                        <div class="booking-card">
+                            <div class="card-header">
+                                <span class="card-subject">Mathematics</span>
+                                <span class="status pending">Pending</span>
+                            </div>
+                            <div class="progress-tracker">
+                                <div class="step completed"><span>1</span><p>Submitted</p></div>
+                                <div class="step active"><span>2</span><p>Under Review</p></div>
+                                <div class="step"><span>3</span><p>Tutor Assigned</p></div>
+                                <div class="step"><span>4</span><p>Confirmed</p></div>
+                            </div>
+                            <div class="card-footer">
+                                <span class="reference">BM-2847</span>
+                                <span class="date">Submitted 3 May 2026</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="no-bookings">
+                        <p>You don't have any active booking yet</p>
+                        <a href="" class="gold">Book a tutor</a>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <script type="module" src="./js/srcipts/landing.js"></script>
+    </body>
+</html>

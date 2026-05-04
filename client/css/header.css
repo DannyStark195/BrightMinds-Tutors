@@ -87,7 +87,8 @@
         position: fixed;
         top: 0px;
         right: -100%;
-        width: 55%;
+        opacity: 0;
+        width: 100%;
         background: rgba(255,255,255,0.99);
         min-height: 100vh;
         flex-direction: column;
@@ -95,28 +96,24 @@
         padding-inline: 15px;
         text-align: start;
         gap: 20px;
-        /* animation: slideIn 0.3s; */
         transition: all 0.2s ease;
+        overflow: auto;
+        /* display: none; */
     }
 
     .navbar.active{
+        /* display: block; */
         right: 0;
+        opacity: 1;
     }
-    /* @keyframes slideIn{
-        0%{
-            transform: translateX(100%);
-        }
-        100%{
-            transform: translateX(0);
-        } */
-    /* } */
     
     .navbar button.phone-active{
         background-color: rgb(239, 239, 239);
+        border-radius: 15px;
     }
     .navbar button.gold{
         background: linear-gradient(135deg, #f5d890, #f8c56c);
-        color: #FFF;
+        /* color: #FFF; */
     }
     .nav-btn{
         display: block;
@@ -141,8 +138,9 @@
         margin-top: 20px;
         border-top: 1px solid rgb(239, 239, 239);
     }
-    .more-links button{
-        font-weight: 500;
+    .more-links a button{
+        /* font-weight: 500; */
+        text-decoration: none;
     }
     .call-container{
         padding: 15px 20px;

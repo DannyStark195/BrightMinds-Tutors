@@ -17,7 +17,6 @@
     margin-bottom: 5px;
 }
 
-
 .pricing-header p{
     margin: 0 auto;
     color: rgba(45,45,45,0.85);
@@ -79,17 +78,13 @@
     margin: 0 auto;
     /* justify-content: center; */
     inline-size: 100%;
-    /* max-inline-size: 1300px; */
 }
 
 .price-card{
     padding: 20px;
-    /* border: 1px solid var(--Primary); */
     border-radius: 20px;
     background: rgba(255,255,255,0.95);
     box-shadow: 0 20px 55px rgba(13, 27, 42, 0.08);
-    /* text-align: center; */
-    /* transition: transform 0.25s ease, box-shadow 0.25s ease; */
 }
 
 /* .price-card.most-popular{
@@ -105,7 +100,6 @@
 .price-card .price{
     font-size: 2.4rem;
     font-weight: 600;
-    /* color: var(--Accent); */
     margin-bottom: 35px;
     text-align: center;
 }
@@ -167,8 +161,6 @@
 
 .comparison-table td{
     padding: 24px 22px;
-    /* border-bottom: 1px solid var(--Primary); */
-    /* color: #4b5563; */
 }
 
 .comparison-table tbody tr:last-child td{
@@ -192,7 +184,6 @@
     border-radius: 10px;
     padding: 24px;
     box-shadow: 0 22px 45px rgba(15, 23, 42, 0.09);
-    
 }
 
 .faq h2{
@@ -212,7 +203,6 @@
 .faq .question-card{
     margin-bottom: 20px;
     padding-bottom: 5px;
-    /* border-bottom: 1px solid var(--Primary); */
 }
 @media (max-width: 900px) {
     .price-cards{

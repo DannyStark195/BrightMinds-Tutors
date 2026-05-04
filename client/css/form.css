@@ -146,3 +146,13 @@ input.input-error{
     font-size: 0.87rem;
     margin-block: 6px;
 }
+
+@media (max-width: 860px) {
+    .form-container{
+        min-height: 100vh;
+        padding-inline: 15px;
+    }
+    .form-container input, .form-container button {
+        inline-size: 90%;
+    }
+}

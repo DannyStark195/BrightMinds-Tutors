@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .booking-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  border: 1px solid #f0ebe0;
+  max-width: 580px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.subject {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0D1B2A;
+  font-family: 'Playfair Display', serif;
+}
+
+.status {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status.pending  { background: #FEF3C7; color: #92400E; }
+.status.approved { background: #D1FAE5; color: #065F46; }
+.status.rejected { background: #FEE2E2; color: #991B1B; }
+.status.completed{ background: #F3F4F6; color: #374151; }
+
+/* Progress Tracker */
+.progress-tracker {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f0ebe0;
+}
+
+.progress-tracker::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: #e8e2d9;
+  z-index: 0;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 1;
+  flex: 1;
+}
+
+.step span {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e8e2d9;
+  color: #9CA3AF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.step p {
+  font-size: 0.65rem;
+  color: #9CA3AF;
+  text-align: center;
+  margin: 0;
+}
+
+.step.completed span { background: #0D1B2A; color: #ffffff; }
+.step.completed p    { color: #0D1B2A; font-weight: 600; }
+.step.active span    { background: #F5A623; color: #0D1B2A; }
+.step.active p       { color: #F5A623; font-weight: 600; }
+
+/* Card Body */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.detail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.875rem;
+  color: #2D2D2D;
+}
+
+.detail i {
+  color: #F5A623;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* Card Footer */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid #f0ebe0;
+}
+
+.reference {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #F5A623;
+  background: #FEF3C7;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.date {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+}
+    </style>
+</head>
+
+<body>
+<div class="booking-card">
+  <!-- Status Badge -->
+  <div class="card-header">
+    <span class="subject">Mathematics</span>
+    <span class="status pending">Pending</span>
+  </div>
+
+  <!-- Progress Tracker -->
+  <div class="progress-tracker">
+    <div class="step completed"><span>1</span><p>Submitted</p></div>
+    <div class="step active"><span>2</span><p>Under Review</p></div>
+    <div class="step"><span>3</span><p>Tutor Assigned</p></div>
+    <div class="step"><span>4</span><p>Confirmed</p></div>
+  </div>
+
+  <!-- Booking Details -->
+  <div class="card-body">
+    <div class="detail"><i data-lucide="user"></i><span>Tutor: Pending Assignment</span></div>
+    <div class="detail"><i data-lucide="calendar"></i><span>Mon, Wed, Fri</span></div>
+    <div class="detail"><i data-lucide="clock"></i><span>Afternoon · 3x per week · 1hr</span></div>
+    <div class="detail"><i data-lucide="map-pin"></i><span>Physical · 14 Admiralty Way, Lekki</span></div>
+    <div class="detail"><i data-lucide="naira-sign"></i><span>₦12,000/month</span></div>
+  </div>
+
+  <!-- Card Footer -->
+  <div class="card-footer">
+    <span class="reference">BM-2847</span>
+    <span class="date">Submitted 3 May 2026</span>
+  </div>
+</div>
+</body>
+</html>

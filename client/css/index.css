@@ -612,12 +612,6 @@ footer{
     .footer-top{
         grid-template-columns: 1fr;
     }
-    .form-container{
-     min-height: 100vh;
-     padding-inline: 20px;
-     /* max-width: 700px; */
-     /* justify-content: center; */
-    }
 }
 
 
