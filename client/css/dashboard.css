@@ -9,15 +9,22 @@
     display: none;
 }
 .dashboard-nav-btn.active{
-    display: block;
+    display:initial;
 }
 .dashboard-close-nav-btn{
-    display: none;
+    /* display: none; */
+    opacity: 0;
     transition: 0.3s transform ease;
 }
 .dashboard-close-nav-btn.active{
-    display: block;
-    transform: rotate(90deg);
+    /* display:flex; */
+    opacity: 1;
+    transform: rotate(-90deg);
+}
+.dashboard-nav-btn, 
+.dashboard-close-nav-btn{
+    width: 20px;
+    height: 20px;
 }
 .profile-img{
     /* border: 3px solid var(--Primary); */
@@ -107,7 +114,7 @@
     /* display: none; */
     background: rgba(255,255,255,0.96);
     box-shadow: 0 25px 60px rgba(13,27,42,0.08);
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     position: absolute;
     top: 50px;
@@ -115,8 +122,15 @@
     width: 240px;
     padding: 20px;
     border-radius: 20px;
+    transition: transform 0.2s ease;
+    transform: scale(0);
+    transform-origin: top right;
 }
+.dashboard-navbar.active{
+    /* display: flex; */
+    transform: scale(1);
 
+}
 main{
 }
 
@@ -136,7 +150,7 @@ main{
     gap: 30px;
     justify-content: space-around;
     margin-bottom: 60px;
-    padding-inline: 30px;
+    padding-inline: 20px;
 }
 
 .d-card, .booking-card{
@@ -170,7 +184,7 @@ main{
 }
 
 .bookings{
-    margin-block: 50px 0px;
+    margin-block: 80px 0px;
     text-align: center;
     /* background: rgba(255,255,255,0.96);
     box-shadow: 0 25px 60px rgba(13,27,42,0.08); */
@@ -208,15 +222,16 @@ main{
 
 .booking-card {
   max-width: 1000px;
-  margin: 0 auto;
+  margin: 0 auto 30px;
   padding: 24px;
+  height: auto;
 }
 
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 .card-subject {
   font-size: 1.2rem;
@@ -235,17 +250,13 @@ main{
     background: #FEF3C7;
     color: var(--Accent);
 }
-.status.approved { 
+.status.confirmed { 
     background: #D1FAE5;
     color:  var(--Success); 
 }
 .status.rejected { 
     background: #FEE2E2; 
     color: var(--Danger); 
-}
-.status.completed{ 
-    background: #F3F4F6; 
-    color: var(--Primary); 
 }
 
 .progress-tracker {
@@ -254,7 +265,7 @@ main{
   justify-content: space-between;
   position: relative;
   margin-bottom: 24px;
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
   /* border-bottom: 1px solid #f0ebe0; */
 }
 
@@ -268,6 +279,30 @@ main{
   background: #e8e2d9;
   z-index: 0;
 }
+.progress-tracker .progress{
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  width: 97%;
+  background: var(--Primary);
+  z-index: 0;
+}
+
+.progress.w-25{
+    width: 25%;
+}
+.progress.w-50{
+    width: 50%;
+}
+.progress.w-75{
+    width: 75%;
+}
+.progress.w-100{
+    width: 97%;
+}
+
 .step {
   display: flex;
   flex-direction: column;
@@ -297,8 +332,64 @@ main{
   margin: 0;
 }
 
+.step.active span { 
+    background: var(--Primary); 
+    color: #ffffff; 
+}
+.step.active p    
+{ color: var(--Primary); 
+    font-weight: 600; 
+}
+
+.card-body a{
+    text-align: start;
+    text-decoration: none;
+    margin-block: 2px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: #9CA3AF;
+}
+.card-details{
+    display: block;
+}
+.card-details.active{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+}
+
+.reference {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #F5A623;
+  background: #FEF3C7;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.date {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+}
 @media(max-width: 860px){
     .nav-btn-wrapper{
         display: none;
+    }
+    .navbar.d{
+        display: flex;
+    }
+    .nav-btn.d{
+        display: block;
+    }
+    .link a button{
+        padding: 20px 10px;
     }
 }

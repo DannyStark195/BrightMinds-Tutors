@@ -23,29 +23,54 @@
 
                     
                     <nav class="navbar d">
-                        <div class="cross-btn close-nav-btn">
-                            <i class="fa-solid fa-xmark"></i>
-                        </div>
-                        <div class="profile">
-                            <div class="profile-img">
-                                <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="user profile picture">
+                            <div class="cross-btn close-nav-btn">
+                                <i class="fa-solid fa-xmark"></i>
                             </div>
-                            <!-- <p class="profile-name">D</p> -->
-                        </div>
-                        <div class="more-links"></div>
+                            <div class="profile">
+                                <div class="profile-img">
+                                    <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="user profile picture">
+                                </div>
+                                <div class="profile-info">
+                                    <p class="profile-name">Daniel</p>
+                                    <a href="http://" target="_blank" rel="noopener noreferrer">
+                                        My profile 
+                                        <i class="fa-solid fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="more-links">
+
+                                <div class="link">
+                                    <i class="fa-solid fa-book"></i>
+                                    <a href="/become-a-tutor"><button class="">Book a tutor</button></a>
+                                </div>
+                                <div class="link">
+                                    <i class="fa-solid fa-receipt"></i>
+                                    <a href="/pricing"><button class="">My payments</button></a>
+                                </div>
+                                <div class="link">
+                                    <i class="fa-solid fa-star"></i>
+                                    <a href="/pricing"><button class="">Reviews</button></a>
+                                </div>
+                                <div class="link">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                    <a href="/pricing"><button class="">Become a tutor</button></a>
+                                </div>
+                                <button type="submit" class="cta-btn gold">Log out</button>
+                            </div>
                     </nav>
                     <div class="nav-btn d">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+                        <img src="./assets/icons/menu.svg" alt="menu icon">
                     </div>
 
                     <div class="nav-btn-wrapper">
-                        <div class="cross-btn dashboard-close-nav-btn active">
+                        <div class="cross-btn dashboard-close-nav-btn">
                             <i class="fa-solid fa-xmark"></i>
                         </div>
-                        <div class="dashboard-nav-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+                        <div class="dashboard-nav-btn active">
+                            <img src="./assets/icons/menu.svg" alt="menu icon">
                         </div>
-                        <nav class="dashboard-navbar navbar">
+                        <nav class="navbar dashboard-navbar">
                                 <div class="profile">
                                     <div class="profile-img">
                                         <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="user profile picture">
@@ -114,16 +139,81 @@
                         <div class="booking-card">
                             <div class="card-header">
                                 <span class="card-subject">Mathematics</span>
-                                <span class="status pending">Pending</span>
+                                <span class="status confirmed">Confirmed</span>
                             </div>
                             <div class="progress-tracker">
-                                <div class="step completed"><span>1</span><p>Submitted</p></div>
+                                <div class="progress"></div>
+                                <div class="step active"><span>1</span><p>Submitted</p></div>
                                 <div class="step active"><span>2</span><p>Under Review</p></div>
-                                <div class="step"><span>3</span><p>Tutor Assigned</p></div>
-                                <div class="step"><span>4</span><p>Confirmed</p></div>
+                                <div class="step active"><span>3</span><p>Tutor Assigned</p></div>
+                                <div class="step active"><span>4</span><p>Confirmed</p></div>
+                            </div>
+                            <div class="card-body">
+                                <a href=""><p>See Details</p></a>
+                                <div class="card-details">
+                                    <!-- <div class="detail"><i data-lucide="user"></i><span>Tutor: Pending Assignment</span></div>
+                                    <div class="detail"><i data-lucide="calendar"></i><span>Mon, Wed, Fri</span></div>
+                                    <div class="detail"><i data-lucide="clock"></i><span>Afternoon · 3x per week · 1hr</span></div>
+                                    <div class="detail"><i data-lucide="map-pin"></i><span>Physical · 14 Admiralty Way, Lekki</span></div>
+                                    <div class="detail"><i data-lucide="naira-sign"></i><span>₦12,000/month</span></div> -->
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <span class="reference">BM-2847</span>
+                                <span class="date">Submitted 3 May 2026</span>
+                            </div>
+                        </div>
+                        <div class="booking-card">
+                            <div class="card-header">
+                                <span class="card-subject">Biology</span>
+                                <span class="status pending">pending</span>
+                            </div>
+                            <div class="progress-tracker">
+                                <div class="progress"></div>
+                                <div class="step active"><span>1</span><p>Submitted</p></div>
+                                <div class="step active"><span>2</span><p>Under Review</p></div>
+                                <div class="step active"><span>3</span><p>Tutor Assigned</p></div>
+                                <div class="step active"><span>4</span><p>Confirmed</p></div>
+                            </div>
+                            <div class="card-body">
+                                <a href=""><p>See Details</p></a>
+                                <div class="card-details">
+                                    <!-- <div class="detail"><i data-lucide="user"></i><span>Tutor: Pending Assignment</span></div>
+                                    <div class="detail"><i data-lucide="calendar"></i><span>Mon, Wed, Fri</span></div>
+                                    <div class="detail"><i data-lucide="clock"></i><span>Afternoon · 3x per week · 1hr</span></div>
+                                    <div class="detail"><i data-lucide="map-pin"></i><span>Physical · 14 Admiralty Way, Lekki</span></div>
+                                    <div class="detail"><i data-lucide="naira-sign"></i><span>₦12,000/month</span></div> -->
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span class="reference">BM-2847</span>
+                                <span class="date">Submitted 3 May 2026</span>
+                            </div>
+                        </div>
+                        <div class="booking-card">
+                            <div class="card-header">
+                                <span class="card-subject">English</span>
+                                <span class="status pending">Pending</span>
+                            </div>
+                            <div class="progress-tracker">
+                                <div class="progress"></div>
+                                <div class="step active"><span>1</span><p>Submitted</p></div>
+                                <div class="step active"><span>2</span><p>Under Review</p></div>
+                                <div class="step active"><span>3</span><p>Tutor Assigned</p></div>
+                                <div class="step active"><span>4</span><p>Confirmed</p></div>
+                            </div>
+                            <div class="card-body">
+                                <a href=""><p>See Details</p></a>
+                                <div class="card-details">
+                                    <!-- <div class="detail"><i data-lucide="user"></i><span>Tutor: Pending Assignment</span></div>
+                                    <div class="detail"><i data-lucide="calendar"></i><span>Mon, Wed, Fri</span></div>
+                                    <div class="detail"><i data-lucide="clock"></i><span>Afternoon · 3x per week · 1hr</span></div>
+                                    <div class="detail"><i data-lucide="map-pin"></i><span>Physical · 14 Admiralty Way, Lekki</span></div>
+                                    <div class="detail"><i data-lucide="naira-sign"></i><span>₦12,000/month</span></div> -->
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span class="reference">BM-3496</span>
                                 <span class="date">Submitted 3 May 2026</span>
                             </div>
                         </div>

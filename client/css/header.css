@@ -40,8 +40,10 @@
     border: none;
     background-color: transparent;
     border-radius: 30px;
+    /* padding: 10px; */
+    color: var(--Text);
     font-weight: 600;
-    font-size: 0.93rem;
+    font-size: 1rem;
     padding: 15px 20px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -112,8 +114,9 @@
         border-radius: 15px;
     }
     .navbar button.gold{
-        background: linear-gradient(135deg, #f5d890, #f8c56c);
-        /* color: #FFF; */
+       background: linear-gradient(135deg, #f5d890, #f8c56c);
+        color: var(--Primary);
+        border: 1px solid rgba(245, 168, 35, 0.4);
     }
     .nav-btn{
         display: block;
@@ -144,8 +147,9 @@
     }
     .call-container{
         padding: 15px 20px;
-        color: #000;
+        color: var(--Text);
         font-size: 0.93rem;
+        font-weight: 600;
     }
     .call-btn{
         display: flex;
@@ -158,6 +162,7 @@
         background-color: rgb(239, 239, 239);
         text-decoration: none;
         color: #000;
+        font-weight: 500;
     }
     
     .call-btn:hover{

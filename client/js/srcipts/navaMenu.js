@@ -1,11 +1,12 @@
 
 
-export function openNavMenu(navMenu, moreLinks){
+export function openNavMenu(navMenu){
     navMenu.classList.add('active');
-    moreLinks.classList.add('active');
 }
 
-
-export function closeNavMenu(navMenu, moreLinks) {
+export function openMoreLinks(moreLinks){
+    moreLinks.classList.add('active');
+}
+export function closeNavMenu(navMenu) {
     navMenu.classList.remove('active');
 }

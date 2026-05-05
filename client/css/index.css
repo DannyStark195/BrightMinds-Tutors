@@ -612,6 +612,10 @@ footer{
     .footer-top{
         grid-template-columns: 1fr;
     }
+    .testimonial{
+        font-size: 1.25rem;
+    }
+
 }
 
 
@@ -632,7 +636,7 @@ footer{
     .step-card{
         padding: 22px;
     }
-}
+    
 
 @media(max-width: 560px){
     h1{
@@ -642,5 +646,11 @@ footer{
     .step-card .step,
     .footer-left > p{
         font-size: 0.98rem;
+    }
+    .become-tutor .img-box img{
+        display: none;
+    }
+    .become-tutor .img-box{
+        overflow: visible;
     }
 }
