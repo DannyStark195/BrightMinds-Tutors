@@ -1,9 +1,9 @@
-export function hidePopup(overlay) {
+export function hideOverlay(overlay) {
     if (!overlay) return;
     overlay.classList.remove('active');
 }
 
-export function showPopup(overlay) {
+export function showOverlay(overlay) {
     if (!overlay) return;
     overlay.classList.add('active');
 }
@@ -17,7 +17,7 @@ function hideAllPopupForms(overlay) {
 }
 
 export function openSignupForm(overlay, signupForm) {
-    showPopup(overlay);
+    showOverlay(overlay);
     hideAllPopupForms(overlay);
     if (signupForm) {
         signupForm.classList.add('active');
@@ -25,7 +25,7 @@ export function openSignupForm(overlay, signupForm) {
 }
 
 export function openLoginForm(overlay, loginForm) {
-    showPopup(overlay);
+    showOverlay(overlay);
     hideAllPopupForms(overlay);
     if (loginForm) {
         loginForm.classList.add('active');
@@ -33,5 +33,5 @@ export function openLoginForm(overlay, loginForm) {
 }
 
 export function closeFormPopup(overlay) {
-    hidePopup(overlay);
+    hideOverlay(overlay);
 }
