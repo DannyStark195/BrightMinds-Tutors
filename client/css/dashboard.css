@@ -133,13 +133,18 @@
 
 }
 .overlay{
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: fixed;
+    inset: 0;
     width: 100%;
-    height: 100vh;
+    height: 100svh;
     display: none;
     z-index: 4;
+}
+
+@supports (height: 100dvh) {
+    .overlay{
+        height: 100dvh;
+    }
 }
 
 .overlay.active{
@@ -281,8 +286,8 @@ main{
   content: '';
   position: absolute;
   top: 14px;
-  left: 110px;
-  right: 110px;
+  left: 12%;
+  right: 12%;
   height: 2px;
   background: #e8e2d9;
   z-index: 0;
@@ -290,8 +295,8 @@ main{
 .progress-tracker .progress{
   position: absolute;
   top: 14px;
-  left: 110px;
-  right: 110px;
+  left: 12%;
+  right: 12%;
   height: 2px;
   /* width: 97%; */
   background: var(--Primary);

@@ -1,8 +1,9 @@
 .dark-overlay{
     /* overflow-y: auto; */
-    top: 0;
+    inset: 0;
     position: fixed;
-    min-height: 100vh;
+    min-height: 100svh;
+    height: 100svh;
     width: 100%;
     background-color: rgba(0,0,0,0.3);
     z-index: 999;
@@ -11,6 +12,15 @@
     align-items: center;
     display: none;
     animation: fadeIn 0.4s ease alternate;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+@supports (height: 100dvh) {
+    .dark-overlay{
+        min-height: 100dvh;
+        height: 100dvh;
+    }
 }
 .dark-overlay.fade-out{
     animation: fadeOut 0.4s ease forwards;
@@ -25,9 +35,15 @@
     text-align: center;
     width: 100%;
     max-width: 500px;
-    max-height: 100vh;
+    max-height: 100svh;
     position: relative;
     animation: fadeIn 0.4s ease-in-out alternate;
+}
+
+@supports (max-height: 100dvh) {
+    .form-container{
+        max-height: 100dvh;
+    }
 }
 
 @keyframes fadeIn{
@@ -149,8 +165,13 @@ input.input-error{
 
 @media (max-width: 860px) {
     .form-container{
-        min-height: 100vh;
+        min-height: 100svh;
         padding-inline: 15px;
+    }
+    @supports (min-height: 100dvh) {
+        .form-container{
+            min-height: 100dvh;
+        }
     }
     .form-container input, .form-container button {
         inline-size: 90%;

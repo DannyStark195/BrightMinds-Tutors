@@ -86,24 +86,37 @@
     }
     .navbar{
         position: fixed;
-        top: 0px;
-        right: -100%;
+        inset-block-start: 0;
+        inset-inline: 0;
         opacity: 0;
         width: 100%;
         background: rgba(255,255,255,0.99);
-        min-height: 100vh;
+        min-height: 100svh;
+        height: 100svh;
         flex-direction: column;
         padding-top: 20px;
         padding-inline: 15px;
         text-align: start;
         gap: 20px;
-        transition: all 0.2s ease;
-        overflow: auto;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+        transform: translateX(100%);
+        pointer-events: none;
+        overflow-y: auto;
+        overflow-x: hidden;
+        overscroll-behavior: contain;
+    }
+
+    @supports (height: 100dvh) {
+        .navbar{
+            min-height: 100dvh;
+            height: 100dvh;
+        }
     }
 
     .navbar.active{
-        right: 0;
+        transform: translateX(0);
         opacity: 1;
+        pointer-events: auto;
     }
     
     .navbar button.phone-active{

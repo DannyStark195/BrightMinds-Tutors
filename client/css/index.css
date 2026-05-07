@@ -1,6 +1,12 @@
 body{
-    min-height: 100vh;
+    min-height: 100svh;
     color: var(--Text);
+}
+
+@supports (min-height: 100dvh) {
+    body{
+        min-height: 100dvh;
+    }
 }
 .landing-page{
     /* display: none; */
@@ -605,10 +611,6 @@ footer{
     .hero-img{
         max-width: 100%;
     }
-    .subject,
-    .step-card{
-        min-width: auto;
-    }
     .footer-top{
         grid-template-columns: 1fr;
     }
@@ -617,7 +619,6 @@ footer{
     }
 
 }
-
 
 @media(max-width: 720px){
     .cta{
