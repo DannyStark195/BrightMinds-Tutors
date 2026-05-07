@@ -182,7 +182,7 @@ h1{
     align-items: center;
     justify-content: center;
     overflow-x: auto;
-    padding-bottom: 10px;
+    padding-block: 10px;
 }
 
 .subjects::-webkit-scrollbar{
@@ -507,7 +507,7 @@ h1{
 .become-tutor .img-box .content .cta-btn{
     align-self: flex-start;
     padding: 14px 28px;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
 }
 
 .cta-banner{

@@ -159,7 +159,7 @@ main{
 }
 .greeting h2{
     padding-left: 25px;
-    font-size: 1.1rem;
+    font-size: 1.47rem;
     font-weight: 700;
 }
 
@@ -395,6 +395,9 @@ main{
 
 
 @media(max-width: 860px){
+    .greeting h2{
+        font-size: 1.2rem;
+    }
     .nav-btn-wrapper{
         display: none;
     }
