@@ -286,34 +286,41 @@ main{
   content: '';
   position: absolute;
   top: 14px;
-  left: 12%;
-  right: 12%;
-  height: 2px;
+  left: 50%;
+  right: auto;
+  height: 4px;
+  width: min(700px, calc(100% - 56px));
   background: #e8e2d9;
   z-index: 0;
+  transform: translateX(-50%);
 }
 .progress-tracker .progress{
   position: absolute;
   top: 14px;
-  left: 12%;
-  right: 12%;
-  height: 2px;
-  /* width: 97%; */
+  left: 50%;
+  right: auto;
+  height: 4px;
+  width: min(700px, calc(100% - 56px));
   background: var(--Primary);
   z-index: 0;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: left center;
 }
 
+.progress.w-0{
+    transform: translateX(-50%) scaleX(0);
+}
 .progress.w-25{
-    width: 25%;
+    transform: translateX(-50%) scaleX(0.25);
 }
 .progress.w-50{
-    width: 50%;
+    transform: translateX(-50%) scaleX(0.5);
 }
 .progress.w-75{
-    width: 75%;
+    transform: translateX(-50%) scaleX(0.75);
 }
 .progress.w-100{
-    width: 97%;
+    transform: translateX(-50%) scaleX(1);
 }
 
 .step {

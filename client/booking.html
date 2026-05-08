@@ -109,11 +109,11 @@
             <main>
                 <div class="booking">
                     <div class="booking-progress progress-tracker active">
-                        <div class="progress"></div>
-                        <div class="step active"><span>1</span><p>Submitted</p></div>
-                        <div class="step active"><span>2</span><p>Under Review</p></div>
-                        <div class="step active"><span>3</span><p>Tutor Assigned</p></div>
-                        <div class="step active"><span>4</span><p>Confirmed</p></div>
+                        <div class="progress w-25"></div>
+                        <div class="step active"><span>1</span><p>What they need</p></div>
+                        <div class="step"><span>2</span><p>Schedule</p></div>
+                        <div class="step"><span>3</span><p>Location</p></div>
+                        <div class="step"><span>4</span><p>Your details</p></div>
                     </div>
 
                     
@@ -122,7 +122,7 @@
                         <div class="booking-step step-0">
                             <h2>Book Now</h2>
                         </div>
-                        <div class="booking-step step-1 active">
+                        <div class="booking-step step-1">
                             <h3>What subject does your child need help with?</h3>
                             <div class="book-subjects">
                                 <div class="sub cta-btn blue">Maths</div>
@@ -140,18 +140,45 @@
                             </div>
                             
                             <h3>How many times a week?</h3>
-                            <div class="levels">
-                                <div class="level cta-btn blue">5x</div>
-                                <div class="level cta-btn blue">3x</div>
-                                <div class="level cta-btn blue">2x</div>
+                            <div class="times">
+                                <div class="time cta-btn blue">5x</div>
+                                <div class="time cta-btn blue">3x</div>
+                                <div class="time cta-btn blue">2x</div>
                             </div>
                             <h3>Hours a day?</h3>
-                            <div class="levels">
-                                <div class="level cta-btn blue">2 Hours</div>
-                                <div class="level cta-btn blue">4 Hours</div>
+                            <div class="hrs">
+                                <div class="hr cta-btn blue">2 Hours</div>
+                                <div class="hr cta-btn blue">4 Hours</div>
                             </div>
                         </div>
-                        <div class="booking-step step-2"></div>
+                        <div class="booking-step step-2 active">
+                            <h3>Prefered days</h3>
+                            <div class="days">
+                                <div class="day cta-btn blue">Mon</div>
+                                <div class="day cta-btn blue">Tue</div>
+                                <div class="day cta-btn blue">Wed</div>
+                                <div class="day cta-btn blue">Thur</div>
+                                <div class="day cta-btn blue">Fri</div>
+                            </div>
+                            <h3>Time window</h3>
+                            <div class="windows">
+                               <div class="time-2hrs active">
+                                    <div class="window cta-btn blue">9.am - 11.am</div>
+                                    <div class="window cta-btn blue">12.pm - 2.pm</div>
+                                    <div class="window cta-btn blue">4.pm - 6.pm</div>
+                               </div>
+                               <div class="time-4hrs">
+                                    <div class="window cta-btn blue">9.am - 1.pm</div>
+                                    <div class="window cta-btn blue">11.am - 3.pm</div>
+                                    <div class="window cta-btn blue">3.pm - 7.pm</div>
+                               
+                               </div>
+                            </div>
+                            
+                            <h3>Start Date</h3>
+                            <input type="date" class="cta-btn blue">
+                            
+                        </div>
                         <div class="booking-step step-3"></div>
                         <div class="booking-step step-4"></div>
                     </div>

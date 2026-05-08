@@ -89,6 +89,7 @@
         inset-block-start: 0;
         inset-inline: 0;
         opacity: 0;
+        visibility: hidden;
         width: 100%;
         background: rgba(255,255,255,0.99);
         min-height: 100svh;
@@ -98,8 +99,8 @@
         padding-inline: 15px;
         text-align: start;
         gap: 20px;
-        transition: transform 0.2s ease, opacity 0.2s ease;
-        transform: translateX(100%);
+        transition: clip-path 0.2s ease, opacity 0.2s ease, visibility 0s linear 0.2s;
+        clip-path: inset(0 0 0 100%);
         pointer-events: none;
         overflow-y: auto;
         overflow-x: hidden;
@@ -114,8 +115,10 @@
     }
 
     .navbar.active{
-        transform: translateX(0);
+        clip-path: inset(0);
         opacity: 1;
+        visibility: visible;
+        transition-delay: 0s;
         pointer-events: auto;
     }
     
