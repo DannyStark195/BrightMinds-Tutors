@@ -223,7 +223,33 @@
     flex-wrap: nowrap;
     z-index: 4;
 }
-
+.step-4 .details{
+    display: flex;
+    flex-wrap: wrap;
+    /* flex-direction: column; */
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 800px;
+    margin-inline: auto;
+}
+.step-4 .detail{
+    border-radius: 28px;
+    /* margin: 5px 0px; */
+    /* width: 100%; */
+    /* width: 350px; */
+    /* border: none; */
+}
+.step-4 .detail input{
+    height: 100%;
+    border-radius: 15px;
+    border: none;
+    padding: 17px 15px;
+    margin: 8px auto;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.87rem;
+}
 
 @media (max-width: 720px) {
 
