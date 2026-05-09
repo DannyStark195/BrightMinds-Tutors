@@ -1,0 +1,238 @@
+.tutor-page{
+    min-height: 100svh;
+    background: var(--Background);
+}
+
+@supports (min-height: 100dvh) {
+    .tutor-page{
+        min-height: 100dvh;
+    }
+}
+
+.tutor-main{
+    width: min(1120px, 100%);
+    margin-inline: auto;
+    padding: 18px 20px 90px;
+}
+
+.tutor-hero{
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+    gap: 36px;
+    align-items: center;
+    margin-bottom: 36px;
+}
+
+.hero-content h1{
+    color: var(--Primary);
+    font-size: clamp(2.25rem, 5vw, 4.8rem);
+    line-height: 0.98;
+    max-width: 760px;
+}
+
+.hero-content p:not(.eyebrow){
+    color: rgba(45, 45, 45, 0.72);
+    font-size: 1rem;
+    line-height: 1.75;
+    max-width: 620px;
+    margin-top: 18px;
+}
+
+.eyebrow{
+    color: var(--Accent);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.hero-actions{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 26px;
+}
+
+.hero-actions a{
+    text-decoration: none;
+}
+
+.hero-panel{
+    position: relative;
+    min-height: 420px;
+    border-radius: 28px;
+    overflow: hidden;
+    background: var(--Primary);
+    box-shadow: 0 25px 60px rgba(13, 27, 42, 0.14);
+}
+
+.hero-panel img{
+    width: 100%;
+    height: 100%;
+    min-height: 420px;
+    object-fit: cover;
+    display: block;
+}
+
+.panel-stat{
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    padding: 18px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 20px 50px rgba(13, 27, 42, 0.18);
+}
+
+.panel-stat span{
+    color: var(--Primary);
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.panel-stat p{
+    color: rgba(45, 45, 45, 0.68);
+    font-weight: 700;
+}
+
+.tutor-process{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 36px;
+}
+
+.tutor-process article,
+.application-section{
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(13, 27, 42, 0.08);
+    box-shadow: 0 25px 60px rgba(13, 27, 42, 0.08);
+}
+
+.tutor-process article{
+    border-radius: 24px;
+    padding: 24px;
+}
+
+.tutor-process i{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--Primary);
+    background: linear-gradient(135deg, #f5d890, #f8c56c);
+    margin-bottom: 18px;
+}
+
+.tutor-process h2,
+.section-heading h2{
+    color: var(--Primary);
+}
+
+.tutor-process h2{
+    font-size: 1.18rem;
+    margin-bottom: 8px;
+}
+
+.tutor-process p{
+    color: rgba(45, 45, 45, 0.68);
+    line-height: 1.7;
+}
+
+.application-section{
+    border-radius: 28px;
+    padding: 30px;
+}
+
+.section-heading{
+    margin-bottom: 24px;
+}
+
+.section-heading h2{
+    font-size: 1.7rem;
+}
+
+.tutor-form{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.tutor-form label{
+    display: grid;
+    gap: 8px;
+    color: var(--Primary);
+    font-size: 0.92rem;
+    font-weight: 700;
+}
+
+.tutor-form input,
+.tutor-form select,
+.tutor-form textarea{
+    width: 100%;
+    border: 1px solid rgba(13, 27, 42, 0.12);
+    border-radius: 16px;
+    background: #fff;
+    color: var(--Text);
+    font: inherit;
+    font-weight: 600;
+    padding: 16px;
+}
+
+.tutor-form textarea{
+    min-height: 150px;
+    resize: vertical;
+}
+
+.tutor-form .wide,
+.tutor-form button{
+    grid-column: 1 / -1;
+}
+
+.tutor-form button{
+    width: min(100%, 300px);
+}
+
+@media (max-width: 860px){
+    .tutor-hero,
+    .tutor-process,
+    .tutor-form{
+        grid-template-columns: 1fr;
+    }
+
+    .hero-panel,
+    .hero-panel img{
+        min-height: 360px;
+    }
+}
+
+@media (max-width: 560px){
+    .tutor-main{
+        padding-inline: 16px;
+    }
+
+    .hero-content h1{
+        font-size: 2.45rem;
+    }
+
+    .hero-actions .cta-btn,
+    .tutor-form button{
+        width: 100%;
+    }
+
+    .application-section,
+    .tutor-process article{
+        border-radius: 20px;
+        padding: 20px;
+    }
+
+    .hero-panel{
+        border-radius: 20px;
+    }
+}

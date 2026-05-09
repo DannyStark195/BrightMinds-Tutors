@@ -107,121 +107,124 @@
                     </div>
                     
             </header>
-            <main>
-                <section class="greeting">
-                    <h2>Good Day, Daniel</h2>
-                </section>
-                <section class="d-cards">
-                    <a href="/dashboard/payments" class="d-card">
-                        <h3>My Payments</h3>
-                        <i class="fa-solid fa-receipt"></i>
-                        <!-- <i class="fa-solid fa-wallet"></i> -->
-                    </a>
-                    <a href="dashboard/book"class="d-card">
-                        <h3>Active bookings</h3>
-                        <!-- <i class="fa-solid fa-graduation-cap"></i> -->
-                         <i class="fa-solid fa-book"></i>
-                    </a>
-                    <a href="/dashboard/review" class="d-card">
-                        <h3>Reviews</h3>
-                        <i class="fa-solid fa-star"></i>
-                    </a>
-                </section>
-                <div class="book-cta">
-                    <!-- <h2>Track and manage your tutoring sessions here</h2> -->
-                    <button class="cta-btn gold">
+            <main class="dashboard-main">
+                <section class="dashboard-hero">
+                    <div>
+                        <p class="eyebrow">Student dashboard</p>
+                        <h1>Good Day, Daniel</h1>
+                        <p>Track lessons, payments, tutor reviews, and booking requests from one focused workspace.</p>
+                    </div>
+                    <a href="/dashboard/book" class="cta-btn gold">
                         Book a tutor
                         <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
-                <section class="bookings">
-                    <div class="active-bookings active">
-                        <div class="booking-card">
-                            <div class="card-header">
-                                <span class="card-subject">Mathematics</span>
-                                <span class="status confirmed">Confirmed</span>
-                            </div>
-                            <div class="progress-tracker">
-                                <div class="progress"></div>
-                                <div class="step active"><span>1</span><p>Submitted</p></div>
-                                <div class="step active"><span>2</span><p>Under Review</p></div>
-                                <div class="step active"><span>3</span><p>Tutor Assigned</p></div>
-                                <div class="step active"><span>4</span><p>Confirmed</p></div>
-                            </div>
-                            <div class="card-body">
-                                <a href=""><p>See Details</p></a>
-                                <div class="card-details">
-                                    <!-- <div class="detail"><i data-lucide="user"></i><span>Tutor: Pending Assignment</span></div>
-                                    <div class="detail"><i data-lucide="calendar"></i><span>Mon, Wed, Fri</span></div>
-                                    <div class="detail"><i data-lucide="clock"></i><span>Afternoon · 3x per week · 1hr</span></div>
-                                    <div class="detail"><i data-lucide="map-pin"></i><span>Physical · 14 Admiralty Way, Lekki</span></div>
-                                    <div class="detail"><i data-lucide="naira-sign"></i><span>₦12,000/month</span></div> -->
-                                </div>
-                            </div>
-                            <div class="card-footer">
-                                <span class="reference">BM-2847</span>
-                                <span class="date">Submitted 3 May 2026</span>
-                            </div>
+                    </a>
+                </section>
+
+                <section class="dashboard-stats" aria-label="Dashboard summary">
+                    <a href="/dashboard/payments" class="stat-card">
+                        <i class="fa-solid fa-receipt"></i>
+                        <span>Payments</span>
+                        <strong>3 records</strong>
+                    </a>
+                    <a href="/dashboard/book" class="stat-card">
+                        <i class="fa-solid fa-book"></i>
+                        <span>Active bookings</span>
+                        <strong>3 sessions</strong>
+                    </a>
+                    <a href="/dashboard/review" class="stat-card">
+                        <i class="fa-solid fa-star"></i>
+                        <span>Reviews</span>
+                        <strong>2 shared</strong>
+                    </a>
+                </section>
+
+                <section class="dashboard-layout">
+                    <section class="bookings-panel">
+                        <div class="section-heading">
+                            <p class="eyebrow">Active bookings</p>
+                            <h2>Current lesson requests</h2>
                         </div>
-                        <div class="booking-card">
-                            <div class="card-header">
-                                <span class="card-subject">Biology</span>
-                                <span class="status pending">pending</span>
-                            </div>
-                            <div class="progress-tracker">
-                                <div class="progress w-25"></div>
-                                <div class="step active"><span>1</span><p>Submitted</p></div>
-                                <div class="step active"><span>2</span><p>Under Review</p></div>
-                                <div class="step active"><span>3</span><p>Tutor Assigned</p></div>
-                                <div class="step active"><span>4</span><p>Confirmed</p></div>
-                            </div>
-                            <div class="card-body">
-                                <a href=""><p>See Details</p></a>
-                                <div class="card-details">
-                                    <!-- <div class="detail"><i data-lucide="user"></i><span>Tutor: Pending Assignment</span></div>
-                                    <div class="detail"><i data-lucide="calendar"></i><span>Mon, Wed, Fri</span></div>
-                                    <div class="detail"><i data-lucide="clock"></i><span>Afternoon · 3x per week · 1hr</span></div>
-                                    <div class="detail"><i data-lucide="map-pin"></i><span>Physical · 14 Admiralty Way, Lekki</span></div>
-                                    <div class="detail"><i data-lucide="naira-sign"></i><span>₦12,000/month</span></div> -->
+
+                        <div class="booking-list">
+                            <article class="booking-card">
+                                <div class="card-header">
+                                    <div>
+                                        <span class="card-subject">Mathematics</span>
+                                        <p>Mon, Wed, Fri - Physical - Lekki</p>
+                                    </div>
+                                    <span class="status confirmed">Confirmed</span>
                                 </div>
-                            </div>
-                            <div class="card-footer">
-                                <span class="reference">BM-2847</span>
-                                <span class="date">Submitted 3 May 2026</span>
-                            </div>
-                        </div>
-                        <div class="booking-card">
-                            <div class="card-header">
-                                <span class="card-subject">English</span>
-                                <span class="status pending">Pending</span>
-                            </div>
-                            <div class="progress-tracker">
-                                <div class="progress"></div>
-                                <div class="step active"><span>1</span><p>Submitted</p></div>
-                                <div class="step active"><span>2</span><p>Under Review</p></div>
-                                <div class="step active"><span>3</span><p>Tutor Assigned</p></div>
-                                <div class="step active"><span>4</span><p>Confirmed</p></div>
-                            </div>
-                            <div class="card-body">
-                                <a href=""><p>See Details</p></a>
-                                <div class="card-details">
-                                    <!-- <div class="detail"><i data-lucide="user"></i><span>Tutor: Pending Assignment</span></div>
-                                    <div class="detail"><i data-lucide="calendar"></i><span>Mon, Wed, Fri</span></div>
-                                    <div class="detail"><i data-lucide="clock"></i><span>Afternoon · 3x per week · 1hr</span></div>
-                                    <div class="detail"><i data-lucide="map-pin"></i><span>Physical · 14 Admiralty Way, Lekki</span></div>
-                                    <div class="detail"><i data-lucide="naira-sign"></i><span>₦12,000/month</span></div> -->
+                                <div class="progress-tracker">
+                                    <div class="progress w-100"></div>
+                                    <div class="step active"><span>1</span><p>Submitted</p></div>
+                                    <div class="step active"><span>2</span><p>Review</p></div>
+                                    <div class="step active"><span>3</span><p>Assigned</p></div>
+                                    <div class="step active"><span>4</span><p>Confirmed</p></div>
                                 </div>
-                            </div>
-                            <div class="card-footer">
-                                <span class="reference">BM-3496</span>
-                                <span class="date">Submitted 3 May 2026</span>
-                            </div>
+                                <div class="card-footer">
+                                    <span class="reference">BM-2847</span>
+                                    <span class="date">Submitted 3 May 2026</span>
+                                </div>
+                            </article>
+
+                            <article class="booking-card">
+                                <div class="card-header">
+                                    <div>
+                                        <span class="card-subject">Biology</span>
+                                        <p>Tue, Thu - Online - 4pm</p>
+                                    </div>
+                                    <span class="status pending">Pending</span>
+                                </div>
+                                <div class="progress-tracker">
+                                    <div class="progress w-25"></div>
+                                    <div class="step active"><span>1</span><p>Submitted</p></div>
+                                    <div class="step"><span>2</span><p>Review</p></div>
+                                    <div class="step"><span>3</span><p>Assigned</p></div>
+                                    <div class="step"><span>4</span><p>Confirmed</p></div>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="reference">BM-2848</span>
+                                    <span class="date">Submitted 3 May 2026</span>
+                                </div>
+                            </article>
+
+                            <article class="booking-card">
+                                <div class="card-header">
+                                    <div>
+                                        <span class="card-subject">English</span>
+                                        <p>Mon, Wed - Physical - Surulere</p>
+                                    </div>
+                                    <span class="status pending">Pending</span>
+                                </div>
+                                <div class="progress-tracker">
+                                    <div class="progress w-25"></div>
+                                    <div class="step active"><span>1</span><p>Submitted</p></div>
+                                    <div class="step"><span>2</span><p>Review</p></div>
+                                    <div class="step"><span>3</span><p>Assigned</p></div>
+                                    <div class="step"><span>4</span><p>Confirmed</p></div>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="reference">BM-3496</span>
+                                    <span class="date">Submitted 3 May 2026</span>
+                                </div>
+                            </article>
                         </div>
-                    </div>
-                    <div class="no-bookings">
-                        <p>You don't have any active booking yet</p>
-                        <a href="" class="gold">Book a tutor</a>
-                    </div>
+                    </section>
+
+                    <aside class="dashboard-side">
+                        <article class="side-card">
+                            <i class="fa-solid fa-calendar-check"></i>
+                            <h2>Next lesson</h2>
+                            <p>Mathematics with Miss Adaeze</p>
+                            <strong>Monday - 4:00 PM</strong>
+                        </article>
+                        <article class="side-card">
+                            <i class="fa-solid fa-wallet"></i>
+                            <h2>Payment status</h2>
+                            <p>Your confirmed mathematics booking is up to date.</p>
+                            <strong>No outstanding balance</strong>
+                        </article>
+                    </aside>
                 </section>
             </main>
         </div>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Reviews | BrightMind Tutors</title>
+        <link rel="stylesheet" href="./css/global.css">
+        <link rel="stylesheet" href="./css/index.css">
+        <link rel="stylesheet" href="./css/header.css">
+        <link rel="stylesheet" href="./css/pricing.css">
+        <link rel="stylesheet" href="./css/form.css">
+        <link rel="stylesheet" href="./css/dashboard.css">
+        <link rel="stylesheet" href="./css/review.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
+    </head>
+    <body>
+        <div class="review-page">
+            <header class="header">
+                    <div class="logo">
+                        <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
+                        <p>BrightMind Tutors</p>
+                    </div>
+                    <nav class="navbar d">
+                            <div class="cross-btn close-nav-btn">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                            <div class="profile">
+                                <div class="profile-img">
+                                    <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="user profile picture">
+                                </div>
+                                <div class="profile-info">
+                                    <p class="profile-name">Daniel</p>
+                                    <a href="/dashboard/profile">
+                                        My profile 
+                                        <i class="fa-solid fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="more-links">
+                                <div class="link">
+                                    <i class="fa-solid fa-book"></i>
+                                    <a href="/dashboard/book"><button class="">Book a tutor</button></a>
+                                </div>
+                                <div class="link">
+                                    <i class="fa-solid fa-receipt"></i>
+                                    <a href="/dashboard/payments"><button class="">My payments</button></a>
+                                </div>
+                                <div class="link">
+                                    <i class="fa-solid fa-star"></i>
+                                    <a href="/dashboard/review"><button class="">Reviews</button></a>
+                                </div>
+                                <div class="link">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                    <a href="/become-a-tutor"><button class="">Become a tutor</button></a>
+                                </div>
+                                <button type="submit" class="cta-btn gold">Log out</button>
+                            </div>
+                    </nav>
+                    <div class="nav-btn d">
+                        <img src="./assets/icons/menu.svg" alt="menu icon">
+                    </div>
+
+                    <div class="nav-btn-wrapper">
+                        <div class="cross-btn dashboard-close-nav-btn">
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                        <div class="dashboard-nav-btn active">
+                            <img src="./assets/icons/menu.svg" alt="menu icon">
+                        </div>
+                        <nav class="navbar dashboard-navbar">
+                                <div class="profile">
+                                    <div class="profile-img">
+                                        <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="user profile picture">
+                                    </div>
+                                    <div class="profile-info">
+                                        <p class="profile-name">Daniel</p>
+                                        <a href="/dashboard/profile">
+                                            My profile 
+                                            <i class="fa-solid fa-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="link">
+                                    <i class="fa-solid fa-book"></i>
+                                    <a href="/dashboard/book"><button class="">Book a tutor</button></a>
+                                </div>
+                                <div class="link">
+                                    <i class="fa-solid fa-receipt"></i>
+                                    <a href="/dashboard/payments"><button class="">My payments</button></a>
+                                </div>
+                                <div class="link active">
+                                    <i class="fa-solid fa-star"></i>
+                                    <a href="/dashboard/review"><button class="">Review</button></a>
+                                </div>
+                                <div class="link">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                    <a href="/become-a-tutor"><button class="">Become a tutor</button></a>
+                                </div>
+                                <a href="/logout"><button type="submit" class="cta-btn gold">Log out</button></a>
+                            <div class="more-links">
+                                
+                            </div>
+                        </nav>
+                    </div>
+            </header>
+
+            <main class="review-main">
+                <section class="review-hero">
+                    <div>
+                        <p class="eyebrow">Your tutoring experience</p>
+                        <h1>Share feedback from your recent lessons</h1>
+                        <p class="hero-copy">Reviews help us match families with reliable tutors and improve every session.</p>
+                    </div>
+                    <div class="rating-summary">
+                        <span>4.8</span>
+                        <div>
+                            <div class="stars" aria-label="Average rating 4.8 out of 5">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <p>Average family rating</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="review-grid">
+                    <article class="review-form-card">
+                        <div class="section-heading">
+                            <h2>Write a review</h2>
+                            <p>Pick the booking and rate the lesson quality.</p>
+                        </div>
+                        <form class="review-form">
+                            <label>
+                                Booking
+                                <select>
+                                    <option>Mathematics with Miss Adaeze</option>
+                                    <option>Biology with Mr Tunde</option>
+                                    <option>English with Miss Ngozi</option>
+                                </select>
+                            </label>
+                            <label>
+                                Rating
+                                <div class="rating-picker">
+                                    <button type="button"><i class="fa-solid fa-star"></i></button>
+                                    <button type="button"><i class="fa-solid fa-star"></i></button>
+                                    <button type="button"><i class="fa-solid fa-star"></i></button>
+                                    <button type="button"><i class="fa-solid fa-star"></i></button>
+                                    <button type="button"><i class="fa-regular fa-star"></i></button>
+                                </div>
+                            </label>
+                            <label>
+                                Feedback
+                                <textarea placeholder="Tell us what worked well and what could be better."></textarea>
+                            </label>
+                            <button class="cta-btn gold" type="submit">
+                                Submit review
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </form>
+                    </article>
+
+                    <section class="review-list" aria-label="Recent reviews">
+                        <article class="review-card">
+                            <div class="review-card-header">
+                                <img src="./assets/images/tutors/adaeze.jpg" alt="Tutor Adaeze">
+                                <div>
+                                    <h3>Miss Adaeze</h3>
+                                    <p>Mathematics tutor</p>
+                                </div>
+                            </div>
+                            <div class="stars">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p>Clear explanations and patient follow-up after each class. My child is more confident with algebra.</p>
+                            <span>Reviewed 6 May 2026</span>
+                        </article>
+
+                        <article class="review-card">
+                            <div class="review-card-header">
+                                <img src="./assets/images/tutors/tunde.jpg" alt="Tutor Tunde">
+                                <div>
+                                    <h3>Mr Tunde</h3>
+                                    <p>Biology tutor</p>
+                                </div>
+                            </div>
+                            <div class="stars">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                            </div>
+                            <p>Good lesson structure and practical examples. We would like more homework checks next time.</p>
+                            <span>Reviewed 2 May 2026</span>
+                        </article>
+                    </section>
+                </section>
+            </main>
+        </div>
+        <div class="overlay"></div>
+        <script type="module" src="./js/srcipts/landing.js"></script>
+        <script type="module" src="./js/srcipts/dashboard.js"></script>
+    </body>
+</html>
