@@ -61,18 +61,7 @@
     /* align-items: center; */
     margin-bottom: 20px;
 }
-.cta-btn.gold.payment-btn{
-}
-.payment-btn span{
-    margin-left: 10px;
-    transition: transform 0.25s ease;
-    /* color: #fff; */
-    font-size: 1.3rem;
-}
 
-.cta-btn:hover span{
-    transform: translateX(5px);
-}
 .payment-amount{
     display: flex;
     justify-content: space-between;
@@ -82,7 +71,7 @@
     border-top: 1px solid rgb(239, 239, 239);
 }
 .payment-amount .amount{
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 700;
 }
 @media (max-width: 600px) {
