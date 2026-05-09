@@ -10,7 +10,8 @@
         <link rel="stylesheet" href="./css/pricing.css">
         <link rel="stylesheet" href="./css/form.css">
         <link rel="stylesheet" href="./css/dashboard.css">
-        <link rel="stylesheet" href="./css/review.css">
+        <link rel="stylesheet" href="./css/become-tutor.css">
+        <link rel="stylesheet" href="./css/payment.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
     </head>
@@ -106,7 +107,74 @@
             </header>
 
             <main class="">
-                
+                <section class="application-section" id="application">
+                    <div class="section-heading">
+                        <p class="eyebrow">Payment dteails</p>
+                        <h2>Provide your payment details below</h2>
+                    </div>
+                    <div class="payment-links">
+                            <button class="payment-link">
+                                    <div>
+                                        <img src="./assets/icons/google.svg" alt="google icon">
+                                        Google Pay
+                                    </div>
+                                </button>
+                                <button class="payment-link">
+                                    <div>
+                                        <img src="./assets/icons/facebook.svg" alt="facebook icon">
+                                        Apple Pay
+                                    </div>
+                                    
+                                </button>
+                                <button class="payment-link">
+                                    <div>
+                                        <img src="./assets/icons/facebook.svg" alt="facebook icon">
+                                        Paypal
+                                    </div>
+                                    
+                                </button>
+                        </div>
+                        <div class="or-divider">or</div>
+                    <form class="tutor-form payment-form">
+                        <div class="payment-field-group">
+                            <label>
+                            Card Number
+                            <input type="text" placeholder="********">
+                        </label>
+                        <label>
+                            Card Holder Name
+                            <input type="email" placeholder="">
+                        </label>
+                        </div>
+                        <div class="payment-stuff">
+                            <label for="">
+                                Expiry Date
+                                <input type="text" name="" id="">
+                            </label>
+                            <label for="">
+                                CVV/VV2
+                                <input type="text" name="" id="">
+                            </label>
+                            <label for="">
+                                Card Type
+                                <input type="text" name="" id="">
+                            </label>
+                        </div>
+                        
+                        <div class="payment-amount">
+                            <p>Total amount</p>
+                            <span class="amount">$30,000</span>
+                        </div>
+                        <button class="cta-btn gold payment-btn" type="submit">
+                            Pay
+                            <!-- <span> -->
+                                <i class="fa-solid fa-arrow-right"></i>
+                                <!-- 30,000 -->
+                            <!-- </span> -->
+                        </button>
+                    </form>
+                </section>
+         
             </main>
         </div>
         <div class="overlay"></div>

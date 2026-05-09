@@ -94,6 +94,11 @@
     background-color: rgb(247, 247, 247);
 }
 
+.form-container input{
+    border: 1px solid rgba(13, 27, 42, 0.12);
+    /* border-radius: 16px; */
+    background: #fff;
+}
 .form-container input:focus-visible,
 .form-container button:focus-visible{
     outline: none;
@@ -162,7 +167,23 @@ input.input-error{
     font-size: 0.87rem;
     margin-block: 6px;
 }
+.or-divider{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0;
+  /* color: rgb(239, 239, 239); */
+}
 
+.or-divider::before,
+.or-divider::after{
+  content: "";
+  background-color: rgb(239, 239, 239);
+  inline-size: 50%;
+  block-size: 1px;
+  color: rgb(239, 239, 239);
+  margin: 0 5px;
+}
 @media (max-width: 860px) {
     .form-container{
         min-height: 100svh;
