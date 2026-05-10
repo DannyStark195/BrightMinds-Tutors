@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <!-- Background circle -->
+  <circle cx="20" cy="20" r="20" fill="#FEF3C7"/>
+  
+  <!-- Bell icon -->
+  <g transform="translate(10, 9)">
+    <path d="M10 2a1 1 0 0 0-1 1v.5A6.5 6.5 0 0 0 3.5 10v3.5L2 15v1h16v-1l-1.5-1.5V10A6.5 6.5 0 0 0 11 3.5V3a1 1 0 0 0-1-1z" 
+          fill="#F5A623"/>
+    <!-- Bell bottom/clapper -->
+    <path d="M8 16a2 2 0 0 0 4 0" 
+          fill="#F5A623"/>
+  </g>
+</svg>
