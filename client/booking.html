@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="./css/form.css">
         <link rel="stylesheet" href="./css/dashboard.css">
         <link rel="stylesheet" href="./css/booking.css">
+        <link rel="stylesheet" href="css/become-tutor.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
     </head>
@@ -107,157 +108,177 @@
                     
             </header>
             <main class="booking-main">
-                <section class="booking-hero">
-                    <div>
-                        <p class="eyebrow">Book a tutor</p>
-                        <h1>Build the right lesson plan for your child</h1>
-                        <p>Choose the subject, schedule, lesson format, and contact details so BrightMind can match you with a suitable tutor.</p>
+                <div class="inactive">
+                    <section class="booking-hero">
+                        <div>
+                            <p class="eyebrow">Book a tutor</p>
+                            <h1>Build the right lesson plan for your child</h1>
+                            <p>Choose the subject, schedule, lesson format, and contact details so BrightMind can match you with a suitable tutor.</p>
+                        </div>
+                    </section>
+
+                    <section class="booking-workspace">
+                        <aside class="booking-summary">
+                            <div class="booking-progress progress-tracker active">
+                                <div class="progress w-25"></div>
+                                <div class="step active"><span>1</span><p>Need</p></div>
+                                <div class="step"><span>2</span><p>Schedule</p></div>
+                                <div class="step"><span>3</span><p>Place</p></div>
+                                <div class="step"><span>4</span><p>Details</p></div>
+                            </div>
+                            <div class="summary-card">
+                                <h2>Booking summary</h2>
+                                <dl>
+                                    <div><dt>Subject</dt><dd>Not selected</dd></div>
+                                    <div><dt>Level</dt><dd>Not selected</dd></div>
+                                    <div><dt>Schedule</dt><dd>Choose days and time</dd></div>
+                                    <div><dt>Location</dt><dd>Physical or online</dd></div>
+                                </dl>
+                            </div>
+                        </aside>
+
+                        <form class="booking-form">
+                            <section class="booking-step step-1 active">
+                                <div class="step-heading">
+                                    <span>Step 1</span>
+                                    <h2>What does your child need?</h2>
+                                </div>
+                                <div class="field-group">
+                                    <h3>Subject</h3>
+                                    <div class="option-grid book-subjects">
+                                        <button type="button" class="option-card sub active"><i class="fa-solid fa-square-root-variable"></i>Maths</button>
+                                        <button type="button" class="option-card sub"><i class="fa-solid fa-book-open"></i>English</button>
+                                        <button type="button" class="option-card sub"><i class="fa-solid fa-atom"></i>Physics</button>
+                                        <button type="button" class="option-card sub"><i class="fa-solid fa-dna"></i>Biology</button>
+                                        <button type="button" class="option-card sub"><i class="fa-solid fa-code"></i>Computer Science</button>
+                                    </div>
+                                </div>
+                                <div class="field-group">
+                                    <h3>Grade level</h3>
+                                    <div class="pill-row levels">
+                                        <button type="button" class="option-pill level">Primary</button>
+                                        <button type="button" class="option-pill level">JSS</button>
+                                        <button type="button" class="option-pill level active">SS</button>
+                                        <button type="button" class="option-pill level">University</button>
+                                    </div>
+                                </div>
+                                <div class="split-fields">
+                                    <div class="field-group">
+                                        <h3>Times a week</h3>
+                                        <div class="pill-row times">
+                                            <button type="button" class="option-pill time">5x</button>
+                                            <button type="button" class="option-pill time active">3x</button>
+                                            <button type="button" class="option-pill time">2x</button>
+                                        </div>
+                                    </div>
+                                    <div class="field-group">
+                                        <h3>Hours a day</h3>
+                                        <div class="pill-row hrs">
+                                            <button type="button" class="option-pill hr active">2 Hours</button>
+                                            <button type="button" class="option-pill hr">4 Hours</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="booking-step step-2">
+                                <div class="step-heading">
+                                    <span>Step 2</span>
+                                    <h2>Choose a schedule</h2>
+                                </div>
+                                <div class="field-group">
+                                    <h3>Preferred days</h3>
+                                    <div class="pill-row days">
+                                        <button type="button" class="option-pill day">Mon</button>
+                                        <button type="button" class="option-pill day">Tue</button>
+                                        <button type="button" class="option-pill day">Wed</button>
+                                        <button type="button" class="option-pill day">Thur</button>
+                                        <button type="button" class="option-pill day">Fri</button>
+                                    </div>
+                                </div>
+                                <div class="field-group">
+                                    <h3>Time window</h3>
+                                    <div class="option-grid windows">
+                                        <button type="button" class="option-card window">9.am - 11.am</button>
+                                        <button type="button" class="option-card window">12.pm - 2.pm</button>
+                                        <button type="button" class="option-card window active">4.pm - 6.pm</button>
+                                    </div>
+                                </div>
+                                <label class="date-field">
+                                    Start date
+                                    <input type="date">
+                                </label>
+                            </section>
+
+                            <section class="booking-step step-3">
+                                <div class="step-heading">
+                                    <span>Step 3</span>
+                                    <h2>Where should lessons happen?</h2>
+                                </div>
+                                <div class="option-grid locations">
+                                    <button type="button" class="option-card physical active">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        <strong>Physical</strong>
+                                        <span>Tutor comes to you</span>
+                                    </button>
+                                    <button type="button" class="option-card online">
+                                        <i class="fa-solid fa-video"></i>
+                                        <strong>Online</strong>
+                                        <span>Via Google Meet or Zoom</span>
+                                    </button>
+                                </div>
+                                <label class="date-field address-field">
+                                    Address
+                                    <input type="text" placeholder="Input your address">
+                                </label>
+                            </section>
+
+                            <section class="booking-step step-4">
+                                <div class="step-heading">
+                                    <span>Step 4</span>
+                                    <h2>Your details</h2>
+                                </div>
+                                <div class="details">
+                                    <input type="text" placeholder="Your full name">
+                                    <input type="tel" placeholder="Phone number">
+                                    <input type="text" placeholder="Student's name">
+                                    <input type="text" placeholder="Any disabilities? If yes, state.">
+                                    <textarea placeholder="Leave a message (optional)"></textarea>
+                                </div>
+                                <label class="terms-of-use">
+                                    <input type="checkbox" required class="terms-checkbox">
+                                    I agree to the <a href="">Terms of Use</a>
+                                </label>
+                            </section>
+
+                            <div class="booking-actions">
+                                <button type="button" class="cta-btn blue">Back</button>
+                                <button type="submit" class="cta-btn gold">
+                                    Continue
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+                <div class="booking-pending">
+                    <div class="booking-pending-hero">
+                        <div class="hero-content">
+                            <p class="eyebrow">Booking pending</p>
+                            <h1>Pending</h1>
+                            <p>Your request is being reviewed. You will get an approval in less than 24 hours</p>
+                            <div class="hero-actions">
+                                <a href="#process" class="cta-btn gold">
+                                    Back to dashboard
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="booking-pending-icon">
+                            <img src="./assets/icons/icon-checkbox-check.svg" alt="BrightMind tutor">
+                        </div>
                     </div>
-                </section>
-
-                <section class="booking-workspace">
-                    <aside class="booking-summary">
-                        <div class="booking-progress progress-tracker active">
-                            <div class="progress w-25"></div>
-                            <div class="step active"><span>1</span><p>Need</p></div>
-                            <div class="step"><span>2</span><p>Schedule</p></div>
-                            <div class="step"><span>3</span><p>Place</p></div>
-                            <div class="step"><span>4</span><p>Details</p></div>
-                        </div>
-                        <div class="summary-card">
-                            <h2>Booking summary</h2>
-                            <dl>
-                                <div><dt>Subject</dt><dd>Not selected</dd></div>
-                                <div><dt>Level</dt><dd>Not selected</dd></div>
-                                <div><dt>Schedule</dt><dd>Choose days and time</dd></div>
-                                <div><dt>Location</dt><dd>Physical or online</dd></div>
-                            </dl>
-                        </div>
-                    </aside>
-
-                    <form class="booking-form">
-                        <section class="booking-step step-1 active">
-                            <div class="step-heading">
-                                <span>Step 1</span>
-                                <h2>What does your child need?</h2>
-                            </div>
-                            <div class="field-group">
-                                <h3>Subject</h3>
-                                <div class="option-grid book-subjects">
-                                    <button type="button" class="option-card sub active"><i class="fa-solid fa-square-root-variable"></i>Maths</button>
-                                    <button type="button" class="option-card sub"><i class="fa-solid fa-book-open"></i>English</button>
-                                    <button type="button" class="option-card sub"><i class="fa-solid fa-atom"></i>Physics</button>
-                                    <button type="button" class="option-card sub"><i class="fa-solid fa-dna"></i>Biology</button>
-                                    <button type="button" class="option-card sub"><i class="fa-solid fa-code"></i>Computer Science</button>
-                                </div>
-                            </div>
-                            <div class="field-group">
-                                <h3>Grade level</h3>
-                                <div class="pill-row levels">
-                                    <button type="button" class="option-pill level">Primary</button>
-                                    <button type="button" class="option-pill level">JSS</button>
-                                    <button type="button" class="option-pill level active">SS</button>
-                                    <button type="button" class="option-pill level">University</button>
-                                </div>
-                            </div>
-                            <div class="split-fields">
-                                <div class="field-group">
-                                    <h3>Times a week</h3>
-                                    <div class="pill-row times">
-                                        <button type="button" class="option-pill time">5x</button>
-                                        <button type="button" class="option-pill time active">3x</button>
-                                        <button type="button" class="option-pill time">2x</button>
-                                    </div>
-                                </div>
-                                <div class="field-group">
-                                    <h3>Hours a day</h3>
-                                    <div class="pill-row hrs">
-                                        <button type="button" class="option-pill hr active">2 Hours</button>
-                                        <button type="button" class="option-pill hr">4 Hours</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <section class="booking-step step-2">
-                            <div class="step-heading">
-                                <span>Step 2</span>
-                                <h2>Choose a schedule</h2>
-                            </div>
-                            <div class="field-group">
-                                <h3>Preferred days</h3>
-                                <div class="pill-row days">
-                                    <button type="button" class="option-pill day">Mon</button>
-                                    <button type="button" class="option-pill day">Tue</button>
-                                    <button type="button" class="option-pill day">Wed</button>
-                                    <button type="button" class="option-pill day">Thur</button>
-                                    <button type="button" class="option-pill day">Fri</button>
-                                </div>
-                            </div>
-                            <div class="field-group">
-                                <h3>Time window</h3>
-                                <div class="option-grid windows">
-                                    <button type="button" class="option-card window">9.am - 11.am</button>
-                                    <button type="button" class="option-card window">12.pm - 2.pm</button>
-                                    <button type="button" class="option-card window active">4.pm - 6.pm</button>
-                                </div>
-                            </div>
-                            <label class="date-field">
-                                Start date
-                                <input type="date">
-                            </label>
-                        </section>
-
-                        <section class="booking-step step-3">
-                            <div class="step-heading">
-                                <span>Step 3</span>
-                                <h2>Where should lessons happen?</h2>
-                            </div>
-                            <div class="option-grid locations">
-                                <button type="button" class="option-card physical active">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <strong>Physical</strong>
-                                    <span>Tutor comes to you</span>
-                                </button>
-                                <button type="button" class="option-card online">
-                                    <i class="fa-solid fa-video"></i>
-                                    <strong>Online</strong>
-                                    <span>Via Google Meet or Zoom</span>
-                                </button>
-                            </div>
-                            <label class="date-field address-field">
-                                Address
-                                <input type="text" placeholder="Input your address">
-                            </label>
-                        </section>
-
-                        <section class="booking-step step-4">
-                            <div class="step-heading">
-                                <span>Step 4</span>
-                                <h2>Your details</h2>
-                            </div>
-                            <div class="details">
-                                <input type="text" placeholder="Your full name">
-                                <input type="tel" placeholder="Phone number">
-                                <input type="text" placeholder="Student's name">
-                                <input type="text" placeholder="Any disabilities? If yes, state.">
-                                <textarea placeholder="Leave a message (optional)"></textarea>
-                            </div>
-                            <label class="terms-of-use">
-                                <input type="checkbox" required class="terms-checkbox">
-                                I agree to the <a href="">Terms of Use</a>
-                            </label>
-                        </section>
-
-                        <div class="booking-actions">
-                            <button type="button" class="cta-btn blue">Back</button>
-                            <button type="submit" class="cta-btn gold">
-                                Continue
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </button>
-                        </div>
-                    </form>
-                </section>
+                </div>
             </main>
         </div>
         <div class="overlay"></div>
