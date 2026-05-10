@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="./css/pricing.css">
         <link rel="stylesheet" href="./css/form.css">
         <link rel="stylesheet" href="./css/dashboard.css">
+        <link rel="stylesheet" href="./css/booking.css">
         <link rel="stylesheet" href="./css/become-tutor.css">
         <link rel="stylesheet" href="./css/payment.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -107,7 +108,7 @@
             </header>
 
             <main class="">
-                <section class="application-section" id="application">
+                <section class="payment-section inactive">
                     <div class="section-heading">
                         <p class="eyebrow">Payment dteails</p>
                         <h2>Provide your payment details below</h2>
@@ -163,7 +164,10 @@
                         
                         <div class="payment-amount">
                             <p>Total amount</p>
-                            <span class="amount">$30,000</span>
+                            <div>
+                                <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/naira.png" alt="naira" class="currency-icon">
+                                <span class="amount">30,000</span>
+                            </div>
                         </div>
                         <button class="cta-btn gold payment-btn" type="submit">
                             Pay
@@ -174,7 +178,27 @@
                         </button>
                     </form>
                 </section>
-         
+                <div class="payment-success">
+                    <div class="payment-success-hero">
+                    <div class="hero-content">
+                        <p class="eyebrow">Payment status</p>
+                        <h1>Payment Successfull</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisi</p>
+                        <div class="hero-actions">
+                            <a href="#application" class="cta-btn blue">
+                                Back to dashboard
+                            </a>
+                            <a href="#process" class="cta-btn gold">
+                                See Details
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="payment-success-icon">
+                        <img src="./assets/icons/icon-checkbox-check.svg" alt="BrightMind tutor">
+                    </div>
+                </div>
+                </div>
             </main>
         </div>
         <div class="overlay"></div>

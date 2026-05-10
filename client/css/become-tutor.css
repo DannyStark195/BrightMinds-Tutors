@@ -21,6 +21,11 @@
     gap: 36px;
     align-items: center;
     margin-bottom: 36px;
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(13, 27, 42, 0.08);
+    box-shadow: 0 25px 60px rgba(13, 27, 42, 0.08);
+    padding: 34px;
+    border-radius: 28px;
 }
 
 .hero-content h1{
@@ -216,7 +221,9 @@
     .tutor-main{
         padding-inline: 16px;
     }
-
+    .tutor-hero{
+        padding: 20px;
+    }
     .hero-content h1{
         font-size: 2.45rem;
     }
