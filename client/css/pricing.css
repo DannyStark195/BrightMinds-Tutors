@@ -86,11 +86,6 @@
     background: rgba(255,255,255,0.95);
     box-shadow: 0 20px 55px rgba(13, 27, 42, 0.08);
 }
-
-/* .price-card.most-popular{
-    transform: scale(1.05);
-    z-index: 2;
-} */
 .price-card .price-title{
     font-size: 1.6rem;
     font-weight: 600;
@@ -119,10 +114,28 @@
     margin-bottom: 15px;
 }
 .comparison-table{
-    margin-block: 70px;
+    margin-top: 70px;
     padding-inline: 16px;
 }
+.disclaimer{
+    inline-size: 50%;
+    margin: 30px auto;
+    background: rgba(255,255,255,0.95);
+    width: 100%;
+    max-width: 1200px;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 22px 45px rgba(15, 23, 42, 0.09);
+}
 
+.disclaimer h3{
+    font-size: 1.6rem;
+    margin-bottom: 5px;
+}
+.disclaimer p{
+    font-size: 0.98rem;
+    line-height: 1.6;
+}
 .comparison-table-container{
     overflow-x: auto;
 }

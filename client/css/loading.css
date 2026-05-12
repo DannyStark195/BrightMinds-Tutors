@@ -9,25 +9,29 @@
     z-index: 999;
     background-color: #fff;
 }
+
+.loading-state.inactive{
+    display: none;
+}
 .loading{
     position: relative;
 }
 .loading-bar{
     border-radius: 100%;
-    border-top: 15px solid var(--Primary);
-    border-left: 15px solid #ffffff00;
-    border-right: 15px solid #ffffff00;
-    border-bottom: 15px solid var(--Primary);
-    padding: 120px;
-    animation: rotate 0.5s infinite;
+    border-top: 10px solid #000;
+    border-left: 10px solid #ffffff00;
+    border-right: 10px solid #ffffff00;
+    border-bottom: 10px solid #000;
+    padding: 80px;
+    animation: rotate 0.9s infinite;
 }
 
 .loading .logo img{
-    top: 40%;
-    left: 39%;
+    top: 37%;
+    left: 37%;
     position: absolute;
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     animation: pulse 0.9s alternate infinite;
 }
 

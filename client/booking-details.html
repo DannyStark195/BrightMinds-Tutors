@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Booking details | BrightMind Tutors</title>
+        <link rel="stylesheet" href="./css/global.css">
+        <link rel="stylesheet" href="./css/index.css">
+        <link rel="stylesheet" href="./css/header.css">
+        <link rel="stylesheet" href="./css/dashboard.css">
+        <link rel="stylesheet" href="./css/booking-details.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
+    </head>
+    <body>
+        <div class="booking-details-page">
+            <header class="header">
+                <div class="logo">
+                    <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
+                    <p>BrightMind Tutors</p>
+                </div>
+
+                <nav class="navbar d">
+                    <div class="cross-btn close-nav-btn">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                    <div class="profile">
+                        <div class="profile-img">
+                            <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="user profile picture">
+                        </div>
+                        <div class="profile-info">
+                            <p class="profile-name">Daniel</p>
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                My profile
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="more-links">
+                        <div class="link">
+                            <i class="fa-solid fa-book"></i>
+                            <a href="/dashboard/book"><button class="">Book a tutor</button></a>
+                        </div>
+                        <div class="link">
+                            <i class="fa-solid fa-receipt"></i>
+                            <a href="dashboard/payments"><button class="">My payments</button></a>
+                        </div>
+                        <div class="link">
+                            <i class="fa-solid fa-star"></i>
+                            <a href="/dashboard/review"><button class="">Reviews</button></a>
+                        </div>
+                        <div class="link">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <a href="/become-a-tutor"><button class="">Become a tutor</button></a>
+                        </div>
+                        <button type="submit" class="cta-btn gold">Log out</button>
+                    </div>
+                </nav>
+                <div class="nav-btn d">
+                    <img src="./assets/icons/menu.svg" alt="menu icon">
+                </div>
+
+                <div class="nav-btn-wrapper">
+                    <div class="cross-btn dashboard-close-nav-btn">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                    <div class="dashboard-nav-btn active">
+                        <img src="./assets/icons/menu.svg" alt="menu icon">
+                    </div>
+                    <nav class="navbar dashboard-navbar">
+                        <div class="profile">
+                            <div class="profile-img">
+                                <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="user profile picture">
+                            </div>
+                            <div class="profile-info">
+                                <p class="profile-name">Daniel</p>
+                                <a href="/dashboard/profile">
+                                    My profile
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="link">
+                            <i class="fa-solid fa-book"></i>
+                            <a href="/dashboard/book"><button class="">Book a tutor</button></a>
+                        </div>
+                        <div class="link">
+                            <i class="fa-solid fa-receipt"></i>
+                            <a href="/dashboard/payments"><button class="">My payments</button></a>
+                        </div>
+                        <div class="link">
+                            <i class="fa-solid fa-star"></i>
+                            <a href="/dashboard/review"><button class="">Review</button></a>
+                        </div>
+                        <div class="link">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <a href="/become-a-tutor"><button class="">Become a tutor</button></a>
+                        </div>
+                        <a href="/logout"><button type="submit" class="cta-btn gold">Log out</button></a>
+                        <div class="more-links"></div>
+                    </nav>
+                </div>
+            </header>
+
+            <main class="booking-details-main">
+                <section class="booking-details-hero">
+                    <div>
+                        <p class="eyebrow">Booking details</p>
+                        <h1>Review your lesson request</h1>
+                        <p>These details are for one booking request. In the finished site, this card will be loaded from the backend for each selected booking.</p>
+                    </div>
+                    <div class="hero-actions">
+                        <a href="/dashboard" class="cta-btn gold">
+                            Back to dashboard
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="booking-details-layout">
+                    <div class="booking-summary-panel">
+                        <article class="info-card booking-overview-card">
+                            <div class="card-heading">
+                                <div>
+                                    <p class="eyebrow">Booking reference</p>
+                                    <h2>BM-3581</h2>
+                                    <span class="status confirmed">Confirmed</span>
+                                </div>
+                                <div class="booking-avatar">
+                                    <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="Tutor profile picture">
+                                </div>
+                            </div>
+                            <div class="meta-grid">
+                                <div>
+                                    <p class="meta-label">Subject</p>
+                                    <strong>Physics</strong>
+                                </div>
+                                <div>
+                                    <p class="meta-label">Tutor</p>
+                                    <strong>Miss Adaeze</strong>
+                                </div>
+                                <div>
+                                    <p class="meta-label">Schedule</p>
+                                    <strong>Mon, Wed, Fri · 4:00 PM</strong>
+                                </div>
+                                <div>
+                                    <p class="meta-label">Location</p>
+                                    <strong>Physical | Lekki</strong>
+                                </div>
+                                <div>
+                                    <p class="meta-label">Start date</p>
+                                    <strong>May 18, 2026</strong>
+                                </div>
+                                <div>
+                                    <p class="meta-label">Lesson format</p>
+                                    <strong>In-person</strong>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="info-card booking-details-card">
+                            <h2>Student & booking information</h2>
+                            <dl class="details-list">
+                                <div>
+                                    <dt>Student name</dt>
+                                    <dd>Daniel Ebuka</dd>
+                                </div>
+                                <div>
+                                    <dt>Parent / guardian</dt>
+                                    <dd>Mrs. Ebuka</dd>
+                                </div>
+                                <div>
+                                    <dt>Contact number</dt>
+                                    <dd>+234 812 345 6789</dd>
+                                </div>
+                                <div>
+                                    <dt>Email address</dt>
+                                    <dd>daniel@example.com</dd>
+                                </div>
+                                <div>
+                                    <dt>Session length</dt>
+                                    <dd>2 hours</dd>
+                                </div>
+                                <div>
+                                    <dt>Weekly frequency</dt>
+                                    <dd>3 sessions per week</dd>
+                                </div>
+                            </dl>
+
+                        </article>
+                    </div>
+
+                    <aside class="booking-details-aside">
+                        <article class="side-card">
+                            <i class="fa-solid fa-calendar-check"></i>
+                            <h2>Next lesson</h2>
+                            <p>Physics with Miss Adaeze</p>
+                            <strong>Monday · 4:00 PM</strong>
+                        </article>
+
+                        <article class="side-card">
+                            <i class="fa-solid fa-wallet"></i>
+                            <h2>Payment summary</h2>
+                            <p>Lesson fee, deposit, and any outstanding charges.</p>
+                            <strong>₦42,000 / week</strong>
+                        </article>
+
+                        <article class="side-card status-card">
+                            <i class="fa-solid fa-hourglass-half"></i>
+                            <h2>Booking status</h2>
+                            <p>Your request has been confirmed and the tutor will be assigned shortly.</p>
+                            <p class="auto-renew-note hidden">When this booking reaches auto-renew, the plan will update and you can renew it directly.</p>
+                            <strong>Confirmed</strong>
+                            <button type="button" class="cta-btn gold renew-btn hidden">Renew plan</button>
+                        </article>
+                        <article class="side-card cancel-card">
+                            <i class="fa-solid fa-ban"></i>
+                            <h2>Cancel plan</h2>
+                            <p>Request cancellation for this booking.</p>
+                            <button type="button" class="cta-btn danger">Cancel plan</button>
+                        </article>
+                    </aside>
+                </section>
+            </main>
+        </div>
+        <div class="overlay"></div>
+        <script type="module" src="./js/srcipts/landing.js"></script>
+        <script type="module" src="./js/srcipts/dashboard.js"></script>
+    </body>
+</html>
