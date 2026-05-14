@@ -1,12 +1,16 @@
+import { activateElement, deactivateElement } from "../utils/activateDeactivate.js";
+const navMenu = document.querySelector('.navbar');
+const openNavMenuBtn = document.querySelector('.nav-btn');
+const moreLinks = document.querySelector('.more-links')
+const closeNavMenuBtn = document.querySelector('.close-nav-btn')
 
 
-export function openNavMenu(navMenu){
-    navMenu.classList.add('active');
-}
+openNavMenuBtn.addEventListener('click', () =>{
+    activateElement(navMenu)
+    activateElement(moreLinks)
+});
 
-export function openMoreLinks(moreLinks){
-    moreLinks.classList.add('active');
-}
-export function closeNavMenu(navMenu) {
-    navMenu.classList.remove('active');
-}
+closeNavMenuBtn.addEventListener('click', ()=>{
+    deactivateElement(navMenu)
+});
+
