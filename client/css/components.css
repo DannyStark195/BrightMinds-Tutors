@@ -399,6 +399,9 @@ input.input-error{
 }
 
 /* HERO CONTENT */
+.hero-content h2{
+    font-size: 2.8rem;
+}
 .hero-content p:not(.eyebrow) {
     color: rgba(45, 45, 45, 0.72);
     font-size: 1rem;
