@@ -462,7 +462,6 @@ h1{
     justify-content: flex-end;
     align-items: flex-end;
     padding: 28px;
-    /* background: linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0.5)); */
 }
 
 .become-tutor .img-box .content{
@@ -475,6 +474,8 @@ h1{
     background: rgba(255,255,255,0.65);
     box-shadow: 0 28px 60px rgba(13,27,42,0.16);
     color: #111;
+    position: absolute;
+    top: 20%;
 }
 
 .become-tutor .img-box .content .eyebrow{
@@ -510,83 +511,6 @@ h1{
     font-size: 0.85rem;
 }
 
-/* .cta-banner{
-    text-align: center;
-    border: 1px solid rgba(13,27,42,0.08);
-    max-width: 860px;
-    margin: 60px auto 70px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 24px;
-    padding: 42px 32px;
-    border-radius: 32px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(245,248,255,0.85));
-    box-shadow: 0 28px 80px rgba(13,27,42,0.08);
-}
-
-.cta-banner h2{
-    margin: 0;
-    font-size: clamp(2rem, 3vw, 2.8rem);
-} */
-
-/* footer{
-    padding: 80px 30px 38px;
-    background-color: var(--Primary);
-    color: #FFF;
-}
-
-.footer-top{
-    display: grid;
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr) minmax(0, 1fr);
-    gap: 32px;
-}
-
-.footer-left .logo{
-    margin-bottom: 18px;
-}
-
-.footer-left .logo p{
-    color: #FFF;
-    font-weight: 600;
-}
-
-.footer-left > p{
-    margin-left: 35px;
-    line-height: 1.8;
-    font-size: 0.95rem;
-    max-width: 380px;
-}
-
-.footer-middle ul,
-.footer-right{
-    list-style: none;
-    display: grid;
-    gap: 12px;
-    font-size: 0.95rem;
-}
-
-.footer-link{
-    text-decoration: none;
-    color: #FFF;
-    transition: color 0.3s ease;
-}
-
-.footer-link:hover{
-    color: var(--Accent);
-}
-
-.footer-bottom{
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 56px;
-    font-size: 0.84rem;
-    opacity: 0.96;
-    flex-wrap: wrap;
-} */
-
 
 @media(max-width: 1150px){
     .hero{
@@ -611,9 +535,7 @@ h1{
     .hero-img{
         max-width: 100%;
     }
-    /* .footer-top{
-        grid-template-columns: 1fr;
-    } */
+    
     .testimonial{
         font-size: 1.25rem;
     }
@@ -637,6 +559,8 @@ h1{
     .step-card{
         padding: 22px;
     }
+    .become-tutor .img-box .content{
+    }
 } 
 
 @media(max-width: 560px){
@@ -649,4 +573,9 @@ h1{
     .become-tutor .img-box{
         overflow: visible;
     }
+    .become-tutor .img-box .content{
+        top: 0;
+        right: 0;
+    }
+    
 }
