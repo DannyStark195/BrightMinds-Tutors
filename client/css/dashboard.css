@@ -9,10 +9,9 @@
         min-height: 100dvh;
     }
 }
-.navbar.d{
+/* .navbar.d{
     display: none;
 }
-
 .nav-btn.d{
     display: none;
 }
@@ -23,12 +22,10 @@
     display:initial;
 }
 .dashboard-close-nav-btn{
-    /* display: none; */
     opacity: 0;
     transition: 0.3s transform ease;
 }
 .dashboard-close-nav-btn.active{
-    /* display:flex; */
     opacity: 1;
     transform: rotate(-90deg);
 }
@@ -38,16 +35,12 @@
     height: 20px;
 }
 .profile-img{
-    /* border: 3px solid var(--Primary); */
     border-radius: 50%;
     width: 45px;
     height: 45px;
     overflow: hidden;
-    /* padding: 5px; */
     cursor: pointer;
-    /* background-color: var(--Primary); */
     background-color: rgb(247, 247, 247);
-    /* background: linear-gradient(135deg, #f5d890, #f8c56c); */
     transition: all 0.3s ease;
 }
 
@@ -58,15 +51,12 @@
 .profile-img img{
     width: 100%;
     height: 100%;
-    /* object-fit: fill; */
     border-radius: 50%;
 }
 .profile{
     display: flex;
-    /* align-items: center; */
     gap: 10px;
 }
-
 .profile:hover .navbar .more-links{
 
 }
@@ -76,9 +66,7 @@
     margin-bottom: 3px;
 }
 .profile .profile-info a{
-    /* margin-left: 5px; */
     font-size: 0.8rem;
-    /* color: rgb(120, 120, 120); */
     color: currentColor;
     text-decoration: none;
 }
@@ -89,11 +77,9 @@
     align-items: center;
 }
 .link i{
-    /* color: var(--Accent); */
     font-size: 1rem;
     color: var(--Text);
     font-weight: 600;
-    /* display: none; */
     opacity: 0.9;
 }
 
@@ -157,7 +143,7 @@
 
 .overlay.active{
     display: block;
-}
+} */
 main{
     width: min(1120px, 100%);
     margin-inline: auto;
@@ -311,14 +297,12 @@ main{
     color: var(--Danger); 
 }
 
-.progress-tracker {
+/* .progress-tracker {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   position: relative;
   margin-bottom: 24px;
-  /* padding-bottom: 20px; */
-  /* border-bottom: 1px solid #f0ebe0; */
 }
 
 .progress-tracker::before {
@@ -398,7 +382,7 @@ main{
 .step.active p    
 { color: var(--Primary); 
     font-weight: 600; 
-}
+} */
 
 .card-body a{
     display: inline-flex;
@@ -457,7 +441,7 @@ main{
     .greeting h2{
         font-size: 2.35rem;
     }
-    .nav-btn-wrapper{
+    /* .nav-btn-wrapper{
         display: none;
     }
     .navbar.d{
@@ -468,7 +452,7 @@ main{
     }
     .link a button{
         padding: 20px 10px;
-    }
+    } */
 }
 
 @media(max-width: 560px){

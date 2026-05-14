@@ -82,7 +82,7 @@ h1{
     padding-inline-end: 8px;
 }
 
-.cta-btn{
+/* .cta-btn{
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -126,7 +126,7 @@ h1{
 .cta-btn.gold:hover{
     background: linear-gradient(135deg, #f7de9f, #ffedb4);
     transform: translateY(-3px);
-}
+} */
 
 .trust-bar{
     margin-bottom: 64px;
@@ -531,7 +531,7 @@ h1{
     font-size: clamp(2rem, 3vw, 2.8rem);
 }
 
-footer{
+/* footer{
     padding: 80px 30px 38px;
     background-color: var(--Primary);
     color: #FFF;
@@ -585,7 +585,7 @@ footer{
     font-size: 0.84rem;
     opacity: 0.96;
     flex-wrap: wrap;
-}
+} */
 
 
 @media(max-width: 1150px){
@@ -611,9 +611,9 @@ footer{
     .hero-img{
         max-width: 100%;
     }
-    .footer-top{
+    /* .footer-top{
         grid-template-columns: 1fr;
-    }
+    } */
     .testimonial{
         font-size: 1.25rem;
     }
@@ -645,9 +645,9 @@ footer{
     }
     .hero-main p,
     .step-card .step,
-    .footer-left > p{
+    /* .footer-left > p{
         font-size: 0.98rem;
-    }
+    } */
     .become-tutor .img-box img{
         display: none;
     }
