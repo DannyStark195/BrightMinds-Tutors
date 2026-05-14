@@ -1,13 +1,5 @@
 .dashboard-page{
     position: relative;
-    min-height: 100svh;
-    background: var(--Background);
-}
-
-@supports (min-height: 100dvh) {
-    .dashboard-page{
-        min-height: 100dvh;
-    }
 }
 /* .navbar.d{
     display: none;
@@ -179,9 +171,6 @@ main{
     padding: 28px;
     height: 140px;
     border-radius: 28px;
-    background: rgba(255,255,255,0.96);
-    border: 1px solid rgba(13,27,42,0.08);
-    box-shadow: 0 25px 60px rgba(13,27,42,0.08);
     text-decoration: none;
     color: currentColor;
     position: relative;
@@ -275,28 +264,6 @@ main{
   font-size: 1.25rem;
   font-weight: 800;
 }
-.status {
-  padding: 9px 14px;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.status.pending  { 
-    background: #FEF3C7;
-    color: var(--Accent);
-}
-.status.confirmed { 
-    background: #D1FAE5;
-    color:  var(--Success); 
-}
-.status.rejected { 
-    background: #FEE2E2; 
-    color: var(--Danger); 
-}
-
 /* .progress-tracker {
   display: flex;
   align-items: flex-start;
@@ -477,22 +444,11 @@ main{
 }
 
 .dashboard-main{
-    width: min(1120px, 100%);
-    margin-inline: auto;
     padding: 18px 20px 90px;
 }
 
 .dashboard-hero{
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 24px;
     align-items: end;
-    margin-bottom: 24px;
-    padding: 34px;
-    border-radius: 28px;
-    background: rgba(255,255,255,0.96);
-    border: 1px solid rgba(13,27,42,0.08);
-    box-shadow: 0 25px 60px rgba(13,27,42,0.08);
 }
 
 
@@ -523,15 +479,8 @@ main{
 
 .stat-card{
     min-height: 150px;
-    padding: 24px;
-    border-radius: 24px;
-    background: rgba(255,255,255,0.96);
-    border: 1px solid rgba(13,27,42,0.08);
-    box-shadow: 0 25px 60px rgba(13,27,42,0.08);
     color: currentColor;
     text-decoration: none;
-    display: grid;
-    align-content: space-between;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -541,24 +490,7 @@ main{
 }
 
 .stat-card i{
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--Primary);
-    background: linear-gradient(135deg, #f5d890, #f8c56c);
-}
-
-.stat-card span{
-    color: rgba(45,45,45,0.68);
-    font-weight: 700;
-}
-
-.stat-card strong{
-    color: var(--Primary);
-    font-size: 1.45rem;
+    margin-bottom: 18px;
 }
 
 .dashboard-layout{
@@ -568,25 +500,9 @@ main{
     align-items: start;
 }
 
-.bookings-panel,
-.side-card{
-    background: rgba(255,255,255,0.96);
-    border: 1px solid rgba(13,27,42,0.08);
-    box-shadow: 0 25px 60px rgba(13,27,42,0.08);
-}
-
 .bookings-panel{
     border-radius: 28px;
     padding: 28px;
-}
-
-.section-heading{
-    margin-bottom: 22px;
-}
-
-.section-heading h2{
-    color: var(--Primary);
-    font-size: 1.7rem;
 }
 
 .booking-list{

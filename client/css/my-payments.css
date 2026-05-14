@@ -1,0 +1,150 @@
+.payments-hero{
+    align-items: end;
+}
+
+.payments-hero .cta-btn{
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.payments-summary{
+    margin-bottom: 24px;
+}
+
+.payments-summary .metric-card i{
+    margin-bottom: 18px;
+}
+
+.payments-panel,
+.payments-side-card{
+    border-radius: 28px;
+    padding: 28px;
+}
+
+.payments-list{
+    display: grid;
+    gap: 16px;
+}
+
+.receipt-card{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 20px;
+    align-items: center;
+    padding: 22px;
+    border-radius: 22px;
+    background: #fff;
+    border: 1px solid rgba(13, 27, 42, 0.08);
+}
+
+.receipt-main{
+    display: grid;
+    gap: 8px;
+}
+
+.receipt-title{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.receipt-title h3{
+    color: var(--Primary);
+    font-size: 1.08rem;
+}
+
+.receipt-meta{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    color: rgba(45, 45, 45, 0.64);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.receipt-reference{
+    font-family: 'Space Mono', monospace;
+    color: var(--Accent);
+    background: #FEF3C7;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+.receipt-amount{
+    color: var(--Primary);
+    font-size: 1.35rem;
+    font-weight: 800;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.receipt-actions{
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.receipt-actions .cta-btn{
+    min-width: 0;
+    padding: 12px 18px;
+    box-shadow: none;
+}
+
+.payments-side{
+    display: grid;
+    gap: 18px;
+}
+
+.payments-side-card i{
+    margin-bottom: 16px;
+}
+
+.payments-side-card h2{
+    color: var(--Primary);
+    font-size: 1.18rem;
+    margin-bottom: 10px;
+}
+
+.payments-side-card p{
+    color: rgba(45, 45, 45, 0.68);
+    line-height: 1.7;
+    margin-bottom: 14px;
+}
+
+.payments-side-card strong{
+    color: var(--Primary);
+}
+
+@media(max-width: 900px){
+    .payments-hero .cta-btn{
+        width: fit-content;
+    }
+}
+
+@media(max-width: 640px){
+    .payments-panel,
+    .payments-side-card{
+        border-radius: 20px;
+        padding: 20px;
+    }
+
+    .receipt-card{
+        grid-template-columns: 1fr;
+        border-radius: 18px;
+        padding: 18px;
+    }
+
+    .receipt-amount{
+        text-align: left;
+    }
+
+    .receipt-actions{
+        flex-direction: column;
+    }
+
+    .receipt-actions .cta-btn,
+    .payments-hero .cta-btn{
+        width: 100%;
+    }
+}

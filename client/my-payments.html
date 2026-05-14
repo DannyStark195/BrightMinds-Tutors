@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Payments | BrightMind Tutors</title>
+        <link rel="stylesheet" href="./css/global.css">
+        <link rel="stylesheet" href="./css/layout.css">
+        <link rel="stylesheet" href="./css/components.css">
+        <link rel="stylesheet" href="./css/my-payments.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
+    </head>
+    <body>
+        <div class="payments-page page-shell">
+            <header class="header">
+                <div class="logo">
+                    <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
+                    <p>BrightMind Tutors</p>
+                </div>
+
+                <nav class="navbar d">
+                    <div class="cross-btn close-nav-btn">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                    <div class="profile">
+                        <div class="profile-img">
+                            <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="user profile picture">
+                        </div>
+                        <div class="profile-info">
+                            <p class="profile-name">Daniel</p>
+                            <a href="/dashboard/profile">
+                                My profile
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="more-links">
+                        <div class="link">
+                            <i class="fa-solid fa-book"></i>
+                            <a href="/dashboard/book"><button>Book a tutor</button></a>
+                        </div>
+                        <div class="link active">
+                            <i class="fa-solid fa-receipt"></i>
+                            <a href="./payments.html"><button>My payments</button></a>
+                        </div>
+                        <div class="link">
+                            <i class="fa-solid fa-star"></i>
+                            <a href="/dashboard/review"><button>Reviews</button></a>
+                        </div>
+                        <div class="link">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <a href="/become-a-tutor"><button>Become a tutor</button></a>
+                        </div>
+                        <button type="submit" class="cta-btn gold">Log out</button>
+                    </div>
+                </nav>
+                <div class="nav-btn d">
+                    <img src="./assets/icons/menu.svg" alt="menu icon">
+                </div>
+
+                <div class="nav-btn-wrapper">
+                    <div class="cross-btn dashboard-close-nav-btn">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                    <div class="dashboard-nav-btn active">
+                        <img src="./assets/icons/menu.svg" alt="menu icon">
+                    </div>
+                    <nav class="navbar dashboard-navbar">
+                        <div class="profile">
+                            <div class="profile-img">
+                                <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="user profile picture">
+                            </div>
+                            <div class="profile-info">
+                                <p class="profile-name">Daniel</p>
+                                <a href="/dashboard/profile">
+                                    My profile
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="link">
+                            <i class="fa-solid fa-book"></i>
+                            <a href="/dashboard/book"><button>Book a tutor</button></a>
+                        </div>
+                        <div class="link active">
+                            <i class="fa-solid fa-receipt"></i>
+                            <a href="./payments.html"><button>My payments</button></a>
+                        </div>
+                        <div class="link">
+                            <i class="fa-solid fa-star"></i>
+                            <a href="/dashboard/review"><button>Review</button></a>
+                        </div>
+                        <div class="link">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <a href="/become-a-tutor"><button>Become a tutor</button></a>
+                        </div>
+                        <a href="/logout"><button type="submit" class="cta-btn gold">Log out</button></a>
+                    </nav>
+                </div>
+            </header>
+
+            <main class="payments-main page-main">
+                <section class="payments-hero page-hero surface-card">
+                    <div>
+                        <p class="eyebrow">My payments</p>
+                        <h1>Payment receipts</h1>
+                        <p>View completed payments, download receipts, and keep track of upcoming tutoring billing.</p>
+                    </div>
+                    <a href="/dashboard/book" class="cta-btn gold">
+                        Book a tutor
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </section>
+
+                <section class="payments-summary summary-grid" aria-label="Payment summary">
+                    <article class="metric-card surface-card">
+                        <i class="fa-solid fa-receipt icon-badge"></i>
+                        <span>Total receipts</span>
+                        <strong>3 records</strong>
+                    </article>
+                    <article class="metric-card surface-card">
+                        <i class="fa-solid fa-wallet icon-badge"></i>
+                        <span>Paid this month</span>
+                        <strong>NGN 30,000</strong>
+                    </article>
+                    <article class="metric-card surface-card">
+                        <i class="fa-solid fa-calendar-check icon-badge"></i>
+                        <span>Next billing</span>
+                        <strong>3 Jun 2026</strong>
+                    </article>
+                </section>
+
+                <section class="content-layout">
+                    <section class="payments-panel surface-card">
+                        <div class="section-heading">
+                            <p class="eyebrow">Receipts</p>
+                            <h2>Recent payments</h2>
+                            <p>Your confirmed payment receipts are listed below.</p>
+                        </div>
+
+                        <div class="payments-list">
+                            <article class="receipt-card">
+                                <div class="receipt-main">
+                                    <div class="receipt-title">
+                                        <h3>Mathematics tutoring</h3>
+                                        <span class="status paid">Paid</span>
+                                    </div>
+                                    <div class="receipt-meta">
+                                        <span class="receipt-reference">BM-PAY-2847</span>
+                                        <span>Paid 3 May 2026</span>
+                                        <span>Card ending 2842</span>
+                                    </div>
+                                    <div class="receipt-actions">
+                                        <a href="#" class="cta-btn blue">View receipt</a>
+                                        <a href="#" class="cta-btn gold">
+                                            Download
+                                            <i class="fa-solid fa-download"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <p class="receipt-amount">NGN 30,000</p>
+                            </article>
+
+                            <article class="receipt-card">
+                                <div class="receipt-main">
+                                    <div class="receipt-title">
+                                        <h3>English tutoring</h3>
+                                        <span class="status paid">Paid</span>
+                                    </div>
+                                    <div class="receipt-meta">
+                                        <span class="receipt-reference">BM-PAY-2712</span>
+                                        <span>Paid 3 Apr 2026</span>
+                                        <span>Bank transfer</span>
+                                    </div>
+                                    <div class="receipt-actions">
+                                        <a href="#" class="cta-btn blue">View receipt</a>
+                                        <a href="#" class="cta-btn gold">
+                                            Download
+                                            <i class="fa-solid fa-download"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <p class="receipt-amount">NGN 25,000</p>
+                            </article>
+
+                            <article class="receipt-card">
+                                <div class="receipt-main">
+                                    <div class="receipt-title">
+                                        <h3>Biology tutoring</h3>
+                                        <span class="status pending">Pending</span>
+                                    </div>
+                                    <div class="receipt-meta">
+                                        <span class="receipt-reference">BM-PAY-2650</span>
+                                        <span>Due 16 May 2026</span>
+                                        <span>Awaiting confirmation</span>
+                                    </div>
+                                    <div class="receipt-actions">
+                                        <a href="./payment.html" class="cta-btn gold">
+                                            Complete payment
+                                            <i class="fa-solid fa-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <p class="receipt-amount">NGN 30,000</p>
+                            </article>
+                        </div>
+                    </section>
+
+                    <aside class="payments-side">
+                        <article class="payments-side-card surface-card">
+                            <i class="fa-solid fa-credit-card icon-badge"></i>
+                            <h2>Billing method</h2>
+                            <p>Your current payment method is a saved card ending in 2842.</p>
+                            <strong>Visa card</strong>
+                        </article>
+                        <article class="payments-side-card surface-card">
+                            <i class="fa-solid fa-circle-info icon-badge"></i>
+                            <h2>Payment help</h2>
+                            <p>Contact support if a receipt is missing or a transfer has not been confirmed.</p>
+                            <a href="https://wa.me/2348092812010" class="cta-btn blue">Chat on WhatsApp</a>
+                        </article>
+                    </aside>
+                </section>
+            </main>
+        </div>
+        <div class="overlay"></div>
+        <script type="module" src="./js/srcipts/dNavMenu.js"></script>
+    </body>
+</html>

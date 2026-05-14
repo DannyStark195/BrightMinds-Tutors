@@ -1,17 +1,4 @@
-.tutor-page{
-    min-height: 100svh;
-    background: var(--Background);
-}
-
-@supports (min-height: 100dvh) {
-    .tutor-page{
-        min-height: 100dvh;
-    }
-}
-
 .tutor-main{
-    width: min(1120px, 100%);
-    margin-inline: auto;
     padding: 18px 20px 90px;
 }
 
@@ -21,9 +8,6 @@
     gap: 36px;
     align-items: center;
     margin-bottom: 36px;
-    background: rgba(255, 255, 255, 0.96);
-    border: 1px solid rgba(13, 27, 42, 0.08);
-    box-shadow: 0 25px 60px rgba(13, 27, 42, 0.08);
     padding: 34px;
     border-radius: 28px;
 }
@@ -102,27 +86,12 @@
     margin-bottom: 36px;
 }
 
-.tutor-process article,
-.application-section{
-    background: rgba(255, 255, 255, 0.96);
-    border: 1px solid rgba(13, 27, 42, 0.08);
-    box-shadow: 0 25px 60px rgba(13, 27, 42, 0.08);
-}
-
 .tutor-process article{
     border-radius: 24px;
     padding: 24px;
 }
 
 .tutor-process i{
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--Primary);
-    background: linear-gradient(135deg, #f5d890, #f8c56c);
     margin-bottom: 18px;
 }
 
@@ -171,14 +140,7 @@
 .tutor-form input,
 .tutor-form select,
 .tutor-form textarea{
-    width: 100%;
-    border: 1px solid rgba(13, 27, 42, 0.12);
-    border-radius: 16px;
-    background: #fff;
-    color: var(--Text);
-    font: inherit;
     font-weight: 600;
-    padding: 16px;
 }
 
 .tutor-form textarea{

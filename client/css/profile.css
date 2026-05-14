@@ -1,27 +1,5 @@
-.profile-page{
-    min-height: 100svh;
-    background: var(--Background);
-}
-
-@supports (min-height: 100dvh) {
-    .profile-page{
-        min-height: 100dvh;
-    }
-}
-
 .profile-main{
-    width: min(1120px, 100%);
-    margin-inline: auto;
     padding: 18px 20px 90px;
-}
-
-.profile-hero,
-.profile-card,
-.profile-summary-card,
-.profile-note{
-    background: rgba(255,255,255,0.96);
-    border: 1px solid rgba(13,27,42,0.08);
-    box-shadow: 0 25px 60px rgba(13,27,42,0.08);
 }
 
 .profile-hero{
@@ -133,14 +111,7 @@
 .profile-field input,
 .profile-field select,
 .profile-field textarea{
-    width: 100%;
     min-height: 50px;
-    border: 1px solid rgba(13,27,42,0.12);
-    border-radius: 16px;
-    background: #fff;
-    color: var(--Text);
-    font: inherit;
-    font-weight: 700;
     padding: 14px 16px;
 }
 
@@ -178,12 +149,7 @@
 .profile-summary-item i{
     width: 44px;
     height: 44px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--Primary);
-    background: linear-gradient(135deg, #f5d890, #f8c56c);
+    flex: 0 0 auto;
 }
 
 .profile-summary-item p{

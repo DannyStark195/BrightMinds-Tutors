@@ -1,17 +1,4 @@
-.booking-details-page{
-    min-height: 100svh;
-    background: var(--Background);
-}
-
-@supports (height: 100dvh) {
-    .booking-details-page{
-        min-height: 100dvh;
-    }
-}
-
 .booking-details-main{
-    width: min(1120px, 100%);
-    margin: 0 auto;
     padding: 20px 20px 90px;
 }
 
@@ -23,9 +10,6 @@
     padding: 30px;
     margin-bottom: 28px;
     border-radius: 28px;
-    background: rgba(255,255,255,0.96);
-    border: 1px solid rgba(13,27,42,0.08);
-    box-shadow: 0 25px 60px rgba(13,27,42,0.08);
 }
 
 
@@ -70,9 +54,6 @@
 .side-card{
     padding: 28px;
     border-radius: 28px;
-    background: rgba(255,255,255,0.96);
-    border: 1px solid rgba(13,27,42,0.08);
-    box-shadow: 0 25px 60px rgba(13,27,42,0.08);
 }
 
 .booking-overview-card .card-heading,
@@ -132,25 +113,6 @@
     color: var(--Text);
 }
 
-.status{
-    padding: 9px 14px;
-    border-radius: 999px;
-    font-size: 0.75rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.status.confirmed{
-    background: #D1FAE5;
-    color: var(--Success);
-}
-
-.status.pending{
-    background: rgba(245, 168, 35, 0.15);
-    color: #a66a08;
-}
-
 .booking-details-card h2{
     margin-bottom: 18px;
     color: var(--Primary);
@@ -179,11 +141,6 @@
 }
 
 .side-card i{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--Accent);
-    font-size: 1.5rem;
     margin-bottom: 16px;
 }
 

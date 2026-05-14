@@ -13,7 +13,7 @@
         <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
     </head>
     <body>
-        <div class="tutor-page">
+        <div class="tutor-page page-shell">
             <header class="header">
                     <div class="logo">
                         <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="link">
                                     <i class="fa-solid fa-receipt"></i>
-                                    <a href="/dashboard/payments"><button class="">My payments</button></a>
+                                    <a href="./my-payments.html"><button class="">My payments</button></a>
                                 </div>
                                 <div class="link">
                                     <i class="fa-solid fa-star"></i>
@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="link">
                                     <i class="fa-solid fa-receipt"></i>
-                                    <a href="/dashboard/payments"><button class="">My payments</button></a>
+                                    <a href="./my-payments.html"><button class="">My payments</button></a>
                                 </div>
                                 <div class="link">
                                     <i class="fa-solid fa-star"></i>
@@ -103,8 +103,8 @@
                     </div>
             </header>
 
-            <main class="tutor-main">
-                <section class="tutor-hero">
+            <main class="tutor-main page-main">
+                <section class="tutor-hero surface-card">
                     <div class="hero-content">
                         <p class="eyebrow">Tutor applications</p>
                         <h1>Teach students who need your exact strengths</h1>
@@ -127,24 +127,24 @@
                 </section>
 
                 <section class="tutor-process" id="process">
-                    <article>
-                        <i class="fa-solid fa-file-lines"></i>
+                    <article class="surface-card">
+                        <i class="fa-solid fa-file-lines icon-badge"></i>
                         <h2>Apply</h2>
                         <p>Share your subject strengths, credentials, and preferred teaching schedule.</p>
                     </article>
-                    <article>
-                        <i class="fa-solid fa-shield-halved"></i>
+                    <article class="surface-card">
+                        <i class="fa-solid fa-shield-halved icon-badge"></i>
                         <h2>Verify</h2>
                         <p>We review your details and confirm your teaching experience before approving your profile.</p>
                     </article>
-                    <article>
-                        <i class="fa-solid fa-chalkboard-user"></i>
+                    <article class="surface-card">
+                        <i class="fa-solid fa-chalkboard-user icon-badge"></i>
                         <h2>Teach</h2>
                         <p>Receive suitable student matches and manage lessons through BrightMind Tutors.</p>
                     </article>
                 </section>
 
-                <section class="application-section" id="application">
+                <section class="application-section surface-card" id="application">
                     <div class="section-heading">
                         <p class="eyebrow">Application form</p>
                         <h2>Tell us how you teach</h2>
@@ -152,19 +152,19 @@
                     <form class="tutor-form">
                         <label>
                             Full name
-                            <input type="text" placeholder="Your full name">
+                            <input type="text" class="form-control" placeholder="Your full name">
                         </label>
                         <label>
                             Email address
-                            <input type="email" placeholder="you@example.com">
+                            <input type="email" class="form-control" placeholder="you@example.com">
                         </label>
                         <label>
                             Phone number
-                            <input type="tel" placeholder="+234">
+                            <input type="tel" class="form-control" placeholder="+234">
                         </label>
                         <label>
                             Main subject
-                            <select>
+                            <select class="form-control">
                                 <option>Mathematics</option>
                                 <option>English</option>
                                 <option>Physics</option>
@@ -174,7 +174,7 @@
                         </label>
                         <label>
                             Level you teach
-                            <select>
+                            <select class="form-control">
                                 <option>Primary</option>
                                 <option>JSS</option>
                                 <option>SS</option>
@@ -183,7 +183,7 @@
                         </label>
                         <label>
                             Lesson format
-                            <select>
+                            <select class="form-control">
                                 <option>Physical and online</option>
                                 <option>Physical only</option>
                                 <option>Online only</option>
@@ -191,7 +191,7 @@
                         </label>
                         <label class="wide">
                             Teaching experience
-                            <textarea placeholder="Summarize your experience, certifications, and what students can expect."></textarea>
+                            <textarea class="form-control" placeholder="Summarize your experience, certifications, and what students can expect."></textarea>
                         </label>
                         <button class="cta-btn gold" type="submit">
                             Submit application

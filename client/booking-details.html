@@ -12,7 +12,7 @@
         <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
     </head>
     <body>
-        <div class="booking-details-page">
+        <div class="booking-details-page page-shell">
             <header class="header">
                 <div class="logo">
                     <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
@@ -42,7 +42,7 @@
                         </div>
                         <div class="link">
                             <i class="fa-solid fa-receipt"></i>
-                            <a href="dashboard/payments"><button class="">My payments</button></a>
+                            <a href="./my-payments.html"><button class="">My payments</button></a>
                         </div>
                         <div class="link">
                             <i class="fa-solid fa-star"></i>
@@ -85,7 +85,7 @@
                         </div>
                         <div class="link">
                             <i class="fa-solid fa-receipt"></i>
-                            <a href="/dashboard/payments"><button class="">My payments</button></a>
+                            <a href="./my-payments.html"><button class="">My payments</button></a>
                         </div>
                         <div class="link">
                             <i class="fa-solid fa-star"></i>
@@ -101,8 +101,8 @@
                 </div>
             </header>
 
-            <main class="booking-details-main">
-                <section class="booking-details-hero">
+            <main class="booking-details-main page-main">
+                <section class="booking-details-hero surface-card">
                     <div>
                         <p class="eyebrow">Booking details</p>
                         <h1>Review your lesson request</h1>
@@ -118,7 +118,7 @@
 
                 <section class="booking-details-layout">
                     <div class="booking-summary-panel">
-                        <article class="info-card booking-overview-card">
+                        <article class="info-card surface-card booking-overview-card">
                             <div class="card-heading">
                                 <div>
                                     <p class="eyebrow">Booking reference</p>
@@ -157,7 +157,7 @@
                             </div>
                         </article>
 
-                        <article class="info-card booking-details-card">
+                        <article class="info-card surface-card booking-details-card">
                             <h2>Student & booking information</h2>
                             <dl class="details-list">
                                 <div>
@@ -190,30 +190,30 @@
                     </div>
 
                     <aside class="booking-details-aside">
-                        <article class="side-card">
-                            <i class="fa-solid fa-calendar-check"></i>
+                        <article class="side-card surface-card">
+                            <i class="fa-solid fa-calendar-check icon-badge"></i>
                             <h2>Next lesson</h2>
                             <p>Physics with Miss Adaeze</p>
                             <strong>Monday · 4:00 PM</strong>
                         </article>
 
-                        <article class="side-card">
-                            <i class="fa-solid fa-wallet"></i>
+                        <article class="side-card surface-card">
+                            <i class="fa-solid fa-wallet icon-badge"></i>
                             <h2>Payment summary</h2>
                             <p>Lesson fee, deposit, and any outstanding charges.</p>
                             <strong>₦42,000 / week</strong>
                         </article>
 
-                        <article class="side-card status-card">
-                            <i class="fa-solid fa-hourglass-half"></i>
+                        <article class="side-card surface-card status-card">
+                            <i class="fa-solid fa-hourglass-half icon-badge"></i>
                             <h2>Booking status</h2>
                             <p>Your request has been confirmed and the tutor will be assigned shortly.</p>
                             <p class="auto-renew-note hidden">When this booking reaches auto-renew, the plan will update and you can renew it directly.</p>
                             <strong>Confirmed</strong>
                             <button type="button" class="cta-btn gold renew-btn hidden">Renew plan</button>
                         </article>
-                        <article class="side-card cancel-card">
-                            <i class="fa-solid fa-ban"></i>
+                        <article class="side-card surface-card cancel-card">
+                            <i class="fa-solid fa-ban icon-badge"></i>
                             <h2>Cancel plan</h2>
                             <p>Request cancellation for this booking.</p>
                             <button type="button" class="cta-btn danger">Cancel plan</button>

@@ -13,7 +13,7 @@
         <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
     </head>
     <body>
-        <div class="profile-page">
+        <div class="profile-page page-shell">
             <header class="header">
                     <div class="logo">
                         <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="link">
                                     <i class="fa-solid fa-receipt"></i>
-                                    <a href="dashboard/payments"><button class="">My payments</button></a>
+                                    <a href="./my-payments.html"><button class="">My payments</button></a>
                                 </div>
                                 <div class="link">
                                     <i class="fa-solid fa-star"></i>
@@ -88,7 +88,7 @@
                                 </div>
                                 <div class="link">
                                     <i class="fa-solid fa-receipt"></i>
-                                    <a href="/dashboard/payments"><button class="">My payments</button></a>
+                                    <a href="./my-payments.html"><button class="">My payments</button></a>
                                 </div>
                                 <div class="link">
                                     <i class="fa-solid fa-star"></i>
@@ -107,8 +107,8 @@
                     
             </header>
 
-            <main class="profile-main">
-                <section class="profile-hero">
+            <main class="profile-main page-main">
+                <section class="profile-hero surface-card">
                     <div class="profile-avatar">
                         <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="Daniel profile picture">
                     </div>
@@ -128,7 +128,7 @@
 
                 <section class="profile-layout">
                     <div class="profile-stack">
-                        <form class="profile-card">
+                        <form class="profile-card surface-card">
                             <div class="section-heading">
                                 <p class="eyebrow">Parent details</p>
                                 <h2>Account information</h2>
@@ -136,19 +136,19 @@
                             <div class="profile-fields">
                                 <label class="profile-field">
                                     <span>Full name</span>
-                                    <input type="text" value="Daniel Stark">
+                                    <input type="text" class="form-control" value="Daniel Stark">
                                 </label>
                                 <label class="profile-field">
                                     <span>Email address</span>
-                                    <input type="email" value="daniel@example.com">
+                                    <input type="email" class="form-control" value="daniel@example.com">
                                 </label>
                                 <label class="profile-field">
                                     <span>Phone number</span>
-                                    <input type="tel" value="08092812010">
+                                    <input type="tel" class="form-control" value="08092812010">
                                 </label>
                                 <label class="profile-field">
                                     <span>Preferred contact</span>
-                                    <select>
+                                    <select class="form-control">
                                         <option>WhatsApp</option>
                                         <option>Phone call</option>
                                         <option>Email</option>
@@ -162,7 +162,7 @@
                         </form>
 
 
-                        <form class="profile-card">
+                        <form class="profile-card surface-card">
                             <div class="section-heading">
                                 <p class="eyebrow">Security</p>
                                 <h2>Password and account access</h2>
@@ -170,11 +170,11 @@
                             <div class="profile-fields">
                                 <label class="profile-field">
                                     <span>Current password</span>
-                                    <input type="password" placeholder="Enter current password">
+                                    <input type="password" class="form-control" placeholder="Enter current password">
                                 </label>
                                 <label class="profile-field">
                                     <span>New password</span>
-                                    <input type="password" placeholder="Enter new password">
+                                    <input type="password" class="form-control" placeholder="Enter new password">
                                 </label>
                             </div>
                             <div class="profile-card-footer">
@@ -184,25 +184,25 @@
                     </div>
 
                     <aside class="profile-side">
-                        <article class="profile-summary-card">
+                        <article class="profile-summary-card surface-card">
                             <h2>Profile summary</h2>
                             <div class="profile-summary-list">
                                 <div class="profile-summary-item">
-                                    <i class="fa-solid fa-user-check"></i>
+                                    <i class="fa-solid fa-user-check icon-badge"></i>
                                     <div>
                                         <p>Account status</p>
                                         <strong>Active parent account</strong>
                                     </div>
                                 </div>
                                 <div class="profile-summary-item">
-                                    <i class="fa-solid fa-book-open-reader"></i>
+                                    <i class="fa-solid fa-book-open-reader icon-badge"></i>
                                     <div>
                                         <p>Current plan</p>
                                         <strong>Standard mathematics</strong>
                                     </div>
                                 </div>
                                 <div class="profile-summary-item">
-                                    <i class="fa-solid fa-calendar-days"></i>
+                                    <i class="fa-solid fa-calendar-days icon-badge"></i>
                                     <div>
                                         <p>Preferred schedule</p>
                                         <strong>Mon, Wed, Fri - 4 PM</strong>
@@ -211,7 +211,7 @@
                             </div>
                         </article>
 
-                        <article class="profile-note">
+                        <article class="profile-note surface-card">
                             <h2>Need help?</h2>
                             <p>Contact BrightMind Tutors if your child changes school level, location, or subject needs before the next billing cycle.</p>
                             <a href="https://wa.me/2348092812010" class="cta-btn blue">Chat on WhatsApp</a>

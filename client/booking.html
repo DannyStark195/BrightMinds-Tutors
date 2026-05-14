@@ -12,7 +12,7 @@
         <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
     </head>
     <body>
-        <div class="booking-page">
+        <div class="booking-page page-shell">
             <header class="header">
                     <div class="logo">
                         <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="link">
                                     <i class="fa-solid fa-receipt"></i>
-                                    <a href="dashboard/payments"><button class="">My payments</button></a>
+                                    <a href="./my-payments.html"><button class="">My payments</button></a>
                                 </div>
                                 <div class="link">
                                     <i class="fa-solid fa-star"></i>
@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="link">
                                     <i class="fa-solid fa-receipt"></i>
-                                    <a href="/dashboard/payments"><button class="">My payments</button></a>
+                                    <a href="./my-payments.html"><button class="">My payments</button></a>
                                 </div>
                                 <div class="link">
                                     <i class="fa-solid fa-star"></i>
@@ -103,9 +103,9 @@
                     </div>
                     
             </header>
-            <main class="booking-main">
+            <main class="booking-main page-main">
                 <div class="inactive">
-                    <section class="booking-hero">
+                    <section class="booking-hero page-hero surface-card">
                         <div>
                             <p class="eyebrow">Book a tutor</p>
                             <h1>Build the right lesson plan for your child</h1>
@@ -114,7 +114,7 @@
                     </section>
 
                     <section class="booking-workspace">
-                        <aside class="booking-summary">
+                        <aside class="booking-summary surface-card">
                             <div class="booking-progress progress-tracker active">
                                 <div class="progress w-25"></div>
                                 <div class="step active"><span>1</span><p>Need</p></div>
@@ -133,7 +133,7 @@
                             </div>
                         </aside>
 
-                        <form class="booking-form">
+                        <form class="booking-form surface-card">
                             <section class="booking-step step-1 active">
                                 <div class="step-heading">
                                     <span>Step 1</span>
@@ -202,7 +202,7 @@
                                 </div>
                                 <label class="date-field">
                                     Start date
-                                    <input type="date">
+                                    <input type="date" class="form-control">
                                 </label>
                             </section>
 
@@ -225,7 +225,7 @@
                                 </div>
                                 <label class="date-field address-field">
                                     Address
-                                    <input type="text" placeholder="Input your address">
+                                    <input type="text" class="form-control" placeholder="Input your address">
                                 </label>
                             </section>
 
@@ -235,11 +235,11 @@
                                     <h2>Your details</h2>
                                 </div>
                                 <div class="details">
-                                    <input type="text" placeholder="Your full name">
-                                    <input type="tel" placeholder="Phone number">
-                                    <input type="text" placeholder="Student's name">
-                                    <input type="text" placeholder="Any disabilities? If yes, state.">
-                                    <textarea placeholder="Leave a message (optional)"></textarea>
+                                    <input type="text" class="form-control" placeholder="Your full name">
+                                    <input type="tel" class="form-control" placeholder="Phone number">
+                                    <input type="text" class="form-control" placeholder="Student's name">
+                                    <input type="text" class="form-control" placeholder="Any disabilities? If yes, state.">
+                                    <textarea class="form-control" placeholder="Leave a message (optional)"></textarea>
                                 </div>
                                 <label class="terms-of-use">
                                     <input type="checkbox" required class="terms-checkbox">

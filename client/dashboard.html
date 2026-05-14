@@ -12,7 +12,7 @@
         <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
     </head>
     <body>
-        <div class="dashboard-page">
+        <div class="dashboard-page page-shell">
             <header class="header">
                     <div class="logo">
                         <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="link">
                                     <i class="fa-solid fa-receipt"></i>
-                                    <a href="dashboard/payments"><button class="">My payments</button></a>
+                                    <a href="./my-payments.html"><button class="">My payments</button></a>
                                 </div>
                                 <div class="link">
                                     <i class="fa-solid fa-star"></i>
@@ -87,7 +87,7 @@
                                 </div>
                                 <div class="link">
                                     <i class="fa-solid fa-receipt"></i>
-                                    <a href="/dashboard/payments"><button class="">My payments</button></a>
+                                    <a href="./my-payments.html"><button class="">My payments</button></a>
                                 </div>
                                 <div class="link">
                                     <i class="fa-solid fa-star"></i>
@@ -105,8 +105,8 @@
                     </div>
                     
             </header>
-            <main class="dashboard-main">
-                <section class="dashboard-hero">
+            <main class="dashboard-main page-main">
+                <section class="dashboard-hero page-hero surface-card">
                     <div>
                         <p class="eyebrow">Student dashboard</p>
                         <h1>Good Day, Daniel</h1>
@@ -119,32 +119,32 @@
                 </section>
 
                 <section class="dashboard-stats" aria-label="Dashboard summary">
-                    <a href="/dashboard/payments" class="stat-card">
-                        <i class="fa-solid fa-receipt"></i>
+                    <a href="./my-payments.html" class="stat-card metric-card surface-card">
+                        <i class="fa-solid fa-receipt icon-badge"></i>
                         <span>Payments</span>
                         <strong>3 records</strong>
                     </a>
-                    <a href="/dashboard/book" class="stat-card">
-                        <i class="fa-solid fa-book"></i>
+                    <a href="/dashboard/book" class="stat-card metric-card surface-card">
+                        <i class="fa-solid fa-book icon-badge"></i>
                         <span>Active bookings</span>
                         <strong>3 sessions</strong>
                     </a>
-                    <a href="/dashboard/review" class="stat-card">
-                        <i class="fa-solid fa-star"></i>
+                    <a href="/dashboard/review" class="stat-card metric-card surface-card">
+                        <i class="fa-solid fa-star icon-badge"></i>
                         <span>Reviews</span>
                         <strong>2 shared</strong>
                     </a>
                 </section>
 
                 <section class="dashboard-layout">
-                    <section class="bookings-panel">
+                    <section class="bookings-panel surface-card">
                         <div class="section-heading">
                             <p class="eyebrow">Active bookings</p>
                             <h2>Current lesson requests</h2>
                         </div>
 
                         <div class="booking-list">
-                            <article class="booking-card">
+                            <article class="booking-card surface-card">
                                 <div class="card-header">
                                     <div>
                                         <span class="card-subject">Mathematics</span>
@@ -165,7 +165,7 @@
                                 </div>
                             </article>
 
-                            <article class="booking-card">
+                            <article class="booking-card surface-card">
                                 <div class="card-header">
                                     <div>
                                         <span class="card-subject">Biology</span>
@@ -188,7 +188,7 @@
                                 </div>
                             </article>
 
-                            <article class="booking-card">
+                            <article class="booking-card surface-card">
                                 <div class="card-header">
                                     <div>
                                         <span class="card-subject">English</span>
@@ -213,13 +213,13 @@
                     </section>
 
                     <aside class="dashboard-side">
-                        <article class="side-card">
+                        <article class="side-card surface-card">
                             <i class="fa-solid fa-calendar-check"></i>
                             <h2>Next lesson</h2>
                             <p>Mathematics with Miss Adaeze</p>
                             <strong>Monday - 4:00 PM</strong>
                         </article>
-                        <article class="side-card">
+                        <article class="side-card surface-card">
                             <i class="fa-solid fa-wallet"></i>
                             <h2>Payment status</h2>
                             <p>Your confirmed mathematics booking is up to date.</p>
