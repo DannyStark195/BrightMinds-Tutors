@@ -96,7 +96,7 @@
         height: 100svh;
         flex-direction: column;
         padding-top: 20px;
-        padding-inline: 15px;
+        padding-inline: 50px;
         text-align: start;
         gap: 20px;
         transition: clip-path 0.2s ease, opacity 0.2s ease, visibility 0s linear 0.2s;
@@ -194,6 +194,9 @@
 @media(max-width: 560px){
     .header{
         padding: 24px 16px 16px;
+    }
+    .navbar{
+        padding-inline: 20px;
     }
 }
 /* DASHBOARD HEADER */
