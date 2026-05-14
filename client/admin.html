@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin | BrightMind Tutors</title>
+        <link rel="stylesheet" href="./css/global.css">
+        <link rel="stylesheet" href="./css/components.css">
+        <link rel="stylesheet" href="./css/admin.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
+    </head>
+    <body>
+        <div class="admin-page">
+            <aside class="admin-sidebar">
+                <a href="./admin.html" class="admin-brand">
+                    <img src="./assets/icons/tutor-logo-gold.svg" alt="BrightMind logo">
+                    <span>BrightMind</span>
+                </a>
+
+                <nav class="admin-nav" aria-label="Admin navigation">
+                    <button class="admin-nav-link active" type="button" data-section="overview">
+                        <i class="fa-solid fa-chart-line"></i>
+                        Overview
+                    </button>
+                    <button class="admin-nav-link" type="button" data-section="bookings">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        Bookings
+                        <span class="nav-count">2</span>
+                    </button>
+                    <button class="admin-nav-link" type="button" data-section="students">
+                        <i class="fa-solid fa-user-group"></i>
+                        Students
+                    </button>
+                    <button class="admin-nav-link" type="button" data-section="tutors">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                        Tutors
+                    </button>
+                    <button class="admin-nav-link" type="button" data-section="applications">
+                        <i class="fa-solid fa-file-lines"></i>
+                        Tutor Applications
+                    </button>
+                </nav>
+
+                <div class="admin-account">
+                    <div>
+                        <span>Admin</span>
+                        <strong>Daniel Stark</strong>
+                    </div>
+                    <button type="button" class="logout-btn">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        Logout
+                    </button>
+                </div>
+            </aside>
+
+            <main class="admin-main">
+                <section class="admin-section active" data-panel="overview">
+                    <div class="admin-heading">
+                        <div>
+                            <p class="eyebrow">Overview</p>
+                            <h1>Admin dashboard</h1>
+                            <p>Track bookings, tutor activity, students, and applications from one workspace.</p>
+                        </div>
+                    </div>
+
+                    <section class="summary-grid admin-stats" aria-label="Booking summary">
+                        <article class="metric-card surface-card">
+                            <i class="fa-solid fa-layer-group icon-badge"></i>
+                            <span>Total Bookings</span>
+                            <strong>24</strong>
+                        </article>
+                        <article class="metric-card surface-card">
+                            <i class="fa-solid fa-hourglass-half icon-badge"></i>
+                            <span>Pending</span>
+                            <strong>2</strong>
+                        </article>
+                        <article class="metric-card surface-card">
+                            <i class="fa-solid fa-circle-check icon-badge"></i>
+                            <span>Approved</span>
+                            <strong>18</strong>
+                        </article>
+                        <article class="metric-card surface-card">
+                            <i class="fa-solid fa-circle-xmark icon-badge"></i>
+                            <span>Rejected</span>
+                            <strong>4</strong>
+                        </article>
+                    </section>
+
+                    <section class="activity-card surface-card">
+                        <div class="section-heading">
+                            <p class="eyebrow">Recent activity</p>
+                            <h2>Last platform actions</h2>
+                        </div>
+                        <div class="activity-list">
+                            <article>
+                                <span class="activity-dot"></span>
+                                <p>Booking BM-2847 approved <strong>2 hours ago</strong></p>
+                            </article>
+                            <article>
+                                <span class="activity-dot"></span>
+                                <p>Miss Adaeze assigned to Biology <strong>4 hours ago</strong></p>
+                            </article>
+                            <article>
+                                <span class="activity-dot"></span>
+                                <p>Tutor application from Chika Okoro received <strong>Yesterday</strong></p>
+                            </article>
+                            <article>
+                                <span class="activity-dot"></span>
+                                <p>Booking BM-3496 rejected <strong>Yesterday</strong></p>
+                            </article>
+                            <article>
+                                <span class="activity-dot"></span>
+                                <p>Parent account for Daniel Ebuka created <strong>2 days ago</strong></p>
+                            </article>
+                        </div>
+                    </section>
+                </section>
+
+                <section class="admin-section" data-panel="bookings">
+                    <div class="admin-heading">
+                        <div>
+                            <p class="eyebrow">Bookings</p>
+                            <h1>Booking requests</h1>
+                            <p>Review each lesson request, assign a tutor, approve, reject, or mark completed.</p>
+                        </div>
+                    </div>
+
+                    <div class="filter-tabs" data-filter-group="bookings">
+                        <button class="filter-btn active" type="button" data-filter="all">All</button>
+                        <button class="filter-btn" type="button" data-filter="pending">Pending</button>
+                        <button class="filter-btn" type="button" data-filter="approved">Approved</button>
+                        <button class="filter-btn" type="button" data-filter="rejected">Rejected</button>
+                        <button class="filter-btn" type="button" data-filter="completed">Completed</button>
+                    </div>
+
+                    <section class="admin-table-card surface-card">
+                        <div class="table-wrap">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Reference</th>
+                                        <th>Student</th>
+                                        <th>Subject</th>
+                                        <th>Schedule</th>
+                                        <th>Location</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-status="pending">
+                                        <td>BM-2847</td>
+                                        <td>Daniel Ebuka</td>
+                                        <td>Mathematics</td>
+                                        <td>Mon, Wed, Fri - 4 PM</td>
+                                        <td>Physical - Lekki</td>
+                                        <td>14 May 2026</td>
+                                        <td><span class="status pending">Pending</span></td>
+                                        <td><button class="table-action" type="button" data-review="booking" data-ref="BM-2847">Review</button></td>
+                                    </tr>
+                                    <tr data-status="approved">
+                                        <td>BM-2819</td>
+                                        <td>Kamsi Bello</td>
+                                        <td>Biology</td>
+                                        <td>Tue, Thu - 5 PM</td>
+                                        <td>Online</td>
+                                        <td>12 May 2026</td>
+                                        <td><span class="status confirmed">Approved</span></td>
+                                        <td><button class="table-action" type="button" data-review="booking" data-ref="BM-2819">Review</button></td>
+                                    </tr>
+                                    <tr data-status="pending">
+                                        <td>BM-2790</td>
+                                        <td>Amara Cole</td>
+                                        <td>English</td>
+                                        <td>Sat - 10 AM</td>
+                                        <td>Physical - Surulere</td>
+                                        <td>10 May 2026</td>
+                                        <td><span class="status pending">Pending</span></td>
+                                        <td><button class="table-action" type="button" data-review="booking" data-ref="BM-2790">Review</button></td>
+                                    </tr>
+                                    <tr data-status="rejected">
+                                        <td>BM-2734</td>
+                                        <td>Tope Akin</td>
+                                        <td>Physics</td>
+                                        <td>Fri - 3 PM</td>
+                                        <td>Physical - Yaba</td>
+                                        <td>8 May 2026</td>
+                                        <td><span class="status rejected">Rejected</span></td>
+                                        <td><button class="table-action" type="button" data-review="booking" data-ref="BM-2734">Review</button></td>
+                                    </tr>
+                                    <tr data-status="completed">
+                                        <td>BM-2688</td>
+                                        <td>Nora James</td>
+                                        <td>Chemistry</td>
+                                        <td>Mon, Thu - 6 PM</td>
+                                        <td>Online</td>
+                                        <td>2 May 2026</td>
+                                        <td><span class="status paid">Completed</span></td>
+                                        <td><button class="table-action" type="button" data-review="booking" data-ref="BM-2688">Review</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </section>
+
+                <section class="admin-section" data-panel="students">
+                    <div class="admin-heading">
+                        <div>
+                            <p class="eyebrow">Students</p>
+                            <h1>Registered parents</h1>
+                            <p>Open a parent record to view booking history and contact details.</p>
+                        </div>
+                    </div>
+
+                    <section class="admin-table-card surface-card">
+                        <div class="table-wrap">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Bookings</th>
+                                        <th>Date Joined</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="student-row" data-student="Daniel Ebuka">
+                                        <td>Daniel Ebuka</td>
+                                        <td>daniel@example.com</td>
+                                        <td>08092812010</td>
+                                        <td>3</td>
+                                        <td>3 May 2026</td>
+                                        <td><button class="table-action" type="button">History</button></td>
+                                    </tr>
+                                    <tr class="student-history-row">
+                                        <td colspan="6">
+                                            <div class="student-history">
+                                                <strong>Booking history</strong>
+                                                <p>BM-2847 - Mathematics - Pending</p>
+                                                <p>BM-2712 - English - Completed</p>
+                                                <p>BM-2650 - Biology - Completed</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="student-row" data-student="Kamsi Bello">
+                                        <td>Kamsi Bello</td>
+                                        <td>kamsi@example.com</td>
+                                        <td>08123456789</td>
+                                        <td>1</td>
+                                        <td>9 May 2026</td>
+                                        <td><button class="table-action" type="button">History</button></td>
+                                    </tr>
+                                    <tr class="student-history-row">
+                                        <td colspan="6">
+                                            <div class="student-history">
+                                                <strong>Booking history</strong>
+                                                <p>BM-2819 - Biology - Approved</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="student-row" data-student="Amara Cole">
+                                        <td>Amara Cole</td>
+                                        <td>amara@example.com</td>
+                                        <td>07045671234</td>
+                                        <td>2</td>
+                                        <td>1 May 2026</td>
+                                        <td><button class="table-action" type="button">History</button></td>
+                                    </tr>
+                                    <tr class="student-history-row">
+                                        <td colspan="6">
+                                            <div class="student-history">
+                                                <strong>Booking history</strong>
+                                                <p>BM-2790 - English - Pending</p>
+                                                <p>BM-2501 - Mathematics - Completed</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </section>
+
+                <section class="admin-section" data-panel="tutors">
+                    <div class="admin-heading">
+                        <div>
+                            <p class="eyebrow">Tutors</p>
+                            <h1>Approved tutors</h1>
+                            <p>Active tutors available for admin assignment.</p>
+                        </div>
+                    </div>
+
+                    <section class="tutor-grid">
+                        <article class="admin-tutor-card surface-card">
+                            <img src="./assets/images/tutors/emeka.jpg" alt="Mr Emeka Obi">
+                            <div>
+                                <h2>Mr Emeka Obi</h2>
+                                <p>Mathematics, Physics</p>
+                                <strong>18 sessions assigned</strong>
+                            </div>
+                        </article>
+                        <article class="admin-tutor-card surface-card">
+                            <img src="./assets/images/tutors/adaeze.jpg" alt="Miss Adaeze Nwosu">
+                            <div>
+                                <h2>Miss Adaeze Nwosu</h2>
+                                <p>Chemistry, Biology</p>
+                                <strong>14 sessions assigned</strong>
+                            </div>
+                        </article>
+                        <article class="admin-tutor-card surface-card">
+                            <img src="./assets/images/tutors/tunde.jpg" alt="Mr Tunde Bakare">
+                            <div>
+                                <h2>Mr Tunde Bakare</h2>
+                                <p>Mathematics, English</p>
+                                <strong>21 sessions assigned</strong>
+                            </div>
+                        </article>
+                        <article class="admin-tutor-card surface-card">
+                            <img src="./assets/images/tutors/ngozi.jpg" alt="Miss Ngozi Eze">
+                            <div>
+                                <h2>Miss Ngozi Eze</h2>
+                                <p>Biology, English</p>
+                                <strong>11 sessions assigned</strong>
+                            </div>
+                        </article>
+                    </section>
+                </section>
+
+                <section class="admin-section" data-panel="applications">
+                    <div class="admin-heading">
+                        <div>
+                            <p class="eyebrow">Tutor applications</p>
+                            <h1>Applications queue</h1>
+                            <p>Review new tutor applications, approve suitable tutors, or reject with a reason.</p>
+                        </div>
+                    </div>
+
+                    <div class="filter-tabs" data-filter-group="applications">
+                        <button class="filter-btn active" type="button" data-filter="all">All</button>
+                        <button class="filter-btn" type="button" data-filter="pending">Pending</button>
+                        <button class="filter-btn" type="button" data-filter="approved">Approved</button>
+                        <button class="filter-btn" type="button" data-filter="rejected">Rejected</button>
+                    </div>
+
+                    <section class="admin-table-card surface-card">
+                        <div class="table-wrap">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Subjects</th>
+                                        <th>Qualification</th>
+                                        <th>Experience</th>
+                                        <th>Date Applied</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-status="pending">
+                                        <td>Chika Okoro</td>
+                                        <td>Mathematics, Physics</td>
+                                        <td>B.Sc Physics</td>
+                                        <td>4 years</td>
+                                        <td>13 May 2026</td>
+                                        <td><span class="status pending">Pending</span></td>
+                                        <td><button class="table-action" type="button" data-review="application" data-ref="APP-101">Review</button></td>
+                                    </tr>
+                                    <tr data-status="approved">
+                                        <td>Femi Lawson</td>
+                                        <td>English</td>
+                                        <td>B.Ed English</td>
+                                        <td>6 years</td>
+                                        <td>8 May 2026</td>
+                                        <td><span class="status confirmed">Approved</span></td>
+                                        <td><button class="table-action" type="button" data-review="application" data-ref="APP-092">Review</button></td>
+                                    </tr>
+                                    <tr data-status="rejected">
+                                        <td>Rita George</td>
+                                        <td>Chemistry</td>
+                                        <td>OND Science Lab Tech</td>
+                                        <td>1 year</td>
+                                        <td>6 May 2026</td>
+                                        <td><span class="status rejected">Rejected</span></td>
+                                        <td><button class="table-action" type="button" data-review="application" data-ref="APP-088">Review</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </section>
+            </main>
+        </div>
+
+        <div class="admin-overlay" data-close-panel></div>
+        <aside class="review-panel" aria-hidden="true">
+            <button class="panel-close" type="button" data-close-panel aria-label="Close review panel">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="panel-content" data-panel-content></div>
+        </aside>
+
+        <script type="module" src="./js/srcipts/admin.js"></script>
+    </body>
+</html>
