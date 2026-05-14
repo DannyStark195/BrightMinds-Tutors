@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Login | BrightMind Tutors</title>
+        <link rel="stylesheet" href="./css/global.css">
+        <link rel="stylesheet" href="./css/layout.css">
+        <link rel="stylesheet" href="./css/components.css">
+        <link rel="stylesheet" href="./css/booking.css">
+        <link rel="stylesheet" href="./css/admin-login.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
+    </head>
+    <body>
+        <div class="admin-login-page booking-page page-shell">
+            <header class="admin-login-header">
+                <a href="./index.html" class="logo">
+                    <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
+                    <p>BrightMind Tutors</p>
+                </a>
+            </header>
+
+            <main class="booking-main page-main admin-login-main">
+                <section class="booking-hero page-hero surface-card admin-login-hero">
+                    <div>
+                        <p class="eyebrow">Admin login</p>
+                        <h1>Manage BrightMind tutor operations</h1>
+                        <p>Sign in to review bookings, assign tutors, and manage platform activity.</p>
+                    </div>
+                </section>
+
+                <form class="booking-form surface-card admin-login-form" action="./admin.html">
+                    <section class="booking-step active">
+                        <div class="step-heading">
+                            <span>Admin access</span>
+                            <h2>Login details</h2>
+                        </div>
+
+                        <div class="details admin-login-fields">
+                            <label class="date-field">
+                                Admin name
+                                <input type="text" class="form-control" name="admin-name" placeholder="Enter admin name" autocomplete="username" required>
+                            </label>
+                            <label class="date-field">
+                                Password
+                                <input type="password" class="form-control" name="admin-password" placeholder="Enter password" autocomplete="current-password" required>
+                            </label>
+                        </div>
+                    </section>
+
+                    <div class="booking-actions admin-login-actions">
+                        <a href="./index.html" class="cta-btn blue">Back</a>
+                        <button type="submit" class="cta-btn gold">
+                            Log in
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </body>
+</html>

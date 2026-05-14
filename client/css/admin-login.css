@@ -1,0 +1,84 @@
+.admin-login-page{
+    background: var(--Background);
+    min-height: 100svh;
+}
+
+.admin-login-header{
+    width: min(100% - 40px, 1180px);
+    margin: 0 auto;
+    padding: 24px 0 8px;
+}
+
+.admin-login-header .logo{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--Primary);
+    text-decoration: none;
+}
+
+.admin-login-header .logo img{
+    width: 40px;
+    height: 40px;
+}
+
+.admin-login-header .logo p{
+    color: var(--Primary);
+    font-weight: 900;
+}
+
+.admin-login-main{
+    width: min(100% - 40px, 820px);
+    margin: 0 auto;
+    padding-inline: 0;
+}
+
+.admin-login-hero,
+.admin-login-form{
+    border-radius: 28px;
+}
+
+.admin-login-form{
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+.admin-login-fields{
+    grid-template-columns: 1fr;
+    gap: 18px;
+}
+
+.admin-login-fields .date-field{
+    margin-bottom: 0;
+}
+
+.admin-login-actions{
+    position: static;
+    padding: 0;
+    border-radius: 0;
+}
+
+.admin-login-actions .cta-btn{
+    min-width: 150px;
+}
+
+@supports (min-height: 100dvh) {
+    .admin-login-page{
+        min-height: 100dvh;
+    }
+}
+
+@media(max-width: 720px){
+    .admin-login-header,
+    .admin-login-main{
+        width: min(100% - 32px, 820px);
+    }
+
+    .admin-login-actions{
+        flex-direction: column-reverse;
+    }
+
+    .admin-login-actions .cta-btn{
+        width: 100%;
+    }
+}
