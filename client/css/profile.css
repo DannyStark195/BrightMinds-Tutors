@@ -52,16 +52,6 @@
     background: #fff;
 }
 
-.profile-hero .eyebrow,
-.profile-main .eyebrow{
-    color: var(--Accent);
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-}
-
 .profile-hero h1{
     color: var(--Primary);
     font-size: clamp(2.25rem, 5vw, 4.6rem);

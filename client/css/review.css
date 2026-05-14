@@ -28,15 +28,6 @@
     border-radius: 28px;
 }
 
-.eyebrow{
-    color: var(--Accent);
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-}
-
 .review-hero h1{
     color: var(--Primary);
     font-size: clamp(2rem, 5vw, 4.2rem);

@@ -43,15 +43,6 @@
     margin-top: 18px;
 }
 
-.eyebrow{
-    color: var(--Accent);
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-}
-
 .hero-actions{
     display: flex;
     flex-wrap: wrap;

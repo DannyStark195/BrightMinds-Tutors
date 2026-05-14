@@ -12,6 +12,7 @@
     cursor: pointer;
     transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
     box-shadow: 0 18px 45px rgba(13, 27, 42, 0.1);
+    text-decoration: none;
 }
 
 .cta-btn i{
@@ -384,4 +385,31 @@ input.input-error{
     .alert__icon {
         display: none;
     }
+}
+
+
+/* EYEBROW */
+.eyebrow {
+    color: var(--Accent);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+/* HERO CONTENT */
+.hero-content p:not(.eyebrow) {
+    color: rgba(45, 45, 45, 0.72);
+    font-size: 1rem;
+    line-height: 1.75;
+    max-width: 620px;
+    margin-top: 18px;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 26px;
 }
