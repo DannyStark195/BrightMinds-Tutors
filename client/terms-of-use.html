@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms of Use | BrightMind Tutors</title>
     <link rel="stylesheet" href="./css/global.css">
-    <link rel="stylesheet" href="./css/index.css">
-    <link rel="stylesheet" href="./css/header.css">
-    <link rel="stylesheet" href="./css/form.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/components.css">
     <link rel="stylesheet" href="./css/legal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
@@ -15,38 +14,38 @@
 <body>
     <div class="legal-page white-bg">
         <header class="header">
-            <div class="logo">
-                <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
-                <p>BrightMind Tutors</p>
-            </div>
-
-            <nav class="navbar">
-                <div class="cross-btn close-nav-btn">
-                    <i class="fa-solid fa-xmark"></i>
+                <div class="logo">
+                    <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
+                    <p>BrightMind Tutors</p>
                 </div>
-                <button class="gold open-signup phone-active"><div></div>Get Started</button>
-                <button class="open-login phone-active"><div></div>Log In</button>
 
-                <div class="more-links">
-                    <a href="/become-a-tutor"><button><div></div>Become a tutor</button></a>
-                    <a href="/pricing"><button><div></div>See Pricing</button></a>
-                    <div class="call-container">
-                        <p>Prefer to speak with us?</p>
-                        <a href="tel:+2348092812010" class="call-btn">
-                            <i class="fa-solid fa-phone"></i>
-                            <div>
-                                <p>Call Now:</p>
-                                <p>08092812010</p>
-                            </div>
-                        </a>
+                <nav class="navbar">
+                    <div class="cross-btn close-nav-btn">
+                        <i class="fa-solid fa-xmark"></i>
                     </div>
-                </div>
-            </nav>
+                    <button class="gold open-signup phone-active"><div></div>Get Started</button>
+                    <button class="open-login phone-active"><div></div>Log In</button>
 
-            <div class="nav-btn">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-        </header>
+                    <div class="more-links">
+                        <a href="/become-a-tutor"><button><div></div>Become a tutor</button></a>
+                        <a href="/pricing"><button><div></div>See Pricing</button></a>
+                        <div class="call-container">
+                            <p>Prefer to speak with us?</p>
+                            <a href="tel:+2348092812010" class="call-btn">
+                                <i class="fa-solid fa-phone"></i>
+                                <div>
+                                    <p>Call Now:</p>
+                                    <p>08092812010</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+
+                <div class="nav-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </header>
 
         <main>
             <section class="legal-hero">
@@ -197,6 +196,82 @@
                 <p class="attribution">Coded by <a href="https://github.com/DannyStark195" class="footer-link">Danny Stark</a>.</p>
             </div>
         </footer>
+        <div class="dark-overlay">
+                <div class="form-container">
+                    <div class="cross-btn cancel-form-popup">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                    <div class="signup-container form">
+                        <div class="top">
+                            <div class="logo">
+                                <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
+                            </div>
+                            <h2>Sign up</h2>
+                            <form action="" class="signup-form">
+                                <input type="email" name="" id="signup-email" placeholder="E-mail address" class="input-error">
+                                <p class="error-msg">The email address you have entered is invalid.</p>
+                                <input type="password" name="" id="signup-password" placeholder="Password" class="input-error">
+                                <p class="error-msg">The password you have entered is invalid.</p>
+                                <button type="submit" class="cta-btn gold">Sign Up</button>
+                                <div>or</div>
+                                <button class="oauth-btn">
+                                    <div>
+                                        <img src="./assets/icons/google.svg" alt="google icon">
+                                        Sign up with Google
+                                    </div>
+                                </button>
+                                <button class="oauth-btn">
+                                    <div>
+                                        <img src="./assets/icons/facebook.svg" alt="facebook icon">
+                                        Sign up with Facebook
+                                    </div>
+                                </button>
+                            </form>
+                        </div>
+                    
+                        <div class="bottom">
+                            <p>Already have an account?</p>
+                            <p class="open-login">Log in</p>
+                        </div>
+                    </div>
+
+                    <div class="login-container form">
+                        <div class="top">
+                            <div class="logo">
+                                <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
+                            </div>
+                            <h2>Log in</h2>
+                            <form action="" class="login-form">
+                                <input type="email" name="" id="login-email" placeholder="E-mail address" class="input-error">
+                                <input type="password" name="" id="signup-password" placeholder="Password" class="input-error">
+                                <a href="" class="forgot-password">Forgot password?</a>
+                                <p class="error-msg">The email or password you have entered is incorrect.</p>
+                                <button type="submit" class="cta-btn gold">Login</button>
+                                <div>or</div>
+                                <button class="oauth-btn">
+                                    <div>
+                                        <img src="./assets/icons/google.svg" alt="google icon">
+                                        Log in with Google
+                                    </div>
+                                </button>
+                                <button class="oauth-btn">
+                                    <div>
+                                        <img src="./assets/icons/facebook.svg" alt="facebook icon">
+                                        Log in with Facebook
+                                    </div>
+                                    
+                                </button>
+                            </form>
+                        </div>
+                    
+                        <div class="bottom">
+                            <p>Don't have an account?</p>
+                            <p class="open-signup">Sign up</p>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
     </div>
     <script type="module" src="./js/srcipts/landing.js"></script>
 </body>

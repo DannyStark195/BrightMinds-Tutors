@@ -162,8 +162,8 @@ h1{
     text-align: center;
 }
 
-.landing-page h2{
-    font-size: clamp(2rem, 2.5vw, 2.4rem);
+.others h2{
+    font-size: clamp(2.2rem, 2.5vw, 2.4rem);
     color: var(--Primary);
     font-weight: 700;
     margin-bottom: 40px;
@@ -510,7 +510,7 @@ h1{
     font-size: 0.85rem;
 }
 
-.cta-banner{
+/* .cta-banner{
     text-align: center;
     border: 1px solid rgba(13,27,42,0.08);
     max-width: 860px;
@@ -529,7 +529,7 @@ h1{
 .cta-banner h2{
     margin: 0;
     font-size: clamp(2rem, 3vw, 2.8rem);
-}
+} */
 
 /* footer{
     padding: 80px 30px 38px;
