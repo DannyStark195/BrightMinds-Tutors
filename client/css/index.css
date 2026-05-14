@@ -622,7 +622,7 @@ h1{
 
 @media(max-width: 720px){
     .cta{
-        flex-direction: column;
+        flex-direction: column-reverse;
         align-items: stretch;
     }
     .cta-btn{
