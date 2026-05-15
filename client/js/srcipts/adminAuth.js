@@ -7,5 +7,4 @@ function loginRequired(){
         window.location.replace('admin-login.html');
     }
 }
-
-loginRequired()
+loginRequired();

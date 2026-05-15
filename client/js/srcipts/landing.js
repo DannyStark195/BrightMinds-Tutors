@@ -1,4 +1,4 @@
-import { openLoginForm } from "./formPopup.js";
+import { openLoginForm } from "./form.js";
 const overlay = document.querySelector('.dark-overlay');
 // const signupForm = overlay?.querySelector('.signup-form');
 const loginForm = overlay?.querySelector('.login-form');

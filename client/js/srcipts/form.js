@@ -38,11 +38,9 @@ export function openLoginForm(overlay, loginForm) {
         loginForm.classList.add('active');
     }
 }
-
 export function closeFormPopup(overlay) {
     hideOverlay(overlay);
 }
-
 
 signupTriggers.forEach((button) => {
     button.addEventListener('click', () => openSignupForm(overlay, signupForm));
