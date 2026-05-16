@@ -132,9 +132,19 @@ loginForm.addEventListener('submit', (e)=>{
     e.preventDefault()
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
+    const {email, password} = data;
+    // const userData 
+    const {userEmail, userPassword} = {'userEmail':'dannystark195@gmail.com', 'userPassword':'password'};
+    const errorMesssage = loginForm.querySelector('.error-msg');
+    console.log(userEmail, userPassword);
+    if(!((email == userEmail) && (password == userPassword))){
+        errorMesssage.classList.remove('inactive');
+        return
+    }
 
-    console.log(formData);
-    console.log(data);
+    const fakeToken = 'blah20919';
+    localStorage.setItem("user-token", fakeToken);
+    window.location.href = "dashboard.html";
 });
 
 
@@ -154,9 +164,11 @@ signupForm.addEventListener('submit', (e)=>{
         errorMesssage.classList.remove('inactive');
         openForm(overlay, signupForm);
     }
-     if(!password < 8){
+    else if(!(password > 8)){
         errorMesssage.textContent = 'Password must be greater than 8 characters and must contain numbers and special characters'
         errorMesssage.classList.remove('inactive');
         openForm(overlay, signupForm);
      }
+
+     openForm(overlay, loginForm);
 });
