@@ -13,9 +13,8 @@ overlay.innerHTML =  `
                             <h2>Sign up</h2>
                             <form action="" class="signup-form">
                                 <input type="email" name="email" id="signup-email" placeholder="E-mail address" class="input-error">
-                                <p class="error-msg">The email address you have entered is invalid.</p>
                                 <input type="password" name="password" id="signup-password" placeholder="Password" class="input-error">
-                                <p class="error-msg">The password you have entered is invalid.</p>
+                                <p class="error-msg inactive"></p>
                                 <button type="submit" class="cta-btn gold">Sign Up</button>
                                 <div>or</div>
                                 <button class="oauth-btn">
@@ -46,10 +45,10 @@ overlay.innerHTML =  `
                             </div>
                             <h2>Log in</h2>
                             <form action="" class="login-form">
-                                <input type="email" name="email" id="login-email" placeholder="E-mail address" class="input-error">
+                                <input type="email" name="email" id="signup-email" placeholder="E-mail address" class="input-error">
                                 <input type="password" name="password" id="signup-password" placeholder="Password" class="input-error">
                                 <a href="" class="forgot-password">Forgot password?</a>
-                                <p class="error-msg">The email or password you have entered is incorrect.</p>
+                                <p class="error-msg inactive">The email or password you have entered is incorrect.</p>
                                 <button type="submit" class="cta-btn gold">Login</button>
                                 <div>or</div>
                                 <button class="oauth-btn">
@@ -99,31 +98,24 @@ function hideAllPopupForms(overlay) {
     });
 }
 
-export function openSignupForm(overlay, signupForm) {
+export function openForm(overlay, form) {
     showOverlay(overlay);
     hideAllPopupForms(overlay);
-    if (signupForm) {
-        signupForm.classList.add('active');
+    if (form) {
+        form.classList.add('active');
     }
 }
 
-export function openLoginForm(overlay, loginForm) {
-    showOverlay(overlay);
-    hideAllPopupForms(overlay);
-    if (loginForm) {
-        loginForm.classList.add('active');
-    }
-}
 export function closeFormPopup(overlay) {
     hideOverlay(overlay);
 }
 
 signupTriggers.forEach((button) => {
-    button.addEventListener('click', () => openSignupForm(overlay, signupForm));
+    button.addEventListener('click', () => openForm(overlay, signupForm));
 });
 
 loginTriggers.forEach((button) => {
-    button.addEventListener('click', () => openLoginForm(overlay, loginForm));
+    button.addEventListener('click', () => openForm(overlay, loginForm));
 });
 
 cancelButtons.forEach((button) => {
@@ -153,4 +145,18 @@ signupForm.addEventListener('submit', (e)=>{
 
     console.log(formData);
     console.log(data);
+    const {email, password} = data;
+    console.log(email, password)
+    const errorMesssage = signupForm.querySelector('.error-msg');
+
+    if(!email.includes('.com')){
+        errorMesssage.textContent = 'The email you have entered is invalid.'
+        errorMesssage.classList.remove('inactive');
+        openForm(overlay, signupForm);
+    }
+     if(!password < 8){
+        errorMesssage.textContent = 'Password must be greater than 8 characters and must contain numbers and special characters'
+        errorMesssage.classList.remove('inactive');
+        openForm(overlay, signupForm);
+     }
 });

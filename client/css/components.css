@@ -166,6 +166,7 @@
 .form-container input{
     border: 1px solid rgba(13, 27, 42, 0.12);
     background: #fff;
+    color: var(--Text);
 }
 .form-container input:focus-visible,
 .form-container button:focus-visible{
@@ -229,7 +230,6 @@ input.input-error{
     /* border: 3px solid var(--Danger); */
 }
 .error-msg{
-    display: block;
     /* display: none; */
     color: var(--Danger);
     font-size: 0.87rem;

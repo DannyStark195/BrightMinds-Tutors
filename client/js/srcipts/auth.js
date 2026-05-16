@@ -1,6 +1,6 @@
 function isAuthentictaed(){
-    // const token = localStorage.getItem('user-token');
-    const token = true;
+    const token = localStorage.getItem('user-token');
+    // const token = true;
     return !!token;
 }
 
