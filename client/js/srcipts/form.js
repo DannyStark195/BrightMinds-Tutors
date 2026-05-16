@@ -1,6 +1,5 @@
 const overlay = document.querySelector('.dark-overlay');
 
-
 overlay.innerHTML =  `
      <div class="form-container">
                     <div class="cross-btn cancel-form-popup">
@@ -13,9 +12,9 @@ overlay.innerHTML =  `
                             </div>
                             <h2>Sign up</h2>
                             <form action="" class="signup-form">
-                                <input type="email" name="" id="signup-email" placeholder="E-mail address" class="input-error">
+                                <input type="email" name="email" id="signup-email" placeholder="E-mail address" class="input-error">
                                 <p class="error-msg">The email address you have entered is invalid.</p>
-                                <input type="password" name="" id="signup-password" placeholder="Password" class="input-error">
+                                <input type="password" name="password" id="signup-password" placeholder="Password" class="input-error">
                                 <p class="error-msg">The password you have entered is invalid.</p>
                                 <button type="submit" class="cta-btn gold">Sign Up</button>
                                 <div>or</div>
@@ -47,8 +46,8 @@ overlay.innerHTML =  `
                             </div>
                             <h2>Log in</h2>
                             <form action="" class="login-form">
-                                <input type="email" name="" id="login-email" placeholder="E-mail address" class="input-error">
-                                <input type="password" name="" id="signup-password" placeholder="Password" class="input-error">
+                                <input type="email" name="email" id="login-email" placeholder="E-mail address" class="input-error">
+                                <input type="password" name="password" id="signup-password" placeholder="Password" class="input-error">
                                 <a href="" class="forgot-password">Forgot password?</a>
                                 <p class="error-msg">The email or password you have entered is incorrect.</p>
                                 <button type="submit" class="cta-btn gold">Login</button>
@@ -74,7 +73,6 @@ overlay.innerHTML =  `
                             <p class="open-signup">Sign up</p>
                         </div>
                     </div>
-                
                 </div>
 `
 const signupTriggers = document.querySelectorAll('.open-signup');
@@ -138,3 +136,21 @@ overlay?.addEventListener('click', (event) => {
     }
 });
 
+loginForm.addEventListener('submit', (e)=>{
+    e.preventDefault()
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+    console.log(formData);
+    console.log(data);
+});
+
+
+signupForm.addEventListener('submit', (e)=>{
+    e.preventDefault()
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+    console.log(formData);
+    console.log(data);
+});

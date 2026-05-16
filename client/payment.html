@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="./css/payment.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
+        <script type="module" src="./js/srcipts/dAuth.js"></script>
     </head>
     <body>
         <div class="payment-page page-shell">
@@ -103,7 +104,7 @@
             </header>
 
             <main class="payment-main page-main">
-                <section class="payment-section surface-card inactive">
+                <section class="payment-section surface-card">
                     <div class="section-heading">
                         <p class="eyebrow">Payment dteails</p>
                         <h2>Provide your payment details below</h2>
@@ -133,28 +134,37 @@
                         <div class="or-divider">or</div>
                     <form class="tutor-form payment-form">
                         <div class="payment-field-group">
-                            <label>
-                            Card Number
-                            <input type="text" class="form-control" placeholder="********">
-                        </label>
-                        <label>
-                            Card Holder Name
-                            <input type="email" class="form-control" placeholder="">
-                        </label>
+                                <div class="payment-field">
+                                    <label>
+                                        Card Number
+                                    </label>
+                                    <input type="text" class="form-control" placeholder="********">
+                                    <div class="card-type">
+                                        <img src="./assets/icons/mastercard.svg" alt="card type">
+                                    </div>
+                                </div>
+                                
+                            <div class="payment-field">
+                                <label>
+                                    Card Holder Name
+                                </label>
+                                <input type="email" class="form-control" placeholder="">
+                            </div>
                         </div>
                         <div class="payment-stuff">
-                            <label for="">
-                                Expiry Date
-                                <input type="text" class="form-control" name="" id="">
-                            </label>
-                            <label for="">
-                                CVV/VV2
-                                <input type="text" class="form-control" name="" id="">
-                            </label>
-                            <label for="">
-                                Card Type
-                                <input type="text" class="form-control" name="" id="">
-                            </label>
+                                <div class="payment-field">
+                                    <label for="">
+                                        Expiry Date
+                                    </label>
+                                    <input type="text" class="form-control" name="" id="">
+                                </div>
+                                <div class="payment-field">
+                                    <label for="">
+                                        CVV/VV2
+                                    </label>
+                                    <input type="text" class="form-control" name="" id="">
+                                </div>
+                            
                         </div>
                         
                         <div class="payment-amount">
@@ -173,7 +183,7 @@
                         </button>
                     </form>
                 </section>
-                <div class="alert payment-success">
+                <div class="alert payment-success inactive">
                     <div class="alert__hero">
                         <div class="hero-content">
                             <p class="eyebrow">Payment status</p>

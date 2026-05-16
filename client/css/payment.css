@@ -55,17 +55,29 @@
     margin-block: 20px;
 }
 
-.payment-field-group label{
-    inline-size: 100%;
+.payment-field-group .payment-field{
+    /* inline-size: 100%; */
+    /* margin-block: 10px; */
 }
-
-.payment-stuff{
-    display: flex;
-    gap: 10px;
-    /* align-items: center; */
+.payment-field label{
     margin-bottom: 20px;
 }
-
+.payment-stuff{
+    display: flex;
+    /* grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); */
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.payment-field-group:first-child {
+    position: relative;
+}
+.payment-field-group:first-child .card-type{
+    position: absolute;
+    width: 80px;
+    height: 80px;
+}
 .payment-amount{
     display: flex;
     justify-content: space-between;
