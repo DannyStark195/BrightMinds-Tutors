@@ -144,7 +144,7 @@ loginForm.addEventListener('submit', (e)=>{
 
     const fakeToken = 'blah20919';
     localStorage.setItem("user-token", fakeToken);
-    window.location.href = "dashboard.html";
+    window.location.href = "dashboard";
 });
 
 
