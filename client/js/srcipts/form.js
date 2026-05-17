@@ -165,7 +165,7 @@ signupForm.addEventListener('submit', (e)=>{
         openForm(overlay, signupForm);
         return
     }
-    else if(!(password > 8)){
+    if((password.length < 8)){
         errorMesssage.textContent = 'Password must be greater than 8 characters and must contain numbers and special characters'
         errorMesssage.classList.remove('inactive');
         openForm(overlay, signupForm);
