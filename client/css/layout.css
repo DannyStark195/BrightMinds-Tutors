@@ -2,7 +2,6 @@
 .header{
     display: flex;
     justify-content: space-between;
-    align-items: center;
     padding: 30px 30px 20px;
     padding-inline: 15px;
     position: sticky;
@@ -56,6 +55,8 @@
 
 .nav-btn{
     display: none;
+    width: 20px;
+    height: 20px;
 }
 
 .cross-btn.close-nav-btn{
@@ -263,7 +264,9 @@
     color: currentColor;
     text-decoration: none;
 }
-
+.more-links.d.active{
+    display: grid;
+}
 .link{
     padding: 6px 6px 6px 15px;
     display: flex;

@@ -30,7 +30,7 @@ headerHtml.innerHTML = `
                 </nav>
 
                 <div class="nav-btn">
-                    <i class="fa-solid fa-bars"></i>
+                    <img src="./assets/icons/menu.svg" alt="menu icon">
                 </div>
 `
 footerHtml.innerHTML = `

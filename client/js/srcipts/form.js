@@ -163,12 +163,13 @@ signupForm.addEventListener('submit', (e)=>{
         errorMesssage.textContent = 'The email you have entered is invalid.'
         errorMesssage.classList.remove('inactive');
         openForm(overlay, signupForm);
+        return
     }
     else if(!(password > 8)){
         errorMesssage.textContent = 'Password must be greater than 8 characters and must contain numbers and special characters'
         errorMesssage.classList.remove('inactive');
         openForm(overlay, signupForm);
+        return
      }
-
      openForm(overlay, loginForm);
 });
