@@ -11,6 +11,7 @@ openNavMenuBtn.addEventListener('click', () =>{
 });
 
 closeNavMenuBtn.addEventListener('click', ()=>{
-    deactivateElement(navMenu)
+    deactivateElement(navMenu);
+    deactivateElement(moreLinks)
 });
 

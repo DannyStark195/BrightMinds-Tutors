@@ -3,6 +3,7 @@ const dashboardNavMenu = document.querySelector('.dashboard-navbar');
 const dashboardNavMenuBtn = document.querySelector('.dashboard-nav-btn');
 const closeDashboardNavBtn = document.querySelector('.dashboard-close-nav-btn');
 const overlay = document.querySelector('.overlay');
+const moreLinks = document.querySelector('.more-links')
 
 function closeDashboardMenu() {
     deactivateElement(overlay);
@@ -14,6 +15,7 @@ function closeDashboardMenu() {
 dashboardNavMenuBtn.addEventListener('click', () =>{
     activateElement(dashboardNavMenu);
     activateElement(closeDashboardNavBtn);
+    activateElement(moreLinks)
     deactivateElement(dashboardNavMenuBtn);
     activateElement(overlay);
 });
