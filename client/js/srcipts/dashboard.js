@@ -11,3 +11,4 @@ const nextLessonDate = document.querySelector('#next-lesson-date');
 const paymentStatusDescription = document.querySelector('#payment-status-desc');
 const paymentStatusBalance = document.querySelector('#payment-status-balance');
 
+const bookingList = document.querySelector('booking-list');

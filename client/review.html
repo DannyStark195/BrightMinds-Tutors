@@ -47,9 +47,9 @@
                             <p>Pick the booking and rate the lesson quality.</p>
                         </div>
                         <form class="review-form">
-                            <label>
+                            <label id="booking">
                                 Booking
-                                <select class="form-control">
+                                <select class="form-control" name="booking" id="booking">
                                     <option>Mathematics with Miss Adaeze</option>
                                     <option>Biology with Mr Tunde</option>
                                     <option>English with Miss Ngozi</option>
@@ -58,16 +58,16 @@
                             <label>
                                 Rating
                                 <div class="rating-picker">
-                                    <button type="button"><i class="fa-solid fa-star"></i></button>
-                                    <button type="button"><i class="fa-solid fa-star"></i></button>
-                                    <button type="button"><i class="fa-solid fa-star"></i></button>
-                                    <button type="button"><i class="fa-solid fa-star"></i></button>
-                                    <button type="button"><i class="fa-regular fa-star"></i></button>
+                                    <button type="button"><i class="fa-solid fa-star" name="1-star"></i></button>
+                                    <button type="button"><i class="fa-solid fa-star" name="2-stars"></i></button>
+                                    <button type="button"><i class="fa-solid fa-star" name="3-stars"></i></button>
+                                    <button type="button"><i class="fa-regular fa-star" name="4-stars"></i></button>
+                                    <button type="button"><i class="fa-regular fa-star" name="5-stars"></i></button>
                                 </div>
                             </label>
-                            <label>
+                            <label id="feedback">
                                 Feedback
-                                <textarea class="form-control" placeholder="Tell us what worked well and what could be better."></textarea>
+                                <textarea class="form-control" placeholder="Tell us what worked well and what could be better." id="feedback" name="feedback"></textarea>
                             </label>
                             <button class="cta-btn gold" type="submit">
                                 Submit review
@@ -120,5 +120,6 @@
         </div>
         <div class="overlay"></div>
         <script type="module" src="./js/srcipts/dNavMenu.js"></script>
+        <script type="module" src="./js/srcipts/review.js"></script>
     </body>
 </html>
