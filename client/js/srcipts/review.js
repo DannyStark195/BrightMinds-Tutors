@@ -4,7 +4,7 @@ reviewForm.addEventListener('submit', (e) =>{
         e.preventDefault();
 
         const formData = new FormData(e.target);
-        const data = Object.fromEnteries(formData);
+        const data = Object.fromEntries(formData);
 
         console.log(data)
 
