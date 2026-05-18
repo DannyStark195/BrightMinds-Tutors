@@ -6,7 +6,7 @@ function isAuthentictaed(){
 
 export function loginRequired(){
     if(!isAuthentictaed()){
-        window.location.replace('index.html?auth=required');
+        window.location.replace('index?auth=required');
     }
 }
 export function redirectIfLoggedIn(){
