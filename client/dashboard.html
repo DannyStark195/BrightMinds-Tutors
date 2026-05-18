@@ -32,18 +32,18 @@
                 <section class="dashboard-stats" aria-label="Dashboard summary">
                     <a href="./my-payments.html" class="stat-card metric-card surface-card">
                         <i class="fa-solid fa-receipt icon-badge"></i>
-                        <span>Payments</span>
-                        <strong>3 records</strong>
+                        <span class="dashboard-stat">Payments</span>
+                        <strong><span id="no-payments" class="dashboard-stat-no">3</span> records</strong>
                     </a>
                     <a href="book" class="stat-card metric-card surface-card">
                         <i class="fa-solid fa-book icon-badge"></i>
-                        <span>Active bookings</span>
-                        <strong>3 sessions</strong>
+                        <span class="dashboard-stat">Active bookings</span>
+                        <strong><span id="no-bookings" class="dashboard-stat-no">3</span> sessions</strong>
                     </a>
                     <a href="review.html" class="stat-card metric-card surface-card">
                         <i class="fa-solid fa-star icon-badge"></i>
-                        <span>Reviews</span>
-                        <strong>2 shared</strong>
+                        <span class="dashboard-stat">Reviews</span>
+                        <strong><span id="no-reviews" class="dashboard-stat-no">2</span> shared</strong>
                     </a>
                 </section>
 
@@ -105,14 +105,14 @@
                         <article class="side-card surface-card">
                             <i class="fa-solid fa-calendar-check"></i>
                             <h2>Next lesson</h2>
-                            <p>Mathematics with Miss Adaeze</p>
-                            <strong>Monday - 4:00 PM</strong>
+                            <p id="next-lesson-desc">Mathematics with Miss Adaeze</p>
+                            <strong id="next-lesson-date">Monday - 4:00 PM</strong>
                         </article>
                         <article class="side-card surface-card">
                             <i class="fa-solid fa-wallet"></i>
                             <h2>Payment status</h2>
-                            <p>Your confirmed mathematics booking is up to date.</p>
-                            <strong>No outstanding balance</strong>
+                            <p id="payment-status-desc">Your confirmed mathematics booking is up to date.</p>
+                            <strong id="payment-status-balance">No outstanding balance</strong>
                         </article>
                     </aside>
                 </section>

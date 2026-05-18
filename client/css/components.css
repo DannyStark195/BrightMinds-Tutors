@@ -273,11 +273,6 @@ input.input-error{
 .toggle-password:hover {
   color: #F5A623;
 }
-.toggle-password i{
-    /* width: 20px; */
-    /* height: 20px; */
-    /* display: block; */
-}
 @media (max-width: 860px) {
     .form-container{
         min-height: 100svh;
@@ -573,7 +568,7 @@ input.input-error{
     align-content: space-between;
 }
 
-.metric-card span{
+.metric-card .dashboard-stat{
     color: rgba(45, 45, 45, 0.68);
     font-weight: 700;
 }
@@ -581,6 +576,9 @@ input.input-error{
 .metric-card strong{
     color: var(--Primary);
     font-size: 1.45rem;
+}
+.dashboard-stat-no{
+    color: var(--Primary);
 }
 
 @media(max-width: 900px){
@@ -599,5 +597,61 @@ input.input-error{
     .metric-card{
         border-radius: 20px;
         padding: 20px;
+    }
+}
+
+/* LOADING */
+.loading-state{
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    background-color: #fff;
+}
+
+.loading-state.inactive{
+    display: none;
+}
+.loading{
+    position: relative;
+}
+.loading-bar{
+    border-radius: 100%;
+    border-top: 10px solid #000;
+    border-left: 10px solid #ffffff00;
+    border-right: 10px solid #ffffff00;
+    border-bottom: 10px solid #000;
+    padding: 80px;
+    animation: rotate 0.9s infinite;
+}
+
+.loading .logo img{
+    top: 37%;
+    left: 37%;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    animation: pulse 0.9s alternate infinite;
+}
+
+@keyframes pulse {
+    0%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(1.09);
+    }
+}
+
+@keyframes rotate {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
     }
 }
