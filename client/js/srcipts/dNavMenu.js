@@ -5,49 +5,6 @@ headerHtml.innerHTML = `
                         <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
                         <p>BrightMind Tutors</p>
                     </div>
-
-                    
-                    <!-- <nav class="d-navbar">
-                            <div class="cross-btn close-nav-btn">
-                                <i class="fa-solid fa-xmark"></i>
-                            </div>
-                            <div class="profile">
-                                <div class="profile-img">
-                                    <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="user profile picture">
-                                </div>
-                                <div class="profile-info">
-                                    <p class="profile-name">Daniel</p>
-                                    <a href="http://" target="_blank" rel="noopener noreferrer">
-                                        My profile 
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="more-links">
-
-                                <div class="link">
-                                    <i class="fa-solid fa-book"></i>
-                                    <a href="/dashboard/book"><button class="">Book a tutor</button></a>
-                                </div>
-                                <div class="link">
-                                    <i class="fa-solid fa-receipt"></i>
-                                    <a href="./my-payments.html"><button class="">My payments</button></a>
-                                </div>
-                                <div class="link">
-                                    <i class="fa-solid fa-star"></i>
-                                    <a href="/dashboard/review"><button class="">Reviews</button></a>
-                                </div>
-                                <div class="link">
-                                    <i class="fa-solid fa-graduation-cap"></i>
-                                    <a href="/become-a-tutor"><button class="">Become a tutor</button></a>
-                                </div>
-                                <button type="submit" class="cta-btn gold">Log out</button>
-                            </div>
-                    </nav> -->
-                    <!-- <div class="nav-btn d">
-                        <img src="./assets/icons/menu.svg" alt="menu icon">
-                    </div> -->
-
                     <div class="nav-btn-wrapper">
                         <div class="cross-btn dashboard-close-nav-btn">
                             <i class="fa-solid fa-xmark"></i>
@@ -71,7 +28,7 @@ headerHtml.innerHTML = `
                                 <div class="more-links d">
                                     <div class="link">
                                         <i class="fa-solid fa-book"></i>
-                                        <a href="/dashboard/book"><button class="">Book a tutor</button></a>
+                                        <a href="book.html"><button class="">Book a tutor</button></a>
                                     </div>
                                     <div class="link">
                                         <i class="fa-solid fa-receipt"></i>
@@ -79,14 +36,14 @@ headerHtml.innerHTML = `
                                     </div>
                                     <div class="link">
                                         <i class="fa-solid fa-star"></i>
-                                        <a href="/dashboard/review"><button class="">Review</button></a>
+                                        <a href="review.html"><button class="">Review</button></a>
                                     </div>
                                     <div class="link">
                                         <i class="fa-solid fa-graduation-cap"></i>
-                                        <a href="/become-a-tutor"><button class="">Become a tutor</button></a>
+                                        <a href="become-tutor.html"><button class="">Become a tutor</button></a>
                                     </div>
                                 </div>
-                                <a href="/logout"><button type="submit" class="cta-btn gold">Log out</button></a>
+                                <a href="logout" class="logout-btn"><button type="submit" class="cta-btn gold">Log out</button></a>
 
                         </nav>
                     </div>

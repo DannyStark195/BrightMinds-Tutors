@@ -251,6 +251,33 @@ input.input-error{
   color: rgb(239, 239, 239);
   margin: 0 5px;
 }
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 44px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #9CA3AF;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-password:hover {
+  color: #F5A623;
+}
+.toggle-password i{
+    /* width: 20px; */
+    /* height: 20px; */
+    /* display: block; */
+}
 @media (max-width: 860px) {
     .form-container{
         min-height: 100svh;

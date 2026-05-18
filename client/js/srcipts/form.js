@@ -13,7 +13,12 @@ overlay.innerHTML =  `
                             <h2>Sign up</h2>
                             <form action="" class="signup-form">
                                 <input type="email" name="email" id="signup-email" placeholder="E-mail address" class="input-error">
-                                <input type="password" name="password" id="signup-password" placeholder="Password" class="input-error">
+                                <div class="password-wrapper">
+                                    <input type="password" id="signup-password" name="password" placeholder="Password" class="input-error"/>
+                                    <span class="toggle-password" id="toggleSignupPassword">
+                                        <i class="fa fa-eye-slash" id="signup-eye-icon"></i>
+                                    </span>
+                                </div>
                                 <p class="error-msg inactive"></p>
                                 <button type="submit" class="cta-btn gold">Sign Up</button>
                                 <div>or</div>
@@ -46,7 +51,12 @@ overlay.innerHTML =  `
                             <h2>Log in</h2>
                             <form action="" class="login-form">
                                 <input type="email" name="email" id="signup-email" placeholder="E-mail address" class="input-error">
-                                <input type="password" name="password" id="signup-password" placeholder="Password" class="input-error">
+                                <div class="password-wrapper">
+                                    <input type="password" id="login-password" name="password" placeholder="Password" class="input-error"/>
+                                    <span class="toggle-password" id="toggleLoginPassword">
+                                        <i class="fa fa-eye-slash" id="login-eye-icon"></i>
+                                    </span>
+                                </div>
                                 <a href="" class="forgot-password">Forgot password?</a>
                                 <p class="error-msg inactive">The email or password you have entered is incorrect.</p>
                                 <button type="submit" class="cta-btn gold">Login</button>
@@ -127,6 +137,22 @@ overlay?.addEventListener('click', (event) => {
         closeFormPopup(overlay);
     }
 });
+
+function setupPasswordToggle(toggleId, inputId, iconId) {
+  const toggle = document.getElementById(toggleId);
+  const input = document.getElementById(inputId);
+  const icon = document.getElementById(iconId);
+
+  toggle.addEventListener('click', () => {
+    const isPassword = input.type === 'password';
+    input.type = isPassword ? 'text' : 'password';
+    icon.classList.toggle('fa-eye');
+    icon.classList.toggle('fa-eye-slash');
+  });
+}
+
+setupPasswordToggle('toggleSignupPassword', 'signup-password', 'signup-eye-icon');
+setupPasswordToggle('toggleLoginPassword', 'login-password', 'login-eye-icon');
 
 loginForm.addEventListener('submit', (e)=>{
     e.preventDefault()
