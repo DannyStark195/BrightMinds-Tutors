@@ -95,7 +95,7 @@
     gap: 8px;
 }
 
-.rating-picker button{
+.rating-picker .rating{
     width: 42px;
     height: 42px;
     border: none;
@@ -103,8 +103,30 @@
     background: rgba(245, 166, 35, 0.12);
     color: var(--Accent);
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: transform 0.3s ease;
 }
-
+.rating-picker .rating:hover{
+    transform: scale(1.1);
+}
+.hidden-radio{
+    opacity: 0;
+    /* display: none; */
+    /* width: 0; */
+    position: absolute;
+    cursor: pointer;
+}
+.rating i{
+    /* position: absolute; */
+    /* top: 35%; */
+    transition: transform 0.3s ease;
+}
+.rating:hover + i{
+    transform: scale(1.2);
+}
 .review-form .cta-btn{
     width: 100%;
     margin-top: 6px;

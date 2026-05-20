@@ -58,16 +58,31 @@
                             <label>
                                 Rating
                                 <div class="rating-picker">
-                                    <button type="button"><i class="fa-solid fa-star" name="1-star"></i></button>
-                                    <button type="button"><i class="fa-solid fa-star" name="2-stars"></i></button>
-                                    <button type="button"><i class="fa-solid fa-star" name="3-stars"></i></button>
-                                    <button type="button"><i class="fa-regular fa-star" name="4-stars"></i></button>
-                                    <button type="button"><i class="fa-regular fa-star" name="5-stars"></i></button>
+                                    <label class="rating" id="star-1">
+                                        <i class="fa-regular fa-star"></i>
+                                        <input type="radio" name="rating" value="1" class="hidden-radio rating-btn" data-star="1" required>
+                                    </label>
+                                    <label class="rating" id="star-2">
+                                        <i class="fa-regular fa-star"></i>
+                                        <input type="radio" name="rating" value="2" class="hidden-radio rating-btn" data-star="2">
+                                    </label>
+                                    <label class="rating" id="star-3">
+                                        <i class="fa-regular fa-star"></i>
+                                        <input type="radio" name="rating" value="3" class="hidden-radio rating-btn" data-star="3">
+                                    </label>
+                                    <label class="rating" id="star-4">
+                                        <i class="fa-regular fa-star"></i>
+                                        <input type="radio" name="rating" value="4" class="hidden-radio rating-btn" data-star="4">
+                                    </label>
+                                    <label class="rating" id="star-5">
+                                        <i class="fa-regular fa-star"></i>
+                                        <input type="radio" name="rating" value="5" class="hidden-radio rating-btn" data-star="5">
+                                    </label>
                                 </div>
                             </label>
                             <label id="feedback">
                                 Feedback
-                                <textarea class="form-control" placeholder="Tell us what worked well and what could be better." id="feedback" name="feedback"></textarea>
+                                <textarea class="form-control" placeholder="Tell us what worked well and what could be better." id="feedback" name="feedback" required></textarea>
                             </label>
                             <button class="cta-btn gold" type="submit">
                                 Submit review
