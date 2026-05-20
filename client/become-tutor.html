@@ -64,21 +64,21 @@
                         <h2>Tell us how you teach</h2>
                     </div>
                     <form class="tutor-form">
-                        <label>
+                        <label for="tutor-name">
                             Full name
-                            <input type="text" class="form-control" placeholder="Your full name">
+                            <input type="text" class="form-control" placeholder="Your full name" id="tutor-name" name="tutor-name">
                         </label>
-                        <label>
+                        <label for="tutor-email">
                             Email address
-                            <input type="email" class="form-control" placeholder="you@example.com">
+                            <input type="email" class="form-control" placeholder="you@example.com" id="tutor-email" name="tutor-email">
                         </label>
                         <label>
                             Phone number
-                            <input type="tel" class="form-control" placeholder="+234">
+                            <input type="tel" class="form-control" placeholder="+234" id="tutor-phone" name="tutor-phone">
                         </label>
-                        <label>
+                        <label for="tutor-subject">
                             Main subject
-                            <select class="form-control">
+                            <select class="form-control" name="tutor-subject" id="tutor-subject">
                                 <option>Mathematics</option>
                                 <option>English</option>
                                 <option>Physics</option>
@@ -86,26 +86,30 @@
                                 <option>Computer Science</option>
                             </select>
                         </label>
-                        <label>
+                        <label for="teaching-level">
                             Level you teach
-                            <select class="form-control">
-                                <option>Primary</option>
-                                <option>JSS</option>
-                                <option>SS</option>
-                                <option>University</option>
+                            <select class="form-control" id="teaching-level" name="teaching-level">
+                                <option value="primary">Primary</option>
+                                <option value="jss">JSS</option>
+                                <option value="ss">SS</option>
+                                <option value="uni">University</option>
                             </select>
                         </label>
-                        <label>
+                        <label for="lesson-format">
                             Lesson format
-                            <select class="form-control">
+                            <select class="form-control" id="lesson-format" name="lesson-format">
                                 <option>Physical and online</option>
                                 <option>Physical only</option>
                                 <option>Online only</option>
                             </select>
                         </label>
-                        <label class="wide">
+                        <label class="wide" for="teaching-experience">
                             Teaching experience
-                            <textarea class="form-control" placeholder="Summarize your experience, certifications, and what students can expect."></textarea>
+                            <textarea class="form-control" placeholder="Summarize your experience, certifications, and what students can expect." id="teaching-experience" name="teaching-experience"></textarea>
+                        </label>
+                         <label class="wide" for="teaching-experience">
+                            Certifations or CV
+                            <input type="file" placeholder="upload document" name="certifications">
                         </label>
                         <button class="cta-btn gold" type="submit">
                             Submit application
@@ -117,6 +121,6 @@
         </div>
         <div class="overlay"></div>
         <script type="module" src="./js/srcipts/dNavMenu.js"></script>
-        <!-- <script type="module" src="./js/srcipts/dAuth.js"></script> -->
+        <script type="module" src="./js/srcipts/becomeTutor.js"></script>
     </body>
 </html>
