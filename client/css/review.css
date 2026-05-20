@@ -96,8 +96,8 @@
 }
 
 .rating-picker .rating{
-    width: 42px;
-    height: 42px;
+    width: 45px;
+    height: 45px;
     border: none;
     border-radius: 50%;
     background: rgba(245, 166, 35, 0.12);
@@ -114,14 +114,10 @@
 }
 .hidden-radio{
     opacity: 0;
-    /* display: none; */
-    /* width: 0; */
     position: absolute;
     cursor: pointer;
 }
 .rating i{
-    /* position: absolute; */
-    /* top: 35%; */
     transition: transform 0.3s ease;
 }
 .rating:hover + i{
