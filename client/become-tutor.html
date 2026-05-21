@@ -18,26 +18,27 @@
             <header class="header">
             </header>
 
-            <main class="tutor-main page-main">
-                <section class="tutor-hero surface-card">
-                    <div class="hero-content">
-                        <p class="eyebrow">Tutor applications</p>
-                        <h1>Teach students who need your exact strengths</h1>
-                        <p>Set your subjects, preferred lesson format, and availability. Our team reviews applications before matching tutors with families.</p>
-                        <div class="hero-actions">
-                            <a href="#application" class="cta-btn gold">
-                                Start application
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
+            <main class="page-main">
+                <div class="tutor-main">
+                    <section class="tutor-hero surface-card">
+                        <div class="hero-content">
+                            <p class="eyebrow">Tutor applications</p>
+                            <h1>Teach students who need your exact strengths</h1>
+                            <p>Set your subjects, preferred lesson format, and availability. Our team reviews applications before matching tutors with families.</p>
+                            <div class="hero-actions">
+                                <a href="#application" class="cta-btn gold">
+                                    Start application
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="hero-panel">
-                        <img src="./assets/images/tutors/emeka.jpg" alt="BrightMind tutor">
-                        <div class="panel-stat">
-                            <span>3 steps</span>
-                            <p>Apply, verify, start teaching</p>
+                        <div class="hero-panel">
+                            <img src="./assets/images/tutors/emeka.jpg" alt="BrightMind tutor">
+                            <div class="panel-stat">
+                                <span>3 steps</span>
+                                <p>Apply, verify, start teaching</p>
+                            </div>
                         </div>
-                    </div>
                 </section>
 
                 <section class="tutor-process" id="process">
@@ -66,19 +67,21 @@
                     <form class="tutor-form">
                         <label for="tutor-name">
                             Full name
-                            <input type="text" class="form-control" placeholder="Your full name" id="tutor-name" name="tutor-name">
+                            <input type="text" class="form-control" placeholder="Your full name" id="tutor-name" name="tutorName" required>
                         </label>
                         <label for="tutor-email">
                             Email address
-                            <input type="email" class="form-control" placeholder="you@example.com" id="tutor-email" name="tutor-email">
+                            <input type="email" class="form-control" placeholder="you@example.com" id="tutor-email" name="tutorEmail" required>
+                            <p class="error-msg email inactive"></p>
                         </label>
                         <label>
                             Phone number
-                            <input type="tel" class="form-control" placeholder="+234" id="tutor-phone" name="tutor-phone">
+                            <input type="tel" class="form-control" placeholder="+234" id="tutor-phone" name="tutorPhone" required>
+                            <p class="error-msg phone inactive"></p>
                         </label>
                         <label for="tutor-subject">
                             Main subject
-                            <select class="form-control" name="tutor-subject" id="tutor-subject">
+                            <select class="form-control" name="tutorSubject" id="tutor-subject" required>
                                 <option>Mathematics</option>
                                 <option>English</option>
                                 <option>Physics</option>
@@ -88,7 +91,7 @@
                         </label>
                         <label for="teaching-level">
                             Level you teach
-                            <select class="form-control" id="teaching-level" name="teaching-level">
+                            <select class="form-control" id="teaching-level" name="teachingLevel" required> 
                                 <option value="primary">Primary</option>
                                 <option value="jss">JSS</option>
                                 <option value="ss">SS</option>
@@ -97,7 +100,7 @@
                         </label>
                         <label for="lesson-format">
                             Lesson format
-                            <select class="form-control" id="lesson-format" name="lesson-format">
+                            <select class="form-control" id="lesson-format" name="lessonFormat" required>
                                 <option>Physical and online</option>
                                 <option>Physical only</option>
                                 <option>Online only</option>
@@ -105,13 +108,13 @@
                         </label>
                         <label class="wide" for="teaching-experience">
                             Teaching experience
-                            <textarea class="form-control" placeholder="Summarize your experience, certifications, and what students can expect." id="teaching-experience" name="teaching-experience"></textarea>
+                            <textarea class="form-control" placeholder="Summarize your experience, certifications, and what students can expect." id="teaching-experience" name="teachingExperience" required></textarea>
                         </label>
                         <label class="wide">
                             Certifations or CV
                             <div class="upload-btn">
                                 <div for="certifications" class="upload-label cta-btn blue">
-                                <input id="certifications" type="file" name="certifications" />
+                                <input id="certifications" type="file" name="certifications" required/>
                                     Upload
                                     <i class="fa-solid fa-arrow-up-from-bracket"></i>
                                 </div>
@@ -124,6 +127,26 @@
                         </button>
                     </form>
                 </section>
+                </div>
+                
+                <div class="alert tutor-application-success inactive">
+                    <div class="alert__hero">
+                        <div class="hero-content">
+                            <p class="eyebrow">Application Review</p>
+                            <h2>Application Successfull</h2>
+                            <p>Your application has been successfully sent. </p>
+                            <div class="hero-actions">
+                                <a href="#process" class="cta-btn gold">
+                                    Back to dashboard
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="alert__icon">
+                            <img src="./assets/icons/icon-checkbox-check.svg" alt="BrightMind tutor">
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
         <div class="overlay"></div>

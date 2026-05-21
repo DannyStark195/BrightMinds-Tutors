@@ -1,7 +1,3 @@
-.tutor-main{
-    padding: 18px 20px 90px;
-}
-
 .tutor-hero{
     display: grid;
     grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
@@ -185,9 +181,6 @@
 }
 
 @media (max-width: 560px){
-    .tutor-main{
-        padding-inline: 16px;
-    }
     .tutor-hero{
         padding: 20px;
     }

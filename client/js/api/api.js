@@ -13,7 +13,7 @@ export function loginUser(data){
 }
 
 export function signupUser(data){
-    
 }
 export function logoutUser(){
 }
+

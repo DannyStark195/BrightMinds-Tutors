@@ -16,87 +16,88 @@
         <div class="payment-page page-shell">
             <header class="header">
             </header>
-
-            <main class="payment-main page-main">
-                <section class="payment-section surface-card">
-                    <div class="section-heading">
-                        <p class="eyebrow">Payment dteails</p>
-                        <h2>Provide your payment details below</h2>
-                    </div>
-                    <div class="payment-links">
-                            <button class="payment-link">
-                                    <div>
-                                        <img src="./assets/icons/google.svg" alt="google pay icon">
-                                        Google Pay
-                                    </div>
-                                </button>
-                                <button class="payment-link">
-                                    <div>
-                                        <img src="./assets/icons/apple-pay.svg" alt="appple pay icon">
-                                        Apple Pay
-                                    </div>
-                                    
-                                </button>
-                                <button class="payment-link">
-                                    <div>
-                                        <img src="./assets/icons/paypal(1).svg" alt="paypal icon">
-                                        Paypal
-                                    </div>
-                                    
-                                </button>
+            <main class="page-main">
+                <div class="payment-main">
+                    <section class="payment-section surface-card">
+                        <div class="section-heading">
+                            <p class="eyebrow">Payment dteails</p>
+                            <h2>Provide your payment details below</h2>
                         </div>
+                        <div class="payment-links">
+                                <button class="payment-link">
+                                        <div>
+                                            <img src="./assets/icons/google.svg" alt="google pay icon">
+                                            Google Pay
+                                        </div>
+                                    </button>
+                                    <button class="payment-link">
+                                        <div>
+                                            <img src="./assets/icons/apple-pay.svg" alt="appple pay icon">
+                                            Apple Pay
+                                        </div>
+                                        
+                                    </button>
+                                    <button class="payment-link">
+                                        <div>
+                                            <img src="./assets/icons/paypal(1).svg" alt="paypal icon">
+                                            Paypal
+                                        </div>
+                                        
+                                    </button>
+                            </div>
                         <div class="or-divider">or</div>
-                    <form class="payment-form">
-                        <div class="payment-field-group">
+                        <form class="payment-form">
+                            <div class="payment-field-group">
+                                    <div class="payment-field">
+                                        <label>
+                                            Card Number
+                                        </label>
+                                        <input type="text" class="form-control" placeholder="********">
+                                        <div class="card-type">
+                                            <img src="./assets/icons/visa.svg" alt="card type">
+                                        </div>
+                                    </div>
+                                    
                                 <div class="payment-field">
                                     <label>
-                                        Card Number
+                                        Card Holder Name
                                     </label>
-                                    <input type="text" class="form-control" placeholder="********">
-                                    <div class="card-type">
-                                        <img src="./assets/icons/visa.svg" alt="card type">
+                                    <input type="email" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                            <div class="payment-stuff">
+                                    <div class="payment-field">
+                                        <label for="">
+                                            Expiry Date
+                                        </label>
+                                        <input type="text" class="form-control" name="" id="">
                                     </div>
-                                </div>
+                                    <div class="payment-field">
+                                        <label for="">
+                                            CVV/VV2
+                                        </label>
+                                        <input type="text" class="form-control" name="" id="">
+                                    </div>
                                 
-                            <div class="payment-field">
-                                <label>
-                                    Card Holder Name
-                                </label>
-                                <input type="email" class="form-control" placeholder="">
                             </div>
-                        </div>
-                        <div class="payment-stuff">
-                                <div class="payment-field">
-                                    <label for="">
-                                        Expiry Date
-                                    </label>
-                                    <input type="text" class="form-control" name="" id="">
-                                </div>
-                                <div class="payment-field">
-                                    <label for="">
-                                        CVV/VV2
-                                    </label>
-                                    <input type="text" class="form-control" name="" id="">
-                                </div>
                             
-                        </div>
-                        
-                        <div class="payment-amount">
-                            <p>Total amount</p>
                             <div class="payment-amount">
-                                <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/naira.png" alt="naira" class="currency-icon">
-                                <span class="amount">30,000</span>
+                                <p>Total amount</p>
+                                <div class="payment-amount">
+                                    <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/naira.png" alt="naira" class="currency-icon">
+                                    <span class="amount">30,000</span>
+                                </div>
                             </div>
-                        </div>
-                        <button class="cta-btn gold payment-btn" type="submit">
-                            Pay
-                            <!-- <span> -->
-                                <i class="fa-solid fa-arrow-right"></i>
-                                <!-- 30,000 -->
-                            <!-- </span> -->
-                        </button>
-                    </form>
-                </section>
+                            <button class="cta-btn gold payment-btn" type="submit">
+                                Pay
+                                <!-- <span> -->
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                    <!-- 30,000 -->
+                                <!-- </span> -->
+                            </button>
+                        </form>
+                    </section>
+                </div>
                 <div class="alert payment-success inactive">
                     <div class="alert__hero">
                         <div class="hero-content">

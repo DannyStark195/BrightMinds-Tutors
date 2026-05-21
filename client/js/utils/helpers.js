@@ -12,3 +12,9 @@ export function formatCurrency(currency){
     return formattedCurrency
 }
 
+export function removeInactive(element){
+    element.classList.remove('inactive');
+}
+export function addInactive(element){
+    element.classList.add('inactive');
+}
