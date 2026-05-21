@@ -5,7 +5,7 @@ export function validatePhone(phone) {
 }
 
 export function validateEmail(email){
-    if(!(email.contains('@') || email.endsWith('.com'))){
+    if(!(email.includes('@') || email.endsWith('.com'))){
         return 'This email is invalid';
     }
     return null
