@@ -161,7 +161,6 @@
 
 }
 .upload-btn input[type="file"]{
-    /* inline-size: 100%; */
     position: absolute;
     left: 0%;
     opacity: 0;
@@ -201,5 +200,9 @@
 
     .hero-panel{
         border-radius: 20px;
+    }
+    .upload-btn .upload-filename{
+        inline-size: 20%;
+        overflow: hidden;
     }
 }
