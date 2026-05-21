@@ -1,4 +1,4 @@
-import { activateElement, deactivateElement } from "../utils/activateDeactivate.js";
+import { activateElement, deactivateElement } from "../utils/helpers.js";
 const navMenu = document.querySelector('.navbar');
 const openNavMenuBtn = document.querySelector('.nav-btn');
 const moreLinks = document.querySelector('.more-links')

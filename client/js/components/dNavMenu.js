@@ -1,4 +1,4 @@
-import { activateElement, deactivateElement } from "../utils/activateDeactivate.js";
+import { activateElement, deactivateElement } from "../utils/helpers.js";
 const headerHtml = document.querySelector('.header');
 headerHtml.innerHTML = `
                     <div class="logo">
@@ -19,7 +19,7 @@ headerHtml.innerHTML = `
                                     </div>
                                     <div class="profile-info">
                                         <p class="profile-name">Daniel</p>
-                                        <a href="/dashboard/profile">
+                                        <a href="profile.html">
                                             My profile 
                                             <i class="fa-solid fa-arrow-right"></i>
                                         </a>

@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="./css/become-tutor.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
-        <script type="module" src="./js/srcipts/dAuth.js"></script>
+        <script type="module" src="./js/auth/dAuth.js"></script>
     </head>
     <body>
         <div class="tutor-page page-shell">
@@ -107,9 +107,16 @@
                             Teaching experience
                             <textarea class="form-control" placeholder="Summarize your experience, certifications, and what students can expect." id="teaching-experience" name="teaching-experience"></textarea>
                         </label>
-                         <label class="wide" for="teaching-experience">
+                        <label class="wide">
                             Certifations or CV
-                            <input type="file" placeholder="upload document" name="certifications">
+                            <div class="upload-btn">
+                                <div for="certifications" class="upload-label cta-btn blue">
+                                <input id="certifications" type="file" name="certifications" />
+                                    Upload
+                                    <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                                </div>
+                                <span class="upload-filename" id="certifications-name">No file chosen</span>
+                            </div>
                         </label>
                         <button class="cta-btn gold" type="submit">
                             Submit application
@@ -120,7 +127,7 @@
             </main>
         </div>
         <div class="overlay"></div>
-        <script type="module" src="./js/srcipts/dNavMenu.js"></script>
+        <script type="module" src="./js/components/dNavMenu.js"></script>
         <script type="module" src="./js/srcipts/becomeTutor.js"></script>
     </body>
 </html>

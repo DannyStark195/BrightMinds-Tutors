@@ -156,7 +156,21 @@
 .tutor-form button{
     width: min(100%, 300px);
 }
+.tutor-form .upload-btn{
+    /* inline-size: 20%; */
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
+}
+.upload-btn input[type="file"]{
+    /* inline-size: 100%; */
+    position: absolute;
+    left: 0%;
+    opacity: 0;
+    cursor: pointer;
+}
 @media (max-width: 860px){
     .tutor-hero,
     .tutor-process,

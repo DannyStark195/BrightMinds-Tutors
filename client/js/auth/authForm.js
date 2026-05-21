@@ -1,5 +1,4 @@
 const overlay = document.querySelector('.dark-overlay');
-
 overlay.innerHTML =  `
      <div class="form-container">
                     <div class="cross-btn cancel-form-popup">

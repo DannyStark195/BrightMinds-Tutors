@@ -1,4 +1,4 @@
-import { formatCurrency } from "../utils/formatCurrency.js";
+import { formatCurrency } from "../utils/helpers.js";
 const toggleHrsBtn = document.querySelectorAll('.toggle-btn');
 const toggle2HrsBtn = document.querySelector('.toggle-2hrs');
 const toggle4HrsBtn = document.querySelector('.toggle-4hrs');
