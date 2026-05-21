@@ -1,4 +1,4 @@
-import { collectData } from "../utils/formHelpers.js";
+import { collectData, validateEmail, validatePassword } from "../utils/formHelpers.js";
 const overlay = document.querySelector('.dark-overlay');
 overlay.innerHTML =  `
      <div class="form-container">
@@ -161,31 +161,45 @@ loginForm.addEventListener('submit', (e)=>{
 });
 function handleLogin(){
     const data = collectData(loginForm);
-    loginUser(data);
+    // loginUser(data);
+     const {email, password} = data;
+    const {userEmail, userPassword} = {'userEmail':'dannystark195@gmail.com', 'userPassword':'password'};
+    const errorMesssage = loginFormContainer.querySelector('.error-msg');
+    // console.log(userEmail, userPassword);
+    if(!((email == userEmail) && (password == userPassword))){
+        errorMesssage.classList.remove('inactive');
+        return 
+    }
+    const fakeToken = 'blah20919';
+    localStorage.setItem("user-token", fakeToken);
+    window.location.href = "dashboard";
 }
 
 signupForm.addEventListener('submit', (e)=>{
     e.preventDefault()
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
+    handleSignup()
+});
 
-    console.log(formData);
-    console.log(data);
+function handleSignup(){
+    const data = collectData(signupForm);
     const {email, password} = data;
-    console.log(email, password)
     const errorMesssage = signupFormContainer.querySelector('.error-msg');
-
-    if(!email.includes('.com')){
-        errorMesssage.textContent = 'The email you have entered is invalid.'
-        errorMesssage.classList.remove('inactive');
-        openForm(overlay, signupFormContainer);
+    const emailError = validateEmail(email);
+    const passwordError = validatePassword(password);
+     if(emailError){
+        errorMesssage.textContent = emailError;
+        // activateElement(errorMesssage);
+        errorMesssage.classList.remove('inactive')
         return
     }
-    if((password.length < 8)){
-        errorMesssage.textContent = 'Password must be greater than 8 characters and must contain numbers and special characters'
-        errorMesssage.classList.remove('inactive');
-        openForm(overlay, signupFormContainer);
+    if(passwordError){
+        errorMesssage.textContent = passwordError;
+        // activateElement(errorMesssage);
+        errorMesssage.classList.remove('inactive')
         return
-     }
+    }
+     //signupUser(data) called in api.js
+
+     //If error in fetching return error message to be done when i start backend
      openForm(overlay, loginFormContainer);
-});
+}

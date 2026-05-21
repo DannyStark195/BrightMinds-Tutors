@@ -1,7 +1,7 @@
 export function loginUser(data){
     const {email, password} = data;
     const {userEmail, userPassword} = {'userEmail':'dannystark195@gmail.com', 'userPassword':'password'};
-    // const errorMesssage = loginFormContainer.querySelector('.error-msg');
+    const errorMesssage = loginFormContainer.querySelector('.error-msg');
     // console.log(userEmail, userPassword);
     if(!((email == userEmail) && (password == userPassword))){
         // errorMesssage.classList.remove('inactive');
@@ -12,7 +12,8 @@ export function loginUser(data){
     window.location.href = "dashboard";
 }
 
+export function signupUser(data){
+    
+}
 export function logoutUser(){
-    localStorage.removeItem("user-token");
-    window.location.href = "index.html";
 }
