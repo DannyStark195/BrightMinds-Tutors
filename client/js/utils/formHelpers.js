@@ -23,7 +23,23 @@ export function validatePassword(password) {
   }
   return null; // null means no error, password is valid
 }
-
+export function validateFile(file) {
+  console.log(file, file.name);
+  const fileName = file.name;
+  if (!/\.(docs|docx|pdf|png|jpeg|jpg)$/i.test(fileName)) {
+    return 'Invalid document format';
+  }
+  function convertToMB(size){
+    const mb = (size/1024)/1024
+    return mb
+  }
+  
+  const fileSizeMb = convertToMB(file.size)
+  if (fileSizeMb> 10) {
+    return 'File must be less than 10MB';
+  }
+  return null; // null means no error, password is valid
+}
 export function collectData(form, extraData = {}){
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);

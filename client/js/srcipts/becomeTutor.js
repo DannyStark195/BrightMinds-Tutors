@@ -1,16 +1,24 @@
-import { collectData, validateEmail, validatePhone } from "../utils/formHelpers.js";
+import { collectData, validateEmail, validatePhone, validateFile } from "../utils/formHelpers.js";
 import { addInactive, removeInactive } from "../utils/helpers.js";
 const tutorForm = document.querySelector('.tutor-form');
-const certInput = document.querySelector('#certifications');
-const certName = document.querySelector('#certifications-name');
+const proofInput = document.querySelector('#proof-experience');
+const proofName = document.querySelector('#proof-name');
 
-if (certInput && certName) {
-	certInput.addEventListener('change', (e) => {
+function truncateText(text, length){
+	if(text<=length){
+		return text
+	}
+	const newText = text.substring(0, length) + '...'
+	return newText
+}
+
+if (proofInput && proofName) {
+	proofInput.addEventListener('change', (e) => {
 		const file = e.target.files && e.target.files[0];
 		if (file) {
-			certName.textContent = file.name;
+			proofName.textContent = truncateText(file.name, 20);
 		} else {
-			certName.textContent = 'No file chosen';
+			proofName.textContent = 'No file chosen';
 		}
 	});
 }
@@ -20,9 +28,12 @@ tutorForm.addEventListener('submit', (e) =>{
 	const tutorData = collectData(tutorForm);
 	const tutorEmail = tutorData.tutorEmail;
 	const tutorPhone = tutorData.tutorPhone;
-	console.log(tutorData, tutorPhone);
+	const tutorProof = tutorData.proofExperience;
+	console.log(tutorData, tutorPhone, tutorProof);
     const emailError = validateEmail(tutorEmail);
 	const validPhone= validatePhone(tutorPhone);
+	const fileError = validateFile(tutorProof);
+
 	const errorMesssage = document.querySelectorAll('.error-msg');
 	errorMesssage.forEach(errMsg => {
 		addInactive(errMsg);
@@ -38,6 +49,13 @@ tutorForm.addEventListener('submit', (e) =>{
 		console.log(errorMesssage)
 		removeInactive(errorMesssage);
 		errorMesssage.textContent = 'This phone number is invalid';
+		return
+	}
+	if(fileError){
+		const errorMesssage = document.querySelector('.error-msg.file');
+		console.log(errorMesssage)
+		removeInactive(errorMesssage);
+		errorMesssage.textContent = fileError;
 		return
 	}
 	// registerTutor(tutorData) to be implemented in the api.js

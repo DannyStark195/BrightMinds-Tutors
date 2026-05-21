@@ -203,6 +203,5 @@
     }
     .upload-btn .upload-filename{
         inline-size: 20%;
-        overflow: hidden;
     }
 }
