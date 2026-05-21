@@ -1,6 +1,6 @@
 import { openForm } from "../auth/authForm.js";
 const overlay = document.querySelector('.dark-overlay');
-const loginForm = overlay?.querySelector('.login-form');
+const loginForm = overlay?.querySelector('.login-form-container');
 
 
 document.addEventListener('DOMContentLoaded', ()=>{
