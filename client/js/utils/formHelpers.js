@@ -4,6 +4,9 @@ function validatePhone(phone) {
   return nigerianRegex.test(cleaned);
 }
 
-export function collectFormData(form, extraData = {}){
-
+export function collectData(form, extraData = {}){
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+    const mergedData = {...data, ...extraData}
+    return mergedData;
 }

@@ -1,10 +1,11 @@
+import { collectData } from "../utils/formHelpers.js";
 const overlay = document.querySelector('.dark-overlay');
 overlay.innerHTML =  `
      <div class="form-container">
                     <div class="cross-btn cancel-form-popup">
                         <i class="fa-solid fa-xmark"></i>
                     </div>
-                    <div class="signup-form form">
+                    <div class="signup-form-container form">
                         <div class="top">
                             <div class="logo">
                                 <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
@@ -42,7 +43,7 @@ overlay.innerHTML =  `
                         </div>
                     </div>
 
-                    <div class="login-form form">
+                    <div class="login-form-container form">
                         <div class="top">
                             <div class="logo">
                                 <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
@@ -86,9 +87,10 @@ overlay.innerHTML =  `
 const signupTriggers = document.querySelectorAll('.open-signup');
 const loginTriggers = document.querySelectorAll('.open-login');
 const cancelButtons = document.querySelectorAll('.cancel-form-popup');
-const signupForm = overlay?.querySelector('.signup-form');
+const signupFormContainer = overlay?.querySelector('.signup-form-container');
+const loginFormContainer = overlay?.querySelector('.login-form-container');
 const loginForm = overlay?.querySelector('.login-form');
-
+const signupForm = overlay?.querySelector('.signup-form');
 export function hideOverlay(overlay) {
     if (!overlay) return;
     overlay.classList.remove('active');
@@ -101,10 +103,10 @@ export function showOverlay(overlay) {
 
 function hideAllPopupForms(overlay) {
     if (!overlay) return;
-    const forms = overlay.querySelectorAll('.signup-form, .login-form');
-    forms.forEach((form) => {
-        form.classList.remove('active');
-    });
+        const forms = overlay.querySelectorAll('.signup-form-container, .login-form-container');
+        forms.forEach((form) => {
+            form.classList.remove('active');
+        });
 }
 
 export function openForm(overlay, form) {
@@ -120,11 +122,11 @@ export function closeFormPopup(overlay) {
 }
 
 signupTriggers.forEach((button) => {
-    button.addEventListener('click', () => openForm(overlay, signupForm));
+    button.addEventListener('click', () => openForm(overlay, signupFormContainer));
 });
 
 loginTriggers.forEach((button) => {
-    button.addEventListener('click', () => openForm(overlay, loginForm));
+    button.addEventListener('click', () => openForm(overlay, loginFormContainer));
 });
 
 cancelButtons.forEach((button) => {
@@ -154,24 +156,13 @@ setupPasswordToggle('toggleSignupPassword', 'signup-password', 'signup-eye-icon'
 setupPasswordToggle('toggleLoginPassword', 'login-password', 'login-eye-icon');
 
 loginForm.addEventListener('submit', (e)=>{
-    e.preventDefault()
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
-    const {email, password} = data;
-    // const userData 
-    const {userEmail, userPassword} = {'userEmail':'dannystark195@gmail.com', 'userPassword':'password'};
-    const errorMesssage = loginForm.querySelector('.error-msg');
-    console.log(userEmail, userPassword);
-    if(!((email == userEmail) && (password == userPassword))){
-        errorMesssage.classList.remove('inactive');
-        return
-    }
-
-    const fakeToken = 'blah20919';
-    localStorage.setItem("user-token", fakeToken);
-    window.location.href = "dashboard";
+    e.preventDefault();
+    handleLogin();
 });
-
+function handleLogin(){
+    const data = collectData(loginForm);
+    loginUser(data);
+}
 
 signupForm.addEventListener('submit', (e)=>{
     e.preventDefault()
@@ -182,19 +173,19 @@ signupForm.addEventListener('submit', (e)=>{
     console.log(data);
     const {email, password} = data;
     console.log(email, password)
-    const errorMesssage = signupForm.querySelector('.error-msg');
+    const errorMesssage = signupFormContainer.querySelector('.error-msg');
 
     if(!email.includes('.com')){
         errorMesssage.textContent = 'The email you have entered is invalid.'
         errorMesssage.classList.remove('inactive');
-        openForm(overlay, signupForm);
+        openForm(overlay, signupFormContainer);
         return
     }
     if((password.length < 8)){
         errorMesssage.textContent = 'Password must be greater than 8 characters and must contain numbers and special characters'
         errorMesssage.classList.remove('inactive');
-        openForm(overlay, signupForm);
+        openForm(overlay, signupFormContainer);
         return
      }
-     openForm(overlay, loginForm);
+     openForm(overlay, loginFormContainer);
 });
