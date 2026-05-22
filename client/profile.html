@@ -7,7 +7,6 @@
         <link rel="stylesheet" href="./css/global.css">
         <link rel="stylesheet" href="./css/layout.css">
         <link rel="stylesheet" href="./css/components.css">
-        <!-- <link rel="stylesheet" href="./css/dashboard.css"> -->
         <link rel="stylesheet" href="./css/profile.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
@@ -33,18 +32,18 @@
                             Book a tutor
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
-                        <button class="cta-btn blue" type="button">Edit profile</button>
+                        <a href="#profile-stack"><button class="cta-btn blue" type="button">Edit profile</button></a>
                     </div>
                 </section>
 
                 <section class="profile-layout">
-                    <div class="profile-stack">
+                    <div class="profile-stack" id="profile-stack">
                         <form class="profile-card surface-card">
                             <div class="section-heading">
                                 <p class="eyebrow">Parent details</p>
                                 <h2>Account information</h2>
                             </div>
-                            <div class="profile-fields">
+                            <div class="profile-fields" id="profile-fields">
                                 <label class="profile-field">
                                     <span>Full name</span>
                                     <input type="text" class="form-control" value="Daniel Stark">
@@ -78,14 +77,15 @@
                                 <p class="eyebrow">Security</p>
                                 <h2>Password and account access</h2>
                             </div>
-                            <div class="profile-fields">
-                                <label class="profile-field">
-                                    <span>Current password</span>
-                                    <input type="password" class="form-control" placeholder="Enter current password">
-                                </label>
+                            <div class="">
                                 <label class="profile-field">
                                     <span>New password</span>
-                                    <input type="password" class="form-control" placeholder="Enter new password">
+                                    <div class="password-wrapper">
+                                        <input type="password" class="form-control" placeholder="Enter new password" id="new-password">
+                                        <span class="toggle-password" id="toggle-new-password">
+                                            <i class="fa fa-eye-slash" id="new-eye-icon"></i>
+                                        </span>
+                                    </div>
                                 </label>
                             </div>
                             <div class="profile-card-footer">
@@ -127,11 +127,17 @@
                             <p>Contact BrightMinds Tutors if your child changes school level, location, or subject needs before the next billing cycle.</p>
                             <a href="https://wa.me/2348092812010" class="cta-btn blue">Chat on WhatsApp</a>
                         </article>
+                        <article class="profile-note surface-card cancel-card">
+                            <h2>Delete Account</h2>
+                            <p>Permenly delete your account and all your information.</p>
+                            <button type="button" class="cta-btn danger">Delete</button>
+                        </article>
                     </aside>
                 </section>
             </main>
         </div>
         <div class="overlay"></div>
         <script type="module" src="./js/components/dNavMenu.js"></script>
+        <script type="module" src="./js/srcipts/profile.js"></script>
     </body>
 </html>

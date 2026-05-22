@@ -64,6 +64,11 @@
     background: linear-gradient(135deg, #f7de9f, #ffedb4);
     transform: translateY(-3px);
 }
+.cta-btn.danger {
+    background: var(--Danger);
+    color: #fff;
+    border-color: rgba(231, 76, 60, 0.3);
+}
 /* CTA BANNER */
 .cta-banner{
     text-align: center;
@@ -275,12 +280,12 @@ input.input-error{
 }
 
 .password-wrapper input {
-  padding-right: 44px;
+  padding-right: 55px;
 }
 
 .toggle-password {
   position: absolute;
-  right: 60px;
+  right: 65px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
@@ -291,6 +296,11 @@ input.input-error{
 
 .toggle-password:hover {
   color: #F5A623;
+}
+@media(max-width: 860px){ 
+    .toggle-password{
+        right: 40px;
+    }
 }
 @media (max-width: 860px) {
     .form-container{
@@ -600,7 +610,10 @@ input.input-error{
 .dashboard-stat-no{
     color: var(--Primary);
 }
-
+.cancel-card i{
+    color: var(--Danger);
+    background: transparent;
+}
 @media(max-width: 900px){
     .page-hero,
     .content-layout{

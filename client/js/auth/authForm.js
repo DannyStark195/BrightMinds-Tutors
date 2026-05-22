@@ -1,4 +1,5 @@
-import { collectData, validateEmail, validatePassword } from "../utils/formHelpers.js";
+import { collectData, validateEmail, validatePassword, setupPasswordToggle } from "../utils/formHelpers.js";
+
 const overlay = document.querySelector('.dark-overlay');
 overlay.innerHTML =  `
      <div class="form-container">
@@ -139,18 +140,6 @@ overlay?.addEventListener('click', (event) => {
     }
 });
 
-function setupPasswordToggle(toggleId, inputId, iconId) {
-  const toggle = document.getElementById(toggleId);
-  const input = document.getElementById(inputId);
-  const icon = document.getElementById(iconId);
-
-  toggle.addEventListener('click', () => {
-    const isPassword = input.type === 'password';
-    input.type = isPassword ? 'text' : 'password';
-    icon.classList.toggle('fa-eye');
-    icon.classList.toggle('fa-eye-slash');
-  });
-}
 
 setupPasswordToggle('toggleSignupPassword', 'signup-password', 'signup-eye-icon');
 setupPasswordToggle('toggleLoginPassword', 'login-password', 'login-eye-icon');

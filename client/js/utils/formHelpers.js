@@ -46,3 +46,16 @@ export function collectData(form, extraData = {}) {
   const mergedData = { ...data, ...extraData };
   return mergedData;
 }
+
+export function setupPasswordToggle(toggleId, inputId, iconId) {
+  const toggle = document.getElementById(toggleId);
+  const input = document.getElementById(inputId);
+  const icon = document.getElementById(iconId);
+
+  toggle.addEventListener('click', () => {
+    const isPassword = input.type === 'password';
+    input.type = isPassword ? 'text' : 'password';
+    icon.classList.toggle('fa-eye');
+    icon.classList.toggle('fa-eye-slash');
+  });
+}

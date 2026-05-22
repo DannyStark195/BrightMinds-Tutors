@@ -12,3 +12,4 @@ export function loginRequired(){
 export function redirectIfLoggedIn(){
     window.location.replace('dashboard.html');
 }
+

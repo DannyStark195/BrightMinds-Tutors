@@ -12,7 +12,6 @@
     border-radius: 28px;
 }
 
-
 .booking-details-hero h1{
     margin: 0;
     font-size: clamp(2.2rem, 3vw, 3.4rem);
@@ -144,10 +143,6 @@
     margin-bottom: 16px;
 }
 
-.cancel-card i{
-    color: var(--Danger);
-    background: transparent;
-}
 
 .side-card h2{
     margin: 0 0 12px;
@@ -184,12 +179,6 @@
 .cta-btn.danger {
     width: 100%;
     margin-top: 16px;
-}
-
-.cta-btn.danger {
-    background: var(--Danger);
-    color: #fff;
-    border-color: rgba(231, 76, 60, 0.3);
 }
 
 @media (max-width: 980px) {
