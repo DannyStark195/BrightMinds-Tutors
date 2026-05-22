@@ -3,7 +3,7 @@ const footerHtml = document.querySelector('.footer');
 headerHtml.innerHTML = `
                 <div class="logo">
                     <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
-                    <p>BrightMind Tutors</p>
+                    <p>BrightMinds Tutors</p>
                 </div>
 
                 <nav class="navbar">
@@ -38,7 +38,7 @@ footerHtml.innerHTML = `
                     <div class="footer-left">
                         <div class="logo">
                             <img src="./assets/icons/tutor-logo-white.svg" alt="BrightMind logo">
-                            <p>BrightMind Tutors</p>
+                            <p>BrightMinds Tutors</p>
                         </div>
                         <p>Qualified, vetted tutors with transparent pricing, bookable without knowing anybody.</p>
                     </div>
@@ -52,12 +52,12 @@ footerHtml.innerHTML = `
                     </div>
                     <div class="footer-right">
                         <p>Phone - 08092812010</p>
-                        <p>Email - <a href="mailto:01brightmindtutors@gmail.com" class="footer-link">01brightmindtutors@gmail.com</a></p>
+                        <p>Email - <a href="mailto:support@brightmindstutors.com" class="footer-link">info@brightmind-tutors.com</a></p>
                         <p><a href="https://wa.me/2348092812010" class="footer-link">Chat Us on Whatsapp</a></p>
                     </div>
                 </div>
                 <div class="footer-bottom">
-                    <p class="copyright">© 2026 BrightMind Tutors</p>
+                    <p class="copyright">© 2026 BrightMinds Tutors</p>
                     <p class="attribution">Coded by <a href="https://github.com/DannyStark195" class="footer-link">Danny Stark</a>.</p>
                 </div>
 `

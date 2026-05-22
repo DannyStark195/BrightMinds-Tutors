@@ -13,23 +13,7 @@
     margin-bottom: 20px;
 }
 
-.logo{
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
 
-.logo img{
-    width: 35px;
-    height: 35px;
-}
-
-.logo p{
-    color: var(--Primary);
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-}
 .navbar{
     display: flex;
     gap: 15px;
