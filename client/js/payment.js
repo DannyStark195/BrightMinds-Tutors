@@ -18,7 +18,7 @@ TABS.forEach(btn=>{
 
 // Card brand detection and formatting
 const cardNumberInput = document.getElementById('card-number');
-const cardBrandEl = document.getElementById('card-brand');
+const cardBrand = document.getElementById('card-brand');
 if(cardNumberInput){
   cardNumberInput.addEventListener('input', e=>{
     const raw = e.target.value.replace(/\D/g,'');
@@ -35,19 +35,19 @@ function detectCardBrand(number){
   if(!number) return 'unknown';
   if(/^4/.test(number)) return 'visa';
   if(/^(5[1-5]|2[2-7])/.test(number)) return 'mastercard';
-  if(/^(506|507|508|650)/.test(number)) return 'verve';
+  if(/^(506|650|)/.test(number)) return 'verve';
   return 'unknown';
 }
 
 function setBrandIcon(brand){
-  if(!cardBrandEl) return;
+  if(!cardBrand) return;
   let src = '';
   if(brand==='visa') src = './assets/icons/visa.svg';
   else if(brand==='mastercard') src = './assets/icons/mastercard.svg';
   else if(brand==='verve') src = './assets/icons/verve.svg';
-  else src = './assets/icons/card-generic.svg';
+  else src = './assets/icons/credit-card.svg';
   // set img if available
-  cardBrandEl.innerHTML = `<img src="${src}" alt="${brand}" style="max-width:100%;height:18px">`;
+  cardBrand.innerHTML = `<img src="${src}" alt="${brand}">`;
 }
 
 // expiry formatting
@@ -61,15 +61,15 @@ if(expiry){
 }
 
 // Payment success
-const successEl = document.getElementById('payment-success');
-const txRefEl = document.getElementById('tx-ref');
+const success = document.getElementById('payment-success');
+const txRef = document.getElementById('tx-ref');
 
 function showSuccess(){
   const ref = 'BM-' + Math.floor(1000 + Math.random()*9000);
-  if(txRefEl) txRefEl.textContent = ref;
+  if(txRef) txRef.textContent = ref;
   // hide panels and show success
   document.querySelectorAll('.tab-panels, .payment-tabs, .payment-header').forEach(el=> el.classList.add('inactive'));
-  if(successEl) successEl.classList.remove('inactive');
+  if(success) success.classList.remove('inactive');
 }
 
 // Card pay button
@@ -132,7 +132,7 @@ startCountdown();
 const downloadBtn = document.getElementById('download-receipt');
 if(downloadBtn){
   downloadBtn.addEventListener('click', ()=>{
-    const ref = txRefEl ? txRefEl.textContent : 'BM-0000';
+    const ref = txRef ? txRef.textContent : 'BM-0000';
     const content = `BrightMind Tutors - Payment Receipt\nReference: ${ref}\nAmount: ₦${AMOUNT.toLocaleString()}\nThank you for your payment.`;
     const blob = new Blob([content],{type:'text/plain'});
     const url = URL.createObjectURL(blob);

@@ -122,20 +122,22 @@
                         </div>
 
                         <!-- Success state (inactive by default) -->
-                        <div id="payment-success" class="success-state inactive">
-                            <img src="./assets/icons/icon-checkbox-check.svg" alt="card icon" class="tab-icon">
+                        <div id="payment-success" class="alert payment-success inactive">
+                            <img src="./assets/icons/icon-checkbox-check.svg" alt="card icon" class="payment-success-icon">
                             <h2>Payment Successful</h2>
                             <p class="muted">Transaction ref: <span id="tx-ref">BM-0000</span></p>
                             <p>Your tutor will contact you before your first session</p>
                             <div class="success-actions" style="display:flex;gap:8px;justify-content:center;margin-top:12px">
                                 <a href="dashboard.html" class="cta-btn blue">Go to Dashboard</a>
-                                <button id="download-receipt" class="cta-btn gold">Download Receipt</button>
+                                <button id="download-receipt" class="cta-btn gold">
+                                    Download Receipt
+                                </button>
                             </div>
                         </div>
 
                     </section>
                 </div>
-                <div class="alert payment-success inactive"></div>
+                <div class=""></div>
             </main>
         </div>
         <div class="overlay"></div>
