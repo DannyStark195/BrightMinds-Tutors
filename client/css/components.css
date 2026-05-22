@@ -566,6 +566,7 @@ input.input-error{
     border-radius: 24px;
     display: grid;
     align-content: space-between;
+    cursor: pointer;
 }
 
 .metric-card .dashboard-stat{

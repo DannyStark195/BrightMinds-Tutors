@@ -34,17 +34,17 @@
                     <article class="metric-card surface-card">
                         <i class="fa-solid fa-receipt icon-badge"></i>
                         <span>Total receipts</span>
-                        <strong>3 records</strong>
+                        <strong id="no-reciepts">3 records</strong>
                     </article>
                     <article class="metric-card surface-card">
                         <i class="fa-solid fa-wallet icon-badge"></i>
-                        <span>Paid this month</span>
-                        <strong>NGN 30,000</strong>
+                        <span>Pending payments</span>
+                        <strong id="no-pending-payments">3</strong>
                     </article>
                     <article class="metric-card surface-card">
                         <i class="fa-solid fa-calendar-check icon-badge"></i>
                         <span>Next billing</span>
-                        <strong>3 Jun 2026</strong>
+                        <strong id="next-billing">3 Jun 2026</strong>
                     </article>
                 </section>
 
@@ -66,7 +66,7 @@
                                     <div class="receipt-meta">
                                         <span class="receipt-reference">BM-PAY-2847</span>
                                         <span>Paid 3 May 2026</span>
-                                        <span>Card ending 2842</span>
+                                        <span>Card</span>
                                     </div>
                                     <div class="receipt-actions">
                                         <a href="#" class="cta-btn blue">View receipt</a>
@@ -88,7 +88,7 @@
                                     <div class="receipt-meta">
                                         <span class="receipt-reference">BM-PAY-2712</span>
                                         <span>Paid 3 Apr 2026</span>
-                                        <span>Bank transfer</span>
+                                        <span>Google pay</span>
                                     </div>
                                     <div class="receipt-actions">
                                         <a href="#" class="cta-btn blue">View receipt</a>
@@ -109,8 +109,8 @@
                                     </div>
                                     <div class="receipt-meta">
                                         <span class="receipt-reference">BM-PAY-2650</span>
-                                        <span>Due 16 May 2026</span>
-                                        <span>Awaiting confirmation</span>
+                                        <!-- <span>Due 16 May 2026</span> -->
+                                        <span>Not paid</span>
                                     </div>
                                     <div class="receipt-actions">
                                         <a href="./payment.html" class="cta-btn gold">
@@ -126,12 +126,6 @@
 
                     <aside class="payments-side">
                         <article class="payments-side-card surface-card">
-                            <i class="fa-solid fa-credit-card icon-badge"></i>
-                            <h2>Billing method</h2>
-                            <p>Your current payment method is a saved card ending in 2842.</p>
-                            <strong>Visa card</strong>
-                        </article>
-                        <article class="payments-side-card surface-card">
                             <i class="fa-solid fa-circle-info icon-badge"></i>
                             <h2>Payment help</h2>
                             <p>Contact support if a receipt is missing or a transfer has not been confirmed.</p>
@@ -143,5 +137,6 @@
         </div>
         <div class="overlay"></div>
         <script type="module" src="./js/components/dNavMenu.js"></script>
+        <script type="module" src="./js/srcipts/myPayments.js"></script>
     </body>
 </html>
