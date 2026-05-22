@@ -144,6 +144,12 @@
     width: 35px;
     height: 35px;
 }
+.success-actions{
+    display:flex;
+    gap:8px;
+    justify-content:center;
+    margin-top: 20px;
+}
 @media (max-width: 600px) {
   .payment-section {
     border-radius: 20px;
@@ -151,7 +157,8 @@
   }
   .payment-form,
   .tabs,
-  .payment-field-group {
+  .payment-tabs,
+  .success-actions {
     flex-direction: column;
   }
 

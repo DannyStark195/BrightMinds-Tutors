@@ -1,19 +1,18 @@
 // payment.js - handles tabs, card brand detect, copy, countdown and simulated payments
 const TABS = document.querySelectorAll('.tab-btn');
 const PANELS = document.querySelectorAll('.tab-panel');
-const AMOUNT = 12000;
 
-function switchTab(targetId){
-  PANELS.forEach(p=> p.classList.add('inactive'));
-  TABS.forEach(b=> b.classList.remove('active'));
-  const panel = document.getElementById(targetId);
-  const btn = Array.from(TABS).find(b=>b.dataset.target===targetId);
+function switchTab(tabId){
+  PANELS.forEach(panel => panel.classList.add('inactive'));
+  TABS.forEach(tab=> tab.classList.remove('active'));
+  const panel = document.getElementById(tabId);
+  const btn = Array.from(TABS).find(b=>b.dataset.tab===tabId);
   if(panel) panel.classList.remove('inactive');
   if(btn) btn.classList.add('active');
 }
 
-TABS.forEach(btn=>{
-  btn.addEventListener('click', ()=> switchTab(btn.dataset.target));
+TABS.forEach(tabBtn=>{
+  tabBtn.addEventListener('click', ()=> switchTab(tabBtn.dataset.tab));
 });
 
 // Card brand detection and formatting
