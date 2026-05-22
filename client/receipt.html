@@ -64,11 +64,18 @@
             letter-spacing: 0.04em;
         }
         .brand span{
-            margin-left: 40px;
+        }
+        .eyebrow {
+          color: var(--Accent);
+          font-size: 0.78rem;
+          font-weight: 800;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          margin-bottom: 8px;
         }
       .status {
-        background: var(--Success);
-        color: #fff;
+        background: #D1FAE5;
+        color: var(--Success);
         padding: 8px 12px;
         border-radius: 999px;
         font-weight: 700;
@@ -159,7 +166,10 @@
         text-align: center;
         color: rgba(45, 45, 45, 0.7);
       }
-     
+    .footer a{
+      text-decoration: none;
+      color: rgba(45, 45, 45, 0.7);
+    }
       @media (max-width: 720px) {
         main.receipt {
           margin: 16px 12px;
@@ -187,7 +197,7 @@
                 <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
                 <p>BrightMinds Tutors</p>
             </div>
-            <span>Payment receipt</span>
+            <span class="eyebrow">Payment receipt</span>
           </div>
         </div>
         <span class="status">Paid</span>
@@ -231,7 +241,7 @@
       </section>
       <footer class="footer">
         <p>Thank you for learning with BrightMinds Tutors.</p>
-        <span><a href="mailto:support@brightmindstutors.com" class="footer-link">info@brightmind-tutors.com</a></span>
+        <span><a href="mailto:info@brightmindstutors.com" class="footer-link">info@brightmindtutors.com</a></span>
       </footer>
     </main>
     

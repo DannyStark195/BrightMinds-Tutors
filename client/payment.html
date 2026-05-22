@@ -14,114 +14,132 @@
     </head>
     <body>
         <div class="payment-page page-shell">
-            <header class="header">
-            </header>
+            <header class="header"></header>
             <main class="page-main">
                 <div class="payment-main">
                     <section class="payment-section surface-card">
-                        <div class="section-heading">
-                            <p class="eyebrow">Payment dteails</p>
-                            <h2>Provide your payment details below</h2>
+                         <div class="section-heading">
+                            <p class="eyebrow">Payment details</p>
+                            <h2>Complete Payment</h2>
+                            <p class="secure-note"><i class="fa-solid fa-lock"></i> Secured by Paystack</p>
                         </div>
-                        <div class="payment-links">
-                                <button class="payment-link">
-                                        <div>
-                                            <img src="./assets/icons/google.svg" alt="google pay icon">
-                                            Google Pay
-                                        </div>
-                                    </button>
-                                    <button class="payment-link">
-                                        <div>
-                                            <img src="./assets/icons/apple-pay.svg" alt="appple pay icon">
-                                            Apple Pay
-                                        </div>
-                                        
-                                    </button>
-                                    <button class="payment-link">
-                                        <div>
-                                            <img src="./assets/icons/paypal(1).svg" alt="paypal icon">
-                                            Paypal
-                                        </div>
-                                        
-                                    </button>
-                            </div>
-                        <div class="or-divider">or</div>
-                        <form class="payment-form">
-                            <div class="payment-field-group">
-                                    <div class="payment-field">
-                                        <label>
-                                            Card Number
-                                        </label>
-                                        <input type="text" class="form-control" placeholder="********">
-                                        <div class="card-type">
-                                            <img src="./assets/icons/visa.svg" alt="card type">
-                                        </div>
-                                    </div>
-                                    
-                                <div class="payment-field">
-                                    <label>
-                                        Card Holder Name
-                                    </label>
-                                    <input type="email" class="form-control" placeholder="">
-                                </div>
-                            </div>
-                            <div class="payment-stuff">
-                                    <div class="payment-field">
-                                        <label for="">
-                                            Expiry Date
-                                        </label>
-                                        <input type="text" class="form-control" name="" id="">
-                                    </div>
-                                    <div class="payment-field">
-                                        <label for="">
-                                            CVV/VV2
-                                        </label>
-                                        <input type="text" class="form-control" name="" id="">
-                                    </div>
-                                
-                            </div>
-                            
-                            <div class="payment-amount">
-                                <p>Total amount</p>
-                                <div class="payment-amount">
-                                    <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/naira.png" alt="naira" class="currency-icon">
-                                    <span class="amount">30,000</span>
-                                </div>
-                            </div>
-                            <button class="cta-btn gold payment-btn" type="submit">
-                                Pay
-                                <!-- <span> -->
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                    <!-- 30,000 -->
-                                <!-- </span> -->
+
+                        <div class="payment-tabs" role="tablist">
+                            <button class="tab-btn active" data-target="card">
+                                <img src="./assets/icons/card.svg" alt="card icon" class="tab-icon">
+                                 Card
                             </button>
-                        </form>
+                            <button class="tab-btn" data-target="bank">
+                                <img src="./assets/icons/bank.svg" alt="card icon" class="tab-icon">
+                                 Bank Transfer
+                                </button>
+                            <button class="tab-btn" data-target="ussd">
+                                <img src="./assets/icons/phone.svg" alt="card icon" class="tab-icon">
+                                USSD
+                            </button>
+                            <button class="tab-btn" data-target="paystack">
+                                <img src="./assets/icons/paystack-icon.svg" alt="card icon" class="tab-icon">
+                                Paystack
+                            </button>
+                        </div>
+
+                        <div class="tab-panels">
+                            <!-- Card -->
+                            <div class="tab-panel" id="card">
+                                <form id="card-form" class="payment-form">
+                                    <div class="form-row">
+                                        <label>Cardholder name</label>
+                                        <input id="card-name" class="form-control" placeholder="John Doe" required>
+                                    </div>
+                                    <div class="form-row card-number-row">
+                                        <label>Card number</label>
+                                        <div class="card-input-wrap">
+                                            <input id="card-number" class="form-control" placeholder="4242 4242 4242 4242" inputmode="numeric" maxlength="19" required>
+                                            <div class="card-brand" id="card-brand"><img src="./assets/icons/visa.svg" alt="brand"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row two-cols">
+                                        <div>
+                                            <label>Expiry</label>
+                                            <input id="card-expiry" class="form-control" placeholder="MM/YY" maxlength="5" required>
+                                        </div>
+                                        <div>
+                                            <label>CVV</label>
+                                            <input id="card-cvv" class="form-control" placeholder="123" maxlength="4" inputmode="numeric" required>
+                                        </div>
+                                    </div>
+                                    <div class="payment-amount">
+                                        <p>Total amount</p>
+                                        <div class="payment-amount">
+                                            <img width="24" height="24" src="https://img.icons8.com/material-outlined/24/naira.png" alt="naira" class="currency-icon">
+                                            <span class="amount">30,000</span>
+                                        </div>
+                                    </div>
+                                    <button id="pay-card" class="cta-btn gold full" type="button">
+                                        Pay
+                                        <i class="fa-solid fa-arrow-right"></i>
+                                    </button>
+                                </form>
+                            </div>
+
+                            <!-- Bank Transfer -->
+                            <div class="tab-panel inactive" id="bank">
+                                <div class="bank-card surface-card">
+                                    <div class="bank-row"><span class="label">Bank</span><span class="value">Wema Bank</span></div>
+                                    <div class="bank-row">
+                                        <span class="label">Account Number</span>
+                                        <span class="value">
+                                            <span id="account-number">0123456789</span>
+                                            <button id="copy-account" class="mini-btn">Copy</button>
+                                        </span>
+                                    </div>
+                                    <div class="bank-row"><span class="label">Account Name</span><span class="value">BrightMind Tutors</span></div>
+                                    <div class="bank-row"><span class="label">Amount</span><span class="value">₦12,000</span></div>
+                                    <div class="bank-row"><span class="label">Reference</span><span class="value" id="bank-ref">BM-2847</span></div>
+                                    <div class="bank-row"><span class="label">Expires in</span><span class="value"><span id="countdown">29:47</span></span></div>
+                                </div>
+                                <p class="muted">Once you complete the transfer your booking will be confirmed automatically.</p>
+                            </div>
+
+                            <!-- USSD -->
+                            <div class="tab-panel inactive" id="ussd">
+                                <div class="ussd-list">
+                                    <div class="ussd-row"><strong>GTBank</strong><span>*737*000*12000#</span></div>
+                                    <div class="ussd-row"><strong>Access</strong><span>*901*000*12000#</span></div>
+                                    <div class="ussd-row"><strong>Zenith</strong><span>*966*000*12000#</span></div>
+                                    <div class="ussd-row"><strong>First Bank</strong><span>*894*000*12000#</span></div>
+                                    <div class="ussd-row"><strong>UBA</strong><span>*919*000*12000#</span></div>
+                                </div>
+                                <p class="muted">Dial your bank's code on your phone to complete payment. Your booking will be confirmed once payment is received.</p>
+                            </div>
+
+                            <!-- Paystack -->
+                            <div class="tab-panel inactive" id="paystack">
+                                <div class="paystack-wrap">
+                                    <button id="pay-paystack" class="cta-btn blue full">Pay with Paystack</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Success state (inactive by default) -->
+                        <div id="payment-success" class="success-state inactive">
+                            <div class="checkmark">✔</div>
+                            <h2>Payment Successful</h2>
+                            <p class="muted">Transaction ref: <span id="tx-ref">BM-0000</span></p>
+                            <p>Your tutor will contact you before your first session</p>
+                            <div class="success-actions" style="display:flex;gap:8px;justify-content:center;margin-top:12px">
+                                <button id="download-receipt" class="cta-btn gold">Download Receipt</button>
+                                <a href="dashboard.html" class="cta-btn blue">Go to Dashboard</a>
+                            </div>
+                        </div>
+
                     </section>
                 </div>
-                <div class="alert payment-success inactive">
-                    <div class="alert__hero">
-                        <div class="hero-content">
-                            <p class="eyebrow">Payment status</p>
-                            <h2>Payment Successfull</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisi</p>
-                            <div class="hero-actions">
-                                <a href="#application" class="cta-btn blue">
-                                    Back to dashboard
-                                </a>
-                                <a href="#process" class="cta-btn gold">
-                                    View reciept
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="alert__icon">
-                            <img src="./assets/icons/icon-checkbox-check.svg" alt="BrightMind tutor">
-                        </div>
-                    </div>
-                </div>
+                <div class="alert payment-success inactive"></div>
             </main>
         </div>
         <div class="overlay"></div>
         <script type="module" src="./js/components/dNavMenu.js"></script>
+        <script type="module" src="./js/payment.js"></script>
     </body>
 </html>
