@@ -1,27 +1,13 @@
 .dashboard-page{
     position: relative;
 }
+
 main{
     width: min(1120px, 100%);
     margin-inline: auto;
     padding: 12px 20px 90px;
 }
 
-.greeting{
-    margin-block: 18px 26px;
-    padding: 34px;
-    border-radius: 28px;
-    background: rgba(255,255,255,0.96);
-    border: 1px solid rgba(13,27,42,0.08);
-    box-shadow: 0 25px 60px rgba(13,27,42,0.08);
-}
-.greeting h2{
-    padding-left: 0;
-    color: var(--Primary);
-    font-size: clamp(2rem, 5vw, 4.2rem);
-    line-height: 1;
-    font-weight: 800;
-}
 
 .d-cards{
     display: grid;
@@ -233,10 +219,12 @@ main{
 
 .dashboard-hero h1{
     color: var(--Primary);
-    font-size: clamp(2.25rem, 5vw, 4.6rem);
+    font-size: clamp(2.25rem, 4vw, 4rem);
     line-height: 1;
 }
-
+.dashboard-hero .greeting{
+    /* font-size: 3rem; */
+}
 .dashboard-hero p:not(.eyebrow){
     color: rgba(45,45,45,0.72);
     line-height: 1.7;

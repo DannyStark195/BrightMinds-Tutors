@@ -20,11 +20,11 @@
             <main class="profile-main page-main">
                 <section class="profile-hero surface-card">
                     <div class="profile-avatar">
-                        <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="Daniel profile picture">
+                        <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="Daniel profile picture" id="profile-avatar-img">
                     </div>
                     <div>
                         <p class="eyebrow">My profile</p>
-                        <h1>Daniel Stark</h1>
+                        <h1 id="profile-name">Daniel Stark</h1>
                         <p>Manage your contact details, student information, lesson preferences, and account settings from one place.</p>
                     </div>
                     <div class="profile-actions">
@@ -32,38 +32,18 @@
                             Book a tutor
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
-                        <a href="#profile-stack"><button class="cta-btn blue" type="button">Edit profile</button></a>
+                        <a href="dashboard.html"><button class="cta-btn blue" type="button">Dashboard</button></a>
                     </div>
                 </section>
 
                 <section class="profile-layout">
                     <div class="profile-stack" id="profile-stack">
-                        <form class="profile-card surface-card">
+                        <form class="profile-card surface-card" id="profile-form">
                             <div class="section-heading">
                                 <p class="eyebrow">Parent details</p>
                                 <h2>Account information</h2>
                             </div>
                             <div class="profile-fields" id="profile-fields">
-                                <label class="profile-field">
-                                    <span>Full name</span>
-                                    <input type="text" class="form-control" value="Daniel Stark">
-                                </label>
-                                <label class="profile-field">
-                                    <span>Email address</span>
-                                    <input type="email" class="form-control" value="daniel@example.com">
-                                </label>
-                                <label class="profile-field">
-                                    <span>Phone number</span>
-                                    <input type="tel" class="form-control" value="08092812010">
-                                </label>
-                                <label class="profile-field">
-                                    <span>Preferred contact</span>
-                                    <select class="form-control">
-                                        <option>WhatsApp</option>
-                                        <option>Phone call</option>
-                                        <option>Email</option>
-                                    </select>
-                                </label>
                             </div>
                             <div class="profile-card-footer">
                                 <button class="cta-btn blue" type="button">Cancel</button>
@@ -72,7 +52,7 @@
                         </form>
 
 
-                        <form class="profile-card surface-card">
+                        <form class="profile-card surface-card" id="password-form">
                             <div class="section-heading">
                                 <p class="eyebrow">Security</p>
                                 <h2>Password and account access</h2>
@@ -102,23 +82,17 @@
                                     <i class="fa-solid fa-user-check icon-badge"></i>
                                     <div>
                                         <p>Account status</p>
-                                        <strong>Active parent account</strong>
+                                        <strong id="info-account-status">Active parent account</strong>
                                     </div>
                                 </div>
                                 <div class="profile-summary-item">
                                     <i class="fa-solid fa-book-open-reader icon-badge"></i>
                                     <div>
                                         <p>Current plan</p>
-                                        <strong>Standard mathematics</strong>
+                                        <strong id="info-current-plan">Standard mathematics</strong>
                                     </div>
                                 </div>
-                                <div class="profile-summary-item">
-                                    <i class="fa-solid fa-calendar-days icon-badge"></i>
-                                    <div>
-                                        <p>Preferred schedule</p>
-                                        <strong>Mon, Wed, Fri - 4 PM</strong>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </article>
 
@@ -130,7 +104,7 @@
                         <article class="profile-note surface-card cancel-card">
                             <h2>Delete Account</h2>
                             <p>Permenly delete your account and all your information.</p>
-                            <button type="button" class="cta-btn danger">Delete</button>
+                            <button type="button" class="cta-btn danger" id="delete-account-btn">Delete</button>
                         </article>
                     </aside>
                 </section>

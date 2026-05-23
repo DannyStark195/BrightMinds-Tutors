@@ -3,7 +3,7 @@ const headerHtml = document.querySelector('.header');
 headerHtml.innerHTML = `
                     <div class="logo">
                         <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
-                        <p>BrightMind Tutors</p>
+                        <p>BrightMinds Tutors</p>
                     </div>
                     <div class="nav-btn-wrapper">
                         <div class="cross-btn dashboard-close-nav-btn">
