@@ -25,7 +25,7 @@
                         <p>These details are for one booking request. In the finished site, this card will be loaded from the backend for each selected booking.</p>
                     </div>
                     <div class="hero-actions">
-                        <a href="/dashboard" class="cta-btn gold">
+                        <a href="dashboard.html" class="cta-btn gold">
                             Back to dashboard
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
@@ -38,37 +38,37 @@
                             <div class="card-heading">
                                 <div>
                                     <p class="eyebrow">Booking reference</p>
-                                    <h2>BM-3581</h2>
+                                    <h2><span id="booking-ref">BM-3581</span></h2>
                                     <span class="status confirmed">Confirmed</span>
                                 </div>
                                 <div class="booking-avatar">
-                                    <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="Tutor profile picture">
+                                    <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="Tutor profile picture" id="booking-tutor-img">
                                 </div>
                             </div>
                             <div class="meta-grid">
                                 <div>
                                     <p class="meta-label">Subject</p>
-                                    <strong>Physics</strong>
+                                    <strong id="booking-subject">Physics</strong>
                                 </div>
                                 <div>
                                     <p class="meta-label">Tutor</p>
-                                    <strong>Miss Adaeze</strong>
+                                    <strong id="booking-tutor">Miss Adaeze</strong>
                                 </div>
                                 <div>
                                     <p class="meta-label">Schedule</p>
-                                    <strong>Mon, Wed, Fri · 4:00 PM</strong>
+                                    <strong id="bookimg-schedule">Mon, Wed, Fri · 4:00 PM</strong>
                                 </div>
                                 <div>
                                     <p class="meta-label">Location</p>
-                                    <strong>Physical | Lekki</strong>
+                                    <strong id="booking-location">Physical | Lekki</strong>
                                 </div>
                                 <div>
                                     <p class="meta-label">Start date</p>
-                                    <strong>May 18, 2026</strong>
+                                    <strong id="booking-start-date">May 18, 2026</strong>
                                 </div>
                                 <div>
                                     <p class="meta-label">Lesson format</p>
-                                    <strong>In-person</strong>
+                                    <strong id="booking-end-date">Dec 18, 2026</strong>
                                 </div>
                             </div>
                         </article>
@@ -78,27 +78,27 @@
                             <dl class="details-list">
                                 <div>
                                     <dt>Student name</dt>
-                                    <dd>Daniel Ebuka</dd>
+                                    <dd><span class="student-name">Daniel Ebuka</span></dd>
                                 </div>
                                 <div>
                                     <dt>Parent / guardian</dt>
-                                    <dd>Mrs. Ebuka</dd>
+                                    <dd><span id="parent-name">Mrs. Ebuka</span></dd>
                                 </div>
                                 <div>
                                     <dt>Contact number</dt>
-                                    <dd>+234 812 345 6789</dd>
+                                    <dd><span id="parent-number">+234 812 345 6789</span></dd>
                                 </div>
                                 <div>
                                     <dt>Email address</dt>
-                                    <dd>daniel@example.com</dd>
+                                    <dd><span id="parent-email">daniel@example.com</span></dd>
                                 </div>
                                 <div>
                                     <dt>Session length</dt>
-                                    <dd>2 hours</dd>
+                                    <dd><span id="booking-session-length">2 hours</span></dd>
                                 </div>
                                 <div>
                                     <dt>Weekly frequency</dt>
-                                    <dd>3 sessions per week</dd>
+                                    <dd><span id="booking-session-weekly">3 sessions per week</span></dd>
                                 </div>
                             </dl>
 
@@ -110,14 +110,14 @@
                             <i class="fa-solid fa-calendar-check icon-badge"></i>
                             <h2>Next lesson</h2>
                             <p>Physics with Miss Adaeze</p>
-                            <strong>Monday · 4:00 PM</strong>
+                            <strong id="booking-next-lesson">Monday · 4:00 PM</strong>
                         </article>
 
                         <article class="side-card surface-card">
                             <i class="fa-solid fa-wallet icon-badge"></i>
                             <h2>Payment summary</h2>
                             <p>Lesson fee, deposit, and any outstanding charges.</p>
-                            <strong>₦42,000 / week</strong>
+                            <strong id="booking-cost">₦42,000 / week</strong>
                         </article>
 
                         <article class="side-card surface-card status-card">
@@ -125,14 +125,14 @@
                             <h2>Booking status</h2>
                             <p>Your request has been confirmed and the tutor will be assigned shortly.</p>
                             <p class="auto-renew-note hidden">When this booking reaches auto-renew, the plan will update and you can renew it directly.</p>
-                            <strong>Confirmed</strong>
+                            <strong id="booking-status">Confirmed</strong>
                             <button type="button" class="cta-btn gold renew-btn hidden">Renew plan</button>
                         </article>
                         <article class="side-card surface-card cancel-card">
                             <i class="fa-solid fa-ban icon-badge"></i>
                             <h2>Cancel plan</h2>
                             <p>Request cancellation for this booking.</p>
-                            <button type="button" class="cta-btn danger">Cancel plan</button>
+                            <button type="button" class="cta-btn danger" id="cancel-btns">Cancel plan</button>
                         </article>
                     </aside>
                 </section>
@@ -140,5 +140,6 @@
         </div>
         <div class="overlay"></div>
         <script type="module" src="./js/components/dNavMenu.js"></script>
+        <script type="module" src="./js/srcipts/bookingDetails.js"></script>
     </body>
 </html>
