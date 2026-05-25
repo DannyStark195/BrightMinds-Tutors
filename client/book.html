@@ -58,41 +58,80 @@
                                         <div class="option-card sub active">
                                             <i class="fa-solid fa-square-root-variable"></i>
                                             Maths
-                                            <input type="radio" name="rating" value="1" class="hidden-radio rating-btn" data-star="1" required>
+                                            <input type="radio" name="subject" value="Maths" class="hidden-radio lg subject-btn" required>
                                         </div>
                                         <div class="option-card sub">
                                             <i class="fa-solid fa-book-open"></i>
-                                            <input type="radio" name="rating" value="1" class="hidden-radio rating-btn" data-star="1" required>
                                             English
+                                            <input type="radio" name="subject" value="English" class="hidden-radio lg subject-btn" required>
                                         </div>
-                                        <div class="option-card sub"><i class="fa-solid fa-atom"></i>Physics</div>
-                                        <div class="option-card sub"><i class="fa-solid fa-dna"></i>Biology</div>
-                                        <div class="option-card sub"><i class="fa-solid fa-code"></i>Computer Science</div>
+                                        <div class="option-card sub">
+                                            <i class="fa-solid fa-atom"></i>
+                                            Physics
+                                            <input type="radio" name="subject" value="Physics" class="hidden-radio lg subject-btn" required>
+                                        </div>
+                                        <div class="option-card sub">
+                                            <i class="fa-solid fa-dna"></i>
+                                            Biology
+                                            <input type="radio" name="subject" value="Biology" class="hidden-radio lg subject-btn" required>
+                                        </div>
+                                        <div class="option-card sub">
+                                            <i class="fa-solid fa-code"></i>
+                                            Computer Science
+                                            <input type="radio" name="subject" value="Computer" class="hidden-radio lg subject-btn" required>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="field-group">
                                     <label>Grade level</label>
                                     <div class="pill-row levels">
-                                        <button type="button" class="option-pill level">Primary</button>
-                                        <button type="button" class="option-pill level">JSS</button>
-                                        <button type="button" class="option-pill level active">SS</button>
-                                        <button type="button" class="option-pill level">University</button>
+                                        <div class="option-pill level">
+                                            Primary
+                                            <input type="radio" name="gradeLevel" value="Primary" class="hidden-radio grade-btn" required>
+                                        </div>
+                                        <div class="option-pill level">
+                                            JSS
+                                            <input type="radio" name="gradeLevel" value="Jss" class="hidden-radio grade-btn">
+                                        </div>
+                                        <div class="option-pill level active">
+                                            SS
+                                            <input type="radio" name="gradeLevel" value="SS" class="hidden-radio grade-btn">
+                                        </div>
+                                        <div class="option-pill level">
+                                            University
+                                            <input type="radio" name="gradeLevel" value="Uni" class="hidden-radio grade-btn">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="split-fields">
                                     <div class="field-group">
                                         <label>Times a week</label>
                                         <div class="pill-row times">
-                                            <button type="button" class="option-pill time">5x</button>
-                                            <button type="button" class="option-pill time active">3x</button>
-                                            <button type="button" class="option-pill time">2x</button>
+                                            <div class="option-pill time">
+                                                5x
+                                                <input type="radio" name="times" value="5x" class="hidden-radio times-btn">
+                                            </div>
+                                            <div class="option-pill time active">
+                                                3x
+                                                <input type="radio" name="times" value="3x" class="hidden-radio times-btn">
+                                            </div>
+                                            <div class="option-pill time">
+                                                2x
+                                                <input type="radio" name="times" value="2x" class="hidden-radio times-btn">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="field-group">
                                         <label>Hours a day</label>
                                         <div class="pill-row hrs">
-                                            <button type="button" class="option-pill hr active">2 Hours</button>
-                                            <button type="button" class="option-pill hr">4 Hours</button>
+                                            <button type="button" class="option-pill hr active">
+                                                2 Hours
+                                                <input type="radio" name="hrs" value="2hrs" class="hidden-radio hrs-btn">
+                                            </button>
+                                            <button type="button" class="option-pill hr">
+                                                4 Hours
+                                                <input type="radio" name="hrs" value="4hrs" class="hidden-radio hrs-btn">
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
