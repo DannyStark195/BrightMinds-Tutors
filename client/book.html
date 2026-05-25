@@ -55,11 +55,19 @@
                                 <div class="field-group">
                                     <label>Subject</label>
                                     <div class="option-grid book-subjects">
-                                        <button type="button" class="option-card sub active"><i class="fa-solid fa-square-root-variable"></i>Maths</button>
-                                        <button type="button" class="option-card sub"><i class="fa-solid fa-book-open"></i>English</button>
-                                        <button type="button" class="option-card sub"><i class="fa-solid fa-atom"></i>Physics</button>
-                                        <button type="button" class="option-card sub"><i class="fa-solid fa-dna"></i>Biology</button>
-                                        <button type="button" class="option-card sub"><i class="fa-solid fa-code"></i>Computer Science</button>
+                                        <div class="option-card sub active">
+                                            <i class="fa-solid fa-square-root-variable"></i>
+                                            Maths
+                                            <input type="radio" name="rating" value="1" class="hidden-radio rating-btn" data-star="1" required>
+                                        </div>
+                                        <div class="option-card sub">
+                                            <i class="fa-solid fa-book-open"></i>
+                                            <input type="radio" name="rating" value="1" class="hidden-radio rating-btn" data-star="1" required>
+                                            English
+                                        </div>
+                                        <div class="option-card sub"><i class="fa-solid fa-atom"></i>Physics</div>
+                                        <div class="option-card sub"><i class="fa-solid fa-dna"></i>Biology</div>
+                                        <div class="option-card sub"><i class="fa-solid fa-code"></i>Computer Science</div>
                                     </div>
                                 </div>
                                 <div class="field-group">

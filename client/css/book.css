@@ -45,6 +45,7 @@
 
 .booking-step{
     display: none;
+    /* animation: fadeIn 0.4s ease-in-out alternate; */
 }
 .booking-step h3{
     color: var(--Primary);
@@ -63,6 +64,7 @@
     background: rgba(255, 255, 255, 0.96);
     border: 1px solid rgba(13, 27, 42, 0.08);
     box-shadow: 0 25px 60px rgba(13, 27, 42, 0.08);
+    animation: fadeIn 0.4s ease-in-out alternate;
 }
 .step-0{
     text-align: center;

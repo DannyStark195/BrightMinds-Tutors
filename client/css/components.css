@@ -674,4 +674,5 @@ input.input-error{
     opacity: 0;
     position: absolute;
     cursor: pointer;
+    inline-size: 100%;
 }
