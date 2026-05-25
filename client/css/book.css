@@ -78,7 +78,7 @@
 .step-1 .book-subjects{
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    /* justify-content: center; */
     gap: 18px;
     padding: 0;
     max-width: 1000px;
@@ -90,6 +90,7 @@
     min-height: 74px;
     padding: 20px 16px;
     border-radius: 20px;
+    align-items: center;
 }
 
 .step-1 .levels{

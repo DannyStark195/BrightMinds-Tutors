@@ -154,11 +154,13 @@
     }
 
     .cross-btn.close-nav-btn i{
-        padding: 10px 18px;
+        padding: 10px 0px;
         border-radius: 15px;
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: 0.3s transform ease;
+        transform: rotate(-90deg);
     }
 
     .more-links.active{
