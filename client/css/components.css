@@ -667,3 +667,11 @@ input.input-error{
         transform: rotate(360deg);
     }
 }
+
+
+/* Radio Button */
+.hidden-radio{
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+}

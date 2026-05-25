@@ -17,7 +17,7 @@
             <header class="header">
             </header>
             <main class="booking-main page-main">
-                <div class="inactive">
+                <div class="" id="booking">
                     <section class="booking-hero page-hero surface-card">
                         <div>
                             <p class="eyebrow">Book a tutor</p>
@@ -53,7 +53,7 @@
                                     <h2>What does your child need?</h2>
                                 </div>
                                 <div class="field-group">
-                                    <h3>Subject</h3>
+                                    <label>Subject</label>
                                     <div class="option-grid book-subjects">
                                         <button type="button" class="option-card sub active"><i class="fa-solid fa-square-root-variable"></i>Maths</button>
                                         <button type="button" class="option-card sub"><i class="fa-solid fa-book-open"></i>English</button>
@@ -63,7 +63,7 @@
                                     </div>
                                 </div>
                                 <div class="field-group">
-                                    <h3>Grade level</h3>
+                                    <label>Grade level</label>
                                     <div class="pill-row levels">
                                         <button type="button" class="option-pill level">Primary</button>
                                         <button type="button" class="option-pill level">JSS</button>
@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="split-fields">
                                     <div class="field-group">
-                                        <h3>Times a week</h3>
+                                        <label>Times a week</label>
                                         <div class="pill-row times">
                                             <button type="button" class="option-pill time">5x</button>
                                             <button type="button" class="option-pill time active">3x</button>
@@ -81,7 +81,7 @@
                                         </div>
                                     </div>
                                     <div class="field-group">
-                                        <h3>Hours a day</h3>
+                                        <label>Hours a day</label>
                                         <div class="pill-row hrs">
                                             <button type="button" class="option-pill hr active">2 Hours</button>
                                             <button type="button" class="option-pill hr">4 Hours</button>
@@ -90,13 +90,13 @@
                                 </div>
                             </section>
 
-                            <section class="booking-step step-2">
+                            <section class="booking-step step-2 active">
                                 <div class="step-heading">
                                     <span>Step 2</span>
                                     <h2>Choose a schedule</h2>
                                 </div>
                                 <div class="field-group">
-                                    <h3>Preferred days</h3>
+                                    <label>Preferred days</label>
                                     <div class="pill-row days">
                                         <button type="button" class="option-pill day">Mon</button>
                                         <button type="button" class="option-pill day">Tue</button>
@@ -106,7 +106,7 @@
                                     </div>
                                 </div>
                                 <div class="field-group">
-                                    <h3>Time window</h3>
+                                    <label>Time window</label>
                                     <div class="option-grid windows">
                                         <button type="button" class="option-card window">9.am - 11.am</button>
                                         <button type="button" class="option-card window">12.pm - 2.pm</button>
@@ -119,7 +119,7 @@
                                 </label>
                             </section>
 
-                            <section class="booking-step step-3">
+                            <section class="booking-step step-3 active">
                                 <div class="step-heading">
                                     <span>Step 3</span>
                                     <h2>Where should lessons happen?</h2>
@@ -142,7 +142,7 @@
                                 </label>
                             </section>
 
-                            <section class="booking-step step-4">
+                            <section class="booking-step step-4 active">
                                 <div class="step-heading">
                                     <span>Step 4</span>
                                     <h2>Your details</h2>
@@ -170,7 +170,7 @@
                         </form>
                     </section>
                 </div>
-                <div class="alert booking-pending">
+                <div class="alert booking-pending inactive">
                     <div class="alert__hero">
                         <div class="hero-content">
                             <p class="eyebrow">Booking pending</p>
@@ -201,6 +201,7 @@
             </div>
            
         </div>
+        <script type="module" src="./js/srcipts/book.js"></script>
         <script type="module" src="./js/components/dNavMenu.js"></script>
     </body>
 </html>

@@ -206,7 +206,7 @@
     }
 
     .logo p{
-        word-break: break-word;
+        display: none;
     }
 }
 /* DASHBOARD HEADER */
