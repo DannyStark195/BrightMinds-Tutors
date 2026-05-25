@@ -1,21 +1,4 @@
-/* LOGO */
-.logo{
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
 
-.logo img{
-    width: 35px;
-    height: 35px;
-}
-
-.logo p{
-    color: var(--Primary);
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-}
 
 /* CTA BUTTONS */
 .cta-btn{
@@ -552,19 +535,18 @@ input.input-error{
     letter-spacing: 0.5px;
 }
 
-.status.pending{
+.pending{
     background: #FEF3C7;
     color: var(--Pending);
 }
 
-.status.confirmed,
-.status.paid{
+.confirmed{
     background: #D1FAE5;
     color: var(--Success);
 }
 
-.status.rejected,
-.status.failed{
+.rejected,
+.failed{
     background: #FEE2E2;
     color: var(--Danger);
 }

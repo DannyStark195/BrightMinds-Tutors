@@ -191,7 +191,9 @@ main{
     main{
         padding-inline: 16px;
     }
-    .greeting,
+    .greeting{
+        border-radius: 20px;   
+    }
     .book-cta,
     .booking-card{
         border-radius: 20px;
@@ -223,7 +225,6 @@ main{
     line-height: 1;
 }
 .dashboard-hero .greeting{
-    /* font-size: 3rem; */
 }
 .dashboard-hero p:not(.eyebrow){
     color: rgba(45,45,45,0.72);
