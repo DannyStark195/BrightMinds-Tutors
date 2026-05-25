@@ -29,8 +29,8 @@
                     <section class="booking-workspace">
                         <aside class="booking-summary surface-card">
                             <div class="booking-progress progress-tracker active">
-                                <div class="progress w-25"></div>
-                                <div class="step active"><span>1</span><p>Need</p></div>
+                                <div class="progress w-0"></div>
+                                <div class="step"><span>1</span><p>Need</p></div>
                                 <div class="step"><span>2</span><p>Schedule</p></div>
                                 <div class="step"><span>3</span><p>Place</p></div>
                                 <div class="step"><span>4</span><p>Details</p></div>
@@ -145,19 +145,43 @@
                                 <div class="field-group">
                                     <label>Preferred days</label>
                                     <div class="pill-row days">
-                                        <button type="button" class="option-pill day">Mon</button>
-                                        <button type="button" class="option-pill day">Tue</button>
-                                        <button type="button" class="option-pill day">Wed</button>
-                                        <button type="button" class="option-pill day">Thur</button>
-                                        <button type="button" class="option-pill day">Fri</button>
+                                        <button type="button" class="option-pill day">
+                                            Mon
+                                            <input type="radio" name="days" value="mon" class="hidden-radio days-btn">
+                                        </button>
+                                        <button type="button" class="option-pill day">
+                                            Tue
+                                            <input type="radio" name="days" value="tue" class="hidden-radio days-btn">
+                                        </button>
+                                        <button type="button" class="option-pill day">
+                                            Wed
+                                            <input type="radio" name="days" value="wed" class="hidden-radio days-btn">
+                                        </button>
+                                        <button type="button" class="option-pill day">
+                                            Thur
+                                            <input type="radio" name="days" value="thur" class="hidden-radio days-btn">
+                                        </button>
+                                        <button type="button" class="option-pill day">
+                                            Fri
+                                            <input type="radio" name="days" value="fri" class="hidden-radio days-btn">
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="field-group">
                                     <label>Time window</label>
                                     <div class="option-grid windows">
-                                        <button type="button" class="option-card window">9.am - 11.am</button>
-                                        <button type="button" class="option-card window">12.pm - 2.pm</button>
-                                        <button type="button" class="option-card window active">4.pm - 6.pm</button>
+                                        <button type="button" class="option-card window">
+                                            9.am - 11.am
+                                            <input type="radio" name="timeWindow" value="9am-11am" class="hidden-radio window-btn">
+                                        </button>
+                                        <button type="button" class="option-card window">
+                                            12.pm - 2.pm
+                                            <input type="radio" name="timeWindow" value="12pm-2pm" class="hidden-radio window-btn">
+                                        </button>
+                                        <button type="button" class="option-card window active">
+                                            4.pm - 6.pm
+                                            <input type="radio" name="timeWindow" value="4pm-6pm" class="hidden-radio window-btn">
+                                        </button>
                                     </div>
                                 </div>
                                 <label class="date-field">
@@ -176,11 +200,13 @@
                                         <i class="fa-solid fa-location-dot"></i>
                                         <strong>Physical</strong>
                                         <span>Tutor comes to you</span>
+                                        <input type="radio" name="lessonLocation" value="physical" class="hidden-radio location-btn">
                                     </button>
                                     <button type="button" class="option-card online">
                                         <i class="fa-solid fa-video"></i>
                                         <strong>Online</strong>
                                         <span>Via Google Meet or Zoom</span>
+                                        <input type="radio" name="lessonLocation" value="online" class="hidden-radio location-btn">
                                     </button>
                                 </div>
                                 <label class="date-field address-field">
@@ -202,14 +228,14 @@
                                     <textarea class="form-control" placeholder="Leave a message (optional)"></textarea>
                                 </div>
                                 <label class="terms-of-use">
-                                    <input type="checkbox" required class="terms-checkbox">
+                                    <input type="checkbox" required class="terms-checkbox" name="termsCheckbox">
                                     I agree to the <a href="./terms-of-use.html">Terms of Use</a>
                                 </label>
                             </section>
 
                             <div class="booking-actions">
-                                <button type="button" class="cta-btn blue">Back</button>
-                                <button type="submit" class="cta-btn gold">
+                                <button type="button" class="cta-btn blue back-btn">Back</button>
+                                <button type="button" class="cta-btn gold continue-btn">
                                     Continue
                                     <i class="fa-solid fa-arrow-right"></i>
                                 </button>
