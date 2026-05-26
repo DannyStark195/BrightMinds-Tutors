@@ -435,7 +435,7 @@
     text-align: left;
 }
 
-.field-group label,
+.field-group .field-label,
 .date-field{
     color: var(--Primary);
     display: block;
