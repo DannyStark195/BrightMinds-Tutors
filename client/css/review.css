@@ -112,7 +112,7 @@
 .rating-picker .rating:hover{
     transform: scale(1.1);
 }
-
+z
 .rating i{
     transition: transform 0.3s ease;
 }

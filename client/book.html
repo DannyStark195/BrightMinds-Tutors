@@ -63,22 +63,22 @@
                                         <div class="option-card sub">
                                             <i class="fa-solid fa-book-open"></i>
                                             English
-                                            <input type="radio" name="subject" value="English" class="hidden-radio lg subject-btn" required>
+                                            <input type="radio" name="subject" value="English" class="hidden-radio lg subject-btn">
                                         </div>
                                         <div class="option-card sub">
                                             <i class="fa-solid fa-atom"></i>
                                             Physics
-                                            <input type="radio" name="subject" value="Physics" class="hidden-radio lg subject-btn" required>
+                                            <input type="radio" name="subject" value="Physics" class="hidden-radio lg subject-btn">
                                         </div>
                                         <div class="option-card sub">
                                             <i class="fa-solid fa-dna"></i>
                                             Biology
-                                            <input type="radio" name="subject" value="Biology" class="hidden-radio lg subject-btn" required>
+                                            <input type="radio" name="subject" value="Biology" class="hidden-radio lg subject-btn">
                                         </div>
                                         <div class="option-card sub">
                                             <i class="fa-solid fa-code"></i>
                                             Computer Science
-                                            <input type="radio" name="subject" value="Computer" class="hidden-radio lg subject-btn" required>
+                                            <input type="radio" name="subject" value="Computer" class="hidden-radio lg subject-btn">
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
                                         <div class="pill-row times">
                                             <div class="option-pill time">
                                                 5x
-                                                <input type="radio" name="times" value="5x" class="hidden-radio times-btn">
+                                                <input type="radio" name="times" value="5x" class="hidden-radio times-btn" required>
                                             </div>
                                             <div class="option-pill time active">
                                                 3x
@@ -126,7 +126,7 @@
                                         <div class="pill-row hrs">
                                             <button type="button" class="option-pill hr active">
                                                 2 Hours
-                                                <input type="radio" name="hrs" value="2hrs" class="hidden-radio hrs-btn">
+                                                <input type="radio" name="hrs" value="2hrs" class="hidden-radio hrs-btn" required>
                                             </button>
                                             <button type="button" class="option-pill hr">
                                                 4 Hours
@@ -147,23 +147,23 @@
                                     <div class="pill-row days">
                                         <button type="button" class="option-pill day">
                                             Mon
-                                            <input type="radio" name="days" value="mon" class="hidden-radio days-btn">
+                                            <input type="checkbox" name="days" value="mon" class="hidden-radio days-btn">
                                         </button>
                                         <button type="button" class="option-pill day">
                                             Tue
-                                            <input type="radio" name="days" value="tue" class="hidden-radio days-btn">
+                                            <input type="checkbox" name="days" value="tue" class="hidden-radio days-btn">
                                         </button>
                                         <button type="button" class="option-pill day">
                                             Wed
-                                            <input type="radio" name="days" value="wed" class="hidden-radio days-btn">
+                                            <input type="checkbox" name="days" value="wed" class="hidden-radio days-btn">
                                         </button>
                                         <button type="button" class="option-pill day">
                                             Thur
-                                            <input type="radio" name="days" value="thur" class="hidden-radio days-btn">
+                                            <input type="checkbox" name="days" value="thur" class="hidden-radio days-btn">
                                         </button>
                                         <button type="button" class="option-pill day">
                                             Fri
-                                            <input type="radio" name="days" value="fri" class="hidden-radio days-btn">
+                                            <input type="checkbox" name="days" value="fri" class="hidden-radio days-btn">
                                         </button>
                                     </div>
                                 </div>
@@ -200,7 +200,7 @@
                                         <i class="fa-solid fa-location-dot"></i>
                                         <strong>Physical</strong>
                                         <span>Tutor comes to you</span>
-                                        <input type="radio" name="lessonLocation" value="physical" class="hidden-radio location-btn">
+                                        <input type="radio" name="lessonLocation" value="physical" class="hidden-radio location-btn" required>
                                     </button>
                                     <button type="button" class="option-card online">
                                         <i class="fa-solid fa-video"></i>
@@ -221,10 +221,10 @@
                                     <h2>Your details</h2>
                                 </div>
                                 <div class="details">
-                                    <input type="text" class="form-control" placeholder="Your full name">
-                                    <input type="tel" class="form-control" placeholder="Phone number">
-                                    <input type="text" class="form-control" placeholder="Student's name">
-                                    <input type="text" class="form-control" placeholder="Any disabilities? If yes, state.">
+                                    <input type="text" class="form-control" placeholder="Your full name" required>
+                                    <input type="tel" class="form-control" placeholder="Phone number" required>
+                                    <input type="text" class="form-control" placeholder="Student's name" required>
+                                    <input type="text" class="form-control" placeholder="Any disabilities? If yes, state." required>
                                     <textarea class="form-control" placeholder="Leave a message (optional)"></textarea>
                                 </div>
                                 <label class="terms-of-use">
@@ -235,7 +235,7 @@
 
                             <div class="booking-actions">
                                 <button type="button" class="cta-btn blue back-btn">Back</button>
-                                <button type="button" class="cta-btn gold continue-btn">
+                                <button type="submit" class="cta-btn gold continue-btn">
                                     Continue
                                     <i class="fa-solid fa-arrow-right"></i>
                                 </button>
@@ -274,7 +274,7 @@
             </div>
            
         </div>
-        <script type="module" src="./js/srcipts/book.js"></script>
+        <script type="module" src="./js/scripts/book.js"></script>
         <script type="module" src="./js/components/dNavMenu.js"></script>
     </body>
 </html>

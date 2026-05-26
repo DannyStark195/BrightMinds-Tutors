@@ -1,11 +1,12 @@
 import { activateElement, deactivateElement } from "../utils/helpers.js";
+import { collectData } from "../utils/formHelpers.js"
 const bookingForm = document.querySelector('.booking-form');
 const bookingProgress = document.querySelector('.booking-progress');
 const backBtn = bookingForm.querySelector('.back-btn');
 const continueBtn = bookingForm.querySelector('.continue-btn');
 function updateStep(currentStep) {
     if(currentStep > 4){
-        continueBtn.type = "submit";
+        // continueBtn.type = "submit";
     }
     if(currentStep < 1 || currentStep > 4) return;
     const steps = bookingForm.querySelectorAll('.booking-step');
@@ -19,8 +20,9 @@ function updateStep(currentStep) {
         }
     });
 
+
     continueBtn.addEventListener('click', () => {
-        updateStep(currentStep + 1);
+        // updateStep(currentStep + 1);
     });
     backBtn.addEventListener('click', () => {
         updateStep(currentStep - 1);
