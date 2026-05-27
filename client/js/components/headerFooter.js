@@ -44,8 +44,8 @@ footerHtml.innerHTML = `
                     </div>
                     <div class="footer-middle">
                         <ul>
-                            <li><a href="./index.html" class="footer-link">Home</a></li>
-                            <li><a href="./pricing.html" class="footer-link">Pricing</a></li>
+                            <li><a href="./index" class="footer-link">Home</a></li>
+                            <li><a href="./pricing" class="footer-link">Pricing</a></li>
                             <li><a href="./terms-of-use.html" class="footer-link">Terms of Use</a></li>
                             <li><a href="./privacy-policy.html" class="footer-link">Privacy Policy</a></li>
                         </ul>
