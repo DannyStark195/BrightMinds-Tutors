@@ -55,7 +55,7 @@
                                 <div class="field-group">
                                     <p class="field-label">Subject</p>
                                     <div class="option-grid book-subjects">
-                                        <label class="option-card sub active">
+                                        <label class="option-card sub">
                                             <i class="fa-solid fa-square-root-variable"></i>
                                             Maths
                                             <input type="radio" name="subject" value="Maths" class="hidden-radio lg subject-btn" required>
@@ -93,7 +93,7 @@
                                             JSS
                                             <input type="radio" name="gradeLevel" value="Jss" class="hidden-radio grade-btn">
                                         </label>
-                                        <label class="option-pill level active">
+                                        <label class="option-pill level">
                                             SS
                                             <input type="radio" name="gradeLevel" value="SS" class="hidden-radio grade-btn">
                                         </label>
@@ -111,7 +111,7 @@
                                                 5x
                                                 <input type="radio" name="times" value="5x" class="hidden-radio times-btn" required>
                                             </label>
-                                            <label class="option-pill time active">
+                                            <label class="option-pill time">
                                                 3x
                                                 <input type="radio" name="times" value="3x" class="hidden-radio times-btn">
                                             </label>
@@ -124,7 +124,7 @@
                                     <div class="field-group">
                                         <p class="field-label">Hours a day</p>
                                         <div class="pill-row hrs">
-                                            <label class="option-pill hr active">
+                                            <label class="option-pill hr ">
                                                 2 Hours
                                                 <input type="radio" name="hrs" value="2hrs" class="hidden-radio hrs-btn" required>
                                             </label>
@@ -145,7 +145,7 @@
                                 <div class="field-group">
                                     <p class="field-label">Preferred days</p>
                                     <div class="pill-row days">
-                                        <label class="option-pill day">
+                                        <label class="option-pill days">
                                             Mon
                                             <input type="checkbox" name="days" value="mon" class="hidden-radio days-btn">
                                         </label>
@@ -169,22 +169,11 @@
                                 </div>
                                 <div class="field-group">
                                     <p class="field-label">Time window</p>
-                                    <div class="option-grid windows">
-                                        <label class="option-card window">
-                                            9.am - 11.am
-                                            <input type="radio" name="timeWindow" value="9am-11am" class="hidden-radio window-btn">
-                                        </label>
-                                        <label class="option-card window">
-                                            12.pm - 2.pm
-                                            <input type="radio" name="timeWindow" value="12pm-2pm" class="hidden-radio window-btn">
-                                        </label>
-                                        <label class="option-card window active">
-                                            4.pm - 6.pm
-                                            <input type="radio" name="timeWindow" value="4pm-6pm" class="hidden-radio window-btn">
-                                        </label>
+                                    <div class="option-grid time-windows">
+                                        
                                     </div>
                                 </div>
-                                <label class="date-field">
+                                <label class="date-field start-date">
                                     Start date
                                     <input type="date" class="form-control">
                                 </label>
@@ -209,7 +198,7 @@
                                         <input type="radio" name="lessonLocation" value="online" class="hidden-radio location-btn">
                                     </label>
                                 </div>
-                                <label class="date-field address-field">
+                                <label class="date-field address-field inactive">
                                     Address
                                     <input type="text" class="form-control" placeholder="Input your address">
                                 </label>

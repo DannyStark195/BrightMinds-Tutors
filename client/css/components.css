@@ -672,7 +672,7 @@ input.input-error{
 
 /* Hidden Radio Button */
 .hidden-radio{
-    opacity: 0;
+    /* opacity: 0; */
     position: absolute;
     cursor: pointer;
     inline-size: 100%;

@@ -149,7 +149,7 @@ loginForm.addEventListener('submit', (e)=>{
     handleLogin();
 });
 function handleLogin(){
-    const data = collectData(loginForm);
+const data = collectData(loginForm);
     // loginUser(data);
      const {email, password} = data;
     const {userEmail, userPassword} = {'userEmail':'dannystark195@gmail.com', 'userPassword':'password'};
