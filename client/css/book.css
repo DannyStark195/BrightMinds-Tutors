@@ -443,6 +443,9 @@
     font-weight: 800;
     margin-bottom: 10px;
 }
+.date-field.inactive{
+    display: none;
+}
 
 .option-grid{
     display: grid;
