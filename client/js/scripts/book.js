@@ -1,4 +1,4 @@
-import { activateElement, deactivateElement, removeInactive } from "../utils/helpers.js";
+import { activateElement, addInactive, deactivateElement, removeInactive } from "../utils/helpers.js";
 import { collectData } from "../utils/formHelpers.js"
 const bookingForm = document.querySelector('.booking-form');
 const bookingProgress = document.querySelector('.booking-progress');
@@ -164,8 +164,10 @@ function setBookingFlow(){
 
     const step3 = bookingForm.querySelector('.step-3');
     const locationOptions = step3.querySelectorAll('.location');
+    const addressField = step3.querySelector('.address-field');
     locationOptions.forEach(option =>{
         option.addEventListener('click', ()=>{
+        addInactive(addressField)
             locationOptions.forEach(option => deactivateElement(option));
             activateElement(option);
         });
@@ -177,8 +179,8 @@ function setBookingFlow(){
         }
     });
     if(selectedLocation === 'physical'){
-        const physicalLocationInput = step3.querySelector('.address-field');
         removeInactive(physicalLocationInput);
+        const physicalLocationInput = addressField.querySelector('.physical-location-input')
         physicalLocationInput.addEventListener('input', ()=>{
             selectedLocation = physicalLocationInput.value;
         });
