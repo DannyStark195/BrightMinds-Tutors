@@ -30,10 +30,10 @@
                         <aside class="booking-summary surface-card">
                             <div class="booking-progress progress-tracker active">
                                 <div class="progress w-0"></div>
-                                <div class="step"><span>1</span><p>Need</p></div>
-                                <div class="step"><span>2</span><p>Schedule</p></div>
-                                <div class="step"><span>3</span><p>Place</p></div>
-                                <div class="step"><span>4</span><p>Details</p></div>
+                                <div class="step" data-step="1"><span>1</span><p>Need</p></div>
+                                <div class="step" data-step="2"><span>2</span><p>Schedule</p></div>
+                                <div class="step" data-step="3"><span>3</span><p>Place</p></div>
+                                <div class="step" data-step="4"><span>4</span><p>Details</p></div>
                             </div>
                             <div class="summary-card">
                                 <h2>Booking summary</h2>
@@ -210,11 +210,11 @@
                                     <h2>Your details</h2>
                                 </div>
                                 <div class="details">
-                                    <input type="text" class="form-control detail" placeholder="Your full name" required>
-                                    <input type="tel" class="form-control detail" placeholder="Phone number" required>
-                                    <input type="text" class="form-control detail" placeholder="Student's name" required>
-                                    <input type="text" class="form-control detail" placeholder="Any disabilities? If yes, state." required>
-                                    <textarea class="form-control" placeholder="Leave a message (optional)"></textarea>
+                                    <input type="text" name="fullName" class="form-control detail" placeholder="Your full name" required>
+                                    <input type="tel" name="phone" class="form-control detail" placeholder="Phone number" required>
+                                    <input type="text" name="studentName" class="form-control detail" placeholder="Student's name" required>
+                                    <input type="text" name="disabilities" class="form-control detail" placeholder="Any disabilities? If yes, state." required>
+                                    <textarea name="message" class="form-control" placeholder="Leave a message (optional)"></textarea>
                                 </div>
                                 <label class="terms-of-use field-label">
                                     <input type="checkbox" required class="terms-checkbox" name="termsCheckbox">

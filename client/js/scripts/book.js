@@ -1,7 +1,6 @@
 import { activateElement, addInactive, deactivateElement, removeInactive } from "../utils/helpers.js";
 import { collectData } from "../utils/formHelpers.js"
 const bookingForm = document.querySelector('.booking-form');
-const bookingProgress = document.querySelector('.booking-progress');
 const backBtn = bookingForm.querySelector('.back-btn');
 const continueBtn = bookingForm.querySelector('.continue-btn');
 let selectedSubject = null;
@@ -24,9 +23,8 @@ function updateStepDisplay(currentStep) {
     if(currentStep > 4){
         continueBtn.type = "submit";
     }
-    if(currentStep < 1 || currentStep > 4) return;
+    if(currentStep < 1) window.location.href = 'dashboard';
     const steps = bookingForm.querySelectorAll('.booking-step');
-    const progressSteps = bookingProgress.querySelectorAll('.progress-step');
 
     steps.forEach(step => {
         deactivateElement(step);
@@ -35,8 +33,89 @@ function updateStepDisplay(currentStep) {
         }
     });
     console.log('updatstep');
+
+    updateBookingProgress(currentStep);
 }
 
+function updateBookingProgress(currentStep){
+    const bookingProgress = document.querySelector('.booking-progress');
+    const progress = bookingProgress.querySelector('.progress')
+    console.log(bookingProgress);
+    progress.classList.remove('w-0', 'w-25', 'w-50', 'w-75', 'w-100')
+    progress.classList.toggle(`w-${(currentStep/4)*100}`);
+
+    const bookingProgressSteps = bookingProgress.querySelectorAll('.step');
+    console.log(bookingProgressSteps);
+    
+    bookingProgressSteps.forEach(step =>{
+        console.log(step);
+        deactivateElement(step);
+        const stepNumber = Number(step.dataset.step)
+        console.log(stepNumber);
+        
+        if(stepNumber <= currentStep){
+            activateElement(step)
+        }
+    })
+
+    if(currentStep === 2){
+        step2()
+    }
+}
+function step2(){
+    updateHrs()
+    const step2 = bookingForm.querySelector('.step-2');
+    const dayOptions = step2.querySelectorAll('.day');
+    dayOptions.forEach(option =>{
+        option.addEventListener('click', ()=>{
+            option.classList.toggle('active');
+            const dayValue = option.querySelector('.days-btn').value;
+            if(selectedDays.includes(dayValue)){
+                selectedDays = selectedDays.filter(day => day !== day);
+            }else{
+                selectedDays.push(dayValue);
+            }
+        });
+    });
+
+    const timeWindows = step2.querySelector('.time-windows');
+    const windowOptions = timeWindows.querySelectorAll('.window');
+    windowOptions.forEach(option =>{
+        option.addEventListener('click', ()=>{
+            windowOptions.forEach(option => deactivateElement(option));
+            activateElement(option);
+            const windowBtn = option.querySelector('.window-btn');
+            if(windowBtn.checked){
+                selectedTimeWindow = windowBtn.value;
+            }
+        });
+    });
+    
+    const startDate = step2.querySelector('.start-date');
+    startDate.addEventListener('change', ()=>{
+        selectedStartDate = startDate.value;
+    });
+}
+
+function updateHrs(){
+    const step2 = bookingForm.querySelector('.step-2');
+    const timeWindows = step2.querySelector('.time-windows');
+    console.log(selectedHr);
+    timeWindows.innerHTML =`
+       <label class="option-card window">
+            ${selectedHr === '2hrs'? timeWindowsByHr["2hrs"][0]: timeWindowsByHr["4hrs"][0]}
+            <input type="radio" name="timeWindow" value="${selectedHr === '2hrs'? timeWindowsByHr["2hrs"][0]: timeWindowsByHr["4hrs"][0]}" class="hidden-radio window-btn">
+        </label>
+        <label class="option-card window">
+            ${selectedHr === '2hrs'? timeWindowsByHr["2hrs"][1]: timeWindowsByHr["4hrs"][1]}
+            <input type="radio" name="timeWindow" value="${selectedHr === '2hrs'? timeWindowsByHr["2hrs"][1]: timeWindowsByHr["4hrs"][1]}" class="hidden-radio window-btn">
+        </label>
+        <label class="option-card window">
+            ${selectedHr === '2hrs'? timeWindowsByHr["2hrs"][2]: timeWindowsByHr["4hrs"][2]}
+            <input type="radio" name="timeWindow" value="${selectedHr === '2hrs'? timeWindowsByHr["2hrs"][2]: timeWindowsByHr["4hrs"][2]}" class="hidden-radio window-btn">
+        </label> 
+    `
+}
 function validateStep(currentStep){
    if(currentStep === 1){
         return validateStep1()
@@ -116,51 +195,7 @@ function setBookingFlow(){
         });
     });
 
-    const step2 = bookingForm.querySelector('.step-2');
-    const dayOptions = step2.querySelectorAll('.day');
-    dayOptions.forEach(option =>{
-        option.addEventListener('click', ()=>{
-            option.classList.toggle('active');
-            const dayValue = option.querySelector('.days-btn').value;
-            if(selectedDays.includes(dayValue)){
-                selectedDays = selectedDays.filter(day => day !== day);
-            }else{
-                selectedDays.push(dayValue);
-            }
-        });
-    });
-
-    const timeWindows = step2.querySelector('.time-windows');
-    timeWindows.innerHTML =`
-       <label class="option-card window">
-            ${selectedHr === '2hrs'? timeWindowsByHr["2hrs"][0]: timeWindowsByHr["4hrs"][0]}
-            <input type="radio" name="timeWindow" value="${selectedHr === '2hrs'? timeWindowsByHr["2hrs"][0]: timeWindowsByHr["4hrs"][0]}" class="hidden-radio window-btn">
-        </label>
-        <label class="option-card window">
-            ${selectedHr === '2hrs'? timeWindowsByHr["2hrs"][1]: timeWindowsByHr["4hrs"][1]}
-            <input type="radio" name="timeWindow" value="${selectedHr === '2hrs'? timeWindowsByHr["2hrs"][1]: timeWindowsByHr["4hrs"][1]}" class="hidden-radio window-btn">
-        </label>
-        <label class="option-card window active">
-            ${selectedHr === '2hrs'? timeWindowsByHr["2hrs"][2]: timeWindowsByHr["4hrs"][2]}
-            <input type="radio" name="timeWindow" value="${selectedHr === '2hrs'? timeWindowsByHr["2hrs"][2]: timeWindowsByHr["4hrs"][2]}" class="hidden-radio window-btn">
-        </label> 
-    `
-    const windowOptions = timeWindows.querySelectorAll('.window');
-    windowOptions.forEach(option =>{
-        option.addEventListener('click', ()=>{
-            windowOptions.forEach(option => deactivateElement(option));
-            activateElement(option);
-            const windowBtn = option.querySelector('.window-btn');
-            if(windowBtn.checked){
-                selectedTimeWindow = windowBtn.value;
-            }
-        });
-    });
     
-    const startDate = step2.querySelector('.start-date');
-    startDate.addEventListener('change', ()=>{
-        selectedStartDate = startDate.value;
-    });
 
     const step3 = bookingForm.querySelector('.step-3');
     const locationOptions = step3.querySelectorAll('.location');
@@ -237,7 +272,7 @@ function validateStep4(){
 }
 
 setBookingFlow();
-updateStepDisplay(1);
+updateStepDisplay(currentStep);
 continueBtn.addEventListener('click', () => {
        const valid = validateStep(currentStep);
         if(!valid){
