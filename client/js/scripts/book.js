@@ -47,9 +47,9 @@ function validateStep(currentStep){
    if(currentStep === 3){
         return validateStep3()
    }
-//    if(currentStep === 4){
-//         return validateStep4()
-//    }
+   if(currentStep === 4){
+        return validateStep4()
+   }
 }
 
 function setBookingFlow(){
@@ -170,23 +170,28 @@ function setBookingFlow(){
         addInactive(addressField)
             locationOptions.forEach(option => deactivateElement(option));
             activateElement(option);
+            const locationBtn = option.querySelector('.location-btn');
+            if(locationBtn.checked){
+                selectedLocation = locationBtn.value;
+            }
+            if(selectedLocation === 'physical'){
+                removeInactive(addressField);
+                const physicalLocationInput = addressField.querySelector('.physical-location-input')
+                selectedLocation = physicalLocationInput.value;
+            }
+           
         });
     });
-    const locationBtns = step3.querySelectorAll('.location-btn');
-    locationBtns.forEach(locationBtn =>{
-        if(locationBtn.checked){
-            selectedLocation = locationBtn.value;
-        }
-    });
-    if(selectedLocation === 'physical'){
-        removeInactive(physicalLocationInput);
-        const physicalLocationInput = addressField.querySelector('.physical-location-input')
-        physicalLocationInput.addEventListener('input', ()=>{
-            selectedLocation = physicalLocationInput.value;
-        });
-    }
 
-    const step4 = bookingForm.querySelector('.step-4');
+
+  const physicalLocationInput = addressField.querySelector('.physical-location-input');
+  physicalLocationInput.addEventListener('input', ()=>{
+    selectedLocation = physicalLocationInput.value
+  })
+    
+
+
+   
 }
 
 function validateStep1(){
@@ -206,12 +211,28 @@ function validateStep2(){
     return true;
 }
 function validateStep3(){
+    console.log(selectedLocation);
+    
     if(!selectedLocation){
         return false;
     }
     return true;
 }
 function validateStep4(){
+    const step4 = bookingForm.querySelector('.step-4');
+    
+    const details = step4.querySelectorAll('.detail');
+    console.log(details);
+    details.forEach(detail =>{
+        console.log(detail.value)
+            if(!detail.value){
+                return false
+            }
+        })
+    const termsCheckbox = step4.querySelector('.terms-checkbox');
+    if(!termsCheckbox.checked){
+        return false
+    }
     return true;
 }
 
