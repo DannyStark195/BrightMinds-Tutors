@@ -230,13 +230,18 @@
 }
 .dashboard-close-nav-btn.active{
     opacity: 1;
-    transform: rotate(-90deg);
     z-index: 9999;
+    position: absolute;
+    top: 8px;
+    right: 0px;
 }
 .dashboard-nav-btn, 
 .dashboard-close-nav-btn{
     width: 20px;
     height: 20px;
+}
+.dashboard-close-nav-btn{
+    transform: translateX(50%);
 }
 .profile-img{
     border-radius: 50%;

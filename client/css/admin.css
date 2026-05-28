@@ -4,6 +4,29 @@
     color: var(--Text);
 }
 
+.admin-nav-btn-wrapper{
+    display: none;
+}
+
+.admin-sidebar-overlay{
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 27, 42, 0.34);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+    z-index: 18;
+}
+
+.admin-sidebar-overlay.active{
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
+}
+
 @supports (min-height: 100dvh) {
     .admin-page{
         min-height: 100dvh;
@@ -538,10 +561,75 @@
 }
 
 @media(max-width: 980px){
-    .admin-sidebar{
-        position: static;
+    body.admin-sidebar-open{
+        overflow: hidden;
+    }
+
+    .admin-sidebar-overlay{
+        display: block;
+    }
+
+    .admin-nav-btn-wrapper{
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        z-index: 28;
+        cursor: pointer;
+        border-radius: 28px;
+    }
+
+    .admin-nav-btn,
+    .admin-close-nav-btn{
+        width: 20px;
+        height: 20px;
+    }
+
+    .admin-nav-btn{
+        display: none;
+    }
+
+    .admin-nav-btn.active{
+        display: initial;
+    }
+
+    .admin-nav-btn img{
         width: 100%;
-        min-height: auto;
+        height: 100%;
+        display: block;
+    }
+
+    .admin-close-nav-btn{
+        opacity: 0;
+        transition: 0.3s transform ease, opacity 0.3s ease;
+        transform: translateX(20%);
+    }
+
+    .admin-close-nav-btn.active{
+        opacity: 1;
+        z-index: 29;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+    }
+
+    .admin-close-nav-btn i{
+        color: #fff;
+    }
+
+    .admin-sidebar{
+        inset: 0 0 0 auto;
+        width: 100%;
+        transform: translateX(100%);
+        transition: transform 0.28s ease;
+        box-shadow: -28px 0 80px rgba(13, 27, 42, 0.22);
+        z-index: 24;
+    }
+
+    .admin-sidebar.active{
+        transform: translateX(0);
     }
 
     .admin-main{
@@ -550,7 +638,7 @@
     }
 
     .admin-nav{
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
     }
 
     .admin-account{
@@ -565,10 +653,6 @@
 @media(max-width: 640px){
     .admin-sidebar{
         padding: 22px 16px;
-    }
-
-    .admin-nav{
-        grid-template-columns: 1fr;
     }
 
     .admin-heading{

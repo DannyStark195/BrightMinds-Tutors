@@ -8,6 +8,10 @@ const panelContent = document.querySelector('[data-panel-content]');
 const closePanelButtons = document.querySelectorAll('[data-close-panel]');
 const bookingsTable = document.querySelector('[data-bookings-table]');
 const applicationsTable = document.querySelector('[data-applications-table]');
+const adminSidebar = document.querySelector('.admin-sidebar');
+const adminSidebarOverlay = document.querySelector('.admin-sidebar-overlay');
+const adminNavMenuBtn = document.querySelector('.admin-nav-btn');
+const closeAdminNavBtn = document.querySelector('.admin-close-nav-btn');
 
 const tutorOptions = {
     Mathematics: ['Mr Emeka Obi', 'Mr Tunde Bakare', 'Chika Okoro'],
@@ -118,6 +122,31 @@ function setActiveSection(sectionName) {
     sections.forEach((section) => {
         section.classList.toggle('active', section.dataset.panel === sectionName);
     });
+
+    closeAdminSidebar();
+}
+
+function openAdminSidebar() {
+    adminSidebar?.classList.add('active');
+    adminSidebarOverlay?.classList.add('active');
+    closeAdminNavBtn?.classList.add('active');
+    adminNavMenuBtn?.classList.remove('active');
+    document.body.classList.add('admin-sidebar-open');
+}
+
+function closeAdminSidebar() {
+    adminSidebar?.classList.remove('active');
+    adminSidebarOverlay?.classList.remove('active');
+    closeAdminNavBtn?.classList.remove('active');
+    adminNavMenuBtn?.classList.add('active');
+    document.body.classList.remove('admin-sidebar-open');
+}
+
+function handleAdminNavKeydown(event, callback) {
+    if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        callback();
+    }
 }
 
 function filterRows(group, filter) {
@@ -288,6 +317,18 @@ navButtons.forEach((button) => {
     });
 });
 
+adminNavMenuBtn?.addEventListener('click', openAdminSidebar);
+closeAdminNavBtn?.addEventListener('click', closeAdminSidebar);
+adminSidebarOverlay?.addEventListener('click', closeAdminSidebar);
+
+adminNavMenuBtn?.addEventListener('keydown', (event) => {
+    handleAdminNavKeydown(event, openAdminSidebar);
+});
+
+closeAdminNavBtn?.addEventListener('keydown', (event) => {
+    handleAdminNavKeydown(event, closeAdminSidebar);
+});
+
 filterGroups.forEach((group) => {
     const buttons = group.querySelectorAll('.filter-btn');
 
@@ -336,6 +377,7 @@ closePanelButtons.forEach((button) => {
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
         closePanel();
+        closeAdminSidebar();
     }
 });
 

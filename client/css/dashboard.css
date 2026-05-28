@@ -173,18 +173,6 @@ main{
     .greeting h2{
         font-size: 2.35rem;
     }
-    /* .nav-btn-wrapper{
-        display: none;
-    }
-    .navbar.d{
-        display: flex;
-    }
-    .nav-btn.d{
-        display: block;
-    }
-    .link a button{
-        padding: 20px 10px;
-    } */
 }
 
 @media(max-width: 560px){
