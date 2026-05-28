@@ -1,12 +1,13 @@
 const navButtons = document.querySelectorAll('.admin-nav-link');
 const sections = document.querySelectorAll('.admin-section');
 const filterGroups = document.querySelectorAll('[data-filter-group]');
-const reviewButtons = document.querySelectorAll('[data-review]');
 const studentRows = document.querySelectorAll('.student-row');
 const overlay = document.querySelector('.admin-overlay');
 const panel = document.querySelector('.review-panel');
 const panelContent = document.querySelector('[data-panel-content]');
 const closePanelButtons = document.querySelectorAll('[data-close-panel]');
+const bookingsTable = document.querySelector('[data-bookings-table]');
+const applicationsTable = document.querySelector('[data-applications-table]');
 
 const tutorOptions = {
     Mathematics: ['Mr Emeka Obi', 'Mr Tunde Bakare', 'Chika Okoro'],
@@ -146,6 +147,54 @@ function createTutorOptions(subject) {
     return tutors.map((tutor) => `<option>${tutor}</option>`).join('');
 }
 
+function getStatusClass(status) {
+    const statusClassMap = {
+        Pending: 'pending',
+        Approved: 'confirmed',
+        Rejected: 'rejected',
+        Completed: 'paid'
+    };
+
+    return statusClassMap[status] || 'pending';
+}
+
+function renderBookings() {
+    if (!bookingsTable) {
+        return;
+    }
+
+    bookingsTable.innerHTML = Object.values(bookings).map((booking) => `
+        <tr data-status="${booking.status.toLowerCase()}">
+            <td>${booking.reference}</td>
+            <td>${booking.student}</td>
+            <td>${booking.subject}</td>
+            <td>${booking.schedule}</td>
+            <td>${booking.location}</td>
+            <td>${booking.date}</td>
+            <td><span class="status ${getStatusClass(booking.status)}">${booking.status}</span></td>
+            <td><button class="table-action" type="button" data-review="booking" data-ref="${booking.reference}">Review</button></td>
+        </tr>
+    `).join('');
+}
+
+function renderApplications() {
+    if (!applicationsTable) {
+        return;
+    }
+
+    applicationsTable.innerHTML = Object.entries(applications).map(([reference, application]) => `
+        <tr data-status="${application.status.toLowerCase()}">
+            <td>${application.name}</td>
+            <td>${application.subjects}</td>
+            <td>${application.qualification}</td>
+            <td>${application.experience}</td>
+            <td>${application.date}</td>
+            <td><span class="status ${getStatusClass(application.status)}">${application.status}</span></td>
+            <td><button class="table-action" type="button" data-review="application" data-ref="${reference}">Review</button></td>
+        </tr>
+    `).join('');
+}
+
 function bookingPanelTemplate(booking) {
     return `
         <div class="panel-header">
@@ -251,19 +300,23 @@ filterGroups.forEach((group) => {
     });
 });
 
-reviewButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-        const type = button.dataset.review;
-        const reference = button.dataset.ref;
+document.addEventListener('click', (event) => {
+    const reviewButton = event.target.closest('[data-review]');
 
-        if (type === 'booking') {
-            openPanel(bookingPanelTemplate(bookings[reference]));
-        }
+    if (!reviewButton) {
+        return;
+    }
 
-        if (type === 'application') {
-            openPanel(applicationPanelTemplate(applications[reference]));
-        }
-    });
+    const type = reviewButton.dataset.review;
+    const reference = reviewButton.dataset.ref;
+
+    if (type === 'booking') {
+        openPanel(bookingPanelTemplate(bookings[reference]));
+    }
+
+    if (type === 'application') {
+        openPanel(applicationPanelTemplate(applications[reference]));
+    }
 });
 
 studentRows.forEach((row) => {
@@ -313,3 +366,6 @@ panel.addEventListener('click', (event) => {
         event.target.disabled = true;
     }
 });
+
+renderBookings();
+renderApplications();

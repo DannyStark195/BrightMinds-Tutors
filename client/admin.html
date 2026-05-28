@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="./css/admin.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
-        <script type="module" src="./js/srcipts/adminAuth.js"></script>
+        <script type="module" src="./js/auth/adminAuth.js"></script>
     </head>
     <body>
         <div class="admin-page">
@@ -150,58 +150,7 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr data-status="pending">
-                                        <td>BM-2847</td>
-                                        <td>Daniel Ebuka</td>
-                                        <td>Mathematics</td>
-                                        <td>Mon, Wed, Fri - 4 PM</td>
-                                        <td>Physical - Lekki</td>
-                                        <td>14 May 2026</td>
-                                        <td><span class="status pending">Pending</span></td>
-                                        <td><button class="table-action" type="button" data-review="booking" data-ref="BM-2847">Review</button></td>
-                                    </tr>
-                                    <tr data-status="approved">
-                                        <td>BM-2819</td>
-                                        <td>Kamsi Bello</td>
-                                        <td>Biology</td>
-                                        <td>Tue, Thu - 5 PM</td>
-                                        <td>Online</td>
-                                        <td>12 May 2026</td>
-                                        <td><span class="status confirmed">Approved</span></td>
-                                        <td><button class="table-action" type="button" data-review="booking" data-ref="BM-2819">Review</button></td>
-                                    </tr>
-                                    <tr data-status="pending">
-                                        <td>BM-2790</td>
-                                        <td>Amara Cole</td>
-                                        <td>English</td>
-                                        <td>Sat - 10 AM</td>
-                                        <td>Physical - Surulere</td>
-                                        <td>10 May 2026</td>
-                                        <td><span class="status pending">Pending</span></td>
-                                        <td><button class="table-action" type="button" data-review="booking" data-ref="BM-2790">Review</button></td>
-                                    </tr>
-                                    <tr data-status="rejected">
-                                        <td>BM-2734</td>
-                                        <td>Tope Akin</td>
-                                        <td>Physics</td>
-                                        <td>Fri - 3 PM</td>
-                                        <td>Physical - Yaba</td>
-                                        <td>8 May 2026</td>
-                                        <td><span class="status rejected">Rejected</span></td>
-                                        <td><button class="table-action" type="button" data-review="booking" data-ref="BM-2734">Review</button></td>
-                                    </tr>
-                                    <tr data-status="completed">
-                                        <td>BM-2688</td>
-                                        <td>Nora James</td>
-                                        <td>Chemistry</td>
-                                        <td>Mon, Thu - 6 PM</td>
-                                        <td>Online</td>
-                                        <td>2 May 2026</td>
-                                        <td><span class="status paid">Completed</span></td>
-                                        <td><button class="table-action" type="button" data-review="booking" data-ref="BM-2688">Review</button></td>
-                                    </tr>
-                                </tbody>
+                                <tbody data-bookings-table></tbody>
                             </table>
                         </div>
                     </section>
@@ -362,35 +311,7 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr data-status="pending">
-                                        <td>Chika Okoro</td>
-                                        <td>Mathematics, Physics</td>
-                                        <td>B.Sc Physics</td>
-                                        <td>4 years</td>
-                                        <td>13 May 2026</td>
-                                        <td><span class="status pending">Pending</span></td>
-                                        <td><button class="table-action" type="button" data-review="application" data-ref="APP-101">Review</button></td>
-                                    </tr>
-                                    <tr data-status="approved">
-                                        <td>Femi Lawson</td>
-                                        <td>English</td>
-                                        <td>B.Ed English</td>
-                                        <td>6 years</td>
-                                        <td>8 May 2026</td>
-                                        <td><span class="status confirmed">Approved</span></td>
-                                        <td><button class="table-action" type="button" data-review="application" data-ref="APP-092">Review</button></td>
-                                    </tr>
-                                    <tr data-status="rejected">
-                                        <td>Rita George</td>
-                                        <td>Chemistry</td>
-                                        <td>OND Science Lab Tech</td>
-                                        <td>1 year</td>
-                                        <td>6 May 2026</td>
-                                        <td><span class="status rejected">Rejected</span></td>
-                                        <td><button class="table-action" type="button" data-review="application" data-ref="APP-088">Review</button></td>
-                                    </tr>
-                                </tbody>
+                                <tbody data-applications-table></tbody>
                             </table>
                         </div>
                     </section>

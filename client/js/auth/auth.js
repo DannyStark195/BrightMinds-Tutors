@@ -13,3 +13,12 @@ export function redirectIfLoggedIn(){
     window.location.replace('dashboard.html');
 }
 
+function isAdmin(){
+    const token = localStorage.getItem('admin-token');
+    return !!token;
+}
+export function adminLoginRequired(){
+    if(!isAdmin()){
+        window.location.replace('admin-login.html');
+    }
+}
