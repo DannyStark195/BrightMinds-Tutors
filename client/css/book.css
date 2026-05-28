@@ -257,6 +257,10 @@
     /* width: 350px; */
     /* border: none; */
 }
+.step-4 .detail-field{
+    display: grid;
+    gap: 4px;
+}
 .step-4 .detail input{
     width: 100%;
     height: 100%;
@@ -270,6 +274,11 @@
 }
 .step-4 .detail:last-child{
     grid-column: 1 / -1;
+}
+.step-4 .details-error,
+.step-4 .terms-error{
+    grid-column: 1 / -1;
+    text-align: center;
 }
 .step-4 .terms-of-use{
     display: flex;

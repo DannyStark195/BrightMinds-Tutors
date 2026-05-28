@@ -1,5 +1,5 @@
 import { activateElement, addInactive, deactivateElement, removeInactive } from "../utils/helpers.js";
-import { collectData } from "../utils/formHelpers.js";
+import { collectData, validatePhone } from "../utils/formHelpers.js";
 
 const bookingForm = document.querySelector('.booking-form');
 const backBtn = bookingForm.querySelector('.back-btn');
@@ -283,10 +283,44 @@ function validateStep3(){
 function validateStep4(){
     const step4 = bookingForm.querySelector('.step-4');
     const details = step4.querySelectorAll('.detail');
+    const phoneField = step4.querySelector('[name="phone"]');
+    const studentAgeField = step4.querySelector('[name="studentAge"]');
     const termsCheckbox = step4.querySelector('.terms-checkbox');
+    const errorMessages = step4.querySelectorAll('.error-msg');
+    const phoneError = step4.querySelector('.error-msg.phone');
+    const ageError = step4.querySelector('.error-msg.age');
+    const detailsError = step4.querySelector('.error-msg.details-error');
+    const termsError = step4.querySelector('.error-msg.terms-error');
     const allDetailsFilled = [...details].every(detail => detail.value.trim());
+    const validPhone = validatePhone(phoneField.value);
+    const studentAge = Number(studentAgeField.value);
+    const validStudentAge = Number.isInteger(studentAge) && studentAge >= 6;
 
-    return allDetailsFilled && termsCheckbox.checked;
+    errorMessages.forEach(errorMessage => addInactive(errorMessage));
+
+    if(!allDetailsFilled){
+        removeInactive(detailsError);
+        return false;
+    }
+
+    if(!validPhone){
+        phoneError.textContent = 'This phone number is invalid';
+        removeInactive(phoneError);
+        return false;
+    }
+
+    if(!validStudentAge){
+        ageError.textContent = 'Student must be at least 6 years old';
+        removeInactive(ageError);
+        return false;
+    }
+
+    if(!termsCheckbox.checked){
+        removeInactive(termsError);
+        return false;
+    }
+
+    return true;
 }
 
 setBookingFlow();

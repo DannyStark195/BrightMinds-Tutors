@@ -155,6 +155,27 @@
                   <option value="uni">University</option>
                 </select>
               </label>
+              <label for="qualification">
+                Qualification
+                <select
+                  class="form-control"
+                  id="qualification"
+                  name="qualification"
+                  required
+                >
+                  <option value="">Select qualification</option>
+                  <option value="BSc">B.Sc</option>
+                  <option value="BEd">B.Ed</option>
+                  <option value="BA">B.A</option>
+                  <option value="HND">HND</option>
+                  <option value="OND">OND</option>
+                  <option value="NCE">NCE</option>
+                  <option value="MSc">M.Sc</option>
+                  <option value="MEd">M.Ed</option>
+                  <option value="PhD">PhD</option>
+                  <option value="Professional Certification">Professional Certification</option>
+                </select>
+              </label>
               <label for="lesson-format">
                 Lesson format
                 <select
@@ -167,6 +188,19 @@
                   <option>Physical only</option>
                   <option>Online only</option>
                 </select>
+              </label>
+              <label for="years-experience">
+                Years of experience
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="e.g. 3"
+                  id="years-experience"
+                  name="yearsExperience"
+                  min="0"
+                  step="1"
+                  required
+                />
               </label>
               <label class="wide" for="teaching-experience">
                 Teaching experience
