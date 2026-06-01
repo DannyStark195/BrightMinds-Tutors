@@ -21,6 +21,10 @@ overlay.innerHTML =  `
                                     </span>
                                 </div>
                                 <p class="error-msg inactive"></p>
+                                <label for="age-confirmation" class="condition age-confirmation">
+                                    <span>I confirm that I am at least 18 years old</span>
+                                    <input type="checkbox" name="age-confirmation" id="age-confirmation">
+                                </label>
                                 <button type="submit" class="cta-btn gold">Sign Up</button>
                                 <div>or</div>
                                 <button class="oauth-btn">
