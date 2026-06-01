@@ -138,7 +138,21 @@
 .tutor-form textarea{
     font-weight: 600;
 }
+.tutor-form .tutor-subjects label{
+    font-size: 0.87rem;
+    /* align-items: center; */
+    justify-content: center;
+}
+.tutor-form .side-by-side{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
+.tutor-form .tutor-subjects input[type="checkbox"]{
+    inline-size: 40px;
+    block-size: 30px;
+}
 .tutor-form textarea{
     min-height: 150px;
     resize: vertical;
@@ -200,6 +214,9 @@
 
     .hero-panel{
         border-radius: 20px;
+    }
+    .tutor-form .side-by-side{
+       flex-wrap: wrap;
     }
     .upload-btn .upload-filename{
         inline-size: 20%;

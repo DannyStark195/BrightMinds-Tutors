@@ -228,9 +228,14 @@
 }
 .form-container .age-confirmation{
     inline-size: 80%;
-    display: grid;
-    margin: 5px auto;
+    /* display: grid; */
+    margin: 0px auto;
     font-size: 0.87rem;
+}
+
+.age-confirmation input[type="checkbox"]{
+    margin-inline: 0px;
+    height: 18px;
 }
 
 .form-container .form .forgot-password{
@@ -268,7 +273,7 @@ input.input-error{
     /* display: none; */
     color: var(--Danger);
     font-size: 0.87rem;
-    margin-block: 6px;
+    margin-block: 4px;
 }
 .or-divider{
   display: flex;

@@ -20,12 +20,11 @@ overlay.innerHTML =  `
                                         <i class="fa fa-eye-slash" id="signup-eye-icon"></i>
                                     </span>
                                 </div>
-                                
-                                <p class="error-msg inactive"></p>
                                 <label for="age-confirmation" class="condition age-confirmation">
-                                    <span>I confirm that I am at least 18 years old</span>
-                                    <input type="checkbox" name="age-confirmation" id="age-confirmation">
+                                    <input type="checkbox" name="age-confirmation" id="age-confirmation" required>
+                                    I agree to the <a href="./terms-of-use.html" target="_blank">Terms of Use</a>
                                 </label>
+                                <p class="error-msg inactive"></p>
                                 <button type="submit" class="cta-btn gold">Sign Up</button>
                                 <div>or</div>
                                 <button class="oauth-btn">
@@ -97,6 +96,20 @@ const signupFormContainer = overlay?.querySelector('.signup-form-container');
 const loginFormContainer = overlay?.querySelector('.login-form-container');
 const loginForm = overlay?.querySelector('.login-form');
 const signupForm = overlay?.querySelector('.signup-form');
+const signupPassword = document.querySelector('#signup-password');
+
+signupPassword.addEventListener('input', (e) =>{
+    const password = e.target.value
+    const errorMesssage = signupFormContainer.querySelector('.error-msg');
+    errorMesssage.classList.add('inactive')
+    const passwordError = validatePassword(password);
+    if(passwordError){
+        errorMesssage.textContent = passwordError;
+        // activateElement(errorMesssage);
+        errorMesssage.classList.remove('inactive')
+    }
+    
+})
 export function hideOverlay(overlay) {
     if (!overlay) return;
     overlay.classList.remove('active');
