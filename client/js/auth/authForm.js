@@ -20,6 +20,7 @@ overlay.innerHTML =  `
                                         <i class="fa fa-eye-slash" id="signup-eye-icon"></i>
                                     </span>
                                 </div>
+                                
                                 <p class="error-msg inactive"></p>
                                 <label for="age-confirmation" class="condition age-confirmation">
                                     <span>I confirm that I am at least 18 years old</span>
