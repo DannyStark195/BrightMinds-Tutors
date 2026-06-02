@@ -8,3 +8,6 @@ class Config:
     
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MY_API_KEY = os.environ.get('MY_API_KEY')
+
+config = Config()
+print(config.SQLALCHEMY_DATABASE_URI)
