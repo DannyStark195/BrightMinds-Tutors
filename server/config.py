@@ -10,4 +10,4 @@ class Config:
     MY_API_KEY = os.environ.get('MY_API_KEY')
 
 config = Config()
-print(config.SQLALCHEMY_DATABASE_URI)
+# print(config.SQLALCHEMY_DATABASE_URI)

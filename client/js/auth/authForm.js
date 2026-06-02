@@ -1,5 +1,5 @@
 import { collectData, validateEmail, validatePassword, setupPasswordToggle } from "../utils/formHelpers.js";
-
+import { loginUser, signupUser } from "../api/api.js";
 const overlay = document.querySelector('.dark-overlay');
 overlay.innerHTML =  `
      <div class="form-container">
@@ -187,7 +187,7 @@ signupForm.addEventListener('submit', (e)=>{
     handleSignup()
 });
 
-function handleSignup(){
+async function handleSignup(){
     const data = collectData(signupForm);
     const {email, password} = data;
     const errorMesssage = signupFormContainer.querySelector('.error-msg');
@@ -205,8 +205,16 @@ function handleSignup(){
         errorMesssage.classList.remove('inactive')
         return
     }
-     //signupUser(data) called in api.js
+    const signupError = await signupUser(data);
 
+    if(signupError){
+        console.log(signupError);
+        
+        errorMesssage.textContent = signupError;
+        // activateElement(errorMesssage);
+        errorMesssage.classList.remove('inactive')
+        return
+    }   
      //If error in fetching return error message to be done when i start backend
      openForm(overlay, loginFormContainer);
 }
