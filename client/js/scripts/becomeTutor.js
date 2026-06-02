@@ -64,7 +64,7 @@ tutorForm.addEventListener('submit', (e) =>{
 	const tutorEmail = tutorData.tutorEmail;
 	const tutorPhone = tutorData.tutorPhone;
 	const tutorProof = tutorData.proofExperience;
-	console.log(tutorData, tutorPhone, tutorProof);
+	console.log(tutorData);
     const emailError = validateEmail(tutorEmail);
 	const validPhone= validatePhone(tutorPhone);
 	const fileError = validateFile(tutorProof);
@@ -99,6 +99,7 @@ tutorForm.addEventListener('submit', (e) =>{
 		errorMesssage.textContent = fileError;
 		return
 	}
+	console.log(tutorData);
 	// registerTutor(tutorData) to be implemented in the api.js
 });
 

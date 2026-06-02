@@ -97,6 +97,15 @@
               <input type="tel" class="form-control" placeholder="+234" id="tutor-phone" name="tutorPhone" required />
               <p class="error-msg phone inactive"></p>
             </label>
+            <label for="teaching-level">
+              Level you teach
+              <select class="form-control " id="teaching-level" name="teachingLevel" required>
+                <option value="primary">Primary</option>
+                <option value="jss">JSS</option>
+                <option value="ss">SS</option>
+                <option value="uni">University</option>
+              </select>
+            </label>
             <div class="tutor-subjects">
               <p class="field-label">Subjects you can teach</p>
               <div class="pill-row tutor-subject-options">
@@ -127,15 +136,6 @@
               </div>
               <p class="error-msg subject inactive"></p>
             </div>
-            <label for="teaching-level">
-              Level you teach
-              <select class="form-control " id="teaching-level" name="teachingLevel" required>
-                <option value="primary">Primary</option>
-                <option value="jss">JSS</option>
-                <option value="ss">SS</option>
-                <option value="uni">University</option>
-              </select>
-            </label>
             <label for="qualification">
               Qualification
               <select class="form-control" id="qualification" name="qualification" required>
