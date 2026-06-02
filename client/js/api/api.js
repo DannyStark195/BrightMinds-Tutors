@@ -1,3 +1,4 @@
+import {isAuthenticated, loginRequired} from '../auth/auth.js';
 const BASE_URL = "http://127.0.0.1:5000/api/"
 
 export async function signupUser(data){
@@ -47,4 +48,34 @@ export async function testAPI(){
     const request = await fetch(`${BASE_URL}`)
     const response = request.json()
     console.log(response);
+}
+
+function Logout(){
+    localStorage.removeItem('brightminds_token');
+    loginRequired();
+}
+export async function getUserProfile(){
+    try{
+        const token = localStorage.getItem('brightminds-user-token');
+        const request = await fetch(`${BASE_URL}profile`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        const response = await request.json();
+        console.log(response);
+        if(!request.ok){
+            if (response.status === 401) {
+                Logout(); // Clear data and boot them to login
+            }
+            throw new Error(response.error || 'Failed to fetch user profile');
+        }
+        return response.user
+    }
+    catch(error){
+        console.log(error.message)
+       return null;
+    }
 }

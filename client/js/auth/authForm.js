@@ -177,8 +177,10 @@ const user = collectData(loginForm);
     const loggedInUser = loginValid
     console.log(loggedInUser)
     // const fakeToken = 'blah20919';
-    // localStorage.setItem("user-token", fakeToken);
-    window.location.href = "dashboard";
+    const token = loggedInUser.token
+    console.log(token);
+    localStorage.setItem("brightminds-user-token", token);
+    // window.location.href = "dashboard";
 }
 
 signupForm.addEventListener('submit', (e)=>{

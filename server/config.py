@@ -9,5 +9,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MY_API_KEY = os.environ.get('MY_API_KEY')
 
+    JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
+
 config = Config()
 # print(config.SQLALCHEMY_DATABASE_URI)

@@ -1,11 +1,11 @@
-function isAuthentictaed(){
-    const token = localStorage.getItem('user-token');
+export function isAuthenticated(){
+    const token = localStorage.getItem('brightminds-user-token');
     // const token = true;
     return !!token;
 }
 
 export function loginRequired(){
-    if(!isAuthentictaed()){
+    if(!isAuthenticated()){
         window.location.replace('index.html?auth=required');
     }
 }

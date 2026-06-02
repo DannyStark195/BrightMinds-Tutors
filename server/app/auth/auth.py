@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, request, url_for, current_app, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
 import json
 from app.models import User
 from app import db
@@ -67,8 +68,11 @@ def login():
     if not user or not check_password_hash(user.password_hash, password):
         return jsonify({'error': 'Invalid email or password'}), 401
     
+    additional_claims = {"role": user.role}
+    access_token = create_access_token(identity=str(user.id), additional_claims=additional_claims)
     return jsonify({
         'message': 'Login successful!',
+        'token': access_token,
         'user': {
             'id': user.id,
             'username': user.username,
