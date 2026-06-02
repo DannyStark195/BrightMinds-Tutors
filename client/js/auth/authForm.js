@@ -166,19 +166,19 @@ loginForm.addEventListener('submit', (e)=>{
     e.preventDefault();
     handleLogin();
 });
-function handleLogin(){
-const data = collectData(loginForm);
-    // loginUser(data);
-     const {email, password} = data;
-    const {userEmail, userPassword} = {'userEmail':'dannystark195@gmail.com', 'userPassword':'password'};
+async function handleLogin(){
+const user = collectData(loginForm);
     const errorMesssage = loginFormContainer.querySelector('.error-msg');
-    // console.log(userEmail, userPassword);
-    if(!((email == userEmail) && (password == userPassword))){
+    const loginValid = await loginUser(user)
+    if(!loginValid){
+        // errorMesssage.textContent = "Invalid email or password"
         errorMesssage.classList.remove('inactive');
-        return 
+        return
     }
-    const fakeToken = 'blah20919';
-    localStorage.setItem("user-token", fakeToken);
+    const loggedInUser = loginValid
+    console.log(loggedInUser)
+    // const fakeToken = 'blah20919';
+    // localStorage.setItem("user-token", fakeToken);
     window.location.href = "dashboard";
 }
 

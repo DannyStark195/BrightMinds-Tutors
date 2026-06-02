@@ -54,3 +54,26 @@ def signup():
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': 'Database error occurred', 'details': str(e)}), 500
+
+@auth.route('/login', methods=['POST'])
+def login():
+    data = request.get_json() or {}
+
+    print(data)
+    email = data['email']
+    password = data['password']
+    user = User.query.filter_by(email=email).first()
+
+    if not user or not check_password_hash(user.password_hash, password):
+        return jsonify({'error': 'Invalid email or password'}), 401
+    
+    return jsonify({
+        'message': 'Login successful!',
+        'user': {
+            'id': user.id,
+            'username': user.username,
+            'email': user.email,
+            'role': user.role,
+            'parent_name': user.parent_name
+        }
+    }), 200
