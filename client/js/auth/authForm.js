@@ -171,7 +171,6 @@ const user = collectData(loginForm);
     const errorMesssage = loginFormContainer.querySelector('.error-msg');
     const loginValid = await loginUser(user)
     if(!loginValid){
-        // errorMesssage.textContent = "Invalid email or password"
         errorMesssage.classList.remove('inactive');
         return
     }
