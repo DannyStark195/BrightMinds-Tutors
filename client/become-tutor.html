@@ -97,35 +97,36 @@
               <input type="tel" class="form-control" placeholder="+234" id="tutor-phone" name="tutorPhone" required />
               <p class="error-msg phone inactive"></p>
             </label>
-            <label for="" class="tutor-subjects">
-                Subjects you can teach
-              <div class="side-by-side">
-                <label for="" class="condition">
+            <div class="tutor-subjects">
+              <p class="field-label">Subjects you can teach</p>
+              <div class="pill-row tutor-subject-options">
+                <label class="option-pill tutor-subject-option">
                   Maths
-                  <input type="checkbox" class="form-control " name="tutorSubject" value="Mathematics" required>
-                </label>             
-                <label for="" class="condition">
-                  Eng
-                  <input type="checkbox" class="form-control " name="tutorSubject" value="English" required>
+                  <input type="checkbox" name="tutorSubject" value="Mathematics" class="hidden-radio tutor-subject-btn">
                 </label>
-                <label for="" class="condition">
-                  Phy
-                  <input type="checkbox" class="form-control " name="tutorSubject" value="Physics" required>
+                <label class="option-pill tutor-subject-option">
+                  English
+                  <input type="checkbox" name="tutorSubject" value="English" class="hidden-radio tutor-subject-btn">
                 </label>
-                <label for="" class="condition">
-                  Chem
-                  <input type="checkbox" class="form-control " name="tutorSubject" value="Chemistry" required>
+                <label class="option-pill tutor-subject-option">
+                  Physics
+                  <input type="checkbox" name="tutorSubject" value="Physics" class="hidden-radio tutor-subject-btn">
                 </label>
-                <label for="" class="condition">
-                  Bio
-                  <input type="checkbox" class="form-control " name="tutorSubject" value="Biology" required>
+                <label class="option-pill tutor-subject-option">
+                  Chemistry
+                  <input type="checkbox" name="tutorSubject" value="Chemistry" class="hidden-radio tutor-subject-btn">
                 </label>
-                <label for="" class="condition">
-                 Computer Science
-                  <input type="checkbox" class="form-control " name="tutorSubject" value="Computer Science" required>
+                <label class="option-pill tutor-subject-option">
+                  Biology
+                  <input type="checkbox" name="tutorSubject" value="Biology" class="hidden-radio tutor-subject-btn">
+                </label>
+                <label class="option-pill tutor-subject-option">
+                  Computer Science
+                  <input type="checkbox" name="tutorSubject" value="Computer Science" class="hidden-radio tutor-subject-btn">
                 </label>
               </div>
-            </label>
+              <p class="error-msg subject inactive"></p>
+            </div>
             <label for="teaching-level">
               Level you teach
               <select class="form-control " id="teaching-level" name="teachingLevel" required>
