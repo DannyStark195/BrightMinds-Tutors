@@ -50,9 +50,9 @@ export async function testAPI(){
     console.log(response);
 }
 
-function Logout(){
-    localStorage.removeItem('brightminds_token');
-    loginRequired();
+async function Logout(){
+    await localStorage.removeItem('brightminds_token');
+    window.location.replace('index.html?auth=required');
 }
 export async function getUserProfile(){
     try{
@@ -67,10 +67,11 @@ export async function getUserProfile(){
         const response = await request.json();
         console.log(response);
         if(!request.ok){
-            if (response.status === 401) {
+        console.log(request.status)
+            if (request.status === 401) {
                 Logout(); // Clear data and boot them to login
             }
-            throw new Error(response.error || 'Failed to fetch user profile');
+            throw new Error(response.msg || 'Failed to fetch user profile');
         }
         return response.user
     }

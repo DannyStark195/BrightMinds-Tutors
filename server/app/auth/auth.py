@@ -4,6 +4,7 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 import json
 from app.models import User
 from app import db
+from app.utils.email import send_verification_email
 auth = Blueprint('auth',__name__)
 
 

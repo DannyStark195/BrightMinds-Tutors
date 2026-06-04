@@ -87,6 +87,27 @@ overlay.innerHTML =  `
                             <p class="open-signup">Sign up</p>
                         </div>
                     </div>
+                    <div class="verify-form-container form">
+                        <div class="top">
+                            <div class="logo">
+                                <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
+                            </div>
+                            <h2>Verify Code</h2>
+                            <form action="" class="verify-form">
+                                <p>A verification code has been sent to your email. Please enter the code below to verify your account.</p>
+                                <div class="password-wrapper">
+                                    <input type="password" id="verify-password" name="password" placeholder="Code" class="input-error"/>
+                                    <span class="toggle-password" id="toggleVerifyPassword">
+                                        <i class="fa fa-eye-slash" id="verify-eye-icon"></i>
+                                    </span>
+                                </div>
+                                <p class="error-msg inactive">The code you have entered is incorrect.</p>
+                                <button type="submit" class="cta-btn gold">Verify</button>
+                                    
+                            </form>
+                        </div>
+                    
+                    </div>
                 </div>
 `
 const signupTriggers = document.querySelectorAll('.open-signup');
@@ -94,8 +115,11 @@ const loginTriggers = document.querySelectorAll('.open-login');
 const cancelButtons = document.querySelectorAll('.cancel-form-popup');
 const signupFormContainer = overlay?.querySelector('.signup-form-container');
 const loginFormContainer = overlay?.querySelector('.login-form-container');
+const verifyFormContainer = overlay?.querySelector('.verify-form-container');
 const loginForm = overlay?.querySelector('.login-form');
 const signupForm = overlay?.querySelector('.signup-form');
+const verifyForm = overlay?.querySelector('.verify-form');
+
 const signupPassword = document.querySelector('#signup-password');
 
 signupPassword.addEventListener('input', (e) =>{
@@ -161,6 +185,8 @@ overlay?.addEventListener('click', (event) => {
 
 setupPasswordToggle('toggleSignupPassword', 'signup-password', 'signup-eye-icon');
 setupPasswordToggle('toggleLoginPassword', 'login-password', 'login-eye-icon');
+setupPasswordToggle('toggleVerifyPassword', 'verify-password', 'verify-eye-icon');
+
 
 loginForm.addEventListener('submit', (e)=>{
     e.preventDefault();
@@ -180,7 +206,7 @@ const user = collectData(loginForm);
     const token = loggedInUser.token
     console.log(token);
     localStorage.setItem("brightminds-user-token", token);
-    // window.location.href = "dashboard";
+    window.location.href = "dashboard";
 }
 
 signupForm.addEventListener('submit', (e)=>{
@@ -217,5 +243,6 @@ async function handleSignup(){
         return
     }   
      //If error in fetching return error message to be done when i start backend
-     openForm(overlay, loginFormContainer);
+    //  openForm(overlay, loginFormContainer);
+    openForm(overlay, verifyFormContainer);
 }
