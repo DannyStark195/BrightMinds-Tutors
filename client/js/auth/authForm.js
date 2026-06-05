@@ -215,6 +215,7 @@ signupForm.addEventListener('submit', (e)=>{
     handleSignup()
 });
 
+let registrationToken = "";
 async function handleSignup(){
     const data = collectData(signupForm);
     const {email, password} = data;
@@ -233,29 +234,38 @@ async function handleSignup(){
         msg.classList.remove('inactive')
         return
     }
-    const signupError = await signupUser(data);
+    const valid = await signupUser(data);
 
-    if(signupError){
-        console.log(signupError);
+    if(!valid.valid){
+        console.log(valid).valid;
         
-        msg.textContent = signupError;
+        msg.textContent = valid.message;
         // activateElement(msg);
         msg.classList.remove('inactive');
         return
     }   
      //If error in fetching return error message to be done when i start backend
     //  openForm(overlay, loginFormContainer);
+    registrationToken = valid.registrationToken;
     openForm(overlay, verifyOtpFormContainer);
 }
 
 verifyOtpForm.addEventListener('submit', async(e) =>{
     e.preventDefault()
-    const data = collectData(verifyOtpForm)
+    handleOtpVerification();
+});
+
+async function handleOtpVerification(){
+    const data = collectData(verifyOtpForm, {'registrationToken' :registrationToken});
+    console.log(data);
+    
     const msg = verifyOtpFormContainer.querySelector('.msg');
     msg.classList.remove('inactive');
-    msg.classList.add('success')
+    // msg.classList.add('success')
     const {valid, message} = verifyOTPCode(data)
 
+    console.log(valid);
+    
     if(valid){
         msg.innerHTML = message
         msg.classList.remove('inactive');
@@ -263,8 +273,7 @@ verifyOtpForm.addEventListener('submit', async(e) =>{
         // setTimeout(() => {
             openForm(overlay, loginFormContainer);
         // }, 2000);
-        
     }
     msg.innerHTML = message
     msg.classList.remove('inactive');
-})
+}

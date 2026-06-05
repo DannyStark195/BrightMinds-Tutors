@@ -24,10 +24,6 @@ class User(db.Model):
     bookings = db.relationship('Booking', backref='parent_booker', lazy=True)
     applications = db.relationship('TutorApplication', backref='applicant', lazy=True)
 
-    is_verified = db.Column(db.Boolean, default=False)
-    verification_code = db.Column(db.String(6), nullable=True)
-    code_expires_at = db.Column(db.DateTime, nullable=True)
-
 
 class Student(db.Model):
     __tablename__ = 'students'

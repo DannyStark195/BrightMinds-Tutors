@@ -15,11 +15,13 @@ export async function signupUser(data){
         if(!request.ok){
             throw new Error(response.error || 'Signup failed');
         }
-        return null
+        console.log(response.reg_token);
+        
+        return {valid: true, registrationToken: response.reg_token}
     }
     catch(error){
         console.log(error.message)
-       return error.message;  
+       return {valid: false, message:error.message};
     }
 }
 export async function loginUser(user){
@@ -82,22 +84,23 @@ export async function getUserProfile(){
 }
 
 export async function verifyOTPCode(data){
-    const {email, code } = data
-
+    const {email, code, registrationToken } = data
+    
+    console.log(data, registrationToken)
     try{
         const request = await fetch(`${BASE_URL}auth/verify-code` , {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: email, code: code })
+                    body: JSON.stringify({ email: email, code: code, reg_token: registrationToken})
                 });
         const response = request.json()
 
         if(request.ok){
-            return {valid: true, message:response.message}
+            return {valid: true, message: response.message}
         }
         throw new Error(response.error || 'Verification failed.');
     }
     catch(error){
-        return {valid: false, message:error.message}
+        return {valid: false, message: error.message}
     }
 }

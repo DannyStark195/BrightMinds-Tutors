@@ -11,5 +11,13 @@ class Config:
 
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
 
+    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_PORT = 465
+    MAIL_USE_SSL = True
+    # MAIL_USE_TLS = False
+    MAIL_USERNAME = os.environ.get('EMAIL_USER')
+    MAIL_PASSWORD = os.environ.get('EMAIL_PASS')
+    MAIL_DEFAULT_SENDER = os.environ.get('EMAIL_USER')
+
 config = Config()
 # print(config.SQLALCHEMY_DATABASE_URI)
