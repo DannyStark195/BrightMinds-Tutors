@@ -14,7 +14,7 @@ def send_verification_email(target_email, verification_code):
     <html>
         <body style="font-family: Arial, sans-serif; text-align: center; padding: 20px;">
             <h2>Welcome to BrightMinds!</h2>
-            <p>Please use the 6-digit verification code below to activate your account:</p>
+            <p>Please use the 6-digit verification code</p>
             <div style="font-size: 32px; font-weight: bold; padding: 15px; background-color: #f0f0f0; display: inline-block; letter-spacing: 5px; border-radius: 4px;">
                 {verification_code}
             </div>

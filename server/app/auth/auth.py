@@ -59,7 +59,6 @@ def signup():
 
 @auth.route('/verify-code', methods=["POST"])
 def verify_code():
-    print("codeeee")
     data = request.get_json() or {}
     # email = data.get('email', '').strip()
     submitted_code = data.get('code', '').strip()
@@ -145,3 +144,82 @@ def login():
             'parent_name': user.parent_name
         }
     }), 200
+@auth.route('/forgot-password', methods=["POST"])
+def forgot_password():
+    data = request.get_json() or {}
+
+    email = data['email']
+    otp_code = f"{random.randint(100000, 999999)}"
+    reg_claims = {
+        "email": email,
+        "otp": otp_code,
+        "action": "changing password"
+    }
+    registration_token = create_access_token(
+        identity=email, 
+        expires_delta=timedelta(minutes=15), 
+        additional_claims=reg_claims
+    )
+
+    email_sent = send_verification_email(email, otp_code)
+
+    if not email_sent:
+        return jsonify({'error': 'Mailing system offline. Please try again later.'}), 500
+        
+    # Pass the registration token back to the frontend so it can hold onto it
+    return jsonify({
+        'message': 'Verification code sent!',
+        'reg_token': registration_token
+    }), 201
+
+
+@auth.route('/reset-password', methods=["POST"])
+def reset_password():
+    data = request.get_json() or {}
+    submitted_code = data.get('code', '').strip()
+    registration_token = data.get('reg_token', '').strip()
+    new_password = data.get('new-password')
+    try:
+        decoded_claims = decode_token(registration_token)
+        claims = decoded_claims.get('extra_claims', {})
+
+        if not claims or 'action' not in claims:
+            claims = decoded_claims
+        if claims.get('action') != 'changing password':
+            print("point 4")
+            return jsonify({'error': 'Invalid token context.'}), 400
+            
+        if claims.get('otp') != submitted_code:
+            print("point 5")
+            return jsonify({'error': 'Incorrect verification code. Try again.'}), 400    
+        
+        email = claims.get('email')
+        print(email, submitted_code, registration_token)
+        if not email or not submitted_code:
+            print("point 1")
+            return jsonify({'error': 'Missing email or verification code'}), 400
+        
+        if not submitted_code or not registration_token:
+            print("point 2")
+            return jsonify({'error': 'Missing verification code or registration token.'}), 400 
+        if not new_password:
+            print("point 13")
+            return jsonify({'error': 'Missing password'}), 400
+        
+        user = User.query.filter_by(email=email).first()
+        
+        if not user:
+            return jsonify({'message': 'An account with this email does not exist'}), 200
+    
+        
+        user.password = new_password
+        db.session.commit()
+        
+        return jsonify({'message': 'Your password has been successfully changed!. Log in'}), 200
+        
+    except Exception as e:
+        # Fires automatically if token signature fails or is expired
+        print("point 7")
+        return jsonify({'error': 'Your verification session has expired. Please sign up again.'}), 400
+    
+    

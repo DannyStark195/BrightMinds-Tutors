@@ -104,3 +104,25 @@ export async function verifyOTPCode(data){
         return {'valid': false, 'message': error.message};
     }
 }
+
+export async function resetPassword(data){
+    const {email, code, newPassword} = data
+    
+    console.log(data)
+    try{
+        const request = await fetch(`${BASE_URL}auth/reset-password` , {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, code: code, new_password: newPassword})
+                });
+        const response = await request.json();
+        
+        if(request.ok){
+            return {'valid': true, 'message': response.message};
+        }
+        throw new Error(response.error || 'Password reset failed.');
+    }
+    catch(error){
+        return {'valid': false, 'message': error.message};
+    }
+}

@@ -1,5 +1,5 @@
 import { collectData, validateEmail, validatePassword, setupPasswordToggle } from "../utils/formHelpers.js";
-import { loginUser, signupUser, verifyOTPCode } from "../api/api.js";
+import { loginUser, signupUser, verifyOTPCode, resetPassword } from "../api/api.js";
 const overlay = document.querySelector('.dark-overlay');
 overlay.innerHTML =  `
      <div class="form-container">
@@ -106,19 +106,56 @@ overlay.innerHTML =  `
                                     
                             </form>
                         </div>
-                    
+                        <div class="forgot-password-form-container form">
+                        <div class="top">
+                            <div class="logo">
+                                <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
+                            </div>
+                            <h2>Forgot password</h2>
+                            <form action="" class="forgot-password-form">
+                                <p>Enter your email address and we'll send you an OTP to reset your password.</p>
+                                    <input type="email" name="email" id="forgot-email" placeholder="E-mail address" class="input-error">
+                                <p class="msg error inactive"></p>
+                                <button type="submit" class="cta-btn gold">Verify</button> 
+                            </form>
+                        </div>
+                        <div class="reset-password-form-container form">
+                        <div class="top">
+                            <div class="logo">
+                                <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
+                            </div>
+                            <h2>Reset Password</h2>
+                            <form action="" class="reset-password-form">
+                                <p>Enter your email address and we'll send you an OTP to reset your password.</p>
+                                <input type="email" name="email" id="forgot-email" placeholder="E-mail address" class="input-error">
+                                <input type="password" id="reset-code" name="code" placeholder="Code" class="input-error"/>
+                                <div class="password-wrapper">
+                                    <input type="password" id="reset-password" name="newPassword" placeholder="New Password" class="input-error"/>
+                                    <span class="toggle-password" id="toggleResetPassword">
+                                        <i class="fa fa-eye-slash" id="reset-eye-icon"></i>
+                                    </span>
+                                </div>
+                                <p class="msg error inactive"></p>
+                                <button type="submit" class="cta-btn gold">Reset password</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
 `
 const signupTriggers = document.querySelectorAll('.open-signup');
 const loginTriggers = document.querySelectorAll('.open-login');
 const cancelButtons = document.querySelectorAll('.cancel-form-popup');
+
 const signupFormContainer = overlay?.querySelector('.signup-form-container');
 const loginFormContainer = overlay?.querySelector('.login-form-container');
 const verifyOtpFormContainer = overlay?.querySelector('.verify-otp-form-container');
+const forgotPasswordFormContainer = overlay?.querySelector('.forgot-password-form-container');
+const resetPasswordFormContainer = overlay?.querySelector('.reset-password-form-container');
+
 const loginForm = overlay?.querySelector('.login-form');
 const signupForm = overlay?.querySelector('.signup-form');
-const verifyOtpForm = overlay?.querySelector('.verify-otp-form');
+const forgotPasswordForm = overlay?.querySelector('.forgot-password-form');
+const resetPasswordForm = overlay?.querySelector('.reset-password-form');
 
 const signupPassword = document.querySelector('#signup-password');
 
@@ -146,7 +183,8 @@ export function showOverlay(overlay) {
 
 function hideAllPopupForms(overlay) {
     if (!overlay) return;
-        const forms = overlay.querySelectorAll('.signup-form-container, .login-form-container', '.verify-otp-form-container');
+        // const forms = overlay.querySelectorAll('.signup-form-container, .login-form-container', '.verify-otp-form-container');
+        const forms = overlay.querySelectorAll('.form');
         forms.forEach((form) => {
             form.classList.remove('active');
         });
@@ -186,6 +224,7 @@ overlay?.addEventListener('click', (event) => {
 setupPasswordToggle('toggleSignupPassword', 'signup-password', 'signup-eye-icon');
 setupPasswordToggle('toggleLoginPassword', 'login-password', 'login-eye-icon');
 setupPasswordToggle('toggleVerifyPassword', 'verify-password', 'verify-eye-icon');
+setupPasswordToggle('toggleResetPassword', 'reset-password', 'reset-eye-icon');
 
 
 loginForm.addEventListener('submit', (e)=>{
@@ -275,4 +314,61 @@ async function handleOtpVerification(){
     }
     msg.innerHTML = message
     msg.classList.remove('inactive');
+}
+
+async function handleForgotPassword(){
+    const data = collectData(forgotPasswordForm);
+    const {email} = data;
+    const msg = forgotPasswordFormContainer.querySelector('.msg.error');
+    const emailError = validateEmail(email);
+     if(emailError){
+        msg.textContent = emailError;
+        // activateElement(msg);
+        msg.classList.remove('inactive')
+        return
+    }
+    openForm(overlay, resetPasswordFormContainer);
+}
+
+forgotPasswordForm.addEventListener('submit', async(e) =>{
+    e.preventDefault();
+    handleForgotPassword();
+})
+
+resetPasswordForm.addEventListener('submit', async(e) =>{
+    e.preventDefault();
+    handleResetPassword();
+})
+
+async function handleResetPassword(){
+    const data = collectData(resetPasswordForm);
+    const {email, code, newPassword} = data;
+    const msg = resetPasswordFormContainer.querySelector('.msg.error');
+    const emailError = validateEmail(email);
+    const passwordError = validatePassword(newPassword);
+     if(emailError){
+        msg.textContent = emailError;
+        // activateElement(msg);
+        msg.classList.remove('inactive')
+        return
+    }
+    if(passwordError){
+        msg.textContent = passwordError;
+        // activateElement(msg);
+        msg.classList.remove('inactive')
+        return
+    }
+    const {valid, message} = await resetPassword(data)
+    if(valid){
+        msg.textContent = message
+        msg.classList.remove('inactive');
+        msg.classList.add('success')
+        setTimeout(() => {
+            openForm(overlay, loginFormContainer);
+        }, 2000);
+    }
+    else{
+        msg.textContent = message
+        msg.classList.remove('inactive');
+    }
 }
