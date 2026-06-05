@@ -9,19 +9,7 @@ const profileFields = document.querySelector('#profile-fields');
 
 const passwordForm = document.querySelector('#password-form');
 
-const userProfile = await getUserProfile();
 
-profileFields.innerHTML = `
-    <label class="profile-field">
-        <span>Full name</span>
-        <input type="text" class="form-control" value=${userProfile.username} name="profileName">
-    </label>
-    <label class="profile-field">
-        <span>Phone number</span>
-        <input type="tel" class="form-control" value="${userProfile.phone || ''}" name="profilePhone">
-    </label>
-    
-`
 const infoAccountStatus = document.querySelector('#info-account-status');
 const infoCurrentStatus = document.querySelector('#info-current-plan');
 
@@ -35,3 +23,20 @@ profileForm.addEventListener('submit', (e)=>{
     const phoneError = validatePhone(data.profilePhone)
     const emailError = validateEmail(data.profileEmail)
 })
+async function renderUserprofile(){
+    const userProfile = await getUserProfile();
+
+profileFields.innerHTML = `
+    <label class="profile-field">
+        <span>Full name</span>
+        <input type="text" class="form-control" value=${userProfile.username} name="profileName">
+    </label>
+    <label class="profile-field">
+        <span>Phone number</span>
+        <input type="tel" class="form-control" value="${userProfile.phone || ''}" name="profilePhone">
+    </label>
+    
+`
+}
+
+renderUserprofile()
