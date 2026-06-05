@@ -148,7 +148,14 @@ def login():
 def forgot_password():
     data = request.get_json() or {}
 
-    email = data['email']
+    email = data.get('email', '').strip()
+    if not email:
+        return jsonify({'error': 'Missing email'}), 400
+
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'error': 'An account with this email does not exist'}), 404
+
     otp_code = f"{random.randint(100000, 999999)}"
     reg_claims = {
         "email": email,
@@ -178,7 +185,7 @@ def reset_password():
     data = request.get_json() or {}
     submitted_code = data.get('code', '').strip()
     registration_token = data.get('reg_token', '').strip()
-    new_password = data.get('new-password')
+    new_password = data.get('new_password')
     try:
         decoded_claims = decode_token(registration_token)
         claims = decoded_claims.get('extra_claims', {})
@@ -209,10 +216,10 @@ def reset_password():
         user = User.query.filter_by(email=email).first()
         
         if not user:
-            return jsonify({'message': 'An account with this email does not exist'}), 200
+            return jsonify({'error': 'An account with this email does not exist'}), 404
     
         
-        user.password = new_password
+        user.password_hash = generate_password_hash(new_password, method='pbkdf2:sha256')
         db.session.commit()
         
         return jsonify({'message': 'Your password has been successfully changed!. Log in'}), 200

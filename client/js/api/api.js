@@ -105,15 +105,36 @@ export async function verifyOTPCode(data){
     }
 }
 
+export async function forgotPassword(data){
+    const {email} = data
+
+    try{
+        const request = await fetch(`${BASE_URL}auth/forgot-password` , {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email})
+                });
+        const response = await request.json();
+
+        if(request.ok){
+            return {'valid': true, 'message': response.message, 'registrationToken': response.reg_token};
+        }
+        throw new Error(response.error || 'Password reset request failed.');
+    }
+    catch(error){
+        return {'valid': false, 'message': error.message};
+    }
+}
+
 export async function resetPassword(data){
-    const {email, code, newPassword} = data
+    const {email, code, newPassword, registrationToken} = data
     
     console.log(data)
     try{
         const request = await fetch(`${BASE_URL}auth/reset-password` , {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: email, code: code, new_password: newPassword})
+                    body: JSON.stringify({ email: email, code: code, new_password: newPassword, reg_token: registrationToken})
                 });
         const response = await request.json();
         

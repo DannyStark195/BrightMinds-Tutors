@@ -1,5 +1,5 @@
 import { collectData, validateEmail, validatePassword, setupPasswordToggle } from "../utils/formHelpers.js";
-import { loginUser, signupUser, verifyOTPCode, resetPassword } from "../api/api.js";
+import { loginUser, signupUser, verifyOTPCode, forgotPassword, resetPassword } from "../api/api.js";
 const overlay = document.querySelector('.dark-overlay');
 overlay.innerHTML =  `
      <div class="form-container">
@@ -62,7 +62,7 @@ overlay.innerHTML =  `
                                         <i class="fa fa-eye-slash" id="login-eye-icon"></i>
                                     </span>
                                 </div>
-                                <a href="" class="forgot-password">Forgot password?</a>
+                                <a href="#" class="forgot-password">Forgot password?</a>
                                 <p class="msg error inactive">The email or password you have entered is incorrect.</p>
                                 <button type="submit" class="cta-btn gold">Login</button>
                                 <div>or</div>
@@ -103,10 +103,10 @@ overlay.innerHTML =  `
                                 </div>
                                 <p class="msg error inactive"></p>
                                 <button type="submit" class="cta-btn gold">Verify</button>
-                                    
                             </form>
                         </div>
-                        <div class="forgot-password-form-container form">
+                    </div>
+                    <div class="forgot-password-form-container form">
                         <div class="top">
                             <div class="logo">
                                 <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
@@ -114,20 +114,21 @@ overlay.innerHTML =  `
                             <h2>Forgot password</h2>
                             <form action="" class="forgot-password-form">
                                 <p>Enter your email address and we'll send you an OTP to reset your password.</p>
-                                    <input type="email" name="email" id="forgot-email" placeholder="E-mail address" class="input-error">
+                                <input type="email" name="email" id="forgot-password-email" placeholder="E-mail address" class="input-error">
                                 <p class="msg error inactive"></p>
                                 <button type="submit" class="cta-btn gold">Verify</button> 
                             </form>
                         </div>
-                        <div class="reset-password-form-container form">
+                    </div>
+                    <div class="reset-password-form-container form">
                         <div class="top">
                             <div class="logo">
                                 <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
                             </div>
                             <h2>Reset Password</h2>
                             <form action="" class="reset-password-form">
-                                <p>Enter your email address and we'll send you an OTP to reset your password.</p>
-                                <input type="email" name="email" id="forgot-email" placeholder="E-mail address" class="input-error">
+                                <p>Enter the OTP sent to your email and choose a new password.</p>
+                                <input type="email" name="email" id="reset-email" placeholder="E-mail address" class="input-error">
                                 <input type="password" id="reset-code" name="code" placeholder="Code" class="input-error"/>
                                 <div class="password-wrapper">
                                     <input type="password" id="reset-password" name="newPassword" placeholder="New Password" class="input-error"/>
@@ -145,6 +146,7 @@ overlay.innerHTML =  `
 const signupTriggers = document.querySelectorAll('.open-signup');
 const loginTriggers = document.querySelectorAll('.open-login');
 const cancelButtons = document.querySelectorAll('.cancel-form-popup');
+const forgotPasswordTriggers = overlay?.querySelectorAll('.forgot-password') || [];
 
 const signupFormContainer = overlay?.querySelector('.signup-form-container');
 const loginFormContainer = overlay?.querySelector('.login-form-container');
@@ -154,6 +156,7 @@ const resetPasswordFormContainer = overlay?.querySelector('.reset-password-form-
 
 const loginForm = overlay?.querySelector('.login-form');
 const signupForm = overlay?.querySelector('.signup-form');
+const verifyOtpForm = overlay?.querySelector('.verify-otp-form');
 const forgotPasswordForm = overlay?.querySelector('.forgot-password-form');
 const resetPasswordForm = overlay?.querySelector('.reset-password-form');
 
@@ -214,6 +217,13 @@ cancelButtons.forEach((button) => {
     button.addEventListener('click', () => closeFormPopup(overlay));
 });
 
+forgotPasswordTriggers.forEach((button) => {
+    button.addEventListener('click', (event) => {
+        event.preventDefault();
+        openForm(overlay, forgotPasswordFormContainer);
+    });
+});
+
 overlay?.addEventListener('click', (event) => {
     if (event.target === overlay) {
         closeFormPopup(overlay);
@@ -254,6 +264,7 @@ signupForm.addEventListener('submit', (e)=>{
 });
 
 let registrationToken = "";
+let resetPasswordToken = "";
 async function handleSignup(){
     const data = collectData(signupForm);
     const {email, password} = data;
@@ -320,12 +331,27 @@ async function handleForgotPassword(){
     const data = collectData(forgotPasswordForm);
     const {email} = data;
     const msg = forgotPasswordFormContainer.querySelector('.msg.error');
+    msg.classList.add('inactive');
+    msg.classList.remove('success');
     const emailError = validateEmail(email);
      if(emailError){
         msg.textContent = emailError;
         // activateElement(msg);
         msg.classList.remove('inactive')
         return
+    }
+
+    const {valid, message, registrationToken} = await forgotPassword(data);
+    if(!valid){
+        msg.textContent = message;
+        msg.classList.remove('inactive');
+        return;
+    }
+
+    resetPasswordToken = registrationToken;
+    const resetEmailInput = resetPasswordForm.querySelector('[name="email"]');
+    if(resetEmailInput){
+        resetEmailInput.value = email;
     }
     openForm(overlay, resetPasswordFormContainer);
 }
@@ -341,10 +367,12 @@ resetPasswordForm.addEventListener('submit', async(e) =>{
 })
 
 async function handleResetPassword(){
-    const data = collectData(resetPasswordForm);
+    const data = collectData(resetPasswordForm, {'registrationToken': resetPasswordToken});
     const {email, code, newPassword} = data;
     const msg = resetPasswordFormContainer.querySelector('.msg.error');
-    const emailError = validateEmail(email);
+    msg.classList.add('inactive');
+    msg.classList.remove('success');
+     const emailError = validateEmail(email);
     const passwordError = validatePassword(newPassword);
      if(emailError){
         msg.textContent = emailError;
@@ -357,6 +385,16 @@ async function handleResetPassword(){
         // activateElement(msg);
         msg.classList.remove('inactive')
         return
+    }
+    if(!code){
+        msg.textContent = "Missing verification code";
+        msg.classList.remove('inactive');
+        return;
+    }
+    if(!resetPasswordToken){
+        msg.textContent = "Please request a password reset code first";
+        msg.classList.remove('inactive');
+        return;
     }
     const {valid, message} = await resetPassword(data)
     if(valid){
