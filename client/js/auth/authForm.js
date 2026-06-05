@@ -1,5 +1,5 @@
 import { collectData, validateEmail, validatePassword, setupPasswordToggle } from "../utils/formHelpers.js";
-import { loginUser, signupUser } from "../api/api.js";
+import { loginUser, signupUser, verifyOTPCode } from "../api/api.js";
 const overlay = document.querySelector('.dark-overlay');
 overlay.innerHTML =  `
      <div class="form-container">
@@ -24,7 +24,7 @@ overlay.innerHTML =  `
                                     <input type="checkbox" name="age-confirmation" id="age-confirmation" required>
                                     I agree to the <a href="./terms-of-use.html" target="_blank">Terms of Use</a>
                                 </label>
-                                <p class="error-msg inactive"></p>
+                                <p class="msg error inactive"></p>
                                 <button type="submit" class="cta-btn gold">Sign Up</button>
                                 <div>or</div>
                                 <button class="oauth-btn">
@@ -63,7 +63,7 @@ overlay.innerHTML =  `
                                     </span>
                                 </div>
                                 <a href="" class="forgot-password">Forgot password?</a>
-                                <p class="error-msg inactive">The email or password you have entered is incorrect.</p>
+                                <p class="msg error inactive">The email or password you have entered is incorrect.</p>
                                 <button type="submit" class="cta-btn gold">Login</button>
                                 <div>or</div>
                                 <button class="oauth-btn">
@@ -87,21 +87,22 @@ overlay.innerHTML =  `
                             <p class="open-signup">Sign up</p>
                         </div>
                     </div>
-                    <div class="verify-form-container form">
+                    <div class="verify-otp-form-container form">
                         <div class="top">
                             <div class="logo">
                                 <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
                             </div>
                             <h2>Verify Code</h2>
-                            <form action="" class="verify-form">
+                            <form action="" class="verify-otp-form">
                                 <p>A verification code has been sent to your email. Please enter the code below to verify your account.</p>
+                                <input type="email" name="email" id="verify-email" placeholder="E-mail address" class="input-error">
                                 <div class="password-wrapper">
-                                    <input type="password" id="verify-password" name="password" placeholder="Code" class="input-error"/>
+                                    <input type="password" id="verify-password" name="code" placeholder="Code" class="input-error"/>
                                     <span class="toggle-password" id="toggleVerifyPassword">
                                         <i class="fa fa-eye-slash" id="verify-eye-icon"></i>
                                     </span>
                                 </div>
-                                <p class="error-msg inactive">The code you have entered is incorrect.</p>
+                                <p class="msg error inactive">Registration successful! Please enter the 6-digit code sent to your email.</p>
                                 <button type="submit" class="cta-btn gold">Verify</button>
                                     
                             </form>
@@ -115,22 +116,22 @@ const loginTriggers = document.querySelectorAll('.open-login');
 const cancelButtons = document.querySelectorAll('.cancel-form-popup');
 const signupFormContainer = overlay?.querySelector('.signup-form-container');
 const loginFormContainer = overlay?.querySelector('.login-form-container');
-const verifyFormContainer = overlay?.querySelector('.verify-form-container');
+const verifyOtpFormContainer = overlay?.querySelector('.verify-otp-form-container');
 const loginForm = overlay?.querySelector('.login-form');
 const signupForm = overlay?.querySelector('.signup-form');
-const verifyForm = overlay?.querySelector('.verify-form');
+const verifyOtpForm = overlay?.querySelector('.verify-otp-form');
 
 const signupPassword = document.querySelector('#signup-password');
 
 signupPassword.addEventListener('input', (e) =>{
     const password = e.target.value
-    const errorMesssage = signupFormContainer.querySelector('.error-msg');
-    errorMesssage.classList.add('inactive')
+    const msg = signupFormContainer.querySelector('.msg.error');
+    msg.classList.add('inactive')
     const passwordError = validatePassword(password);
     if(passwordError){
-        errorMesssage.textContent = passwordError;
-        // activateElement(errorMesssage);
-        errorMesssage.classList.remove('inactive')
+        msg.textContent = passwordError;
+        // activateElement(msg);
+        msg.classList.remove('inactive')
     }
     
 })
@@ -146,7 +147,7 @@ export function showOverlay(overlay) {
 
 function hideAllPopupForms(overlay) {
     if (!overlay) return;
-        const forms = overlay.querySelectorAll('.signup-form-container, .login-form-container');
+        const forms = overlay.querySelectorAll('.signup-form-container, .login-form-container', '.verify-otp-form-container');
         forms.forEach((form) => {
             form.classList.remove('active');
         });
@@ -194,10 +195,10 @@ loginForm.addEventListener('submit', (e)=>{
 });
 async function handleLogin(){
 const user = collectData(loginForm);
-    const errorMesssage = loginFormContainer.querySelector('.error-msg');
+    const msg = loginFormContainer.querySelector('.msg.error');
     const loginValid = await loginUser(user)
     if(!loginValid){
-        errorMesssage.classList.remove('inactive');
+        msg.classList.remove('inactive');
         return
     }
     const loggedInUser = loginValid
@@ -217,19 +218,19 @@ signupForm.addEventListener('submit', (e)=>{
 async function handleSignup(){
     const data = collectData(signupForm);
     const {email, password} = data;
-    const errorMesssage = signupFormContainer.querySelector('.error-msg');
+    const msg = signupFormContainer.querySelector('.msg.error');
     const emailError = validateEmail(email);
     const passwordError = validatePassword(password);
      if(emailError){
-        errorMesssage.textContent = emailError;
-        // activateElement(errorMesssage);
-        errorMesssage.classList.remove('inactive')
+        msg.textContent = emailError;
+        // activateElement(msg);
+        msg.classList.remove('inactive')
         return
     }
     if(passwordError){
-        errorMesssage.textContent = passwordError;
-        // activateElement(errorMesssage);
-        errorMesssage.classList.remove('inactive')
+        msg.textContent = passwordError;
+        // activateElement(msg);
+        msg.classList.remove('inactive')
         return
     }
     const signupError = await signupUser(data);
@@ -237,12 +238,33 @@ async function handleSignup(){
     if(signupError){
         console.log(signupError);
         
-        errorMesssage.textContent = signupError;
-        // activateElement(errorMesssage);
-        errorMesssage.classList.remove('inactive')
+        msg.textContent = signupError;
+        // activateElement(msg);
+        msg.classList.remove('inactive');
         return
     }   
      //If error in fetching return error message to be done when i start backend
     //  openForm(overlay, loginFormContainer);
-    openForm(overlay, verifyFormContainer);
+    openForm(overlay, verifyOtpFormContainer);
 }
+
+verifyOtpForm.addEventListener('submit', async(e) =>{
+    e.preventDefault()
+    const data = collectData(verifyOtpForm)
+    const msg = verifyOtpFormContainer.querySelector('.msg');
+    msg.classList.remove('inactive');
+    msg.classList.add('success')
+    const {valid, message} = verifyOTPCode(data)
+
+    if(valid){
+        msg.innerHTML = message
+        msg.classList.remove('inactive');
+        msg.classList.add('success')
+        // setTimeout(() => {
+            openForm(overlay, loginFormContainer);
+        // }, 2000);
+        
+    }
+    msg.innerHTML = message
+    msg.classList.remove('inactive');
+})

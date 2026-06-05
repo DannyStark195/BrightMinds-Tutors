@@ -34,7 +34,7 @@ export async function loginUser(user){
         const response = await request.json();
         console.log(response);
         if(!request.ok){
-            throw new Error(response.error || 'Signup failed');
+            throw new Error(response.error || 'Login failed');
         }
         return response
     }
@@ -78,5 +78,26 @@ export async function getUserProfile(){
     catch(error){
         console.log(error.message)
        return null;
+    }
+}
+
+export async function verifyOTPCode(data){
+    const {email, code } = data
+
+    try{
+        const request = await fetch(`${BASE_URL}auth/verify-code` , {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, code: code })
+                });
+        const response = request.json()
+
+        if(request.ok){
+            return {valid: true, message:response.message}
+        }
+        throw new Error(response.error || 'Verification failed.');
+    }
+    catch(error){
+        return {valid: false, message:error.message}
     }
 }

@@ -269,11 +269,16 @@
 input.input-error{
     /* border: 3px solid var(--Danger); */
 }
-.error-msg{
+.msg{
     /* display: none; */
-    color: var(--Danger);
     font-size: 0.87rem;
     margin-block: 4px;
+}
+.msg.error{
+    color: var(--Danger);
+}
+.msg.success{
+    color: var(--Success)
 }
 .or-divider{
   display: flex;
