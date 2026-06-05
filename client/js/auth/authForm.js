@@ -95,14 +95,13 @@ overlay.innerHTML =  `
                             <h2>Verify Code</h2>
                             <form action="" class="verify-otp-form">
                                 <p>A verification code has been sent to your email. Please enter the code below to verify your account.</p>
-                                <input type="email" name="email" id="verify-email" placeholder="E-mail address" class="input-error">
                                 <div class="password-wrapper">
                                     <input type="password" id="verify-password" name="code" placeholder="Code" class="input-error"/>
                                     <span class="toggle-password" id="toggleVerifyPassword">
                                         <i class="fa fa-eye-slash" id="verify-eye-icon"></i>
                                     </span>
                                 </div>
-                                <p class="msg error inactive">Registration successful! Please enter the 6-digit code sent to your email.</p>
+                                <p class="msg error inactive"></p>
                                 <button type="submit" class="cta-btn gold">Verify</button>
                                     
                             </form>
@@ -237,7 +236,7 @@ async function handleSignup(){
     const valid = await signupUser(data);
 
     if(!valid.valid){
-        console.log(valid).valid;
+        console.log(valid.valid);
         
         msg.textContent = valid.message;
         // activateElement(msg);
@@ -262,17 +261,17 @@ async function handleOtpVerification(){
     const msg = verifyOtpFormContainer.querySelector('.msg');
     msg.classList.remove('inactive');
     // msg.classList.add('success')
-    const {valid, message} = verifyOTPCode(data)
+    const {valid, message} = await verifyOTPCode(data)
 
     console.log(valid);
     
     if(valid){
-        msg.innerHTML = message
+        msg.textContent = message
         msg.classList.remove('inactive');
         msg.classList.add('success')
-        // setTimeout(() => {
+        setTimeout(() => {
             openForm(overlay, loginFormContainer);
-        // }, 2000);
+        }, 2000);
     }
     msg.innerHTML = message
     msg.classList.remove('inactive');

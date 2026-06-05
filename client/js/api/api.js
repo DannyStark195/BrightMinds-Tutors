@@ -93,17 +93,14 @@ export async function verifyOTPCode(data){
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: email, code: code, reg_token: registrationToken})
                 });
-        const response = request.json();
+        const response = await request.json();
         
-        let validMessage = "";
         if(request.ok){
-            validMessage ={'valid': true, 'message': response.message};
-            return validMessage;
+            return {'valid': true, 'message': response.message};
         }
         throw new Error(response.error || 'Verification failed.');
     }
     catch(error){
-        validMessage=  {'valid': false, 'message': error.message}
-        return validMessage;
+        return {'valid': false, 'message': error.message};
     }
 }

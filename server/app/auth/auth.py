@@ -61,23 +61,10 @@ def signup():
 def verify_code():
     print("codeeee")
     data = request.get_json() or {}
-    email = data.get('email', '').strip()
+    # email = data.get('email', '').strip()
     submitted_code = data.get('code', '').strip()
     registration_token = data.get('reg_token', '').strip()
     
-    print(email, submitted_code, registration_token)
-    if not email or not submitted_code:
-        print("point 1")
-        return jsonify({'error': 'Missing email or verification code'}), 400
-    
-    if not submitted_code or not registration_token:
-        print("point 2")
-        return jsonify({'error': 'Missing verification code or registration token.'}), 400 
-    
-    user = User.query.filter_by(email=email).first()
-        
-    if user:
-        return jsonify({'message': 'Account is already verified. You can log in.'}), 200
         
     try:
         # Decode the token. If 15 minutes passed, it automatically throws an expired exception!
@@ -96,18 +83,28 @@ def verify_code():
         # ❌ Check if the code they typed matches the secret code encrypted inside the token
         if claims.get('otp') != submitted_code:
             print("point 5")
-            return jsonify({'error': 'Incorrect verification code. Try again.'}), 400
+            return jsonify({'error': 'Incorrect verification code. Try again.'}), 400    
+        
+        email = claims.get('email')
+        print(email, submitted_code, registration_token)
+        if not email or not submitted_code:
+            print("point 1")
+            return jsonify({'error': 'Missing email or verification code'}), 400
+        
+        if not submitted_code or not registration_token:
+            print("point 2")
+            return jsonify({'error': 'Missing verification code or registration token.'}), 400 
+        
+        user = User.query.filter_by(email=email).first()
             
-        # Double-check to make sure they didn't open a separate tab and register while waiting
-        if User.query.filter_by(email=claims.get('email')).first():
-            print("point 6")
-            return jsonify({'error': 'This email was registered across another session.'}), 400
-
+        if user:
+            return jsonify({'message': 'Account is already verified. You can log in.'}), 200
+    
         # 🎉 MATCH CONFIRMED! Create the user in our real database now
-        username_extracted = claims.get('email').split('@')[0]
+        username_extracted = email.split('@')[0]
         new_user = User(
             username=username_extracted,
-            email=claims.get('email'),
+            email=email,
             password_hash=claims.get('password_hash'),
             role=claims.get('role'),
             parent_name= username_extracted
@@ -134,8 +131,6 @@ def login():
 
     if not user or not check_password_hash(user.password_hash, password):
         return jsonify({'error': 'Invalid email or password'}), 401
-    if not user.is_verified:
-        return jsonify({'error': 'Please check your email and verify your account before logging in.'}), 403
     
     additional_claims = {"role": user.role}
     access_token = create_access_token(identity=str(user.id), additional_claims=additional_claims)
