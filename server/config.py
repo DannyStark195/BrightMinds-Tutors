@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-
+import datetime
 load_dotenv()
 
 class Config:
@@ -10,6 +10,7 @@ class Config:
     MY_API_KEY = os.environ.get('MY_API_KEY')
 
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
+    JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(days=1)
 
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 465

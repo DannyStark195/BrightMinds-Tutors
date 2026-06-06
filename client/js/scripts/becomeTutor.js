@@ -69,31 +69,31 @@ tutorForm.addEventListener('submit', (e) =>{
 	const validPhone= validatePhone(tutorPhone);
 	const fileError = validateFile(tutorProof);
 
-	const errorMesssage = document.querySelectorAll('.error-msg');
+	const errorMesssage = document.querySelectorAll('.msg.error');
 	errorMesssage.forEach(errMsg => {
 		addInactive(errMsg);
 	});
 	if(!selectedSubjects.length){
-		const errorMesssage = document.querySelector('.error-msg.subject');
+		const errorMesssage = document.querySelector('.msg.error.subject');
         errorMesssage.textContent = 'Select at least one subject';
         removeInactive(errorMesssage);
         return
     }
 	if(emailError){
-		const errorMesssage = document.querySelector('.error-msg.email');
+		const errorMesssage = document.querySelector('.msg.error.email');
         errorMesssage.textContent = emailError;
         removeInactive(errorMesssage);
         return
     }
 	if(!validPhone){
-		const errorMesssage = document.querySelector('.error-msg.phone');
+		const errorMesssage = document.querySelector('.msg.error.phone');
 		console.log(errorMesssage)
 		removeInactive(errorMesssage);
 		errorMesssage.textContent = 'This phone number is invalid';
 		return
 	}
 	if(fileError){
-		const errorMesssage = document.querySelector('.error-msg.file');
+		const errorMesssage = document.querySelector('.msg.error.file');
 		console.log(errorMesssage)
 		removeInactive(errorMesssage);
 		errorMesssage.textContent = fileError;

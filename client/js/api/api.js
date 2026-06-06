@@ -56,32 +56,7 @@ async function Logout(){
     await localStorage.removeItem('brightminds_token');
     window.location.replace('index.html?auth=required');
 }
-export async function getUserProfile(){
-    try{
-        const token = localStorage.getItem('brightminds-user-token');
-        const request = await fetch(`${BASE_URL}profile`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        const response = await request.json();
-        console.log(response);
-        if(!request.ok){
-        console.log(request.status)
-            if (request.status === 401) {
-                Logout(); // Clear data and boot them to login
-            }
-            throw new Error(response.msg || 'Failed to fetch user profile');
-        }
-        return response.user
-    }
-    catch(error){
-        console.log(error.message)
-       return null;
-    }
-}
+
 
 export async function verifyOTPCode(data){
     const {email, code, registrationToken } = data
@@ -145,5 +120,58 @@ export async function resetPassword(data){
     }
     catch(error){
         return {'valid': false, 'message': error.message};
+    }
+}
+
+export async function getUserProfile(){
+    try{
+        const token = localStorage.getItem('brightminds-user-token');
+        const request = await fetch(`${BASE_URL}profile`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        const response = await request.json();
+        console.log(response);
+        if(!request.ok){
+        console.log(request.status)
+            if (request.status === 401) {
+                Logout(); // Clear data and boot them to login
+            }
+            throw new Error(response.error || 'Failed to fetch user profile');
+        }
+        return response.user
+    }
+    catch(error){
+        console.log(error.message)
+       return null;
+    }
+}
+
+
+export async function editUserProfile(data){
+    const token = localStorage.getItem('brightminds-user-token');
+    try{
+        const request = await fetch(`${BASE_URL}edit-profile`, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        })
+
+        const response = await request.json();
+
+        if(!request.ok){
+            throw new Error(response.error || 'Failed to edit user profile');
+        }
+
+        return {valid: true, message: response.message}
+    }
+    catch(error){
+        return {valid: false, message:error.message}
     }
 }
