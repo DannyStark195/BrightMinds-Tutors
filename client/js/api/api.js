@@ -175,3 +175,42 @@ export async function editUserProfile(data){
         return {valid: false, message:error.message}
     }
 }
+
+export async function uploadFile(file){
+    const token = localStorage.getItem('brightminds-user-token');
+    const data = new FormData();
+    data.append('profile_pic', file);
+    try {
+        const response = await fetch('http://localhost:5000/upload-file', {
+            method: 'POST',
+            headers: {
+                // Keep Content-Type omitted so browser declares boundary markers automatically
+                'Authorization': `Bearer ${token}`
+            },
+            body: data
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // 🎉 SUCCESS: Inject Cloudinary's dynamic URL string directly into DOM source attributes
+            avatarDisplay.src = data.profile_pic_url;
+            
+            statusLabel.innerText = "✅ Profile picture updated!";
+            statusLabel.style.color = "#28a745";
+        } else {
+            statusLabel.innerText = data.error || "Could not process image update.";
+            statusLabel.style.color = "#dc3545";
+        }
+    } catch (networkError) {
+        statusLabel.innerText = "❌ Network connection dropped.";
+        statusLabel.style.color = "#dc3545";
+    } finally {
+        // Clean up interactive visual settings regardless of endpoint results
+        editButton.style.pointerEvents = "auto";
+        avatarDisplay.style.opacity = "1";
+        
+        // Clear the raw value wrapper so the user can select the same exact file again if they want
+        inputElement.value = "";
+    }
+}

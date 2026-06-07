@@ -1,8 +1,10 @@
-import { editUserProfile, getUserProfile } from "../api/api.js";
+import { editUserProfile, getUserProfile, uploadFile } from "../api/api.js";
 import { collectData, setupPasswordToggle, validatePhone} from "../utils/formHelpers.js";
 
 // setupPasswordToggle('toggle-new-password', 'new-password', 'new-eye-icon');
 const profileAvatarImg = document.querySelector('#profile-avatar-img');
+const changeProfileAvatarBtn = document.querySelector('.change-profile-avatar-btn');
+const profileAvatarInput = document.querySelector('.profile-avatar-input');
 const profileName = document.querySelector('#profile-name');
 const profileForm = document.querySelector('#profile-form');
 const profileFields = document.querySelector('#profile-fields');
@@ -15,7 +17,20 @@ const infoCurrentStatus = document.querySelector('#info-current-plan');
 
 const deleteAccountBtn = document.querySelector('#delete-account-btn');
 
+changeProfileAvatarBtn.addEventListener('click', () => {
+    profileAvatarInput.click();
+});
 
+async function handleAvatarUpload(inputElement){
+    const file = inputElement.files[0];
+    
+    // If the user opens the selector pane but hits 'Cancel' without choosing, exit out safely
+    if (!file) return;
+
+
+    // Bind binary file chunk maps using FormData
+    const {valid, message } = uploadFile(file);
+}
 async function renderUserprofile(){
 const userProfile = await getUserProfile();
 profileName.textContent = userProfile.username

@@ -16,8 +16,8 @@
     width: 108px;
     height: 108px;
     border-radius: 50%;
-    overflow: hidden;
     padding: 5px;
+    position: relative;
 }
 
 .profile-avatar img{
@@ -27,6 +27,26 @@
     object-fit: cover;
     border-radius: 50%;
     background: #fff;
+}
+
+.profile-avatar-camera{
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background: var(--Primary);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(13,27,42,0.18);
+}
+
+.profile-avatar-camera i{
+    font-size: 0.86rem;
 }
 
 .profile-hero h1{
