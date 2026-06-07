@@ -1,5 +1,5 @@
 from app import db
-from datetime import datetime
+from datetime import datetime, timezone
 
 # ==========================================
 # 1. USER & PROFILE MODELS
@@ -13,6 +13,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(20), default='parent')  # 'parent', 'tutor', 'admin'
+    profile_pic = db.Column(db.String(255), nullable=True, default='default_avatar.png')
     
     # Critical Profile Additions from Signup/Profile Page
     parent_name = db.Column(db.String(150), nullable=True)  # Full name of parent
@@ -23,7 +24,20 @@ class User(db.Model):
     children = db.relationship('Student', backref='parent', lazy=True)
     bookings = db.relationship('Booking', backref='parent_booker', lazy=True)
     applications = db.relationship('TutorApplication', backref='applicant', lazy=True)
+    reviews = db.relationship('Review', backref='author', lazy=True, cascade="all, delete-orphan")
 
+
+# 📝 NEW TABLE: REVIEWS
+class Review(db.Model):
+    __tablename__ = 'reviews'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    rating = db.Column(db.Integer, nullable=False) # e.g., 1 to 5 stars
+    comment = db.Column(db.Text, nullable=True)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    
+    # 🔑 FOREIGN KEY: Connects each review to a specific User row ID
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
 
 class Student(db.Model):
     __tablename__ = 'students'
@@ -64,6 +78,7 @@ class TutorProfile(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     bio = db.Column(db.Text, nullable=True)
     is_approved = db.Column(db.Boolean, default=False)
+    profile_pic = db.Column(db.String(255), nullable=True, default='default_avatar.png')
     
     user = db.relationship('User', backref='tutor_profile', lazy=True)
     
