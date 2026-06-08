@@ -177,9 +177,12 @@ export async function editUserProfile(data){
 }
 
 export async function uploadFile(file){
+
     const token = localStorage.getItem('brightminds-user-token');
     const data = new FormData();
     data.append('profile_pic', file);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
     try {
         const request = await fetch(`${BASE_URL}upload-file`, {
             method: 'POST',
@@ -187,9 +190,10 @@ export async function uploadFile(file){
                 // Keep Content-Type omitted so browser declares boundary markers automatically
                 'Authorization': `Bearer ${token}`
             },
-            body: data
+            body: data,
+            signal: controller.signal
         });
-
+        clearTimeout(timeoutId);
         const response = await request.json();
 
         if (request.ok) {
@@ -199,6 +203,9 @@ export async function uploadFile(file){
             throw new Error(response.error || 'Failed to upload file')
         }
     } catch (error) {
+        if (error.name === 'AbortError') {
+            return {valid: false, message:"Your connection is too slow. Try again later."}
+        }
         return {valid: false, message:error.message}
     }
 }
