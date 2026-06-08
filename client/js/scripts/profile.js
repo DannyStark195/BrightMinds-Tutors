@@ -1,4 +1,4 @@
-import { editUserProfile, getUserProfile, uploadFile } from "../api/api.js";
+import { editUserProfile, getUserProfile, uploadFile, changeProfileAvatar } from "../api/api.js";
 import { collectData, setupPasswordToggle, validatePhone} from "../utils/formHelpers.js";
 
 // setupPasswordToggle('toggle-new-password', 'new-password', 'new-eye-icon');
@@ -29,11 +29,25 @@ async function handleAvatarUpload(inputElement){
 
 
     // Bind binary file chunk maps using FormData
-    const {valid, message } = uploadFile(file);
+    let {valid, message, secure_url } = await uploadFile(file);
+
+    if(valid && secure_url){
+        let {valid, message, profile_pic_url } = await changeProfileAvatar(secure_url);
+        if(valid && profile_pic_url){
+            profileAvatarImg.src = profile_pic_url
+        }
+    }
+    else{
+        console.log(message)
+    }
 }
+profileAvatarInput.addEventListener('change', ()=>{
+    handleAvatarUpload(profileAvatarInput);
+});
 async function renderUserprofile(){
 const userProfile = await getUserProfile();
 profileName.textContent = userProfile.username
+profileAvatarImg.src = userProfile.profile_pic
 profileFields.innerHTML = `
     <label class="profile-field">
 

@@ -26,7 +26,8 @@ def get_profile():
             'email': user.email,
             'role': user.role,
             'parent_name': user.parent_name,
-            'phone': user.phone
+            'phone': user.phone,
+            'profile_pic': user.profile_pic
         }
     }), 200
 
@@ -54,9 +55,10 @@ def edit_profile():
     except Exception as e:
         return jsonify({'error': 'Failed to edit profile! Please try again.'}), 400
 
-@routes.route('/upload-avatar', methods=['POST'])
+@routes.route('/upload-file', methods=['POST'])
 @jwt_required()
 def upload_file():
+    print('upload file')
     if 'profile_pic' not in request.files:
         return jsonify({'error': 'No file chunk detected in request'}), 400
     file = request.files['profile_pic']
@@ -66,7 +68,7 @@ def upload_file():
 
     # 1. Ship the image to the cloud using our helper
     secure_url = upload_profile_image(file)
-    
+    print(secure_url)
     if not secure_url:
         return jsonify({'error': 'Failed to upload image to cloud storage.'}), 500
 
@@ -78,11 +80,14 @@ def upload_file():
 @routes.route('/upload-avatar', methods=['POST'])
 @jwt_required()
 def upload_avatar():
+    print('upload avatar')
+
     current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
     
-    data = request.json()
+    data = request.get_json()
     secure_url = data.get('secure_url')
+    print(secure_url)
     if not secure_url:
         return jsonify({'error': 'Failed to upload image to cloud storage.'}), 500
 

@@ -181,7 +181,7 @@ export async function uploadFile(file){
     const data = new FormData();
     data.append('profile_pic', file);
     try {
-        const response = await fetch('http://localhost:5000/upload-file', {
+        const request = await fetch(`${BASE_URL}upload-file`, {
             method: 'POST',
             headers: {
                 // Keep Content-Type omitted so browser declares boundary markers automatically
@@ -190,27 +190,42 @@ export async function uploadFile(file){
             body: data
         });
 
+        const response = await request.json();
+
+        if (request.ok) {
+            const secure_url = response.secure_url;
+            return {valid: true, message:response.message, secure_url:secure_url}
+        } else {
+            throw new Error(response.error || 'Failed to upload file')
+        }
+    } catch (error) {
+        return {valid: false, message:error.message}
+    }
+}
+
+export async function changeProfileAvatar(secure_url) {
+    const token = localStorage.getItem('brightminds-user-token');
+    console.log(secure_url, typeof secure_url);
+    
+    try {
+        const response = await fetch(`${BASE_URL}upload-avatar`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({secure_url: secure_url})
+        });
+
         const data = await response.json();
 
         if (response.ok) {
-            // 🎉 SUCCESS: Inject Cloudinary's dynamic URL string directly into DOM source attributes
-            avatarDisplay.src = data.profile_pic_url;
-            
-            statusLabel.innerText = "✅ Profile picture updated!";
-            statusLabel.style.color = "#28a745";
+            const profile_pic_url = data.profile_pic_url;
+            return {valid: true, message:response.message, profile_pic_url:profile_pic_url}
         } else {
-            statusLabel.innerText = data.error || "Could not process image update.";
-            statusLabel.style.color = "#dc3545";
+            throw new Error(response.error || 'Failed to upload file')
         }
-    } catch (networkError) {
-        statusLabel.innerText = "❌ Network connection dropped.";
-        statusLabel.style.color = "#dc3545";
-    } finally {
-        // Clean up interactive visual settings regardless of endpoint results
-        editButton.style.pointerEvents = "auto";
-        avatarDisplay.style.opacity = "1";
-        
-        // Clear the raw value wrapper so the user can select the same exact file again if they want
-        inputElement.value = "";
+    } catch (error) {
+        return {valid: false, message:error.message}
     }
 }
