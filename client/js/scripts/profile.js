@@ -3,6 +3,8 @@ import { collectData, setupPasswordToggle, validatePhone} from "../utils/formHel
 
 // setupPasswordToggle('toggle-new-password', 'new-password', 'new-eye-icon');
 const profileAvatarImg = document.querySelector('#profile-avatar-img');
+const profileAvatar = document.querySelector('.profile-avatar');
+const profileAvatarLoader = document.querySelector('.profile-avatar-loader');
 const changeProfileAvatarBtn = document.querySelector('.change-profile-avatar-btn');
 const profileAvatarInput = document.querySelector('.profile-avatar-input');
 const profileName = document.querySelector('#profile-name');
@@ -23,24 +25,46 @@ changeProfileAvatarBtn.addEventListener('click', () => {
 
 async function handleAvatarUpload(inputElement){
     const file = inputElement.files[0];
-    
     // If the user opens the selector pane but hits 'Cancel' without choosing, exit out safely
     if (!file) return;
+    const msg = document.querySelector('.msg.error.avatar-upload-error');
+    msg.textContent = "";
+    msg.classList.add('inactive');
+    profileAvatar.classList.add('is-uploading');
+    profileAvatarLoader.classList.remove('inactive');
+    changeProfileAvatarBtn.disabled = true;
 
+    try{
+        const {valid, message, secure_url } = await uploadFile(file);
 
-    // Bind binary file chunk maps using FormData
-    let {valid, message, secure_url } = await uploadFile(file);
-
-    if(valid && secure_url){
-        let {valid, message, profile_pic_url } = await changeProfileAvatar(secure_url);
-        if(valid && profile_pic_url){
-            profileAvatarImg.src = profile_pic_url
+        if(!(valid && secure_url)){
+            console.log(message)
+            msg.textContent = message;
+            // activateElement(msg);
+            msg.classList.remove('inactive');
+            return
         }
-    }
-    else{
-        console.log(message)
+        const avatarResponse = await changeProfileAvatar(secure_url);
+        if(!(avatarResponse.valid && avatarResponse.profile_pic_url)){
+            console.log(avatarResponse.message);
+            msg.textContent = avatarResponse.message;
+            // activateElement(msg);
+            msg.classList.remove('inactive');
+            return
+        }
+        profileAvatarImg.src = avatarResponse.profile_pic_url
+    }catch(error){
+        console.error(error);
+        msg.textContent = "Avatar upload failed. Please try again.";
+        msg.classList.remove('inactive');
+    }finally{
+        profileAvatar.classList.remove('is-uploading');
+        profileAvatarLoader.classList.add('inactive');
+        changeProfileAvatarBtn.disabled = false;
+        inputElement.value = "";
     }
 }
+
 profileAvatarInput.addEventListener('change', ()=>{
     handleAvatarUpload(profileAvatarInput);
 });
@@ -48,6 +72,7 @@ async function renderUserprofile(){
 const userProfile = await getUserProfile();
 profileName.textContent = userProfile.username
 profileAvatarImg.src = userProfile.profile_pic
+profileAvatarImg.alt = `${userProfile.username} profile picture` || "user's profile picture"
 profileFields.innerHTML = `
     <label class="profile-field">
 

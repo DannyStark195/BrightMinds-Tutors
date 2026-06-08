@@ -21,11 +21,15 @@
                 <section class="profile-hero surface-card">
                     <div class="profile-avatar">
                         <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="user's profile picture" id="profile-avatar-img">
+                        <div class="profile-avatar-loader inactive" aria-hidden="true">
+                            <span></span>
+                        </div>
                         <button class="profile-avatar-camera change-profile-avatar-btn" type="button" aria-label="Change profile picture">
                             <i class="fa-solid fa-camera"></i>
                         </button>
                         <input type="file" class="profile-avatar-input" accept="image/*">
                     </div>
+                    <p class="msg error avatar-upload-error inactive">Failed to upload image to cloud storage.</p>
                     <div>
                         <p class="eyebrow">My profile</p>
                         <h1 id="profile-name"></h1>
