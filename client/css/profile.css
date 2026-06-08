@@ -93,11 +93,11 @@
     }
 }
 
-@media(prefers-reduced-motion: reduce){
+/* @media(prefers-reduced-motion: reduce){
     .profile-avatar-loader span{
         animation: none;
     }
-}
+} */
 
 .profile-hero .msg.avatar-upload-error{
     grid-column: 1;
