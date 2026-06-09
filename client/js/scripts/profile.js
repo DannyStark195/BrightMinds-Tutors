@@ -1,6 +1,6 @@
 import { editUserProfile, getUserProfile, uploadFile, changeProfileAvatar } from "../api/api.js";
 import { collectData, setupPasswordToggle, validatePhone} from "../utils/formHelpers.js";
-import { calculateFileHash } from "../utils/helpers.js";
+
 // setupPasswordToggle('toggle-new-password', 'new-password', 'new-eye-icon');
 const profileAvatarImg = document.querySelector('#profile-avatar-img');
 const profileAvatar = document.querySelector('.profile-avatar');
@@ -47,8 +47,6 @@ async function handleAvatarUpload(inputElement){
         console.log(currentAvatarImgMeta);
         
         if (selectedFileMeta === currentAvatarImgMeta) {
-            msg.textContent = "This image is already your current profile picture.";
-            msg.classList.remove('inactive');
             return
         }
         const {valid, message, secure_url } = await uploadFile(file);
