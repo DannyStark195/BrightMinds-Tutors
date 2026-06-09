@@ -14,30 +14,52 @@ class User(db.Model):
     password_hash = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(20), default='parent')  # 'parent', 'tutor', 'admin'
     profile_pic = db.Column(db.String(255), nullable=True, default='default_avatar.png')
-    
-    # Critical Profile Additions from Signup/Profile Page
-    parent_name = db.Column(db.String(150), nullable=True)  # Full name of parent
+    bio = db.Column(db.String(150), nullable=True)
+
+    parent_name = db.Column(db.String(150), nullable=True)  
     phone = db.Column(db.String(20), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     # Relationships
     children = db.relationship('Student', backref='parent', lazy=True)
-    bookings = db.relationship('Booking', backref='parent_booker', lazy=True)
     applications = db.relationship('TutorApplication', backref='applicant', lazy=True)
     reviews = db.relationship('Review', backref='author', lazy=True, cascade="all, delete-orphan")
 
 
-# 📝 NEW TABLE: REVIEWS
 class Review(db.Model):
-    __tablename__ = 'reviews'
-    
+    __tablename__ = 'tutor_reviews'
+
     id = db.Column(db.Integer, primary_key=True)
-    rating = db.Column(db.Integer, nullable=False) # e.g., 1 to 5 stars
-    comment = db.Column(db.Text, nullable=True)
-    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    booking_id = db.Column(db.Integer, db.ForeignKey('bookings.id', ondelete='CASCADE'), unique=True, nullable=False)
+    rating = db.Column(db.Integer, nullable=False) 
+    comment = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    # Relationship linking back to your system's Booking model
+    booking = db.relationship('Booking', backref=db.backref('review', uselist=False))
     
-    # 🔑 FOREIGN KEY: Connects each review to a specific User row ID
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
+    def to_dict(self):
+        # ✅ Using 'parent' matches the relationship defined in the Booking model perfectly now
+        parent_user = self.booking.parent 
+        
+        # Safely extractions through the Booking -> TutorProfile -> User relationship paths
+        tutor_name = "Not Assigned"
+        if self.booking.tutor_profile and self.booking.tutor_profile.user:
+            tutor_name = self.booking.tutor_profile.user.username
+
+        return {
+            'review_id': self.id,
+            'booking_id': self.booking_id,
+            'rating': self.rating,
+            'comment': self.comment,
+            'date': self.created_at.strftime('%Y-%m-%d'),
+            'parent_name': parent_user.username,
+            'parent_avatar': parent_user.profile_pic,
+            'parent_bio': parent_user.bio if parent_user.bio else "Parent",
+            
+            'tutor_name': tutor_name, 
+            'course_name': self.booking.course.course_name 
+        }
 
 class Student(db.Model):
     __tablename__ = 'students'
@@ -62,11 +84,10 @@ class TutorApplication(db.Model):
     qualification = db.Column(db.String(150), nullable=False)
     institution = db.Column(db.String(150), nullable=False)
     experience_years = db.Column(db.Integer, nullable=False)
-    teaching_preference = db.Column(db.String(50), nullable=False)  # Physical / Online / Both
-    cv_url = db.Column(db.String(255), nullable=False)              # Cloudinary Storage Link
+    teaching_preference = db.Column(db.String(50), nullable=False)  
+    cv_url = db.Column(db.String(255), nullable=False)              
     
-    # Queue Management Statuses
-    status = db.Column(db.String(20), default='pending')            # pending, approved, rejected
+    status = db.Column(db.String(20), default='pending')            
     rejection_reason = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -81,9 +102,6 @@ class TutorProfile(db.Model):
     profile_pic = db.Column(db.String(255), nullable=True, default='default_avatar.png')
     
     user = db.relationship('User', backref='tutor_profile', lazy=True)
-    
-    # Relationships
-    bookings = db.relationship('Booking', backref='assigned_tutor', lazy=True)
 
 
 # Junction table for Tutors teaching Multiple Courses
@@ -99,7 +117,6 @@ class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     course_name = db.Column(db.String(100), unique=True, nullable=False)
     
-    # Many-to-Many Connection
     tutors = db.relationship('TutorProfile', secondary=tutor_courses, backref=db.backref('courses', lazy='dynamic'), lazy='subquery')
 
 # ==========================================
@@ -115,26 +132,30 @@ class Booking(db.Model):
     student_id = db.Column(db.Integer, db.ForeignKey('students.id'), nullable=False)
     course_id = db.Column(db.Integer, db.ForeignKey('courses.id'), nullable=False)
     
+    # Points to tutor_profiles table as designed
     tutor_id = db.Column(db.Integer, db.ForeignKey('tutor_profiles.id'), nullable=True)
     assigned_at = db.Column(db.DateTime, nullable=True)
     
-    # Step-by-Step Frontend Booking Form Additions
-    grade_level = db.Column(db.String(50), nullable=False)          # Primary/JSS/SS/University
-    preferred_days = db.Column(db.Text, nullable=False)             # Stored as comma-separated: "Monday,Wednesday"
-    time_window = db.Column(db.String(50), nullable=False)          # Morning/Afternoon/Evening
-    session_type = db.Column(db.String(50), nullable=False)         # Physical / Online
-    address = db.Column(db.Text, nullable=True)                     # Only filled if session_type is Physical
-    notes = db.Column(db.Text, nullable=True)                       # Extra messages from parent
+    grade_level = db.Column(db.String(50), nullable=False)          
+    preferred_days = db.Column(db.Text, nullable=False)             
+    time_window = db.Column(db.String(50), nullable=False)          
+    session_type = db.Column(db.String(50), nullable=False)         
+    address = db.Column(db.Text, nullable=True)                     
+    notes = db.Column(db.Text, nullable=True)                       
     
-    # Pricing & Fulfillment
     monthly_price = db.Column(db.Numeric(10, 2), nullable=False)
-    meeting_link = db.Column(db.String(255), nullable=True)         # Admin updates this for online classes
+    meeting_link = db.Column(db.String(255), nullable=True)         
     
     start_date = db.Column(db.Date, nullable=False)
     end_date = db.Column(db.Date, nullable=False)
     sessions_per_week = db.Column(db.Integer, nullable=False)
     hours_per_session = db.Column(db.Numeric(4, 2), nullable=False)
     
-    status = db.Column(db.String(20), default='pending')            # pending, approved, rejected, confirmed, completed
+    status = db.Column(db.String(20), default='pending')            
     rejection_reason = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    # Clean relationships resolved with no backref conflicts
+    parent = db.relationship('User', foreign_keys=[parent_id], backref=db.backref('bookings', lazy=True))
+    course = db.relationship('Course', backref=db.backref('bookings', lazy=True))
+    tutor_profile = db.relationship('TutorProfile', foreign_keys=[tutor_id], backref=db.backref('assigned_bookings', lazy=True))
