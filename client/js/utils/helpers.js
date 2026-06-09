@@ -33,3 +33,18 @@ export function getHourOfDay(){
         return "evening";
     }
 }
+
+export function calculateFileHash(file) {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = function(e) {
+            const arr = (new Uint8Array(e.target.result)).subarray(0, 5000); // Sample the first 5KB for speed
+            let hash = "";
+            for (let i = 0; i < arr.length; i++) {
+                hash += arr[i].toString(16);
+            }
+            resolve(hash); // Returns a unique string string representing the file data
+        };
+        reader.readAsArrayBuffer(file);
+    });
+}

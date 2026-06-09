@@ -1,6 +1,6 @@
 import { editUserProfile, getUserProfile, uploadFile, changeProfileAvatar } from "../api/api.js";
 import { collectData, setupPasswordToggle, validatePhone} from "../utils/formHelpers.js";
-
+import { calculateFileHash } from "../utils/helpers.js";
 // setupPasswordToggle('toggle-new-password', 'new-password', 'new-eye-icon');
 const profileAvatarImg = document.querySelector('#profile-avatar-img');
 const profileAvatar = document.querySelector('.profile-avatar');
@@ -22,8 +22,11 @@ const deleteAccountBtn = document.querySelector('#delete-account-btn');
 changeProfileAvatarBtn.addEventListener('click', () => {
     profileAvatarInput.click();
 });
+let currentAvatarImgMeta = "";
 
 async function handleAvatarUpload(inputElement){
+    console.log(currentAvatarImgMeta);
+    
     const file = inputElement.files[0];
     // If the user opens the selector pane but hits 'Cancel' without choosing, exit out safely
     if (!file) return;
@@ -34,9 +37,22 @@ async function handleAvatarUpload(inputElement){
     profileAvatarLoader.classList.remove('inactive');
     changeProfileAvatarBtn.disabled = true;
 
-    try{
-        const {valid, message, secure_url } = await uploadFile(file);
 
+    try{
+        console.log(file);
+        
+        const selectedFileMeta = `${file.name}-${file.size}-${file.lastModified}`;
+        console.log(selectedFileMeta)
+        console.log('');
+        console.log(currentAvatarImgMeta);
+        
+        if (selectedFileMeta === currentAvatarImgMeta) {
+            msg.textContent = "This image is already your current profile picture.";
+            msg.classList.remove('inactive');
+            return
+        }
+        const {valid, message, secure_url } = await uploadFile(file);
+        
         if(!(valid && secure_url)){
             console.log(message)
             msg.textContent = message;
@@ -52,7 +68,11 @@ async function handleAvatarUpload(inputElement){
             msg.classList.remove('inactive');
             return
         }
+        
         profileAvatarImg.src = avatarResponse.profile_pic_url
+        currentAvatarImgMeta = selectedFileMeta;
+        const username = profileName.textContent
+        localStorage.setItem(`brightminds_currentAvatar_meta_${username}`, currentAvatarImgMeta)
     }catch(error){
         console.error(error);
         msg.textContent = "Avatar upload failed. Please try again.";
@@ -68,10 +88,13 @@ async function handleAvatarUpload(inputElement){
 profileAvatarInput.addEventListener('change', ()=>{
     handleAvatarUpload(profileAvatarInput);
 });
+
 async function renderUserprofile(){
 const userProfile = await getUserProfile();
 profileName.textContent = userProfile.username
 profileAvatarImg.src = userProfile.profile_pic
+console.log(userProfile.profile_pic);
+
 profileAvatarImg.alt = `${userProfile.username} profile picture` || "user's profile picture"
 profileFields.innerHTML = `
     <label class="profile-field">
@@ -85,6 +108,10 @@ profileFields.innerHTML = `
     </label>
     
 `
+
+currentAvatarImgMeta = localStorage.getItem(`brightminds_currentAvatar_meta_${userProfile.username}`)
+console.log(currentAvatarImgMeta);
+
 }
 
 renderUserprofile()

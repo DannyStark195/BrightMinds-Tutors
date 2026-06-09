@@ -1,4 +1,5 @@
 import {isAuthenticated, loginRequired} from '../auth/auth.js';
+import {calculateFileHash} from '../utils/helpers.js'
 const BASE_URL = "http://127.0.0.1:5000/api/"
 
 export async function signupUser(data){
@@ -182,7 +183,7 @@ export async function uploadFile(file){
     const data = new FormData();
     data.append('profile_pic', file);
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
     try {
         const request = await fetch(`${BASE_URL}upload-file`, {
             method: 'POST',
