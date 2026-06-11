@@ -49,11 +49,7 @@ function renderReviewForm(){
 }
 
 renderReviewForm()
-const ratings = document.querySelectorAll('.rating-btn');
-const bookings = document.querySelector('#booking');
-const reviewList = document.querySelector('.review-list');
- const msg = reviewForm.querySelector('.msg.error');
-console.log(bookings);
+const msg = reviewForm.querySelector('.msg.error');
 
 let bookingsForReview = await getBookingsForReview()
 let reviewedBookings = await getReviewedBookings()
@@ -61,6 +57,7 @@ console.log(bookingsForReview)
 console.log(reviewedBookings)
 
 async function renderReviewedBookings(){
+const reviewList = document.querySelector('.review-list');
         let html = ""
         reviewedBookings.forEach(booking =>{
                 let starHtml = "";
@@ -105,6 +102,7 @@ async function renderReviewedBookings(){
 renderReviewedBookings();
 
 async function renderUnReviewedBookings(){
+        const bookings = document.querySelector('#booking');
         let html = "";
                 bookingsForReview.forEach(booking =>{
                 html += `<option class="" value="${booking.booking_id}">${booking.course_name} with ${booking.tutor_name}  (<span class="${booking.status}">${booking.status}</span>)</option>`
@@ -116,6 +114,7 @@ async function renderUnReviewedBookings(){
 renderUnReviewedBookings();
 
 function initStarPickers(){
+const ratings = document.querySelectorAll('.rating-btn');
 console.log(ratings);
 let currentRating = 0;
 ratings.forEach(ratingBtn =>{
