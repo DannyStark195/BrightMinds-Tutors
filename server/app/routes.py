@@ -272,11 +272,11 @@ def get_featured_testimonials():
             Review.query
             .filter(Review.rating >= 4)
             .filter(db.func.length(Review.feedback) > 20)
-            .order_by(Review.created_at.desc())
+            .order_by(Review.created_at)
             .limit(3)
             .all()
         )
-
+        print(featured_reviews)
         return jsonify({
             'success': True,
             'testimonials': [review.to_dict() for review in featured_reviews]

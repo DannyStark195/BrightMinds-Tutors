@@ -18,7 +18,7 @@ async function renderFeaturedTestimonals(){
     const testimonials = await getFeaturedTestimonials();
     console.log(testimonials);
     
-    if(!testimonials || testimonials.length === 0) return
+    if(!testimonials || testimonials.length === 0 || testimonials.length < 3) return
     let html = ""
     testimonials.forEach((testimonial, index) => {
         let starHtml = "";
@@ -32,7 +32,7 @@ async function renderFeaturedTestimonals(){
                 }
         html+= `
             <li>
-                <div class="testimonial ${index === 1? "white-bg": index ===2? "gold-bg":"dark-blue-bg"}">
+                <div class="testimonial ${index === 0? "white-bg": index ===1? "gold-bg":"dark-blue-bg"}">
                     <div class="details">
                         <div class="avatar">
                             <img src="${testimonial.parent_avatar}" alt="testimonial avatar">
@@ -43,7 +43,7 @@ async function renderFeaturedTestimonals(){
                         </div>
                     </div>
 
-                    <p class="comment">"My son was struggling with Physics for two terms and I was really worried about his WAEC. After just six weeks with Mr. Emeka, his confidence completely changed. He's now the one explaining things to his classmates."</p>
+                    <p class="comment">"${testimonial.feedback}"</p>
                     <div class="stars" data-star="5.0">
                        ${starHtml}
                     </div>
@@ -51,6 +51,8 @@ async function renderFeaturedTestimonals(){
             </li>
         `
     });
+
+    testimonialList.innerHTML = html
 }
 
 renderFeaturedTestimonals()
