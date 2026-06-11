@@ -120,7 +120,7 @@ def get_bookings_for_review():
             .all()
         )
 
-        print(eligible_bookings)
+        print('eligible bookings', eligible_bookings)
         payload = []
         for booking in eligible_bookings:
             tutor_name = "Not Assigned"
