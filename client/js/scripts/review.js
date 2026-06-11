@@ -18,6 +18,23 @@ bookingsForReview.forEach(booking =>{
         bookings.innerHTML += html
 })
 reviewedBookings.forEach(booking =>{
+        let starHtml = "";
+        const rating = booking.review.rating;
+        console.log(rating)
+        for(let i = 0; i < rating; i++){
+                starHtml += '<i class="fa-solid fa-star"></i>'
+        }
+        for(let i = 0; i< 5 - rating; i++){
+                starHtml += '<i class="fa-regular fa-star"></i>'
+        }
+        const [year, month, day] = booking.review.submitted_on.split('-');
+        const dateObj = new Date(year, month - 1, day); 
+        
+        const formattedDate = dateObj.toLocaleDateString('en-GB', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+        });
         const html = `
                 <article class="review-card surface-card">
                         <div class="review-card-header">
@@ -28,16 +45,13 @@ reviewedBookings.forEach(booking =>{
                                 </div>
                         </div>
                         <div class="stars">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
+                                ${starHtml}
                         </div>
                         <p>${booking.review.feedback}</p>
-                        <span>${booking.review.submitted_on}</span>
+                        <span>${formattedDate}</span>
                 </article>
         `
+        
         reviewList.innerHTML+= html;
 })
 
