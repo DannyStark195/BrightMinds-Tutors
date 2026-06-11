@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, request, url_for, current_app, jsonify
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
-from app.models import User
+from app.models import User, Booking, Review
 from app import db
 from app.utils.uploader import upload_profile_image
 routes = Blueprint('routes',__name__)
@@ -99,3 +99,104 @@ def upload_avatar():
         'message': 'Profile picture updated successfully!',
         'profile_pic_url': secure_url
     }), 200
+
+@routes.route('/bookings/unreviewed', methods=['GET'])
+@jwt_required()
+def get_bookings_for_review():
+    current_user_id = get_jwt_identity()
+
+    try:
+        eligible_bookings = (
+            Booking.query
+            .filter(Booking.parent_id == current_user_id)
+            # 🔐 Business Rule: Must be completed OR (cancelled AND first session actually happened)
+            .filter(
+                (Booking.status == 'completed') | 
+                ((Booking.status == 'cancelled') & (Booking.first_session_held == True))
+            )
+            .outerjoin(Review, Review.booking_id == Booking.id)
+            .filter(Review.id == None)  # Excludes anything already reviewed
+            .order_by(Booking.created_at.desc())
+            .all()
+        )
+
+        print(eligible_bookings)
+        payload = []
+        for booking in eligible_bookings:
+            tutor_name = "Not Assigned"
+            if booking.tutor_profile and booking.tutor_profile.user:
+                tutor_name = booking.tutor_profile.user.username
+
+            payload.append({
+                'booking_id': booking.id,
+                'reference_code': booking.reference_code,
+                'grade_level': booking.grade_level,
+                'course_name': booking.course.course_name,
+                'tutor_name': tutor_name,
+                'status': booking.status
+            })
+
+        return jsonify({
+            'success': True,
+            'count': len(payload),
+            'bookings_for_review': payload
+        }), 200
+
+    except Exception as e:
+        return jsonify({'success': False, 'error': 'Server error pulling eligible transactions.'}), 500
+
+
+@routes.route('/reviews', methods=['POST'])
+@jwt_required()
+def create_booking_review():
+    """Allows parents to submit a 1-5 star review for a qualified booking transaction"""
+    current_user_id = get_jwt_identity()
+    data = request.get_json() or {}
+
+    booking_id = data.get('booking_id')
+    rating = data.get('rating')
+    comment = data.get('comment', '').strip()
+
+    if not booking_id or not rating or not comment:
+        return jsonify({'error': 'Missing required fields: booking_id, rating, or comment.'}), 400
+
+    try:
+        rating_int = int(rating)
+        if not (1 <= rating_int <= 5):
+            return jsonify({'error': 'Rating must be an integer between 1 and 5.'}), 400
+    except ValueError:
+        return jsonify({'error': 'Rating must be a valid integer.'}), 400
+
+    booking = Booking.query.get(booking_id)
+    if not booking:
+        return jsonify({'error': 'Booking transaction record not found.'}), 404
+        
+    if booking.parent_id != current_user_id:
+        return jsonify({'error': 'Unauthorized. You can only review your own bookings.'}), 403
+
+    # Ensure booking is in a valid historical state
+    if booking.status not in ['completed', 'cancelled'] or (booking.status == 'cancelled' and not booking.first_session_held):
+        return jsonify({'error': 'This booking is not eligible for review.'}), 400
+
+    # Prevent double submissions
+    existing_review = Review.query.filter_by(booking_id=booking_id).first()
+    if existing_review:
+        return jsonify({'error': 'You have already submitted a review for this booking.'}), 400
+
+    try:
+        new_review = Review(
+            booking_id=booking_id,
+            rating=rating_int,
+            comment=comment
+        )
+        db.session.add(new_review)
+        db.session.commit()
+
+        return jsonify({
+            'message': '✅ Review submitted successfully!',
+            'review': new_review.to_dict()
+        }), 201
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': 'Internal server error saving feedback.'}), 500

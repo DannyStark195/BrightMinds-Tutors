@@ -237,3 +237,30 @@ export async function changeProfileAvatar(secure_url) {
         return {valid: false, message:error.message}
     }
 }
+
+
+export async function getBookingsForReview(){
+    const token = localStorage.getItem('brightminds-user-token')
+    try {
+        const request = await fetch(`${BASE_URL}bookings/unreviewed`, {
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        });
+
+        const response = await request.json()
+        if(!request.ok){
+            if (request.status === 401) {
+                Logout(); 
+            }
+                throw new Error(response.error || 'Failed to fetch reviews')
+            }
+        return response.bookings_for_review
+    }
+    catch (error) {
+        console.log(error.message)
+       return null;  
+    }
+}

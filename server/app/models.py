@@ -20,10 +20,8 @@ class User(db.Model):
     phone = db.Column(db.String(20), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    # Relationships
     children = db.relationship('Student', backref='parent', lazy=True)
     applications = db.relationship('TutorApplication', backref='applicant', lazy=True)
-    reviews = db.relationship('Review', backref='author', lazy=True, cascade="all, delete-orphan")
 
 
 class Review(db.Model):
@@ -35,14 +33,11 @@ class Review(db.Model):
     comment = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    # Relationship linking back to your system's Booking model
     booking = db.relationship('Booking', backref=db.backref('review', uselist=False))
     
     def to_dict(self):
-        # ✅ Using 'parent' matches the relationship defined in the Booking model perfectly now
         parent_user = self.booking.parent 
         
-        # Safely extractions through the Booking -> TutorProfile -> User relationship paths
         tutor_name = "Not Assigned"
         if self.booking.tutor_profile and self.booking.tutor_profile.user:
             tutor_name = self.booking.tutor_profile.user.username
@@ -104,7 +99,6 @@ class TutorProfile(db.Model):
     user = db.relationship('User', backref='tutor_profile', lazy=True)
 
 
-# Junction table for Tutors teaching Multiple Courses
 tutor_courses = db.Table('tutor_courses',
     db.Column('tutor_id', db.Integer, db.ForeignKey('tutor_profiles.id'), primary_key=True),
     db.Column('course_id', db.Integer, db.ForeignKey('courses.id'), primary_key=True)
@@ -119,6 +113,7 @@ class Course(db.Model):
     
     tutors = db.relationship('TutorProfile', secondary=tutor_courses, backref=db.backref('courses', lazy='dynamic'), lazy='subquery')
 
+
 # ==========================================
 # 3. BOOKING ENGINE MODEL
 # ==========================================
@@ -132,7 +127,6 @@ class Booking(db.Model):
     student_id = db.Column(db.Integer, db.ForeignKey('students.id'), nullable=False)
     course_id = db.Column(db.Integer, db.ForeignKey('courses.id'), nullable=False)
     
-    # Points to tutor_profiles table as designed
     tutor_id = db.Column(db.Integer, db.ForeignKey('tutor_profiles.id'), nullable=True)
     assigned_at = db.Column(db.DateTime, nullable=True)
     
@@ -151,11 +145,35 @@ class Booking(db.Model):
     sessions_per_week = db.Column(db.Integer, nullable=False)
     hours_per_session = db.Column(db.Numeric(4, 2), nullable=False)
     
-    status = db.Column(db.String(20), default='pending')            
+    status = db.Column(db.String(20), default='pending')            # pending, approved, rejected, active, completed, cancelled
     rejection_reason = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    # Clean relationships resolved with no backref conflicts
+    first_session_held = db.Column(db.Boolean, default=False)
+    auto_renew = db.Column(db.Boolean, default=True)
+    next_billing_date = db.Column(db.Date, nullable=True)
+
     parent = db.relationship('User', foreign_keys=[parent_id], backref=db.backref('bookings', lazy=True))
     course = db.relationship('Course', backref=db.backref('bookings', lazy=True))
     tutor_profile = db.relationship('TutorProfile', foreign_keys=[tutor_id], backref=db.backref('assigned_bookings', lazy=True))
+
+
+# ==========================================
+# 4. PAYMENT & TRANSACTION MODEL
+# ==========================================
+
+class Payment(db.Model):
+    __tablename__ = 'payments'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    booking_id = db.Column(db.Integer, db.ForeignKey('bookings.id', ondelete='CASCADE'), nullable=False)
+    reference = db.Column(db.String(100), unique=True, nullable=False) # Paystack transaction reference
+    amount = db.Column(db.Numeric(10, 2), nullable=False)
+    status = db.Column(db.String(20), default='pending')               # pending, paid, refunded
+    payment_method = db.Column(db.String(50), nullable=True)           # card, bank_transfer, ussd
+    
+    billing_period_start = db.Column(db.Date, nullable=False)
+    billing_period_end = db.Column(db.Date, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    booking = db.relationship('Booking', backref=db.backref('payments', lazy=True))

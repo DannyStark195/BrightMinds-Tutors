@@ -1,14 +1,21 @@
+import { getBookingsForReview } from "../api/api.js";
+
 const reviewForm = document.querySelector('.review-form');
 const ratings = document.querySelectorAll('.rating-btn');
 const bookings = document.querySelector('#booking');
 
 console.log(bookings);
 
-bookings.innerHTML = `
-        <option>Mathematics with Miss Adaeze</option>
-        <option>Biology with Mr Tunde</option>
-        <option>English with Miss Ngozi</option>
-`
+const bookingsForReview = await getBookingsForReview()
+
+console.log(bookingsForReview)
+
+bookingsForReview.forEach(booking =>{
+        const html = `<option class="">${booking.course_name} with ${booking.tutor_name}  (<span class="${booking.status}">${booking.status}</span>)</option><span class="${booking.status}">${booking.status}</span>`
+        bookings.innerHTML += html
+
+})
+
 
 console.log(ratings);
 let currentRating = 0;

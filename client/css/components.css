@@ -587,11 +587,15 @@ input.input-error{
 }
 
 .rejected,
-.failed{
+.failed,
+.cacelled{
     background: #FEE2E2;
     color: var(--Danger);
 }
-
+.completed{
+    background: var(--Primary);
+    color: #FFF;
+}
 .form-control{
     width: 100%;
     border: 1px solid rgba(13, 27, 42, 0.12);
