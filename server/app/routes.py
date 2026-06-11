@@ -146,19 +146,21 @@ def get_bookings_for_review():
         return jsonify({'success': False, 'error': 'Server error pulling eligible transactions.'}), 500
 
 
-@routes.route('/reviews', methods=['POST'])
+@routes.route('/create-review', methods=['POST'])
 @jwt_required()
 def create_booking_review():
     """Allows parents to submit a 1-5 star review for a qualified booking transaction"""
     current_user_id = get_jwt_identity()
     data = request.get_json() or {}
 
-    booking_id = data.get('booking_id')
+    booking_id = data.get('bookingId')
     rating = data.get('rating')
-    comment = data.get('comment', '').strip()
+    feedback= data.get('feedback', '').strip()
 
-    if not booking_id or not rating or not comment:
-        return jsonify({'error': 'Missing required fields: booking_id, rating, or comment.'}), 400
+    print(booking_id, rating, feedback)
+    print(booking_id)
+    if not booking_id or not rating or not feedback:
+        return jsonify({'error': 'Missing required fields: booking_id, rating, or feedback.'}), 400
 
     try:
         rating_int = int(rating)
@@ -171,7 +173,8 @@ def create_booking_review():
     if not booking:
         return jsonify({'error': 'Booking transaction record not found.'}), 404
         
-    if booking.parent_id != current_user_id:
+    if booking.parent_id != int(current_user_id):
+        print(booking.parent_id, current_user_id)
         return jsonify({'error': 'Unauthorized. You can only review your own bookings.'}), 403
 
     # Ensure booking is in a valid historical state
@@ -187,13 +190,13 @@ def create_booking_review():
         new_review = Review(
             booking_id=booking_id,
             rating=rating_int,
-            comment=comment
+            feedback=feedback
         )
         db.session.add(new_review)
         db.session.commit()
 
         return jsonify({
-            'message': '✅ Review submitted successfully!',
+            'message': 'Review submitted successfully!',
             'review': new_review.to_dict()
         }), 201
 

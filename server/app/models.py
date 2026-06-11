@@ -30,7 +30,7 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     booking_id = db.Column(db.Integer, db.ForeignKey('bookings.id', ondelete='CASCADE'), unique=True, nullable=False)
     rating = db.Column(db.Integer, nullable=False) 
-    comment = db.Column(db.Text, nullable=False)
+    feedback = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     booking = db.relationship('Booking', backref=db.backref('review', uselist=False))
@@ -46,7 +46,7 @@ class Review(db.Model):
             'review_id': self.id,
             'booking_id': self.booking_id,
             'rating': self.rating,
-            'comment': self.comment,
+            'feedback': self.feedback,
             'date': self.created_at.strftime('%Y-%m-%d'),
             'parent_name': parent_user.username,
             'parent_avatar': parent_user.profile_pic,

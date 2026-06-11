@@ -1,9 +1,10 @@
-import { getBookingsForReview } from "../api/api.js";
+import { getBookingsForReview, createReview } from "../api/api.js";
+import { collectData } from "../utils/formHelpers.js";
 
 const reviewForm = document.querySelector('.review-form');
 const ratings = document.querySelectorAll('.rating-btn');
 const bookings = document.querySelector('#booking');
-
+ const msg = reviewForm.querySelector('.msg.error');
 console.log(bookings);
 
 const bookingsForReview = await getBookingsForReview()
@@ -11,12 +12,9 @@ const bookingsForReview = await getBookingsForReview()
 console.log(bookingsForReview)
 
 bookingsForReview.forEach(booking =>{
-        const html = `<option class="">${booking.course_name} with ${booking.tutor_name}  (<span class="${booking.status}">${booking.status}</span>)</option><span class="${booking.status}">${booking.status}</span>`
+        const html = `<option class="" value="${booking.booking_id}">${booking.course_name} with ${booking.tutor_name}  (<span class="${booking.status}">${booking.status}</span>)</option>`
         bookings.innerHTML += html
-
 })
-
-
 console.log(ratings);
 let currentRating = 0;
 ratings.forEach(ratingBtn =>{
@@ -37,7 +35,22 @@ ratings.forEach(ratingBtn =>{
 
 reviewForm.addEventListener('submit', (e) =>{
         e.preventDefault();
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData);
-        console.log(data);
+        handleCreateReview()
 })
+
+async function handleCreateReview(){
+        const data = collectData(reviewForm);
+        console.log(data)
+        const {valid, message} = await createReview(data)
+
+        if(!valid){
+                msg.textContent = message
+                msg.classList.remove('inactive')
+                return
+        }
+
+        msg.classList.remove('error');
+        msg.textContent = message
+        msg.classList.add('success');
+
+}
