@@ -145,6 +145,67 @@ def get_bookings_for_review():
     except Exception as e:
         return jsonify({'success': False, 'error': 'Server error pulling eligible transactions.'}), 500
 
+@routes.route('/bookings/reviewed', methods=['GET'])
+@jwt_required()
+def get_reviewed_bookings():
+    """
+    Returns all historical bookings for the logged-in parent 
+    that have already received a completed user review.
+    """
+    current_user_id = get_jwt_identity()
+
+    try:
+        # Enforce integer type casting safely to protect comparisons
+        authenticated_user_id = int(current_user_id)
+    except (ValueError, TypeError):
+        return jsonify({'success': False, 'error': 'Invalid user identity token format.'}), 401
+
+    try:
+        reviewed_bookings = (
+            Booking.query
+            .filter(Booking.parent_id == authenticated_user_id)
+            .join(Review, Review.booking_id == Booking.id) # Inner join filters out unreviewed items
+            .order_by(Review.created_at.desc())
+            .all()
+        )
+
+        payload = []
+        for booking in reviewed_bookings:
+            tutor_name = "Account Closed"
+            tutor_profile_pic = "./assests/images/avatar/default_avatar.png" # Safe baseline default
+            
+            # Extract name and profile picture from the relationships safely
+            if booking.tutor_profile:
+                if booking.tutor_profile.profile_pic:
+                    tutor_profile_pic = booking.tutor_profile.profile_pic
+                
+                if booking.tutor_profile.user:
+                    tutor_name = booking.tutor_profile.user.username
+
+            payload.append({
+                'booking_id': booking.id,
+                'reference_code': booking.reference_code,
+                'course_name': booking.course.course_name,
+                'grade_level': booking.grade_level,
+                'tutor_name': tutor_name,
+                'tutor_profile_pic': tutor_profile_pic, # Added attribute
+                'booking_status': booking.status,
+                'review': {
+                    'review_id': booking.review.id,
+                    'rating': booking.review.rating,
+                    'feedback': booking.review.feedback,
+                    'submitted_on': booking.review.created_at.strftime('%Y-%m-%d')
+                }
+            })
+
+        return jsonify({
+            'success': True,
+            'count': len(payload),
+            'reviewed_bookings': payload
+        }), 200
+
+    except Exception as e:
+        return jsonify({'success': False, 'error': 'Server error fetching reviewed transaction history.'}), 500
 
 @routes.route('/create-review', methods=['POST'])
 @jwt_required()

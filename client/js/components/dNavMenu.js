@@ -15,7 +15,7 @@ headerHtml.innerHTML = `
                         <nav class="navbar dashboard-navbar">
                                 <div class="profile">
                                     <div class="profile-img">
-                                        <img src="./assets/images/avatars/profiles/vector-flat-illustration-grayscale-avatar-600nw-2264922221.webp" alt="user profile picture">
+                                        <img src="./assets/images/avatars/default_avatar.png" alt="user profile picture">
                                     </div>
                                     <div class="profile-info">
                                         <p class="profile-name">Daniel</p>

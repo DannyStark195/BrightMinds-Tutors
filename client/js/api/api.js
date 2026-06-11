@@ -264,6 +264,31 @@ export async function getBookingsForReview(){
        return null;  
     }
 }
+export async function getReviewedBookings(){
+    const token = localStorage.getItem('brightminds-user-token')
+    try {
+        const request = await fetch(`${BASE_URL}bookings/reviewed`, {
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        });
+
+        const response = await request.json()
+        if(!request.ok){
+            if (request.status === 401) {
+                Logout(); 
+            }
+                throw new Error(response.error || 'Failed to fetch reviews')
+            }
+        return response.reviewed_bookings
+    }
+    catch (error) {
+        console.log(error.message)
+       return null;  
+    }
+}
 
 export async function createReview(data){
     const token = localStorage.getItem('brightminds-user-token');
