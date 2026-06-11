@@ -314,3 +314,20 @@ export async function createReview(data){
         return {valid: false, message:error.message}
     }
 }
+
+export async function getFeaturedTestimonials() {
+
+    try {
+        const request = await fetch(`${BASE_URL}featured-testimonials`);
+        const response = await request.json();
+
+        if (!response.success || !response.testimonials || response.testimonials.length === 0) {
+            return;
+        }
+
+        return response.testimonials
+    } catch (error) {
+        console.error("Failed executing homepage testimonials fetch:", error);
+        return null
+    }
+}

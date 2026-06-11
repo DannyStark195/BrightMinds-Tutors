@@ -264,3 +264,24 @@ def create_booking_review():
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': 'Internal server error saving feedback.'}), 500
+
+@routes.route('/featured-testimonials', methods=['GET'])
+def get_featured_testimonials():
+    try:
+        featured_reviews = (
+            Review.query
+            .filter(Review.rating >= 4)
+            .filter(db.func.length(Review.feedback) > 20)
+            .order_by(Review.created_at.desc())
+            .limit(3)
+            .all()
+        )
+
+        return jsonify({
+            'success': True,
+            'testimonials': [review.to_dict() for review in featured_reviews]
+        }), 200
+
+    except Exception as e:
+        print(e)
+        return jsonify({'success': False, 'error': 'Failed to retrieve testimonials.'}), 500

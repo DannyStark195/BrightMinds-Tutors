@@ -712,7 +712,11 @@ input.input-error{
         transform: rotate(360deg);
     }
 }
-
+.stars {
+    display: flex;
+    gap: 4px;
+    color: var(--Accent);
+}
 /* Hidden Radio Button */
 .hidden-radio{
     opacity: 0;
