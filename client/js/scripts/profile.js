@@ -88,27 +88,27 @@ profileAvatarInput.addEventListener('change', ()=>{
 });
 
 async function renderUserprofile(){
-const userProfile = await getUserProfile();
-profileName.textContent = userProfile.username
-profileAvatarImg.src = userProfile.profile_pic
-console.log(userProfile.profile_pic);
+    const userProfile = await getUserProfile();
+    profileName.textContent = userProfile.username
+    profileAvatarImg.src = userProfile.profile_pic
+    console.log(userProfile.profile_pic);
 
-profileAvatarImg.alt = `${userProfile.username} profile picture` || "user's profile picture"
-profileFields.innerHTML = `
-    <label class="profile-field">
+    profileAvatarImg.alt = `${userProfile.username} profile picture` || "user's profile picture"
+    profileFields.innerHTML = `
+        <label class="profile-field">
 
-        <span>Full name</span>
-        <input type="text" class="form-control" value="${userProfile.username}" name="username" required>
-    </label>
-    <label class="profile-field">
-        <span>Phone number</span>
-        <input type="tel" class="form-control" value="${userProfile.phone || ''}" name="phone" required>
-    </label>
-    
-`
+            <span>Full name</span>
+            <input type="text" class="form-control" value="${userProfile.username}" name="username" required>
+        </label>
+        <label class="profile-field">
+            <span>Phone number</span>
+            <input type="tel" class="form-control" value="${userProfile.phone || ''}" name="phone" required>
+        </label>
+        
+    `
 
-currentAvatarImgMeta = localStorage.getItem(`brightminds_currentAvatar_meta_${userProfile.username}`)
-console.log(currentAvatarImgMeta);
+    currentAvatarImgMeta = localStorage.getItem(`brightminds_currentAvatar_meta_${userProfile.username}`)
+    console.log(currentAvatarImgMeta);
 
 }
 

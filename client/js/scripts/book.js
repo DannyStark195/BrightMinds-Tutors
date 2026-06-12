@@ -189,7 +189,6 @@ function setupStep2(){
         windowBtn.checked = true;
         selectedTimeWindow = windowBtn.value;
     });
-
     const startDate = step2.querySelector('.start-date');
     startDate.addEventListener('change', () => {
         selectedStartDate = startDate.value;
@@ -278,7 +277,6 @@ function validateStep3(){
     if(selectedLocation === 'physical'){
         return Boolean(selectedPhysicalAddress);
     }
-
     return selectedLocation === 'online';
 }
 
@@ -316,12 +314,6 @@ function validateStep4(){
         removeInactive(ageError);
         return false;
     }
-
-    // if(!termsCheckbox.checked){
-    //     removeInactive(termsError);
-    //     return false;
-    // }
-
     return true;
 }
 
@@ -360,9 +352,7 @@ async function handleBooking() {
     });
 
     console.log(data);
-
     const {valid, message} = await createBooking(data);
-
     if(!valid){
         console.log(message);
         booking.classList.add('inactive')
@@ -372,6 +362,7 @@ async function handleBooking() {
     booking.classList.add('inactive')
     displayPendingMessage();
 }
+
 const alert = document.querySelector('.alert');
 
 function displayBookingError(){
@@ -393,7 +384,6 @@ function displayBookingError(){
                 <img src="./assets/icons/error.svg" alt="BrightMind tutor">
             </div>
         </div>
-
     `
 }
 

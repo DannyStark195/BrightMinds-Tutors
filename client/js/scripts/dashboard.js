@@ -1,5 +1,7 @@
 import { getHourOfDay } from "../utils/helpers.js";
+import { getUserProfile, getReviewedBookings, getBookings } from "../api/api.js";
 const greeting = document.querySelector('#greeting');
+const profileName = document.querySelector('#profileName');
 const numPayments = document.querySelector('#no-payments');
 const numBookings = document.querySelector('#no-bookings');
 const numReviews = document.querySelector('#no-reviews');
@@ -16,3 +18,14 @@ const paymentStatusDescription = document.querySelector('#payment-status-desc');
 const paymentStatusBalance = document.querySelector('#payment-status-balance');
 
 const bookingList = document.querySelector('booking-list');
+
+async function renderUserProfile(){
+    const userProfile = await getUserProfile();
+    const reviews = await getReviewedBookings();
+    const bookings = await getBookings()
+    numReviews.textContent = reviews.length
+    numBookings.textContent = bookings.length
+    profileName.textContent = userProfile.username
+}
+
+renderUserProfile()
