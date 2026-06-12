@@ -5,12 +5,12 @@ from app import db
 from app.utils.uploader import upload_profile_image
 from app.utils.pricing_model import PRICING_MATRIX
 from app.utils.reference_generator import generate_reference_code
+from datetime import datetime, timedelta
 routes = Blueprint('routes',__name__)
 
 @routes.route('/')
 def index():
     return jsonify({"message": "Hello World!"})
-
 
 @routes.route('/profile', methods=['GET'])
 @jwt_required()
@@ -111,7 +111,7 @@ def get_bookings_for_review():
         eligible_bookings = (
             Booking.query
             .filter(Booking.parent_id == current_user_id)
-            # 🔐 Business Rule: Must be completed OR (cancelled AND first session actually happened)
+            #Business Rule: Must be completed OR (cancelled AND first session actually happened)
             .filter(
                 (Booking.status == 'completed') | 
                 ((Booking.status == 'cancelled') & (Booking.first_session_held == True))
@@ -145,7 +145,7 @@ def get_bookings_for_review():
         }), 200
 
     except Exception as e:
-        return jsonify({'success': False, 'error': 'Server error pulling eligible transactions.'}), 500
+        return jsonify({'error': 'Server error pulling eligible transactions.'}), 500
 
 @routes.route('/bookings/reviewed', methods=['GET'])
 @jwt_required()
@@ -157,16 +157,15 @@ def get_reviewed_bookings():
     current_user_id = get_jwt_identity()
 
     try:
-        # Enforce integer type casting safely to protect comparisons
         authenticated_user_id = int(current_user_id)
     except (ValueError, TypeError):
-        return jsonify({'success': False, 'error': 'Invalid user identity token format.'}), 401
+        return jsonify({'error': 'Invalid user identity token format.'}), 401
 
     try:
         reviewed_bookings = (
             Booking.query
             .filter(Booking.parent_id == authenticated_user_id)
-            .join(Review, Review.booking_id == Booking.id) # Inner join filters out unreviewed items
+            .join(Review, Review.booking_id == Booking.id)
             .order_by(Review.created_at.desc())
             .all()
         )
@@ -174,7 +173,7 @@ def get_reviewed_bookings():
         payload = []
         for booking in reviewed_bookings:
             tutor_name = "Account Closed"
-            tutor_profile_pic = "./assests/images/avatar/default_avatar.png" # Safe baseline default
+            tutor_profile_pic = "./assests/images/avatar/default_avatar.png" 
             
             # Extract name and profile picture from the relationships safely
             if booking.tutor_profile:
@@ -207,7 +206,7 @@ def get_reviewed_bookings():
         }), 200
 
     except Exception as e:
-        return jsonify({'success': False, 'error': 'Server error fetching reviewed transaction history.'}), 500
+        return jsonify({'error': 'Server error fetching reviewed transaction history.'}), 500
 
 @routes.route('/create-review', methods=['POST'])
 @jwt_required()
@@ -286,102 +285,72 @@ def get_featured_testimonials():
 
     except Exception as e:
         print(e)
-        return jsonify({'success': False, 'error': 'Failed to retrieve testimonials.'}), 500
-
-
-@routes.route('/book-tutor', methods=['POST'])
-@jwt_required()
-def book_tutor():
-    current_user_id = get_jwt_identity()
-    user = User.query.get(current_user_id)
-
-    if not user:
-        return jsonify({'error': 'Your login session has expired. Please login again.'}), 400
-    
-    data = request.get_json() or {}
-    print(data)
-
- 
-
+        return jsonify({'error': 'Failed to retrieve testimonials.'}), 500
 
 @routes.route('/create-booking', methods=['POST'])
 @jwt_required()
 def create_booking():
     current_user_id = get_jwt_identity()
-    
+
     try:
         authenticated_user_id = int(current_user_id)
     except (ValueError, TypeError):
-        return jsonify({'success': False, 'error': 'Invalid user identity token format.'}), 401
-
+        return jsonify({'error': 'Invalid user identity token format.'}), 401
+    
+    user = User.query.get(current_user_id)
+    if not user:
+        return jsonify({'error': 'This account does not exist'}), 400
     data = request.get_json() or {}
 
-    # ==========================================
-    # 1. EXTRACT & CLEAN FRONTEND DATA
-    # ==========================================
     subject_name = data.get('subject')
     grade_level = data.get('gradeLevel')
-    times_per_week_str = data.get('times') # e.g., "2"
-    hrs_per_session_str = data.get('hrs')   # e.g., "2hrs" or "3hrs"
+    times_per_week_str = data.get('times')
+    hrs_per_session_str = data.get('hrs')
     time_window = data.get('timeWindow')
-    start_date_str = data.get('startDate')  # e.g., "2026-06-10"
-    lesson_location = data.get('lessonLocation') # 'online' or 'physical'
+    start_date_str = data.get('startDate')
+    lesson_location = data.get('lessonLocation')
     physical_address = data.get('selectedPhysicalAddress', '').strip()
     notes = data.get('message', '').strip()
     
     # Selected Days array extraction
     selected_days_list = data.get('selectedDays', [])
-    preferred_days = ", ".join(selected_days_list) if isinstance(selected_days_list, list) else data.get('days')
+    preferred_days = ", ".join(selected_days_list)
 
     # Student Information Info
     student_name = data.get('studentName')
     student_age_str = data.get('studentAge')
     disabilities = data.get('disabilities', '').strip()
 
-    # ==========================================
-    # 2. SEVERE DATA VALIDATION
-    # ==========================================
     required_fields = [subject_name, grade_level, times_per_week_str, hrs_per_session_str, 
                        time_window, start_date_str, lesson_location, student_name, student_age_str]
     
     if any(field is None or str(field).strip() == "" for field in required_fields):
-        return jsonify({'success': False, 'error': 'Missing or empty required parameters.'}), 400
+        return jsonify({'error': 'Missing or empty required parameters.'}), 400
 
     if lesson_location.lower() == 'physical' and not physical_address:
-        return jsonify({'success': False, 'error': 'Physical address required for off-screen tutoring.'}), 400
+        return jsonify({'error': 'Physical address required for off-screen tutoring.'}), 400
 
     # Ensure targeted course exists in school system catalog
     course = Course.query.filter_by(course_name=subject_name).first()
     if not course:
-        return jsonify({'success': False, 'error': f'Subject "{subject_name}" is not offered right now.'}), 404
+        return jsonify({'error': f'Subject "{subject_name}" is not offered right now.'}), 404
 
-    # ==========================================
-    # 3. DYNAMIC PRICING ENGINE CALCULATION
-    # ==========================================
     try:
         sessions_per_week = int(times_per_week_str)
-        # Parse "2hrs" or "3hrs" down into floats 2.0 or 3.0 cleanly
         hours_per_session = float(hrs_per_session_str.replace('hrs', '').strip())
         
-        # Calculate pricing matrix coordinate values
         monthly_price = PRICING_MATRIX[sessions_per_week][hours_per_session]
     except KeyError:
-        return jsonify({'success': False, 'error': 'Invalid sessions/hours configuration tier selection.'}), 400
+        return jsonify({'error': 'Invalid sessions/hours configuration tier selection.'}), 400
     except ValueError:
-        return jsonify({'success': False, 'error': 'Numeric formatting conversion errors on chosen parameters.'}), 400
+        return jsonify({'error': 'Numeric formatting conversion errors on chosen parameters.'}), 400
 
-    # Parse Dates cleanly
     try:
         start_date = datetime.strptime(start_date_str, '%Y-%m-%d').date()
-        # Default subscriptions to terminate exactly 30 days out for renewal cycle evaluations
         end_date = start_date + timedelta(days=30) 
     except ValueError:
-        return jsonify({'success': False, 'error': 'Invalid date format string structure. Use YYYY-MM-DD.'}), 400
+        return jsonify({'error': 'Invalid date format string structure. Use YYYY-MM-DD.'}), 400
 
-    # ==========================================
-    # 4. EXECUTE OR MATCH STUDENT PROFILE RECORD
-    # ==========================================
-    # Check if this parent has already registered a child with this name to prevent profile clone rows
     student = Student.query.filter_by(parent_id=authenticated_user_id, name=student_name).first()
     
     if not student:
@@ -395,16 +364,13 @@ def create_booking():
             db.session.add(student)
             db.session.flush() # Yields the student.id without committing transaction pipeline yet
         except Exception:
-            return jsonify({'success': False, 'error': 'Error generating student demographic entity.'}), 500
+            return jsonify({'error': 'Error generating student demographic entity.'}), 500
 
     # Update Parent Profile phone metadata dynamically if missing
     parent_user = User.query.get(authenticated_user_id)
     if parent_user and not parent_user.phone:
         parent_user.phone = data.get('phone')
 
-    # ==========================================
-    # 5. GENERATE BASE BOOKING TRANSACTIONS
-    # ==========================================
     try:
         new_booking = Booking(
             reference_code=generate_reference_code(),
@@ -412,7 +378,6 @@ def create_booking():
             student_id=student.id,
             course_id=course.id,
             
-            # 🔒 Admin-managed fields left blank/Pending during the initial validation engine phase
             tutor_id=None,
             assigned_at=None,
             meeting_link=None,
@@ -432,7 +397,7 @@ def create_booking():
             sessions_per_week=sessions_per_week,
             hours_per_session=hours_per_session,
             
-            status='pending', # Fresh submissions initialized strictly as pending
+            status='pending',
             first_session_held=False,
             auto_renew=True
         )
@@ -450,4 +415,4 @@ def create_booking():
 
     except Exception as e:
         db.session.rollback()
-        return jsonify({'success': False, 'error': 'Critical server database transaction failure logging order.'}), 500
+        return jsonify({'error': 'Critical server database transaction failure logging order.'}), 500
