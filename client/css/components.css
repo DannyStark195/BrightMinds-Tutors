@@ -581,14 +581,15 @@ input.input-error{
     color: var(--Pending);
 }
 
-.confirmed{
+.confirmed,
+.status.active{
     background: #D1FAE5;
     color: var(--Success);
 }
 
 .rejected,
 .failed,
-.cacelled{
+.cancelled{
     background: #FEE2E2;
     color: var(--Danger);
 }

@@ -48,3 +48,16 @@ export function calculateFileHash(file) {
         reader.readAsArrayBuffer(file);
     });
 }
+
+export function formatDate(date){
+                        const [year, month, day] = date.split('-');
+                        const dateObj = new Date(year, month - 1, day); 
+                
+                        const formattedDate = dateObj.toLocaleDateString('en-GB', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric'
+                        });
+
+                        return formattedDate
+                }

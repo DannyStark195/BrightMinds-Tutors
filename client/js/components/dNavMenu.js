@@ -1,5 +1,8 @@
 import { activateElement, deactivateElement } from "../utils/helpers.js";
+import { getUserProfile } from "../api/api.js";
 const headerHtml = document.querySelector('.header');
+const userProfile = await getUserProfile();
+
 headerHtml.innerHTML = `
                     <div class="logo">
                         <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
@@ -15,10 +18,10 @@ headerHtml.innerHTML = `
                         <nav class="navbar dashboard-navbar">
                                 <div class="profile">
                                     <div class="profile-img">
-                                        <img src="./assets/images/avatars/default_avatar.png" alt="user profile picture">
+                                        <img src="${userProfile.profile_pic || './assets/images/avatars/default_avatar.png'}" alt="user profile picture">
                                     </div>
                                     <div class="profile-info">
-                                        <p class="profile-name">Daniel</p>
+                                        <p class="profile-name">${userProfile.username}</p>
                                         <a href="profile.html">
                                             My profile 
                                             <i class="fa-solid fa-arrow-right"></i>

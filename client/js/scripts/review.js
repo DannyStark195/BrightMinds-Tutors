@@ -1,5 +1,6 @@
 import { getBookingsForReview, getReviewedBookings, createReview } from "../api/api.js";
 import { collectData } from "../utils/formHelpers.js";
+import { formatDate } from "../utils/helpers.js";
 
 
 const reviewForm = document.querySelector('.review-form');
@@ -69,14 +70,10 @@ const reviewList = document.querySelector('.review-list');
                 for(let i = 0; i< 5 - rating; i++){
                         starHtml += '<i class="fa-regular fa-star"></i>'
                 }
-                const [year, month, day] = booking.review.submitted_on.split('-');
-                const dateObj = new Date(year, month - 1, day); 
                 
-                const formattedDate = dateObj.toLocaleDateString('en-GB', {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric'
-                });
+
+                const formattedDate = formatDate(booking.review.submitted_on)
+                
                 html += `
                         <article class="review-card surface-card">
                                 <div class="review-card-header">

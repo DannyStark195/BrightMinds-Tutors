@@ -1,4 +1,4 @@
-import { getHourOfDay } from "../utils/helpers.js";
+import { getHourOfDay, formatDate } from "../utils/helpers.js";
 import { getUserProfile, getReviewedBookings, getBookings } from "../api/api.js";
 const greeting = document.querySelector('#greeting');
 const profileName = document.querySelector('#profileName');
@@ -32,21 +32,21 @@ bookings.forEach(booking => {
         <a href="booking-details.html" class="booking-card surface-card">
                                 <div class="card-header">
                                     <div>
-                                        <span class="card-subject">Mathematics</span>
-                                        <p>Mon, Wed, Fri - Physical - Lekki</p>
+                                        <span class="card-subject">${booking.course.course_name}</span>
+                                        <p>${booking.preferred_days}- ${booking.session_type === 'physical'?booking.address:booking.meeting_link?booking.meeting_link:'meeting link not set yet'}</p>
                                     </div>
-                                    <span class="status confirmed">Confirmed</span>
+                                    <span class="status ${booking.status}">${booking.status}</span>
                                 </div>
                                 <div class="progress-tracker">
                                     <div class="progress w-100"></div>
                                     <div class="step active"><span>1</span><p>Submitted</p></div>
                                     <div class="step active"><span>2</span><p>Review</p></div>
-                                    <div class="step active"><span>3</span><p>Assigned</p></div>
-                                    <div class="step active"><span>4</span><p>Confirmed</p></div>
+                                    <div class="step active"><span>3</span><p>Approved</p></div>
+                                    <div class="step active"><span>4</span><p>Active</p></div>
                                 </div>
                                 <div class="card-footer">
-                                    <span class="reference">BM-2847</span>
-                                    <span class="date">Submitted 3 May 2026</span>
+                                    <span class="reference">${booking.reference_code}</span>
+                                    <span class="date">Submitted ${formatDate(booking.created_at)}</span>
                                 </div>
                             </a>
     `

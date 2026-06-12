@@ -204,8 +204,8 @@ class Booking(db.Model):
             "start_date": self.start_date.strftime('%Y-%m-%d') if self.start_date else None,
             "end_date": self.end_date.strftime('%Y-%m-%d') if self.end_date else None,
             "next_billing_date": self.next_billing_date.strftime('%Y-%m-%d') if self.next_billing_date else None,
-            "assigned_at": self.assigned_at.isoformat() if self.assigned_at else None,
-            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "assigned_at": self.assigned_at.strftime('%Y-%m-%d') if self.assigned_at else None,
+            "created_at": self.created_at.strftime('%Y-%m-%d') if self.created_at else None,
             "student": student_data,
             "course": course_data,
             "tutor": tutor_data
