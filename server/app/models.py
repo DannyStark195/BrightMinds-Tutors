@@ -110,14 +110,12 @@ class Course(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     course_name = db.Column(db.String(100), unique=True, nullable=False)
-    
     tutors = db.relationship('TutorProfile', secondary=tutor_courses, backref=db.backref('courses', lazy='dynamic'), lazy='subquery')
 
 
 # ==========================================
 # 3. BOOKING ENGINE MODEL
 # ==========================================
-
 class Booking(db.Model):
     __tablename__ = 'bookings'
     
@@ -135,7 +133,7 @@ class Booking(db.Model):
     time_window = db.Column(db.String(50), nullable=False)          
     session_type = db.Column(db.String(50), nullable=False)         
     address = db.Column(db.Text, nullable=True)                     
-    notes = db.Column(db.Text, nullable=True)                       
+    # notes = db.Column(db.Text, nullable=True)                       
     
     monthly_price = db.Column(db.Numeric(10, 2), nullable=False)
     meeting_link = db.Column(db.String(255), nullable=True)         
@@ -156,7 +154,62 @@ class Booking(db.Model):
     parent = db.relationship('User', foreign_keys=[parent_id], backref=db.backref('bookings', lazy=True))
     course = db.relationship('Course', backref=db.backref('bookings', lazy=True))
     tutor_profile = db.relationship('TutorProfile', foreign_keys=[tutor_id], backref=db.backref('assigned_bookings', lazy=True))
+    student = db.relationship('Student', foreign_keys=[student_id], backref=db.backref('bookings', lazy=True))
 
+    def to_dict(self):
+        student_data = None
+        if self.student:
+            student_data = {
+                "id": self.student.id,
+                "name": self.student.name,
+                "age": self.student.age,
+                "disabilities_or_notes": self.student.disabilities_or_notes
+            }
+
+        course_data = None
+        if self.course:
+            course_data = {
+                "id": self.course.id,
+                "course_name": self.course.course_name
+            }
+
+        tutor_data = None
+        if self.tutor_profile:
+            tutor_data = {
+                "tutor_profile_id": self.tutor_profile.id,
+                "username": self.tutor_profile.user.username if self.tutor_profile.user else "Account Closed",
+                "profile_pic": self.tutor_profile.profile_pic or "assests/images/avatars/default_avatar.png"
+            }
+
+        return {
+            "id": self.id,
+            "reference_code": self.reference_code,
+            "parent_id": self.parent_id,
+            "status": self.status,
+            "grade_level": self.grade_level,
+            "preferred_days": self.preferred_days,
+            "time_window": self.time_window,
+            "session_type": self.session_type,
+            "address": self.address,
+            "meeting_link": self.meeting_link,
+            # "notes": self.notes,
+            "rejection_reason": self.rejection_reason,
+            "first_session_held": self.first_session_held,
+            "auto_renew": self.auto_renew,
+            
+            "monthly_price": float(self.monthly_price) if self.monthly_price else 0.00,
+            "sessions_per_week": self.sessions_per_week,
+            "hours_per_session": self.hours_per_session,
+            
+            "start_date": self.start_date.strftime('%Y-%m-%d') if self.start_date else None,
+            "end_date": self.end_date.strftime('%Y-%m-%d') if self.end_date else None,
+            "next_billing_date": self.next_billing_date.strftime('%Y-%m-%d') if self.next_billing_date else None,
+            "assigned_at": self.assigned_at.isoformat() if self.assigned_at else None,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "student": student_data,
+            "course": course_data,
+            "tutor": tutor_data
+        }
 
 # ==========================================
 # 4. PAYMENT & TRANSACTION MODEL

@@ -279,7 +279,6 @@ def get_featured_testimonials():
         )
         print(featured_reviews)
         return jsonify({
-            'success': True,
             'testimonials': [review.to_dict() for review in featured_reviews]
         }), 200
 
@@ -320,7 +319,8 @@ def create_booking():
     student_name = data.get('studentName')
     student_age_str = data.get('studentAge')
     disabilities = data.get('disabilities', '').strip()
-
+    disabilities_or_notes = notes + ', ' + disabilities
+    
     required_fields = [subject_name, grade_level, times_per_week_str, hrs_per_session_str, 
                        time_window, start_date_str, lesson_location, student_name, student_age_str]
     
@@ -359,7 +359,7 @@ def create_booking():
                 parent_id=authenticated_user_id,
                 name=student_name,
                 age=int(student_age_str),
-                disabilities_or_notes=disabilities if disabilities.lower() != 'no' else None
+                disabilities_or_notes=disabilities_or_notes if disabilities_or_notes else None
             )
             db.session.add(student)
             db.session.flush() # Yields the student.id without committing transaction pipeline yet
@@ -390,7 +390,7 @@ def create_booking():
             time_window=time_window,
             session_type=lesson_location,
             address=physical_address if lesson_location.lower() == 'physical' else None,
-            notes=notes,
+            # notes=notes,
             
             monthly_price=monthly_price,
             start_date=start_date,
@@ -418,3 +418,36 @@ def create_booking():
         db.session.rollback()
         print(e, 'Critical server database transaction failure logging order.')
         return jsonify({'error': 'Critical server database transaction failure logging order.'}), 500
+
+
+@routes.route('/bookings', methods=['GET'])
+@jwt_required()
+def get_bookings():
+    current_user_id = get_jwt_identity()
+
+    try:
+        authenticated_user_id = int(current_user_id)
+    except (ValueError, TypeError):
+        return jsonify({'error': 'Invalid user identity token format.'}), 401
+    
+    user = User.query.get(current_user_id)
+    if not user:
+        return jsonify({'error': 'This account does not exist'}), 400
+    
+    try:
+        bookings = (
+                        Booking.query
+                        .filter(Booking.parent_id==authenticated_user_id)
+                        .order_by(Booking.created_at.desc())
+                        .all()
+        )
+        print(bookings)
+        return jsonify({
+            'bookings': [booking.to_dict() for booking in bookings]
+        }), 200
+    
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Failed to retrieve bookings.'}), 500
+
+
