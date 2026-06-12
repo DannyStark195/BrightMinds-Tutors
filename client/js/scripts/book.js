@@ -1,5 +1,6 @@
 import { activateElement, addInactive, deactivateElement, removeInactive } from "../utils/helpers.js";
 import { collectData, validatePhone } from "../utils/formHelpers.js";
+import { create, createBookingBooking } from "../api/api.js";
 
 const bookingForm = document.querySelector('.booking-form');
 const backBtn = bookingForm.querySelector('.back-btn');
@@ -17,8 +18,8 @@ let selectedPhysicalAddress = '';
 let selectedStartDate = null;
 
 const timeWindowsByHr = {
-    "2hrs": ['9.am - 11.am', '12.pm - 2.pm', '4.pm - 6.pm'],
-    "4hrs": ['9.am - 1.pm', '11.pm - 3.pm', '2.pm - 6.pm']
+    "2hrs": ['9.am - 11.am', '3.pm - 5.pm', '4.pm - 6.pm'],
+    "3hrs": ['11.am - 2.pm', '2.pm - 5.pm', '3.pm - 6.pm']
 };
 
 function getTimesAWeek(){
@@ -286,15 +287,15 @@ function validateStep4(){
     const phoneField = step4.querySelector('[name="phone"]');
     const studentAgeField = step4.querySelector('[name="studentAge"]');
     const termsCheckbox = step4.querySelector('.terms-checkbox');
-    const errorMessages = step4.querySelectorAll('.error-msg');
-    const phoneError = step4.querySelector('.error-msg.phone');
-    const ageError = step4.querySelector('.error-msg.age');
-    const detailsError = step4.querySelector('.error-msg.details-error');
-    const termsError = step4.querySelector('.error-msg.terms-error');
+    const errorMessages = step4.querySelectorAll('.msg.error');
+    const phoneError = step4.querySelector('.msg.error.phone');
+    const ageError = step4.querySelector('.msg.error.age');
+    const detailsError = step4.querySelector('.msg.error.details-error');
+    const termsError = step4.querySelector('.msg.error.terms-error');
     const allDetailsFilled = [...details].every(detail => detail.value.trim());
     const validPhone = validatePhone(phoneField.value);
     const studentAge = Number(studentAgeField.value);
-    const validStudentAge = Number.isInteger(studentAge) && studentAge >= 6;
+    const validStudentAge = Number.isInteger(studentAge) && studentAge >= 5;
 
     errorMessages.forEach(errorMessage => addInactive(errorMessage));
 
@@ -310,15 +311,15 @@ function validateStep4(){
     }
 
     if(!validStudentAge){
-        ageError.textContent = 'Student must be at least 6 years old';
+        ageError.textContent = 'Student must be at least 5 years old';
         removeInactive(ageError);
         return false;
     }
 
-    if(!termsCheckbox.checked){
-        removeInactive(termsError);
-        return false;
-    }
+    // if(!termsCheckbox.checked){
+    //     removeInactive(termsError);
+    //     return false;
+    // }
 
     return true;
 }
@@ -347,7 +348,10 @@ backBtn.addEventListener('click', () => {
 
 bookingForm.addEventListener('submit', event => {
     event.preventDefault();
+    handleBooking()
+});
 
+async function handleBooking() {
     const data = collectData(bookingForm, {
         selectedDays,
         selectedLocation,
@@ -355,4 +359,6 @@ bookingForm.addEventListener('submit', event => {
     });
 
     console.log(data);
-});
+
+    const {valid, message} = await createBooking(data)
+}

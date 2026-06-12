@@ -57,8 +57,8 @@
                                     <div class="option-grid book-subjects">
                                         <label class="option-card sub">
                                             <i class="fa-solid fa-square-root-variable"></i>
-                                            Maths
-                                            <input type="radio" name="subject" value="Maths" class="hidden-radio lg subject-btn" required>
+                                            Mathematics
+                                            <input type="radio" name="subject" value="Mathematics" class="hidden-radio lg subject-btn" required>
                                         </label>
                                         <label class="option-card sub">
                                             <i class="fa-solid fa-book-open"></i>
@@ -78,7 +78,7 @@
                                         <label class="option-card sub">
                                             <i class="fa-solid fa-code"></i>
                                             Computer Science
-                                            <input type="radio" name="subject" value="Computer" class="hidden-radio lg subject-btn">
+                                            <input type="radio" name="subject" value="Computer Science" class="hidden-radio lg subject-btn">
                                         </label>
                                     </div>
                                 </div>
@@ -109,15 +109,15 @@
                                         <div class="pill-row times">
                                             <label class="option-pill time">
                                                 5x
-                                                <input type="radio" name="times" value="5x" class="hidden-radio times-btn" required>
+                                                <input type="radio" name="times" value="5" class="hidden-radio times-btn" required>
                                             </label>
                                             <label class="option-pill time">
                                                 3x
-                                                <input type="radio" name="times" value="3x" class="hidden-radio times-btn">
+                                                <input type="radio" name="times" value="3" class="hidden-radio times-btn">
                                             </label>
                                             <label class="option-pill time">
                                                 2x
-                                                <input type="radio" name="times" value="2x" class="hidden-radio times-btn">
+                                                <input type="radio" name="times" value="2" class="hidden-radio times-btn">
                                             </label>
                                         </div>
                                     </div>
@@ -129,8 +129,8 @@
                                                 <input type="radio" name="hrs" value="2hrs" class="hidden-radio hrs-btn" required>
                                             </label>
                                             <label class="option-pill hr">
-                                                4 Hours
-                                                <input type="radio" name="hrs" value="4hrs" class="hidden-radio hrs-btn">
+                                                3 Hours
+                                                <input type="radio" name="hrs" value="3hrs" class="hidden-radio hrs-btn">
                                             </label>
                                         </div>
                                     </div>
@@ -164,6 +164,10 @@
                                         <label class="option-pill day">
                                             Fri
                                             <input type="checkbox" name="days" value="fri" class="hidden-radio days-btn">
+                                        </label>
+                                        <label class="option-pill day">
+                                            Sat
+                                            <input type="checkbox" name="days" value="sat" class="hidden-radio days-btn">
                                         </label>
                                     </div>
                                 </div>
@@ -213,22 +217,22 @@
                                     <input type="text" name="fullName" class="form-control detail" placeholder="Your full name" required>
                                     <div class="detail-field">
                                         <input type="tel" name="phone" class="form-control detail" placeholder="Phone number" autocomplete="tel" required>
-                                        <p class="error-msg phone inactive"></p>
+                                        <p class="msg error phone inactive"></p>
                                     </div>
                                     <input type="text" name="studentName" class="form-control detail" placeholder="Student's name" required>
                                     <div class="detail-field">
                                         <input type="number" name="studentAge" class="form-control detail" placeholder="Student's age" min="6" step="1" required>
-                                        <p class="error-msg age inactive"></p>
+                                        <p class="msg error age inactive"></p>
                                     </div>
                                     <input type="text" name="disabilities" class="form-control detail" placeholder="Any disabilities? If yes, state." required>
                                     <textarea name="message" class="form-control" placeholder="Leave a message (optional)"></textarea>
-                                    <p class="error-msg details-error inactive">Please fill in all required details.</p>
+                                    <p class="msg error details-error inactive">Please fill in all required details.</p>
                                 </div>
                                 <label class="field-label condition">
                                     <input type="checkbox" required class="" name="termsCheckbox">
                                     I agree to the <a href="./terms-of-use.html">Terms of Use</a>
                                 </label>
-                                <p class="error-msg terms-error inactive">Please agree to the Terms of Use.</p>
+                                <p class="msg error terms-error inactive">Please agree to the Terms of Use.</p>
                             </section>
 
                             <div class="booking-actions">

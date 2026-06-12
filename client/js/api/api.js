@@ -331,3 +331,28 @@ export async function getFeaturedTestimonials() {
         return null
     }
 }
+
+export async function createBooking(data){
+    const token = localStorage.getItem('brightminds-user-token');
+    try{
+        const request = await fetch(`${BASE_URL}book-tutor`, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        })
+
+        const response = await request.json();
+
+        if(!request.ok){
+            throw new Error(response.error || 'Failed to book tutor');
+        }
+
+        return {valid: true, message: response.message}
+    }
+    catch(error){
+        return {valid: false, message:error.message}
+    }
+}
