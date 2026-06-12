@@ -335,7 +335,7 @@ export async function getFeaturedTestimonials() {
 export async function createBooking(data){
     const token = localStorage.getItem('brightminds-user-token');
     try{
-        const request = await fetch(`${BASE_URL}book-tutor`, {
+        const request = await fetch(`${BASE_URL}create-booking`, {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',

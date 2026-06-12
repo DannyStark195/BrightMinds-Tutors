@@ -173,7 +173,7 @@ def get_reviewed_bookings():
         payload = []
         for booking in reviewed_bookings:
             tutor_name = "Account Closed"
-            tutor_profile_pic = "./assests/images/avatar/default_avatar.png" 
+            tutor_profile_pic = "assets/images/avatars/default_avatar.png" 
             
             # Extract name and profile picture from the relationships safely
             if booking.tutor_profile:
@@ -364,6 +364,7 @@ def create_booking():
             db.session.add(student)
             db.session.flush() # Yields the student.id without committing transaction pipeline yet
         except Exception:
+            print('Error generating student demographic entity.')
             return jsonify({'error': 'Error generating student demographic entity.'}), 500
 
     # Update Parent Profile phone metadata dynamically if missing
@@ -415,4 +416,5 @@ def create_booking():
 
     except Exception as e:
         db.session.rollback()
+        print(e, 'Critical server database transaction failure logging order.')
         return jsonify({'error': 'Critical server database transaction failure logging order.'}), 500

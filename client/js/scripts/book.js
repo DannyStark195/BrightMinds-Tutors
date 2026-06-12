@@ -1,7 +1,8 @@
 import { activateElement, addInactive, deactivateElement, removeInactive } from "../utils/helpers.js";
 import { collectData, validatePhone } from "../utils/formHelpers.js";
-import { create, createBookingBooking } from "../api/api.js";
+import { createBooking } from "../api/api.js";
 
+const booking= document.querySelector('#booking');
 const bookingForm = document.querySelector('.booking-form');
 const backBtn = bookingForm.querySelector('.back-btn');
 const continueBtn = bookingForm.querySelector('.continue-btn');
@@ -360,5 +361,60 @@ async function handleBooking() {
 
     console.log(data);
 
-    const {valid, message} = await createBooking(data)
+    const {valid, message} = await createBooking(data);
+
+    if(!valid){
+        console.log(message);
+        booking.classList.add('inactive')
+        displayBookingError();
+        return
+    }
+    booking.classList.add('inactive')
+    displayPendingMessage();
+}
+const alert = document.querySelector('.alert');
+
+function displayBookingError(){
+    alert.classList.remove('inactive');
+    alert.innerHTML = `
+        <div class="alert__hero">
+            <div class="hero-content">
+                <p class="eyebrow">Booking Error</p>
+                <h2 style="color: var(--Danger);">Error</h2>
+                <p style="color: var(--Danger);">There was an error during booking. We apologize for the inconvenience, please try again.</p>
+                <div class="hero-actions">
+                    <a href="book.html" class="cta-btn gold">
+                        Back to booking
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="alert__icon">
+                <img src="./assets/icons/error.svg" alt="BrightMind tutor">
+            </div>
+        </div>
+
+    `
+}
+
+function displayPendingMessage(){
+    alert.classList.remove('inactive');
+    alert.innerHTML = `
+        <div class="alert__hero">
+            <div class="hero-content">
+                <p class="eyebrow">Booking pending</p>
+                <h2>Pending</h2>
+                <p>Your request is being reviewed. You will get an approval in less than 24 hours</p>
+                <div class="hero-actions">
+                    <a href="dashboard.html" class="cta-btn gold">
+                        Back to dashboard
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="alert__icon">
+                <img src="./assets/icons/bell.svg" alt="BrightMind tutor">
+            </div>
+        </div>
+    `
 }
