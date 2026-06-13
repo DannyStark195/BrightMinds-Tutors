@@ -1,5 +1,6 @@
 import { activateElement, deactivateElement } from "../utils/helpers.js";
 import { getUserProfile } from "../api/api.js";
+import { logout } from "../auth/auth.js";
 const headerHtml = document.querySelector('.header');
 const userProfile = await getUserProfile();
 
@@ -46,7 +47,7 @@ headerHtml.innerHTML = `
                                         <a href="become-tutor.html"><button class="">Become a tutor</button></a>
                                     </div>
                                 </div>
-                                <a href="logout" class="logout-btn"><button type="submit" class="cta-btn gold">Log out</button></a>
+                                <a class="logout-btn"><button type="submit" class="cta-btn gold">Log out</button></a>
 
                         </nav>
                     </div>
@@ -56,7 +57,10 @@ const dashboardNavMenuBtn = document.querySelector('.dashboard-nav-btn');
 const closeDashboardNavBtn = document.querySelector('.dashboard-close-nav-btn');
 const overlay = document.querySelector('.overlay');
 const moreLinks = document.querySelector('.more-links')
-
+const logoutBtn = document.querySelector('.logout-btn');
+logoutBtn.addEventListener('click', ()=>{
+    logout()
+})
 function closeDashboardMenu() {
     deactivateElement(overlay);
     deactivateElement(dashboardNavMenu);

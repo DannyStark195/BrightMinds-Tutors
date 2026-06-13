@@ -1,16 +1,18 @@
 import { openForm } from "../auth/authForm.js";
 import { getFeaturedTestimonials } from "../api/api.js";
+import { redirectIfLoggedIn } from "../auth/auth.js";
 const overlay = document.querySelector('.dark-overlay');
 const loginFormContainer = overlay?.querySelector('.login-form-container');
 
 
-document.addEventListener('DOMContentLoaded', ()=>{
+// document.addEventListener('DOMContentLoaded', ()=>{
     const params = new URLSearchParams(window.location.search);
     if(params.get('auth') === 'required'){
         openForm(overlay, loginFormContainer);
     }
 
-});
+// });
+redirectIfLoggedIn()
 
 const testimonialList = document.querySelector('.testimonial-list');
 

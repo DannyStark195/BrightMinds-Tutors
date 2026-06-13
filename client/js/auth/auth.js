@@ -10,7 +10,7 @@ export function loginRequired(){
     }
 }
 export function redirectIfLoggedIn(){
-    window.location.replace('dashboard.html');
+    if(isAuthenticated()) window.location.replace('dashboard.html');
 }
 
 export function isAdminLoggedIn(){
@@ -21,4 +21,9 @@ export function adminLoginRequired(){
     if(!isAdminLoggedIn()){
         window.location.replace('admin-login.html');
     }
+}
+
+export function logout(){
+    localStorage.removeItem('brightminds-user-token');
+    window.location.replace('index.html')
 }

@@ -43,6 +43,7 @@ console.log(bookingDetails);
 
 bookingRef.textContent = bookingDetails.reference_code
 bookingStatusBadge.classList.add(bookingDetails.status)
+bookingStatusBadge.textContent = bookingDetails.status
 bookingTutorImg.src = './assets/images/avatars/default_avatar.png'
 bookingTutor.textContent = 'Not assigned yet';
 

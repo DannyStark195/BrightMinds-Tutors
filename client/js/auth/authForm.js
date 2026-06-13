@@ -116,7 +116,7 @@ overlay.innerHTML =  `
                                 <p>Enter your email address and we'll send you an OTP to reset your password.</p>
                                 <input type="email" name="email" id="forgot-password-email" placeholder="E-mail address" class="input-error">
                                 <p class="msg error inactive"></p>
-                                <button type="submit" class="cta-btn gold">Verify</button> 
+                                <button type="submit" class="cta-btn gold">Send code</button> 
                             </form>
                         </div>
                     </div>

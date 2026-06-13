@@ -106,7 +106,7 @@ def verify_code():
             email=email,
             password_hash=claims.get('password_hash'),
             role=claims.get('role'),
-            parent_name= username_extracted
+            # parent_name= username_extracted
         )
         
         db.session.add(new_user)
@@ -141,7 +141,7 @@ def login():
             'username': user.username,
             'email': user.email,
             'role': user.role,
-            'parent_name': user.parent_name
+            # 'parent_name': user.parent_name
         }
     }), 200
 @auth.route('/forgot-password', methods=["POST"])
