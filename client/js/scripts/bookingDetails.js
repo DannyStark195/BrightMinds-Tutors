@@ -1,6 +1,7 @@
 import { getBookingDetails, getUserProfile } from "../api/api.js";
-import { formatDate } from "../utils/helpers.js";
+import { formatDate, formatCurrency } from "../utils/helpers.js";
 const bookingRef = document.querySelector('#booking-ref');
+const bookingStatusBadge = document.querySelector('#status-badge');
 const bookingTutorImg = document.querySelector('#booking-tutor-img');
 const bookingSubject = document.querySelector('#booking-subject');
 const bookingTutor = document.querySelector('#booking-tutor');
@@ -41,9 +42,15 @@ console.log(bookingDetails);
 // }
 
 bookingRef.textContent = bookingDetails.reference_code
-bookingTutorImg.src = bookingDetails.tutor.profile_pic || './assets/images/avatar/default_avatar'
+bookingStatusBadge.classList.add(bookingDetails.status)
+bookingTutorImg.src = './assets/images/avatars/default_avatar.png'
+bookingTutor.textContent = 'Not assigned yet';
+
+if(bookingDetails.tutor){
+bookingTutorImg.src = bookingDetails.tutor.profile_pic?bookingDetails.tutor.profile_pic : './assets/images/avatar/default_avatar.png'
+bookingTutor.textContent = bookingDetails.tutor.tutor_name?bookingDetails.tutor.tutor_name : 'Not assigned yet'
+}
 bookingSubject.textContent = bookingDetails.course.course_name
-bookingTutor.textContent = bookingDetails.tutor.tutor_name
 bookingSchedule.textContent = bookingDetails.preferred_days+ ' · '+ bookingDetails.time_window
 bookingLocation.textContent = bookingDetails.session_type === 'physical'? (
         bookingDetails.session_type + ' | '+ bookingDetails.address
@@ -58,6 +65,22 @@ bookingParentEmail.textContent = userProfile.email
 bookingSessionLength.textContent = bookingDetails.hours_per_session 
 bookingSessionWeekly.textContent = bookingDetails.sessions_per_week
 
-bookingCost.textContent = bookingDetails.monthly_price
+bookingCost.textContent = formatCurrency(bookingDetails.monthly_price)
 bookingStatus.textContent = bookingDetails.status
 bookingStatus.classList.add(bookingDetails.status)
+
+if(bookingDetails.status === 'pending'){
+    bookingStatusMessage.textContent = 'Your request has been confirmed and the tutor will be assigned shortly.'
+}
+else if(bookingDetails.status === 'approved'){
+    bookingStatusMessage.textContent = 'Your request has been approved, please make your payment and activate your booking'
+}
+else if(bookingDetails.status === 'active'){
+    bookingStatusMessage.textContent = 'Your booking is now active!'
+}
+else if(bookingDetails.status === 'rejected' && bookingDetails.rejection_reason){
+    bookingStatusMessage.textContent = 'Your request has been rejected for the following reasons: ' + bookingDetails.rejection_reason
+}
+else if(bookingDetails.status === 'completed'){
+    bookingStatusMessage.textContent = 'You have completed this booking! Thank you for appreciating our service.'
+}

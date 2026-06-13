@@ -337,7 +337,8 @@ def create_booking():
 
     try:
         sessions_per_week = int(times_per_week_str)
-        hours_per_session = hrs_per_session_str.replace('hrs', '').strip()
+        print(hrs_per_session_str)
+        hours_per_session = int((hrs_per_session_str.replace('hrs', '')).strip())
         
         monthly_price = PRICING_MATRIX[sessions_per_week][hours_per_session]
     except KeyError:
