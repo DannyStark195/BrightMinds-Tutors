@@ -438,6 +438,7 @@ def get_bookings():
         bookings = (
                         Booking.query
                         .filter(Booking.parent_id==authenticated_user_id)
+                        .filter(Booking.status != 'cancelled')
                         .order_by(Booking.created_at.desc())
                         .all()
         )
