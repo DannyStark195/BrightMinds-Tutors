@@ -17,6 +17,7 @@ const bookingSessionWeekly= document.querySelector('#booking-session-weekly');
 const bookingNextLesson = document.querySelector('#booking-next-lesson');
 const bookingCost= document.querySelector('#booking-cost');
 const bookingStatus = document.querySelector('#booking-status');
+const bookingStatusMessage = document.querySelector('#booking-status-message')
 const cancelBookingBtn = document.querySelector('#cancel-booking-btn');
 
 
@@ -59,3 +60,4 @@ bookingSessionWeekly.textContent = bookingDetails.sessions_per_week
 
 bookingCost.textContent = bookingDetails.monthly_price
 bookingStatus.textContent = bookingDetails.status
+bookingStatus.classList.add(bookingDetails.status)
