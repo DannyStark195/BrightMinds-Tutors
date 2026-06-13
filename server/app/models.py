@@ -16,7 +16,7 @@ class User(db.Model):
     profile_pic = db.Column(db.String(255), nullable=True, default='default_avatar.png')
     bio = db.Column(db.String(150), nullable=True)
 
-    parent_name = db.Column(db.String(150), nullable=True)  
+    # parent_name = db.Column(db.String(150), nullable=True)  
     phone = db.Column(db.String(20), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 

@@ -27,7 +27,7 @@ def get_profile():
             'username': user.username,
             'email': user.email,
             'role': user.role,
-            'parent_name': user.parent_name,
+            # 'parent_name': user.parent_name,
             'phone': user.phone,
             'profile_pic': user.profile_pic
         }
@@ -337,7 +337,7 @@ def create_booking():
 
     try:
         sessions_per_week = int(times_per_week_str)
-        hours_per_session = float(hrs_per_session_str.replace('hrs', '').strip())
+        hours_per_session = hrs_per_session_str.replace('hrs', '').strip()
         
         monthly_price = PRICING_MATRIX[sessions_per_week][hours_per_session]
     except KeyError:
@@ -348,6 +348,7 @@ def create_booking():
     try:
         start_date = datetime.strptime(start_date_str, '%Y-%m-%d').date()
         end_date = start_date + timedelta(days=30) 
+        next_billing_date = start_date + timedelta(days=30)
     except ValueError:
         return jsonify({'error': 'Invalid date format string structure. Use YYYY-MM-DD.'}), 400
 
@@ -371,6 +372,7 @@ def create_booking():
     parent_user = User.query.get(authenticated_user_id)
     if parent_user and not parent_user.phone:
         parent_user.phone = data.get('phone')
+    # if parent_user and not 
 
     try:
         new_booking = Booking(
@@ -383,7 +385,7 @@ def create_booking():
             assigned_at=None,
             meeting_link=None,
             rejection_reason=None,
-            next_billing_date=None,
+            # next_billing_date=None,
             
             grade_level=grade_level,
             preferred_days=preferred_days,
@@ -395,6 +397,7 @@ def create_booking():
             monthly_price=monthly_price,
             start_date=start_date,
             end_date=end_date,
+            next_billing_date=next_billing_date,
             sessions_per_week=sessions_per_week,
             hours_per_session=hours_per_session,
             
@@ -462,7 +465,7 @@ def get_booking_details(id):
     except (ValueError, TypeError):
         return jsonify({'error': 'Invalid user identity token format.'}), 401
     
-    user = User.query.get(current_user_id)
+    user = User.query.get(authenticated_user_id)
     if not user:
         return jsonify({'error': 'This account does not exist'}), 400
 
