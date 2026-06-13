@@ -1,9 +1,10 @@
+import { getBookingDetails } from "../api/api.js";
 const bookingRef = document.querySelector('#booking-ref');
 const bookingTutorImg = document.querySelector('#booking-tutor-img');
 const bookingSubject = document.querySelector('#booking-subject');
 const bookingTutor = document.querySelector('#booking-tutor');
 const bookingSchedule = document.querySelector('#booking-schedule');
-const bookinLocation = document.querySelector('#booking-location');
+const bookingLocation = document.querySelector('#booking-location');
 const bookingStartDate= document.querySelector('#booking-start-date');
 const bookingEndDate = document.querySelector('#booking-end-date');
 const bookingStudentName = document.querySelector('#booking-student-name');
@@ -16,3 +17,30 @@ const bookinNextLesson = document.querySelector('#booking-next-lesson');
 const bookingCost= document.querySelector('#booking-cost');
 const bookingStatus = document.querySelector('#booking-status');
 const cancelBookingBtn = document.querySelector('#cancel-booking-btn');
+
+
+function getBookingId(){
+    const params = new URLSearchParams(window.location.search);
+    const id= params.get('id')
+    console.log(id)
+    if(id) return id
+}
+
+const id = getBookingId()
+
+const bookingDetails = await getBookingDetails(id)
+
+console.log(bookingDetails);
+
+// if(!bookingDetails) {
+//     return
+// }
+
+bookingRef.textContent = bookingDetails.reference_code
+bookingTutorImg.src = bookingDetails.tutor.profile_pic || './assets/images/avatar/default_avatar'
+bookingSubject.textContent = bookingDetails.course.course_name
+bookingTutor.textContent = bookingDetails.tutor.tutor_name
+bookingSchedule.textContent = bookingDetails.preferred_days+ ' · '+ bookingDetails.time_window
+bookingLocation.textContent = bookingDetails.session_type === 'physical'? (
+        bookingDetails.session_type + ' | '+ bookingDetails.address
+    ): bookingDetails.session_type + ' | '  + (bookingDetails.meeting_link?bookingDetails.meeting_link: 'meeting link not set yet')

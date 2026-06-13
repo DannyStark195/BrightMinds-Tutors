@@ -452,3 +452,31 @@ def get_bookings():
         return jsonify({'error': 'Failed to retrieve bookings.'}), 500
 
 
+@routes.route('/booking-details/<int:id>', methods=["GET"])
+@jwt_required()
+def get_booking_details(id):
+    current_user_id = get_jwt_identity()
+
+    try:
+        authenticated_user_id = int(current_user_id)
+    except (ValueError, TypeError):
+        return jsonify({'error': 'Invalid user identity token format.'}), 401
+    
+    user = User.query.get(current_user_id)
+    if not user:
+        return jsonify({'error': 'This account does not exist'}), 400
+
+    try:
+        booking = (
+                            Booking.query
+                            .filter(Booking.id==id)
+                            .first()
+            )
+        print(booking)
+        return jsonify({
+                'bookings': booking.to_dict()
+            }), 200
+    
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Failed to retrieve booking details.'}), 500

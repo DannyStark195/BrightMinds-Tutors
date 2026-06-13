@@ -177,7 +177,7 @@ class Booking(db.Model):
         if self.tutor_profile:
             tutor_data = {
                 "tutor_profile_id": self.tutor_profile.id,
-                "username": self.tutor_profile.user.username if self.tutor_profile.user else "Account Closed",
+                "tutor_name": self.tutor_profile.user.username if self.tutor_profile.user else "Account Closed",
                 "profile_pic": self.tutor_profile.profile_pic or "assests/images/avatars/default_avatar.png"
             }
 
