@@ -1,10 +1,11 @@
 // payment.js - handles tabs, card brand detect, copy, countdown and simulated payments
 import { getQueryParamValue, formatCurrency } from "../utils/helpers.js";
-import { getPaymentDetails } from "../api/api.js";
+import { getPaymentDetails, makePayment } from "../api/api.js";
 
 
 const reff = getQueryParamValue('reff');
 const paymentDetails = await getPaymentDetails(reff);
+console.log(paymentDetails)
 const paymentAmount = formatCurrency(paymentDetails.monthly_price)
 const paymentAmountHtml = document.querySelector('.amount');
 const bankTab = document.querySelector('#bank');
@@ -118,10 +119,18 @@ function showSuccess(){
 }
 
 // Card pay button
-const payBtn = document.getElementById('pay-btn');
-if(payBtn) payBtn.addEventListener('submit', async (e)=>{
-  e.preventDefault();
-  // payBtn.disabled = true;
+const cardForm = document.querySelector('#card-form');
+const payBtn = document.querySelector('#pay-btn')
+console.log(cardForm)
+if(cardForm) {
+  cardForm.addEventListener('submit', (e)=>{
+      e.preventDefault()
+      handleCardPayment()
+  });
+}
+
+async function handleCardPayment(){
+   // payBtn.disabled = true;
   const data = {payment_method: 'card', amount: paymentDetails.monthly_price, reference_code: paymentDetails.reference_code}
   const {valid} = await makePayment(data)
   payBtn.textContent = 'Processing...';
@@ -132,7 +141,7 @@ if(payBtn) payBtn.addEventListener('submit', async (e)=>{
   setTimeout(()=>{
     showSuccess();
   }, 700);
-});
+}
 
 // Paystack simulation
 const payPaystack = document.getElementById('pay-paystack');

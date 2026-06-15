@@ -416,7 +416,7 @@ export async function getPaymentDetails(ref) {
         if(!request.ok){
                 throw new Error(response.error || 'Failed to fetch booking details')
             }
-        return response.bookings
+        return response.payment_details
     }
     catch (error) {
         console.log(error.message)
@@ -427,7 +427,7 @@ export async function getPaymentDetails(ref) {
 export async function  makePayment(data) {
     const token = localStorage.getItem('brightminds-user-token')
     try {
-        const request = await fetch(`${BASE_URL}make_payment/${ref}`, {
+        const request = await fetch(`${BASE_URL}make_payment`, {
             method:'POST',
             headers: {
                 'Content-Type': 'application/json',

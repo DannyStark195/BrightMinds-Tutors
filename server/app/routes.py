@@ -485,16 +485,37 @@ def get_booking_details(id):
         print(e)
         return jsonify({'error': 'Failed to retrieve booking details.'}), 500
 
+@routes.route('/get_payment/<string:reff>')
+@jwt_required()
+def get_payment(reff):
+    current_user_id = get_jwt_identity()
+    try:
+        authenticated_user_id = int(current_user_id)
+        
+    except (ValueError, TypeError):
+        return jsonify({'error': 'Invalid user identity token format.'}), 401
+    user = User.query.get(authenticated_user_id)
+    if not user:
+            return jsonify({'error': 'This account does not exist'}), 400
+    
+    try:
+        booking = Booking.query.filter(Booking.reference_code == reff).first()
+
+        return jsonify({'payment_details': booking.to_dict()}), 200
+    except Exception as e:
+        return jsonify({'error': 'Failed to retrieve payment details'}), 500
+
 @routes.route('/make_payment', methods=["POST"])
 @jwt_required()
 def make_payment():
     current_user_id = get_jwt_identity()
     data = request.get_json()
     payment_method = data.get('payment_method')
-    reference_code = data.get('refernce_code')
+    reference_code = data.get('reference_code')
     amount = data.get('amount')
     payment_reference = data.get('payment_reference')
 
+    print(data)
 
     try:
         authenticated_user_id = int(current_user_id)
@@ -505,20 +526,23 @@ def make_payment():
     if not user:
         return jsonify({'error': 'This account does not exist'}), 400
     
-    if not reference_code or payment_method or amount:
+    if not (reference_code or payment_method or amount):
         return jsonify({'error': 'Payment detail missing!'}), 400
     
     if payment_method =='paystack' and not payment_reference:
         return jsonify({'error': 'Payement reference missing!'}), 400
     try:
         booking = Booking.query.filter(Booking.reference_code==reference_code).first()
-        payment = Payment(
+        print(booking)
+        new_payment = Payment(
                       booking_id=booking.id,
                       amount=amount,
                       status='paid',
                       payment_method=payment_method  
             )
-        print(payment)
+        db.session.add(new_payment)
+        db.session.commit()
+        print(new_payment)
         return jsonify({
                 'message': 'successful'
             }), 200
