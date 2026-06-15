@@ -31,10 +31,10 @@ bookings.forEach(booking => {
     const status = booking.status
     const statusHtml = `
         <div class="progress ${booking.status === 'pending'||booking.status==='rejected'?'w-50':booking.status==='approved'?'w-75':'w-100'}"></div>
-        <div class="step step-1 ${booking.status === 'pending'||booking.status==='rejected'?'active':booking.status==='approved'||booking.status==='active'||booking.status==='completed'?'active':''}"><span>1</span><p>Submitted</p></div>
-        <div class="step step-2 ${booking.status === 'pending'||booking.status==='rejected'?'active':booking.status==='approved'||booking.status==='active'||booking.status==='completed'?'active':''}"><span>2</span><p>Review</p></div>
-        <div class="step step-3 ${booking.status === 'approved'||booking.status==='active'||booking.status==='completed'?'active':''}"><span>3</span><p>Approved</p></div>
-        <div class="step step-4 ${booking.status === 'active'||booking.status==='active'||booking.status==='completed'?'active':''}"><span>4</span><p>Active</p></div>
+        <div class="step  ${booking.status === 'pending'||booking.status==='rejected'?'active':booking.status==='approved'||booking.status==='active'||booking.status==='completed'?'active':''}"><span>1</span><p>Submitted</p></div>
+        <div class="step ${booking.status === 'pending'||booking.status==='rejected'?'active':booking.status==='approved'||booking.status==='active'||booking.status==='completed'?'active':''}"><span>2</span><p>Review</p></div>
+        <div class="step ${booking.status === 'approved'||booking.status==='active'||booking.status==='completed'?'active':''}"><span>3</span><p>Approved</p></div>
+        <div class="step ${booking.status === 'active'||booking.status==='active'||booking.status==='completed'?'active':''}"><span>4</span><p>Active</p></div>
     `
     html += `
         <a href="booking-details.html?id=${booking.id}" class="booking-card surface-card">
@@ -50,6 +50,7 @@ bookings.forEach(booking => {
                                 </div>
                                 <div class="card-footer">
                                     <span class="reference">${booking.reference_code}</span>
+                                    ${booking.status === 'approved'?`<a href="payment.html?${booking.reference_code}" class="cta-btn proceed-payment">Proceed to payment <i class="fa-solid fa-arrow-right"></i></a>`:''}
                                     <span class="date">Submitted ${formatDate(booking.created_at)}</span>
                                 </div>
                             </a>

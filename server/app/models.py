@@ -225,8 +225,7 @@ class Payment(db.Model):
     status = db.Column(db.String(20), default='pending')               # pending, paid, refunded
     payment_method = db.Column(db.String(50), nullable=True)           # card, bank_transfer, ussd
     
-    billing_period_start = db.Column(db.Date, nullable=False)
-    billing_period_end = db.Column(db.Date, nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    paid_at = db.Column(db.DateTime, default=datetime.utcnow)
+    # created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
     booking = db.relationship('Booking', backref=db.backref('payments', lazy=True))

@@ -401,3 +401,25 @@ export async function getBookingDetails(id) {
        return null;  
     }
 }
+
+export async function makePayment(ref) {
+    const token = localStorage.getItem('brightminds-user-token')
+    try {
+        const request = await fetch(`${BASE_URL}make_payment/${ref}`, {
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        });
+        const response = await request.json()
+        if(!request.ok){
+                throw new Error(response.error || 'Failed to fetch booking details')
+            }
+        return response.bookings
+    }
+    catch (error) {
+        console.log(error.message)
+       return null;  
+    }
+}

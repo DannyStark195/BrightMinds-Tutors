@@ -576,7 +576,8 @@ input.input-error{
     letter-spacing: 0.5px;
 }
 
-.pending{
+.pending, 
+.approved{
     background: #FEF3C7;
     color: var(--Pending);
 }
