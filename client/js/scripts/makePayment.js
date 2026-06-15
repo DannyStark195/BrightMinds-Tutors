@@ -138,6 +138,13 @@ if(cardForm) {
 
 async function handleCardPayment(){
    // payBtn.disabled = true;
+  const cardNumberError = document.querySelector('.msg.error.card-number-error');
+  cardNumberError.classList.add('inactive')
+  if(cardNumberInput.value.length<16){
+    cardNumberError.classList.remove('inactive');
+    cardNumberError.textContent ='Card number should be greater than 16'
+    return
+  }
   const data = {payment_method: 'card', amount: paymentDetails.monthly_price, reference_code: paymentDetails.reference_code}
   const {valid} = await makePayment(data)
   payBtn.textContent = 'Processing...';
