@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, request, url_for, current_app, jsonify
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
-from app.models import User, Booking, Review, Course, Student
+from app.models import User, Booking, Review, Course, Student, Payment
 from app import db
 from app.utils.uploader import upload_profile_image
 from app.utils.pricing_model import PRICING_MATRIX
@@ -484,3 +484,45 @@ def get_booking_details(id):
     except Exception as e:
         print(e)
         return jsonify({'error': 'Failed to retrieve booking details.'}), 500
+
+@routes.route('/make_payment', methods=["POST"])
+@jwt_required()
+def make_payment():
+    current_user_id = get_jwt_identity()
+    data = request.get_json()
+    payment_method = data.get('payment_method')
+    reference_code = data.get('refernce_code')
+    amount = data.get('amount')
+    payment_reference = data.get('payment_reference')
+
+
+    try:
+        authenticated_user_id = int(current_user_id)
+    except (ValueError, TypeError):
+        return jsonify({'error': 'Invalid user identity token format.'}), 401
+    
+    user = User.query.get(authenticated_user_id)
+    if not user:
+        return jsonify({'error': 'This account does not exist'}), 400
+    
+    if not reference_code or payment_method or amount:
+        return jsonify({'error': 'Payment detail missing!'}), 400
+    
+    if payment_method =='paystack' and not payment_reference:
+        return jsonify({'error': 'Payement reference missing!'}), 400
+    try:
+        booking = Booking.query.filter(Booking.reference_code==reference_code).first()
+        payment = Payment(
+                      booking_id=booking.id,
+                      amount=amount,
+                      status='paid',
+                      payment_method=payment_method  
+            )
+        print(payment)
+        return jsonify({
+                'message': 'successful'
+            }), 200
+    
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'ritical server database transaction failure logging order.'}), 500

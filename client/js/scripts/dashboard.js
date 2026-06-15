@@ -50,7 +50,7 @@ bookings.forEach(booking => {
                                 </div>
                                 <div class="card-footer">
                                     <span class="reference">${booking.reference_code}</span>
-                                    ${booking.status === 'approved'?`<a href="payment.html?${booking.reference_code}" class="cta-btn proceed-payment">Proceed to payment <i class="fa-solid fa-arrow-right"></i></a>`:''}
+                                    ${booking.status === 'approved'?`<a href="make-payment.html?reff=${booking.reference_code}" class="cta-btn proceed-payment">Proceed to payment <i class="fa-solid fa-arrow-right"></i></a>`:''}
                                     <span class="date">Submitted ${formatDate(booking.created_at)}</span>
                                 </div>
                             </a>

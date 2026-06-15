@@ -220,7 +220,7 @@ class Payment(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     booking_id = db.Column(db.Integer, db.ForeignKey('bookings.id', ondelete='CASCADE'), nullable=False)
-    reference = db.Column(db.String(100), unique=True, nullable=False) # Paystack transaction reference
+    reference = db.Column(db.String(100), unique=True, nullable=True) # Paystack transaction reference
     amount = db.Column(db.Numeric(10, 2), nullable=False)
     status = db.Column(db.String(20), default='pending')               # pending, paid, refunded
     payment_method = db.Column(db.String(50), nullable=True)           # card, bank_transfer, ussd

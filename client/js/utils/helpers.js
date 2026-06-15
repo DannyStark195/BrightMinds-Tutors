@@ -61,3 +61,11 @@ export function formatDate(date){
 
                         return formattedDate
                 }
+
+
+export function getQueryParamValue(key){
+    const params = new URLSearchParams(window.location.search);
+    const value = params.get(key)
+    console.log(value)
+    if(value) return value
+}

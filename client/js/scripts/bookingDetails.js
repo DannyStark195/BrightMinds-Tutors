@@ -1,5 +1,5 @@
 import { getBookingDetails, getUserProfile } from "../api/api.js";
-import { formatDate, formatCurrency } from "../utils/helpers.js";
+import { formatDate, formatCurrency, getQueryParamValue } from "../utils/helpers.js";
 const bookingRef = document.querySelector('#booking-ref');
 const bookingStatusBadge = document.querySelector('#status-badge');
 const bookingTutorImg = document.querySelector('#booking-tutor-img');
@@ -22,14 +22,7 @@ const bookingStatusMessage = document.querySelector('#booking-status-message')
 const cancelBookingBtn = document.querySelector('#cancel-booking-btn');
 
 
-function getBookingId(){
-    const params = new URLSearchParams(window.location.search);
-    const id= params.get('id')
-    console.log(id)
-    if(id) return id
-}
-
-const id = getBookingId()
+const id = getQueryParamValue('id')
 
 const userProfile = await getUserProfile()
 const bookingDetails = await getBookingDetails(id)

@@ -1,4 +1,51 @@
 // payment.js - handles tabs, card brand detect, copy, countdown and simulated payments
+import { getQueryParamValue, formatCurrency } from "../utils/helpers.js";
+import { getPaymentDetails } from "../api/api.js";
+
+
+const reff = getQueryParamValue('reff');
+const paymentDetails = await getPaymentDetails(reff);
+const paymentAmount = formatCurrency(paymentDetails.monthly_price)
+const paymentAmountHtml = document.querySelector('.amount');
+const bankTab = document.querySelector('#bank');
+bankTab.innerHTML = `
+<div class="bank-card surface-card">
+                                    <div class="bank-row"><span class="label">Bank</span><span class="value">Stark Bank</span></div>
+                                    <div class="bank-row">
+                                        <span class="label">Account Number</span>
+                                        <span class="value">
+                                            <span id="account-number">0105401010</span>
+                                            <button id="copy-account" class="mini-btn">Copy</button>
+                                        </span>
+                                    </div>
+                                    <div class="bank-row"><span class="label">Account Name</span><span class="value">BrightMind Tutors</span></div>
+                                    <div class="bank-row"><span class="label">Amount</span><span class="value">₦${paymentAmount}</span></div>
+                                    <div class="bank-row"><span class="label">Reference</span><span class="value" id="bank-ref">${paymentDetails.reference_code}</span></div>
+                                    <div class="bank-row"><span class="label">Expires in</span><span class="value"><span id="countdown">29:47</span></span></div>
+                                </div>
+                                <p class="muted">Once you complete the transfer your booking will be confirmed automatically.</p>
+`
+paymentAmountHtml.textContent = paymentAmount;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const TABS = document.querySelectorAll('.tab-btn');
 const PANELS = document.querySelectorAll('.tab-panel');
 
@@ -64,21 +111,27 @@ const success = document.getElementById('payment-success');
 const txRef = document.getElementById('tx-ref');
 
 function showSuccess(){
-  const ref = 'BM-' + Math.floor(1000 + Math.random()*9000);
-  if(txRef) txRef.textContent = ref;
+  if(txRef) txRef.textContent = paymentDetails.reference_code;
   // hide panels and show success
   document.querySelectorAll('.tab-panels, .payment-tabs, .payment-header').forEach(el=> el.classList.add('inactive'));
   if(success) success.classList.remove('inactive');
 }
 
 // Card pay button
-const payCardBtn = document.getElementById('pay-card');
-if(payCardBtn) payCardBtn.addEventListener('click', ()=>{
-  payCardBtn.disabled = true;
-  payCardBtn.textContent = 'Processing...';
+const payBtn = document.getElementById('pay-btn');
+if(payBtn) payBtn.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  // payBtn.disabled = true;
+  const data = {payment_method: 'card', amount: paymentDetails.monthly_price, reference_code: paymentDetails.reference_code}
+  const {valid} = await makePayment(data)
+  payBtn.textContent = 'Processing...';
+   if(!valid){
+      return
+  }
+
   setTimeout(()=>{
     showSuccess();
-  }, 900);
+  }, 700);
 });
 
 // Paystack simulation
@@ -87,6 +140,7 @@ if(payPaystack) payPaystack.addEventListener('click', ()=>{
   payPaystack.disabled = true;
   payPaystack.textContent = 'Opening...';
   // simulate popup and success
+
   setTimeout(()=> showSuccess(), 700);
 });
 
@@ -127,20 +181,6 @@ function startCountdown(){
 }
 startCountdown();
 
-// Download receipt
-const downloadBtn = document.getElementById('download-receipt');
-if(downloadBtn){
-  downloadBtn.addEventListener('click', ()=>{
-    const ref = txRef ? txRef.textContent : 'BM-0000';
-    const content = `BrightMind Tutors - Payment Receipt\nReference: ${ref}\nAmount: ₦${AMOUNT.toLocaleString()}\nThank you for your payment.`;
-    const blob = new Blob([content],{type:'text/plain'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = `receipt-${ref}.txt`;
-    document.body.appendChild(a); a.click(); a.remove();
-    URL.revokeObjectURL(url);
-  });
-}
 
 // Initialize brand icon to generic
 setBrandIcon('unknown');
