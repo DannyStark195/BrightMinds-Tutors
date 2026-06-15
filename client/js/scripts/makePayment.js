@@ -75,6 +75,13 @@ if(cardNumberInput){
     // detect brand
     const brand = detectCardBrand(raw);
     setBrandIcon(brand);
+    const cardNumberError = document.querySelector('.msg.error.card-number-error');
+    cardNumberError.classList.add('inactive')
+    if(e.target.value.length<16){
+      cardNumberError.classList.remove('inactive');
+      cardNumberError.textContent ='Card number should be greater than 16'
+      return
+    }
   });
 }
 
