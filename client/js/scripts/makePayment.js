@@ -145,7 +145,7 @@ async function handleCardPayment(){
     cardNumberError.textContent ='Card number should be greater than 16'
     return
   }
-  const data = {payment_method: 'card', amount: paymentDetails.monthly_price, reference_code: paymentDetails.reference_code}
+  const data = {payment_method: 'card', reference_code: paymentDetails.reference_code}
   const {valid} = await makePayment(data)
   payBtn.textContent = 'Processing...';
    if(!valid){
@@ -162,12 +162,16 @@ const payPaystack = document.getElementById('pay-paystack');
 if(payPaystack) payPaystack.addEventListener('click', ()=>{
   payPaystack.disabled = true;
   payPaystack.textContent = 'Opening...';
-  // simulate popup and success
 
-  setTimeout(()=> showSuccess(), 700);
+  handlePaystackPayment(); 
 });
 
-// Copy account number
+async function handlePaystackPayment() {
+  const data = {payment_method: 'paystack', reference_code: paymentDetails.reference_code}
+  const {valid} = await makePayment(data);
+  if(!valid) return 
+  setTimeout(()=> showSuccess(), 700);
+}
 const copyBtn = document.getElementById('copy-account');
 const acctEl = document.getElementById('account-number');
 if(copyBtn && acctEl){

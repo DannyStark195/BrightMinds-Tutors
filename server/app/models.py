@@ -220,12 +220,30 @@ class Payment(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     booking_id = db.Column(db.Integer, db.ForeignKey('bookings.id', ondelete='CASCADE'), nullable=False)
-    reference = db.Column(db.String(100), unique=True, nullable=True) # Paystack transaction reference
+    reference = db.Column(db.String(100), unique=True, nullable=False) #transaction reference
     amount = db.Column(db.Numeric(10, 2), nullable=False)
-    status = db.Column(db.String(20), default='pending')               # pending, paid, refunded
+    status = db.Column(db.String(20), default='pending')               # paid, refunded
     payment_method = db.Column(db.String(50), nullable=True)           # card, bank_transfer, ussd
     
     paid_at = db.Column(db.DateTime, default=datetime.utcnow)
     # created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
     booking = db.relationship('Booking', backref=db.backref('payments', lazy=True))
+
+    def to_dict(self):
+        return {
+            'payment_id': self.id,
+            'payment_ref': self.reference,
+            'payment_status': self.status,
+            'amount': float(self.amount),
+            'payment_method': self.payment_method,
+            'paid_at': self.paid_at.strftime('%Y-%m-%d %H:%M:%S'),
+            # Booking details
+            'booking_ref': self.booking.reference_code,
+            'student_name': self.booking.student.name,
+            'course': self.booking.course.course_name,
+            'tutor': self.booking.tutor_profile.user.username if self.booking.tutor_id else 'Not assigned',
+            'sessions_per_week': self.booking.sessions_per_week,
+            'hours_per_session': float(self.booking.hours_per_session),
+            'booking_status': self.booking.status
+        }

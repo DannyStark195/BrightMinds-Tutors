@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BM-PAY-2847 Receipt | BrightMinds Tutors</title>
+    <title>Receipt | BrightMinds Tutors</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
     <style>
       @import url(https://fonts.googleapis.com/css?family=Playfair:300,regular,500,600,700,800,900,300italic,italic,500italic,600italic,700italic,800italic,900italic);
       * {
@@ -24,10 +26,11 @@
         font-family: 'Inter', sans-serif;
         background: var(--Background);
         color: var(--Text);
+        padding-block: 20px;
       }
-      main.receipt {
+      .receipt {
         max-width: 820px;
-        margin: 28px auto;
+        margin: 10px auto;
         background: #ffffff;
         border-radius: 14px;
         padding: 22px 24px;
@@ -170,8 +173,28 @@
       text-decoration: none;
       color: rgba(45, 45, 45, 0.7);
     }
+    .download-btn{
+      position: relative;
+      /* top: 70%; */
+      left: 45%;
+      /* margin-block: 30px; */
+      padding: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      background-color: var(--Primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 30px;
+      transition: all 0.2s;
+    }
+    .download-btn:hover{
+      transform: translateY(-3px);
+    }
+    .download-btn:hover i{
+      margin-left: 3px;
+    }
       @media (max-width: 720px) {
-        main.receipt {
+        .receipt {
           margin: 16px 12px;
           padding: 18px;
         }
@@ -190,7 +213,7 @@
     </style>
   </head>
   <body>
-    <main class="receipt">
+    <div class="receipt">
       <header class="header">
         <div class="brand">
             <div class="logo">
@@ -199,7 +222,6 @@
             </div>
             <span class="eyebrow">Payment receipt</span>
           </div>
-        </div>
         <span class="status">Paid</span>
       </header>
       <section class="hero">
@@ -243,7 +265,12 @@
         <p>Thank you for learning with BrightMinds Tutors.</p>
         <span><a href="mailto:info@brightmindstutors.com" class="footer-link">info@brightmindtutors.com</a></span>
       </footer>
-    </main>
-    
+    </div>
+    <button class="download-btn">
+      Download reciept
+      <i class="fa-solid fa-download"></i>
+    </button>
+
+    <script type="module" src="./js/scripts/reciept.js"></script>
   </body>
 </html>

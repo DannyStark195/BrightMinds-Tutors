@@ -4,7 +4,7 @@ from app.models import User, Booking, Review, Course, Student, Payment
 from app import db
 from app.utils.uploader import upload_profile_image
 from app.utils.pricing_model import PRICING_MATRIX
-from app.utils.reference_generator import generate_reference_code
+from app.utils.reference_generator import generate_reference_code, generate_payment_reference
 from datetime import datetime, timedelta
 routes = Blueprint('routes',__name__)
 
@@ -512,9 +512,6 @@ def make_payment():
     data = request.get_json()
     payment_method = data.get('payment_method')
     reference_code = data.get('reference_code')
-    amount = data.get('amount')
-    payment_reference = data.get('payment_reference')
-
     print(data)
 
     try:
@@ -526,17 +523,19 @@ def make_payment():
     if not user:
         return jsonify({'error': 'This account does not exist'}), 400
     
-    if not (reference_code or payment_method or amount):
+    if not (reference_code or payment_method):
         return jsonify({'error': 'Payment detail missing!'}), 400
-    
-    if payment_method =='paystack' and not payment_reference:
-        return jsonify({'error': 'Payement reference missing!'}), 400
+    booking = Booking.query.filter(Booking.reference_code==reference_code).first()
+    print(booking)
+    if not booking:
+            return jsonify({'error':'Invalid reference code'}), 400
     try:
-        booking = Booking.query.filter(Booking.reference_code==reference_code).first()
-        print(booking)
+        
+        booking.status = 'active'
         new_payment = Payment(
                       booking_id=booking.id,
-                      amount=amount,
+                      reference= generate_payment_reference(payment_method),
+                      amount=booking.monthly_price,
                       status='paid',
                       payment_method=payment_method  
             )
@@ -544,9 +543,28 @@ def make_payment():
         db.session.commit()
         print(new_payment)
         return jsonify({
-                'message': 'successful'
+                'payment_reference': new_payment.reference
             }), 200
     
     except Exception as e:
         print(e)
-        return jsonify({'error': 'ritical server database transaction failure logging order.'}), 500
+        return jsonify({'error': 'Critical server database transaction failure logging order.'}), 500
+
+@routes.route('/my-payments', methods=['GET'])
+def get_my_payments():
+    current_user_id = get_jwt_identity()
+    try:
+        authenticated_user_id = int(current_user_id)
+        
+    except (ValueError, TypeError):
+        return jsonify({'error': 'Invalid user identity token format.'}), 401
+    
+    user = User.query.get(authenticated_user_id)
+    if not user:
+            return jsonify({'error': 'This account does not exist'}), 400
+    
+    my_payments = Payment.query.join(Booking).filter(
+        Booking.parent_id == current_user_id
+    ).all()
+    
+    return jsonify({'payments':[p.to_dict() for p in my_payments]}), 200
