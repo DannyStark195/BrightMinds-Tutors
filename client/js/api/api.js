@@ -450,7 +450,7 @@ export async function  makePayment(data) {
 export async function getPayments() {
     const token = localStorage.getItem('brightminds-user-token')
     try {
-        const request = await fetch(`${BASE_URL}bookings`, {
+        const request = await fetch(`${BASE_URL}my-payments`, {
             method:'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -463,6 +463,28 @@ export async function getPayments() {
                 throw new Error(response.error || 'Failed to fetch bookings')
             }
         return response.payments
+    }
+    catch (error) {
+        console.log(error.message)
+       return null;  
+    }
+}
+
+export async function getReceipt(ref) {
+    const token = localStorage.getItem('brightminds-user-token')
+    try {
+        const request = await fetch(`${BASE_URL}my-payments/receipt/${ref}`, {
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        });
+        const response = await request.json()
+        if(!request.ok){
+                throw new Error(response.error || 'Failed to fetch booking details')
+            }
+        return response.receipt
     }
     catch (error) {
         console.log(error.message)

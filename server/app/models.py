@@ -240,6 +240,7 @@ class Payment(db.Model):
             'paid_at': self.paid_at.strftime('%Y-%m-%d %H:%M:%S'),
             # Booking details
             'booking_ref': self.booking.reference_code,
+            'parent_name': self.booking.parent.username,
             'student_name': self.booking.student.name,
             'course': self.booking.course.course_name,
             'tutor': self.booking.tutor_profile.user.username if self.booking.tutor_id else 'Not assigned',

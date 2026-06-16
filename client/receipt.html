@@ -6,6 +6,7 @@
     <title>Receipt | BrightMinds Tutors</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/tutor-logo.svg">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
       @import url(https://fonts.googleapis.com/css?family=Playfair:300,regular,500,600,700,800,900,300italic,italic,500italic,600italic,700italic,800italic,900italic);
       * {
@@ -30,7 +31,7 @@
       }
       .receipt {
         max-width: 820px;
-        margin: 10px auto;
+        margin: 20px auto;
         background: #ffffff;
         border-radius: 14px;
         padding: 22px 24px;
@@ -214,63 +215,13 @@
   </head>
   <body>
     <div class="receipt">
-      <header class="header">
-        <div class="brand">
-            <div class="logo">
-                <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
-                <p>BrightMinds Tutors</p>
-            </div>
-            <span class="eyebrow">Payment receipt</span>
-          </div>
-        <span class="status">Paid</span>
-      </header>
-      <section class="hero">
-        <div>
-          <p class="label">Receipt total</p>
-          <strong class="amount">NGN 30,000</strong>
-        </div>
-        <div>
-          <p class="label">Receipt no.</p>
-          <span class="reference">BM-PAY-2847</span>
-        </div>
-      </section>
-      <section class="grid">
-        <div class="box">
-          <p class="label">Service</p>
-          <h2>Mathematics tutoring</h2>
-          <p>One-on-one tutoring session package.</p>
-        </div>
-        <div class="box">
-          <p class="label">Account</p>
-          <h3>Daniel Okafor</h3>
-          <p>BrightMind user account</p>
-        </div>
-      </section>
-      <section class="details">
-        <div><span>Payment date</span><strong>3 May 2026</strong></div>
-        <div><span>Payment method</span><strong>Card ending 2842</strong></div>
-        <div><span>Billing period</span><strong>May 2026</strong></div>
-        <div><span>Payment status</span><strong>Paid</strong></div>
-      </section>
-      <section class="items">
-        <div class="row head"><span>Description</span><span>Amount</span></div>
-        <div class="row item">
-          <span>Mathematics tutoring sessions</span><strong>NGN 30,000</strong>
-        </div>
-        <div class="row total">
-          <span>Total paid</span><strong>NGN 30,000</strong>
-        </div>
-      </section>
-      <footer class="footer">
-        <p>Thank you for learning with BrightMinds Tutors.</p>
-        <span><a href="mailto:info@brightmindstutors.com" class="footer-link">info@brightmindtutors.com</a></span>
-      </footer>
+      
     </div>
     <button class="download-btn">
       Download reciept
       <i class="fa-solid fa-download"></i>
     </button>
 
-    <script type="module" src="./js/scripts/reciept.js"></script>
+    <script type="module" src="./js/scripts/receipt.js"></script>
   </body>
 </html>

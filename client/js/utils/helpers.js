@@ -50,18 +50,33 @@ export function calculateFileHash(file) {
 }
 
 export function formatDate(date){
-                        const [year, month, day] = date.split('-');
-                        const dateObj = new Date(year, month - 1, day); 
-                
-                        const formattedDate = dateObj.toLocaleDateString('en-GB', {
-                                day: 'numeric',
-                                month: 'long',
-                                year: 'numeric'
-                        });
+    const [year, month, day] = date.split('-');
+    const dateObj = new Date(year, month - 1, day); 
 
-                        return formattedDate
-                }
+    const formattedDate = dateObj.toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+    });
 
+    return formattedDate
+}
+
+export function formatDateTime(date){
+    const [year, month, day, hour, minute, second] = date.split(/[- :]/);
+    const dateObj = new Date(year, month - 1, day, hour, minute, second); 
+
+    const formattedDate = dateObj.toLocaleString('en-GB', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+            hour: '2-digit',
+            minute:'2-digit',
+            second: '2-digit'
+    });
+
+    return formattedDate
+}
 
 export function getQueryParamValue(key){
     const params = new URLSearchParams(window.location.search);
@@ -69,3 +84,4 @@ export function getQueryParamValue(key){
     console.log(value)
     if(value) return value
 }
+

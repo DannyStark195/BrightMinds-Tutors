@@ -1,12 +1,12 @@
 import { getPayments } from "../api/api.js";
-import { formatCurrency } from "../utils/helpers";
+import { formatCurrency, formatDateTime } from "../utils/helpers.js";
 const numReciepts = document.querySelector('#no-reciepts');
 const numPendingPayments = document.querySelector('#no-pending-payments');
 const nextBilling = document.querySelector('#next-billing');
 const paymentsList = document.querySelector('.payments-list')
-numReciepts.textContent = '0';
-numPendingPayments.textContent = '0';
-nextBilling.textContent = 'no pending payments'
+// numReciepts.textContent = '0';
+// numPendingPayments.textContent = '0';
+// nextBilling.textContent = 'no pending payments'
 
 const payments = await getPayments();
 
@@ -22,11 +22,11 @@ payments.forEach(payment => {
                 </div>
                 <div class="receipt-meta">
                     <span class="receipt-reference">${payment.payment_ref}</span>
-                    <span>${payment.paid_at}</span>
+                    <span>${formatDateTime(payment.paid_at)}</span>
                     <span>${payment.payment_method}</span>
                 </div>
                 <div class="receipt-actions">
-                    <a href="#" class="cta-btn gold" id="view-receipt">
+                    <a href="receipt.html?reff=${payment.payment_ref}" class="cta-btn gold" id="view-receipt">
                         View receipt
                     </a>
                 </div>

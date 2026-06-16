@@ -551,6 +551,7 @@ def make_payment():
         return jsonify({'error': 'Critical server database transaction failure logging order.'}), 500
 
 @routes.route('/my-payments', methods=['GET'])
+@jwt_required()
 def get_my_payments():
     current_user_id = get_jwt_identity()
     try:
@@ -573,4 +574,16 @@ def get_my_payments():
         print(e)
         return jsonify({'error': 'Failed to retrieve payments.'}), 500
 
-
+@routes.route('my-payments/receipt/<string:reff>', methods=['GET'])
+@jwt_required()
+def get_receipt(reff):
+    current_user_id = get_jwt_identity()
+    print(reff)
+    payment = Payment.query.filter_by(reference=reff).first_or_404()
+    booking = payment.booking
+    
+    # Verify user owns this booking
+    if booking.parent_id != int(current_user_id):
+        return jsonify({'error': 'Unauthorized'}), 403
+    
+    return jsonify({'receipt': payment.to_dict()})
