@@ -563,8 +563,14 @@ def get_my_payments():
     if not user:
             return jsonify({'error': 'This account does not exist'}), 400
     
-    my_payments = Payment.query.join(Booking).filter(
-        Booking.parent_id == current_user_id
-    ).all()
+    try:
+        my_payments = Payment.query.join(Booking).filter(
+            Booking.parent_id == current_user_id
+        ).all()
     
-    return jsonify({'payments':[p.to_dict() for p in my_payments]}), 200
+        return jsonify({'payments':[p.to_dict() for p in my_payments]}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Failed to retrieve payments.'}), 500
+
+

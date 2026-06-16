@@ -446,3 +446,26 @@ export async function  makePayment(data) {
        return {'valid': false, 'message': error.message};  
     }
 }
+
+export async function getPayments() {
+    const token = localStorage.getItem('brightminds-user-token')
+    try {
+        const request = await fetch(`${BASE_URL}bookings`, {
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        });
+
+        const response = await request.json()
+        if(!request.ok){
+                throw new Error(response.error || 'Failed to fetch bookings')
+            }
+        return response.payments
+    }
+    catch (error) {
+        console.log(error.message)
+       return null;  
+    }
+}
