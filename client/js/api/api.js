@@ -439,7 +439,7 @@ export async function  makePayment(data) {
         if(!request.ok){
                 throw new Error(response.error || 'Failed to fetch booking details')
             }
-        return {'valid': true, 'message': response.message}
+        return {'valid': true, 'message': response.message, 'reference':response.payment_reference}
     }
     catch (error) {
         console.log(error.message)

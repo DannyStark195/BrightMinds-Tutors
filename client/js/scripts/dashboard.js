@@ -1,5 +1,5 @@
 import { getHourOfDay, formatDate } from "../utils/helpers.js";
-import { getUserProfile, getReviewedBookings, getBookings } from "../api/api.js";
+import { getUserProfile, getReviewedBookings, getBookings, getPayments } from "../api/api.js";
 const greeting = document.querySelector('#greeting');
 const profileName = document.querySelector('#profileName');
 const numPayments = document.querySelector('#no-payments');
@@ -15,10 +15,11 @@ const bookingList = document.querySelector('.booking-list');
 const userProfile = await getUserProfile();
 const reviews = await getReviewedBookings();
 const bookings = await getBookings()
+const payments = await getPayments();
 
 const hour = getHourOfDay()
 greeting.innerHTML = `Good ${hour}`
-numPayments.textContent = '0';
+numPayments.textContent = payments?payments.length:'0';
 numReviews.textContent = reviews?reviews.length: '0';
 numBookings.textContent = bookings?bookings.length: '0';
 profileName.textContent = userProfile.username? userProfile.username: '';

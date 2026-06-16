@@ -117,12 +117,12 @@ if(expiry){
 // Payment success
 const success = document.getElementById('payment-success');
 const txRef = document.getElementById('tx-ref');
-
+const viewReceiptBtn = document.querySelector('#view-receipt-btn')
 function showSuccess(){
-  if(txRef) txRef.textContent = paymentDetails.reference_code;
   // hide panels and show success
   document.querySelectorAll('.tab-panels, .payment-tabs, .payment-header').forEach(el=> el.classList.add('inactive'));
   if(success) success.classList.remove('inactive');
+
 }
 
 // Card pay button
@@ -146,12 +146,13 @@ async function handleCardPayment(){
     return
   }
   const data = {payment_method: 'card', reference_code: paymentDetails.reference_code}
-  const {valid} = await makePayment(data)
+  const {valid, message, reference} = await makePayment(data)
   payBtn.textContent = 'Processing...';
    if(!valid){
       return
   }
-
+  viewReceiptBtn.href = `receipt.html?reff=${reference}`
+  if(txRef) txRef.textContent = reference;
   setTimeout(()=>{
     showSuccess();
   }, 700);
@@ -168,8 +169,10 @@ if(payPaystack) payPaystack.addEventListener('click', ()=>{
 
 async function handlePaystackPayment() {
   const data = {payment_method: 'paystack', reference_code: paymentDetails.reference_code}
-  const {valid} = await makePayment(data);
+  const {valid,message, reference} = await makePayment(data);
   if(!valid) return 
+  viewReceiptBtn.href = `receipt.html?reff=${reference}`
+  if(txRef) txRef.textContent = reference;
   setTimeout(()=> showSuccess(), 700);
 }
 const copyBtn = document.getElementById('copy-account');

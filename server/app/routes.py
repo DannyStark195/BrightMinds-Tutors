@@ -565,10 +565,11 @@ def get_my_payments():
             return jsonify({'error': 'This account does not exist'}), 400
     
     try:
-        my_payments = Payment.query.join(Booking).filter(
-            Booking.parent_id == current_user_id
-        ).all()
-    
+        my_payments = (Payment.query
+                        .join(Booking)
+                        .filter(Booking.parent_id == current_user_id)
+                        .order_by(Payment.paid_at.desc()).all()
+        )
         return jsonify({'payments':[p.to_dict() for p in my_payments]}), 200
     except Exception as e:
         print(e)
