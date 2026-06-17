@@ -160,11 +160,12 @@
     font-size: 1rem;
     color: var(--Text);
 }
-
 .status-card i{
     color: var(--Accent);
 }
-
+.booking-status{
+    margin-block: 15px;
+}
 .hidden {
     display: none !important;
 }
@@ -176,11 +177,20 @@
 }
 
 .renew-btn,
-.cta-btn.danger {
+.cta-btn.danger,
+.cta-btn.primary {
     width: 100%;
     margin-top: 16px;
 }
-
+.first-session{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+}
+.first-session.inactive{
+    display: none;
+}
 @media (max-width: 980px) {
     .booking-details-layout{
         grid-template-columns: 1fr;

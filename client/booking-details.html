@@ -103,6 +103,15 @@
                             </dl>
 
                         </article>
+                        <article class="info-card surface-card booking-details-card">
+                            <div class="first-session inactive">
+                                <p>First session held?</p>
+                                <div class="toggle first-session-held-btn">
+                                    <div class="toggle-slide"></div>
+                                </div>
+                            </div>
+                            
+                        </article>
                     </div>
 
                     <aside class="booking-details-aside">
@@ -124,9 +133,13 @@
                             <i class="fa-solid fa-hourglass-half icon-badge"></i>
                             <h2>Booking status</h2>
                             <p id="booking-status-message">Your request has been confirmed and the tutor will be assigned shortly.</p>
-                            <p class="auto-renew-note hidden">When this booking reaches auto-renew, the plan will update and you can renew it directly.</p>
-                            <span id="booking-status" class="status"></span>
-                            <button type="button" class="cta-btn gold renew-btn hidden">Renew plan</button>
+                            <span id="booking-status" class="status booking-status"></span>
+                        </article>
+                        <article class="side-card surface-card completed-card inactive">
+                            <i class="fa-solid fa-check icon-badge"></i>
+                            <h2>Complete Booking</h2>
+                            <p>Satisfied with your lessons? Complete booking to stop lessons</p>
+                            <button type="button" class="cta-btn primary " id="complete-booking-btn">Complete booking</button>
                         </article>
                         <article class="side-card surface-card cancel-card">
                             <i class="fa-solid fa-ban icon-badge"></i>

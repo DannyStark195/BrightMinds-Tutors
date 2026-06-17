@@ -21,7 +21,9 @@
     margin-left: 10px;
     transition: transform 0.25s ease;
 }
-
+.cta-btn:hover{
+    transform: translateY(-3px);
+}
 .cta-btn:hover i{
     transform: translateX(5px);
 }
@@ -34,7 +36,6 @@
 
 .cta-btn.blue:hover{
     background-color: #f4f7fb;
-    transform: translateY(-3px);
 }
 
 .cta-btn.gold{
@@ -45,13 +46,25 @@
 
 .cta-btn.gold:hover{
     background: linear-gradient(135deg, #f7de9f, #ffedb4);
-    transform: translateY(-3px);
 }
 .cta-btn.danger {
     background: var(--Danger);
     color: #fff;
     border-color: rgba(231, 76, 60, 0.3);
 }
+
+.cta-btn.primary{
+    background-color: var(--Primary);
+    color: #fff;
+}
+.proceed-payment{
+    padding: 15px;
+    border: 1px solid rgba(245, 168, 35, 0.65);
+    background: linear-gradient(135deg, #f7de9f, #ffedb4);
+    color: var(--Primary);
+    box-shadow: 0 20px 45px rgba(245, 168, 35, 0.16);
+}
+
 /* CTA BANNER */
 .cta-banner{
     text-align: center;
@@ -577,7 +590,8 @@ input.input-error{
 }
 
 .pending, 
-.approved{
+.approved,
+.renew{
     background: #FEF3C7;
     color: var(--Pending);
 }
@@ -639,6 +653,9 @@ input.input-error{
 .cancel-card i{
     color: var(--Danger);
     background: transparent;
+}
+.completed-card i{
+    color: var(--Primary);
 }
 @media(max-width: 900px){
     .page-hero,
@@ -728,4 +745,34 @@ input.input-error{
     height: 100%;
     left: 0;
     top: 0%;
+}
+
+.toggle{
+    display: flex;
+    align-items: center;
+    background: var(--Primary);
+    position: relative;
+    padding: 2px;
+    border-radius: 20px;
+    inline-size: 40px;
+    block-size: 22px;
+    cursor: pointer;
+}
+
+.toggle-slide{
+    background: rgba(255, 255, 255, 0.96);
+    /* height: 100%; */
+    inline-size: 18px;
+    block-size: 18px;
+    /* padding: 8px 0px; */
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.toggle.on{
+    background: linear-gradient(135deg, #f5d890, #f8c56c);
+}
+
+.toggle.on .toggle-slide{
+    transform: translateX(18px);
 }

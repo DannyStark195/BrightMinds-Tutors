@@ -20,7 +20,11 @@ const bookingCost= document.querySelector('#booking-cost');
 const bookingStatus = document.querySelector('#booking-status');
 const bookingStatusMessage = document.querySelector('#booking-status-message')
 const cancelBookingBtn = document.querySelector('#cancel-booking-btn');
-
+const completeBookingBtn = document.querySelector('#complete-booking-btn');
+const firstSessionHeld = document.querySelector('.first-session');
+const firstSessionHeldBtn = document.querySelector('.first-session-held-btn')
+const completedCard = document.querySelector('.completed-card');
+const cancelCard = document.querySelector('.cancel-card');
 
 const id = getQueryParamValue('id')
 
@@ -67,7 +71,16 @@ if(bookingDetails.status === 'pending'){
     bookingStatusMessage.textContent = 'Your request has been confirmed and the tutor will be assigned shortly.'
 }
 else if(bookingDetails.status === 'approved'){
-    bookingStatusMessage.textContent = 'Your request has been approved, please make your payment and activate your booking'
+    bookingStatusMessage.innerHTML= `
+        Your request has been approved, please make your payment and activate your booking. When this booking reaches auto-renew, the plan will update and you can renew it directly.
+        <a href="make-payment.html?reff=${bookingDetails.reference_code}" class="cta-btn proceed-payment">Proceed to payment</a>
+        `
+}
+else if(bookingDetails.status === 'renew'){
+    bookingStatusMessage.innerHTML= `
+        Renew your plan to continue lessons!.
+        <a href="make-payment.html?reff=${bookingDetails.reference_code}" class="cta-btn proceed-payment">Renew Booking</a>
+        `
 }
 else if(bookingDetails.status === 'active'){
     bookingStatusMessage.textContent = 'Your booking is now active!'
@@ -78,3 +91,24 @@ else if(bookingDetails.status === 'rejected' && bookingDetails.rejection_reason)
 else if(bookingDetails.status === 'completed'){
     bookingStatusMessage.textContent = 'You have completed this booking! Thank you for appreciating our service.'
 }
+
+if(bookingDetails.status === 'renew'){
+    completedCard.classList.remove('inactive')
+    cancelCard.classList.add('inactive')
+}
+
+if(bookingDetails.status !== 'renew' && bookingDetails.status==='active'){
+    cancelCard.classList.remove('inactive')
+}
+
+if(bookingDetails.status === 'active'){
+    firstSessionHeld.classList.remove('inactive')
+}
+
+firstSessionHeldBtn.addEventListener('click', ()=>{
+    firstSessionHeldBtn.classList.toggle('on');
+    const fstSessionHeld = firstSessionHeldBtn.classList.contains('on');
+    console.log(fstSessionHeld)
+
+    
+})

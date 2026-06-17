@@ -12,7 +12,7 @@ const loginFormContainer = overlay?.querySelector('.login-form-container');
     }
 
 // });
-redirectIfLoggedIn()
+// redirectIfLoggedIn()
 
 const testimonialList = document.querySelector('.testimonial-list');
 
