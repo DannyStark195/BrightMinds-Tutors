@@ -60,10 +60,12 @@ class Student(db.Model):
     __tablename__ = 'students'
     
     id = db.Column(db.Integer, primary_key=True)
-    parent_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    parent_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     age = db.Column(db.Integer, nullable=False)
     disabilities_or_notes = db.Column(db.Text, nullable=True)
+
+    # parent = db.relationship('User', backref=db.backref('children', lazy=True, cascade="all, delete-orphan"))
 
 
 # ==========================================
@@ -121,8 +123,8 @@ class Booking(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     reference_code = db.Column(db.String(50), unique=True, nullable=False)
-    parent_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    student_id = db.Column(db.Integer, db.ForeignKey('students.id'), nullable=False)
+    parent_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
+    student_id = db.Column(db.Integer, db.ForeignKey('students.id', ondelete='CASCADE'), nullable=False)
     course_id = db.Column(db.Integer, db.ForeignKey('courses.id'), nullable=False)
     
     tutor_id = db.Column(db.Integer, db.ForeignKey('tutor_profiles.id'), nullable=True)

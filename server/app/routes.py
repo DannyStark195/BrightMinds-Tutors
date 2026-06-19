@@ -6,6 +6,11 @@ from app.utils.uploader import upload_profile_image
 from app.utils.pricing_model import PRICING_MATRIX
 from app.utils.reference_generator import generate_reference_code, generate_payment_reference
 from datetime import datetime, timedelta
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from io import BytesIO
+
+
 routes = Blueprint('routes',__name__)
 
 @routes.route('/')
@@ -593,6 +598,39 @@ def get_receipt(reff):
     
     return jsonify({'receipt': payment.to_dict()})
 
+
+@routes.route('/api/payments/<payment_ref>/download-receipt', methods=['GET'])
+@jwt_required()
+def download_receipt(payment_ref):
+    current_user_id = get_jwt_identity()
+    
+    payment = Payment.query.filter_by(reference=payment_ref).first_or_404()
+    booking = payment.booking
+    
+    if booking.parent_id != current_user_id:
+        return jsonify({'error': 'Unauthorized'}), 403
+    
+    # Generate PDF
+    buffer = BytesIO()
+    p = canvas.Canvas(buffer, pagesize=letter)
+    
+    p.drawString(50, 750, f"Receipt: {payment.reference}")
+    p.drawString(50, 730, f"Booking: {booking.reference_code}")
+    p.drawString(50, 710, f"Student: {booking.student.name}")
+    p.drawString(50, 690, f"Course: {booking.course.course_name}")
+    p.drawString(50, 670, f"Amount: ₦{payment.amount}")
+    p.drawString(50, 650, f"Status: {payment.status}")
+    p.drawString(50, 630, f"Date: {payment.paid_at.strftime('%Y-%m-%d')}")
+    
+    p.save()
+    buffer.seek(0)
+    
+    return send_file(
+        buffer,
+        mimetype='application/pdf',
+        as_attachment=True,
+        download_name=f'receipt-{payment_ref}.pdf'
+    )
 
 @routes.route('/first-session-held', methods=['POST'])
 @jwt_required()
