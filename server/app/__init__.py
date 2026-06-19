@@ -27,11 +27,15 @@ def create_app():
     from app import models
     
     from .routes import routes
-
     app.register_blueprint(routes, url_prefix='/api')
 
     from .auth.auth import auth
     app.register_blueprint(auth, url_prefix='/api/auth')
 
+    # from .admin.admin_routes import routes
+    # app.register_blueprint(routes, url_prefix='/api/admin')
+
+    from .admin.auth import admin_auth
+    app.register_blueprint(admin_auth, url_prefix='/api/admin/auth')
 
     return app
