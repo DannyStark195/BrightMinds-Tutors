@@ -491,3 +491,26 @@ export async function getReceipt(ref) {
        return null;  
     }
 }
+
+export async function toggleFirstSessionHeld(data){
+    const token = localStorage.getItem('brightminds-user-token')
+    try {
+        const request = await fetch(`${BASE_URL}first-session-held`, {
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        });
+        const response = await request.json()
+        if(!request.ok){
+                throw new Error(response.error || 'Failed to fetch booking details')
+            }
+        return response.first_session_held
+    }
+    catch (error) {
+        console.log(error.message)
+       return error.message 
+    }
+}

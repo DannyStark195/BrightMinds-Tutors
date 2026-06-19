@@ -588,3 +588,40 @@ def get_receipt(reff):
         return jsonify({'error': 'Unauthorized'}), 403
     
     return jsonify({'receipt': payment.to_dict()})
+
+
+@routes.route('/first-session-held', methods=['POST'])
+@jwt_required()
+def toggle_first_session_held():
+    current_user_id = get_jwt_identity()
+    data = request.get_json() or {}
+    try:
+        authenticated_user_id = int(current_user_id)
+    except (ValueError, TypeError):
+        return jsonify({'error': 'Invalid user identity token format.'}), 401
+    
+    user = User.query.get(authenticated_user_id)
+    if not user:
+        return jsonify({'error': 'This account does not exist'}), 400
+
+
+    booking_ref = data.get('booking_ref')
+    first_session_held = data.get('first_session_held')
+
+    try:
+        booking = Booking.query.filter(Booking.reference_code == booking_ref).first()
+
+        booking.first_session_held = first_session_held
+
+        db.session.commit()
+
+        return jsonify(
+                        {
+                            'first_session_held': first_session_held,
+                            'message': f'first session held {first_session_held}'
+                            }
+                    )
+
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Failed to change first session held.'}), 500

@@ -1,4 +1,4 @@
-import { getBookingDetails, getUserProfile } from "../api/api.js";
+import { getBookingDetails, getUserProfile, toggleFirstSessionHeld } from "../api/api.js";
 import { formatDate, formatCurrency, getQueryParamValue } from "../utils/helpers.js";
 const bookingRef = document.querySelector('#booking-ref');
 const bookingStatusBadge = document.querySelector('#status-badge');
@@ -90,6 +90,7 @@ else if(bookingDetails.status === 'rejected' && bookingDetails.rejection_reason)
 }
 else if(bookingDetails.status === 'completed'){
     bookingStatusMessage.textContent = 'You have completed this booking! Thank you for appreciating our service.'
+    cancelCard.classList.add('inactive')
 }
 
 if(bookingDetails.status === 'renew'){
@@ -105,10 +106,12 @@ if(bookingDetails.status === 'active'){
     firstSessionHeld.classList.remove('inactive')
 }
 
-firstSessionHeldBtn.addEventListener('click', ()=>{
+firstSessionHeldBtn.classList.toggle('on', bookingDetails.first_session_held)
+firstSessionHeldBtn.addEventListener('click', async ()=>{
     firstSessionHeldBtn.classList.toggle('on');
     const fstSessionHeld = firstSessionHeldBtn.classList.contains('on');
     console.log(fstSessionHeld)
-
+    const data = {'booking_ref': bookingDetails.reference_code, 'first_session_held': fstSessionHeld}
+    await toggleFirstSessionHeld(data);
     
 })
