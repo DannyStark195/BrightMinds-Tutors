@@ -118,13 +118,34 @@ if(expiry){
 const success = document.getElementById('payment-success');
 const txRef = document.getElementById('tx-ref');
 const viewReceiptBtn = document.querySelector('#view-receipt-btn')
-function showSuccess(){
+function displayPaymentSucess(){
   // hide panels and show success
   document.querySelectorAll('.tab-panels, .payment-tabs, .payment-header').forEach(el=> el.classList.add('inactive'));
   if(success) success.classList.remove('inactive');
 
 }
-
+const alert = document.querySelector('.alert')
+function displayPaymentError(message){
+    alert.classList.remove('inactive');
+    alert.innerHTML = `
+        <div class="alert__hero">
+            <div class="hero-content">
+                <p class="eyebrow">Payment Error</p>
+                <h2 style="color: var(--Danger);">Error</h2>
+                <p style="color: var(--Danger);">${message}</p>
+                <div class="hero-actions">
+                    <a href="dashboard.html" class="cta-btn gold">
+                        Back to dashboard
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="alert__icon">
+                <img src="./assets/icons/error.svg" alt="BrightMind tutor">
+            </div>
+        </div>
+    `
+}
 // Card pay button
 const cardForm = document.querySelector('#card-form');
 const payBtn = document.querySelector('#pay-btn')
@@ -149,12 +170,12 @@ async function handleCardPayment(){
   const {valid, message, reference} = await makePayment(data)
   payBtn.textContent = 'Processing...';
    if(!valid){
-      return
+      displayPaymentError(message)
   }
   viewReceiptBtn.href = `receipt.html?reff=${reference}`
   if(txRef) txRef.textContent = reference;
   setTimeout(()=>{
-    showSuccess();
+    displayPaymentSucess();
   }, 700);
 }
 
@@ -170,10 +191,10 @@ if(payPaystack) payPaystack.addEventListener('click', ()=>{
 async function handlePaystackPayment() {
   const data = {payment_method: 'paystack', reference_code: paymentDetails.reference_code}
   const {valid,message, reference} = await makePayment(data);
-  if(!valid) return 
+  if(!valid) displayPaymentError(message)
   viewReceiptBtn.href = `receipt.html?reff=${reference}`
   if(txRef) txRef.textContent = reference;
-  setTimeout(()=> showSuccess(), 700);
+  setTimeout(()=> displayPaymentSucess(), 700);
 }
 const copyBtn = document.getElementById('copy-account');
 const acctEl = document.getElementById('account-number');

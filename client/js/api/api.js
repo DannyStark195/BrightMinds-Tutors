@@ -380,10 +380,10 @@ export async function getBookings() {
     }
 }
 
-export async function getBookingDetails(id) {
+export async function getBookingDetails(reff) {
     const token = localStorage.getItem('brightminds-user-token')
     try {
-        const request = await fetch(`${BASE_URL}booking-details/${id}`, {
+        const request = await fetch(`${BASE_URL}booking-details/${reff}`, {
             method:'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -402,10 +402,10 @@ export async function getBookingDetails(id) {
     }
 }
 
-export async function getPaymentDetails(ref) {
+export async function getPaymentDetails(reff) {
     const token = localStorage.getItem('brightminds-user-token')
     try {
-        const request = await fetch(`${BASE_URL}get_payment/${ref}`, {
+        const request = await fetch(`${BASE_URL}get_payment/${reff}`, {
             method:'GET',
             headers: {
                 'Content-Type': 'application/json',

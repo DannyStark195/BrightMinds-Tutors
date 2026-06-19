@@ -26,10 +26,10 @@ const firstSessionHeldBtn = document.querySelector('.first-session-held-btn')
 const completedCard = document.querySelector('.completed-card');
 const cancelCard = document.querySelector('.cancel-card');
 
-const id = getQueryParamValue('id')
+const reff = getQueryParamValue('reff')
 
 const userProfile = await getUserProfile()
-const bookingDetails = await getBookingDetails(id)
+const bookingDetails = await getBookingDetails(reff)
 
 console.log(userProfile)
 console.log(bookingDetails);

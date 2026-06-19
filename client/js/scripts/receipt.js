@@ -1,8 +1,8 @@
 import { formatCurrency,formatDateTime, getQueryParamValue} from "../utils/helpers.js";
 import { getReceipt } from "../api/api.js";
 
-const ref = getQueryParamValue('reff')
-const receiptDetails = await getReceipt(ref);
+const reff = getQueryParamValue('reff')
+const receiptDetails = await getReceipt(reff);
 const receipt = document.querySelector('.receipt')
 const downloadBtn = document.querySelector('.download-btn')
 console.log(receiptDetails)

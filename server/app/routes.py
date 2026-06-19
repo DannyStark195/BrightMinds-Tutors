@@ -456,9 +456,9 @@ def get_bookings():
         return jsonify({'error': 'Failed to retrieve bookings.'}), 500
 
 
-@routes.route('/booking-details/<int:id>', methods=["GET"])
+@routes.route('/booking-details/<string:reff>', methods=["GET"])
 @jwt_required()
-def get_booking_details(id):
+def get_booking_details(reff):
     current_user_id = get_jwt_identity()
 
     try:
@@ -473,7 +473,7 @@ def get_booking_details(id):
     try:
         booking = (
                             Booking.query
-                            .filter(Booking.id==id)
+                            .filter(Booking.reference_code==reff)
                             .first()
             )
         print(booking)
@@ -529,6 +529,10 @@ def make_payment():
     print(booking)
     if not booking:
             return jsonify({'error':'Invalid reference code'}), 400
+    if booking.status == 'active':
+            return jsonify({'error': 'This booking is already active!'}), 400
+    if  booking.status == 'completed' or booking.status == 'cancelled' or booking.status == 'rejected':
+            return jsonify({'error': 'You cannot pay for this booking!'}), 400
     try:
         
         booking.status = 'active'

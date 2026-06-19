@@ -38,7 +38,7 @@ bookings.forEach(booking => {
         <div class="step ${booking.status === 'active'||booking.status==='active'||booking.status==='completed'?'active':''}"><span>4</span><p>Active</p></div>
     `
     html += `
-        <a href="booking-details.html?id=${booking.id}" class="booking-card surface-card">
+        <a href="booking-details.html?reff=${booking.reference_code}" class="booking-card surface-card">
                                 <div class="card-header">
                                     <div>
                                         <span class="card-subject">${booking.course.course_name}</span>
