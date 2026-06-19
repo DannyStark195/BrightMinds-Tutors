@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, request, url_for, current_app, jsonify
+from flask import Blueprint, render_template, redirect, request, url_for, current_app, jsonify, send_file
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
 from app.models import User, Booking, Review, Course, Student, Payment
 from app import db
@@ -599,7 +599,7 @@ def get_receipt(reff):
     return jsonify({'receipt': payment.to_dict()})
 
 
-@routes.route('/api/payments/<payment_ref>/download-receipt', methods=['GET'])
+@routes.route('/my-payments/<string:payment_ref>/download-receipt', methods=['GET'])
 @jwt_required()
 def download_receipt(payment_ref):
     current_user_id = get_jwt_identity()
@@ -607,27 +607,33 @@ def download_receipt(payment_ref):
     payment = Payment.query.filter_by(reference=payment_ref).first_or_404()
     booking = payment.booking
     
-    if booking.parent_id != current_user_id:
+    if booking.parent_id !=int(current_user_id):
         return jsonify({'error': 'Unauthorized'}), 403
     
     # Generate PDF
     buffer = BytesIO()
     p = canvas.Canvas(buffer, pagesize=letter)
     
-    p.drawString(50, 750, f"Receipt: {payment.reference}")
-    p.drawString(50, 730, f"Booking: {booking.reference_code}")
-    p.drawString(50, 710, f"Student: {booking.student.name}")
-    p.drawString(50, 690, f"Course: {booking.course.course_name}")
-    p.drawString(50, 670, f"Amount: ₦{payment.amount}")
-    p.drawString(50, 650, f"Status: {payment.status}")
-    p.drawString(50, 630, f"Date: {payment.paid_at.strftime('%Y-%m-%d')}")
+    p.drawString(50, 770, "BrightMinds Tutoring Platform")
+    p.drawString(50, 750, "=" * 50)  # separator line
+    p.setFont("Helvetica-Bold", 12)
+    p.drawString(50, 730, "PAYMENT RECEIPT")
+    p.setFont("Helvetica", 10)
+    p.drawString(50, 710, f"Receipt: {payment.reference}")
+    p.drawString(50, 690, f"Booking: {booking.reference_code}")
+    p.drawString(50, 670, f"Userr: {booking.parent.username}")
+    p.drawString(50, 650, f"Student: {booking.student.name}")
+    p.drawString(50, 630, f"Course: {booking.course.course_name}")
+    p.drawString(50, 610, f"Amount: ₦{payment.amount}")
+    p.drawString(50, 590, f"Status: {payment.status}")
+    p.drawString(50, 570, f"Date: {payment.paid_at.strftime('%Y-%m-%d')}")
     
     p.save()
     buffer.seek(0)
-    
+    print(f"Buffer size: {len(buffer.getvalue())}") 
     return send_file(
         buffer,
-        mimetype='application/pdf',
+        mimetype='application/octet-stream',
         as_attachment=True,
         download_name=f'receipt-{payment_ref}.pdf'
     )

@@ -492,6 +492,46 @@ export async function getReceipt(ref) {
     }
 }
 
+export async function downloadReceipt(payment_ref){
+    const token = localStorage.getItem('brightminds-user-token')
+    try {
+        const response = await fetch(`${BASE_URL}my-payments/${payment_ref}/download-receipt`, {
+            method:'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+        });
+        
+        if(!response.ok){
+            throw new Error('Failed to download receipt')
+        }
+        
+        // Get response as blob (binary data)
+        const blob = await response.blob();
+        
+        // Create a temporary URL for the blob
+        const url = window.URL.createObjectURL(blob);
+        
+        // Create a temporary anchor element
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `receipt-${payment_ref}.pdf`;
+        
+        // Trigger the download
+        document.body.appendChild(link);
+        link.click();
+        
+        // Clean up
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+        
+    }
+    catch (error) {
+        console.log(error.message)
+        return null;  
+    }
+}
+
 export async function toggleFirstSessionHeld(data){
     const token = localStorage.getItem('brightminds-user-token')
     try {

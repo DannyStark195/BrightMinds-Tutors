@@ -1,5 +1,5 @@
 import { formatCurrency,formatDateTime, getQueryParamValue} from "../utils/helpers.js";
-import { getReceipt } from "../api/api.js";
+import { getReceipt, downloadReceipt } from "../api/api.js";
 
 const reff = getQueryParamValue('reff')
 const receiptDetails = await getReceipt(reff);
@@ -61,18 +61,7 @@ if(receipt){
     `
 
 }
-function downloadReceipt(receipt, paymentRef){
-    const opt = {
-        margin: 10,
-        filename: `receipt-${paymentRef}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 11, allowTaint: true, useCORS: true },
-        jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-    };
-    html2pdf().set(opt).from(receipt).save();
-}
 
 downloadBtn.addEventListener('click', ()=>{
-    downloadReceipt(receipt, receiptDetails.payment_ref)
+    downloadReceipt(receiptDetails.payment_ref)
 });
