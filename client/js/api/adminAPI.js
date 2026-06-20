@@ -1,3 +1,5 @@
+import { logoutAdmin } from "../auth/auth.js";
+
 const BASE_URL = "http://127.0.0.1:5000/api/admin/"
 
 export async function loginUser(user){
@@ -15,6 +17,33 @@ export async function loginUser(user){
             throw new Error(response.error || 'Login failed');
         }
         return response
+    }
+    catch(error){
+        console.log(error.message)
+       return null;
+    }
+}
+
+export async function getAdmin(){
+    try{
+        const token = localStorage.getItem('brightminds-admin-token');
+        const request = await fetch(`${BASE_URL}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        const response = await request.json();
+        console.log(response);
+        if(!request.ok){
+        console.log(request.status)
+            if (request.status === 401) {
+                logoutAdmin(); // Clear data and boot them to login
+            }
+            throw new Error(response.error || 'Failed to fetch admin profile');
+        }
+        return response.admin
     }
     catch(error){
         console.log(error.message)

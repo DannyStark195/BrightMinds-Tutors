@@ -1,3 +1,5 @@
+import { getAdmin } from "../api/adminAPI.js";
+
 const navButtons = document.querySelectorAll('.admin-nav-link');
 const sections = document.querySelectorAll('.admin-section');
 const filterGroups = document.querySelectorAll('[data-filter-group]');
@@ -12,6 +14,9 @@ const adminSidebar = document.querySelector('.admin-sidebar');
 const adminSidebarOverlay = document.querySelector('.admin-sidebar-overlay');
 const adminNavMenuBtn = document.querySelector('.admin-nav-btn');
 const closeAdminNavBtn = document.querySelector('.admin-close-nav-btn');
+
+const admin = await getAdmin()
+console.log(admin)
 
 const tutorOptions = {
     Mathematics: ['Mr Emeka Obi', 'Mr Tunde Bakare', 'Chika Okoro'],
