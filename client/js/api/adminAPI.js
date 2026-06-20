@@ -27,7 +27,7 @@ export async function loginUser(user){
 export async function getAdmin(){
     try{
         const token = localStorage.getItem('brightminds-admin-token');
-        const request = await fetch(`${BASE_URL}`, {
+        const request = await fetch(`${BASE_URL}admin`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

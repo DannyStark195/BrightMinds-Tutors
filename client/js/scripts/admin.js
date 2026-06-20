@@ -14,10 +14,10 @@ const adminSidebar = document.querySelector('.admin-sidebar');
 const adminSidebarOverlay = document.querySelector('.admin-sidebar-overlay');
 const adminNavMenuBtn = document.querySelector('.admin-nav-btn');
 const closeAdminNavBtn = document.querySelector('.admin-close-nav-btn');
-
+const adminName = document.querySelector('.admin-name');
 const admin = await getAdmin()
 console.log(admin)
-
+adminName.textContent = admin.username
 const tutorOptions = {
     Mathematics: ['Mr Emeka Obi', 'Mr Tunde Bakare', 'Chika Okoro'],
     Physics: ['Mr Emeka Obi', 'Chika Okoro'],

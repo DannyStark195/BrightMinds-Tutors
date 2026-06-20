@@ -17,7 +17,7 @@ admin_routes = Blueprint('admin_routes', __name__)
 def admin_test():
     return jsonify({'message': 'welcome admin'})
 
-@admin_routes.route('/admin/', methods=['GET'])
+@admin_routes.route('/admin', methods=['GET'])
 @jwt_required()
 def get_admin():
     current_user_id = get_jwt_identity() # Securely extracted from token
