@@ -1,0 +1,23 @@
+const BASE_URL = "http://127.0.0.1:5000/api/admin/"
+
+export async function loginUser(user){
+    try{
+        const request = await fetch(`${BASE_URL}auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        const response = await request.json();
+        console.log(response);
+        if(!request.ok){
+            throw new Error(response.error || 'Login failed');
+        }
+        return response
+    }
+    catch(error){
+        console.log(error.message)
+       return null;
+    }
+}

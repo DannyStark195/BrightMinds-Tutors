@@ -14,7 +14,7 @@ export function redirectIfLoggedIn(){
 }
 
 export function isAdminLoggedIn(){
-    const token = localStorage.getItem('admin-token');
+    const token = localStorage.getItem('brightminds-admin-token');
     return !!token;
 }
 export function adminLoginRequired(){
@@ -26,4 +26,9 @@ export function adminLoginRequired(){
 export function logout(){
     localStorage.removeItem('brightminds-user-token');
     window.location.replace('index.html')
+}
+
+export function logoutAdmin(){
+    localStorage.removeItem('brightminds-admin-token');
+    window.location.replace('admin-login.html')
 }

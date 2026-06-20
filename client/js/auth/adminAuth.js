@@ -1,40 +1,30 @@
 import { adminLoginRequired, isAdminLoggedIn } from "../auth/auth.js";
 import { collectData } from "../utils/formHelpers.js";
-import { addInactive, removeInactive } from "../utils/helpers.js";
+import { loginUser } from "../api/adminAPI.js";
 
 const adminLoginForm = document.querySelector('.admin-login-form');
-const validAdmin = {
-    'adminName': 'Daniel Stark',
-    'adminPassword': 'admin123'
-};
 
-function handleAdminLogin(){
+async function handleAdminLogin(){
     const data = collectData(adminLoginForm);
-    const errorMessage = adminLoginForm.querySelector('.error-msg');
-    const adminName = data.adminName.trim();
-    const adminPassword = data.adminPassword.trim();
+    const msg = adminLoginForm.querySelector('.msg.error');
+    
+    const loginValid = await loginUser(data)
+        if(!loginValid){
+            msg.classList.remove('inactive');
+            return
+        }
 
-    addInactive(errorMessage);
-
-    if(adminName !== validAdmin.adminName || adminPassword !== validAdmin.adminPassword){
-        removeInactive(errorMessage);
-        return;
-    }
-
-    localStorage.setItem('admin-token', 'brightmind-admin-token');
-    window.location.href = 'admin.html';
+        const loggedInUser = loginValid
+        console.log(loggedInUser)
+        const token = loggedInUser.token
+        console.log(token);
+        localStorage.setItem("brightminds-admin-token", token);
+        window.location.href = "admin.html";
 }
 
-if(adminLoginForm){
-    if(isAdminLoggedIn()){
-        window.location.replace('admin.html');
-    }
 
-    adminLoginForm.addEventListener('submit', (event) => {
-        event.preventDefault();
+adminLoginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
         handleAdminLogin();
     });
-}
-else{
-    adminLoginRequired();
-}
+

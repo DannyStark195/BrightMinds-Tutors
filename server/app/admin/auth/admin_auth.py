@@ -17,23 +17,23 @@ def login():
     data = request.get_json() or {}
 
     print(data)
-    email = data['email']
+    admin_name = data['name']
     password = data['password']
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(username=admin_name, role='admin').first()
 
+    print(user)
     if not user or not check_password_hash(user.password_hash, password):
         return jsonify({'error': 'Invalid email or password'}), 401
     
     additional_claims = {"role": user.role}
     access_token = create_access_token(identity=str(user.id), additional_claims=additional_claims)
     return jsonify({
-        'message': 'Login successful!',
+        'message': 'Welcome admin!',
         'token': access_token,
         'user': {
             'id': user.id,
             'username': user.username,
             'email': user.email,
             'role': user.role,
-            # 'parent_name': user.parent_name
         }
     }), 200
