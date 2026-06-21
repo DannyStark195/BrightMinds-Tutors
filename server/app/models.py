@@ -23,6 +23,26 @@ class User(db.Model):
     children = db.relationship('Student', backref='parent', lazy=True)
     applications = db.relationship('TutorApplication', backref='applicant', lazy=True)
 
+    def to_dict(self):
+        children_data = None
+        print(self.children)
+        # if self.children:
+        #     children_data = {
+        #         "id": self.children.id,
+        #         "name": self.children.name,
+        #         "age": self.children.age,
+        #         "disabilities_or_notes": self.children.disabilities_or_notes
+        #     }
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'role': self.role,
+            'phone': self.phone,
+            'profile_pic': self.profile_pic,
+            "bio": self.bio,
+            "children": children_data
+        }
 
 class Review(db.Model):
     __tablename__ = 'tutor_reviews'

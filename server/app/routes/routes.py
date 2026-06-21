@@ -27,15 +27,7 @@ def get_profile():
         return jsonify({'error': 'Your login session has expired. Please login again.'}), 400
     
     return jsonify({
-        'user': {
-            'id': user.id,
-            'username': user.username,
-            'email': user.email,
-            'role': user.role,
-            # 'parent_name': user.parent_name,
-            'phone': user.phone,
-            'profile_pic': user.profile_pic
-        }
+        'user': user.to_dict()
     }), 200
 
 @routes.route('/edit-profile', methods=['POST'])

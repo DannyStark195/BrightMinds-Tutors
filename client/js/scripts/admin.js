@@ -1,4 +1,4 @@
-import { getAdmin, getBookings } from "../api/adminAPI.js";
+import { getAdmin, getBookings, getParents } from "../api/adminAPI.js";
 import { formatDate } from "../utils/helpers.js";
 
 const navButtons = document.querySelectorAll('.admin-nav-link');
@@ -11,6 +11,7 @@ const panelContent = document.querySelector('[data-panel-content]');
 const closePanelButtons = document.querySelectorAll('[data-close-panel]');
 const bookingsTable = document.querySelector('[data-bookings-table]');
 const applicationsTable = document.querySelector('[data-applications-table]');
+const parentsTable = document.querySelector('[data-parents-table]');
 const adminSidebar = document.querySelector('.admin-sidebar');
 const adminSidebarOverlay = document.querySelector('.admin-sidebar-overlay');
 const adminNavMenuBtn = document.querySelector('.admin-nav-btn');
@@ -124,6 +125,10 @@ const applications = {
     }
 };
 
+const parents = await getParents()
+
+console.log(parents)
+
 function setActiveSection(sectionName) {
     navButtons.forEach((button) => {
         button.classList.toggle('active', button.dataset.section === sectionName);
@@ -230,6 +235,34 @@ function renderApplications() {
             <td>${application.date}</td>
             <td><span class="status ${getStatusClass(application.status)}">${application.status}</span></td>
             <td><button class="table-action" type="button" data-review="application" data-ref="${reference_code}">Review</button></td>
+        </tr>
+    `).join('');
+}
+
+function renderStudents(){
+    if(!parentsTable){
+        return
+    }
+
+    parentsTable.innerHTML = Object.values(parents).map((parent) => `
+        <tr class="parent-row" data-parent="${parent.username}">
+            <td>${parent.username}</td>
+            <td>${parent.email}</td>
+            <td>${parent.phone}</td>
+            <td></td>
+            <td>3</td>
+            <td>3 May 2026</td>
+            <td><button class="table-action" type="button">History</button></td>
+        </tr>
+        <tr class="parent-history-row">
+            <td colspan="6">
+                <div class="parent-history">
+                    <strong>Booking history</strong>
+                    <p>BM-2847 - Mathematics - Pending</p>
+                    <p>BM-2712 - English - Completed</p>
+                    <p>BM-2650 - Biology - Completed</p>
+                </div>
+            </td>
         </tr>
     `).join('');
 }
@@ -426,3 +459,4 @@ panel.addEventListener('click', (event) => {
 
 renderBookings();
 renderApplications();
+renderStudents();

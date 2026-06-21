@@ -48,3 +48,21 @@ def get_all_bookings():
     
     bookings = Booking.query.all()
     return jsonify({'bookings':[b.to_dict() for b in bookings]})
+
+@admin_routes.route('/parents', methods=['GET'])
+@jwt_required()
+def get_parents():
+    try:
+        parents = (
+            User.query
+            .filter(User.role == 'parent')
+            .all()
+        )
+        print(parents)
+        return jsonify({
+            'parents': [parent.to_dict() for parent in parents]
+        }), 200
+
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Failed to retrieve parents.'}), 500
