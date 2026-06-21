@@ -159,6 +159,12 @@ class Booking(db.Model):
     student = db.relationship('Student', foreign_keys=[student_id], backref=db.backref('bookings', lazy=True))
 
     def to_dict(self):
+        parent_data = {
+            "id": self.id,
+            "name": self.parent.username,
+            "phone": self.parent.phone,
+            "bio": self.parent.bio
+        }
         student_data = None
         if self.student:
             student_data = {
@@ -208,6 +214,7 @@ class Booking(db.Model):
             "next_billing_date": self.next_billing_date.strftime('%Y-%m-%d') if self.next_billing_date else None,
             "assigned_at": self.assigned_at.strftime('%Y-%m-%d') if self.assigned_at else None,
             "created_at": self.created_at.strftime('%Y-%m-%d') if self.created_at else None,
+            "parent": parent_data,
             "student": student_data,
             "course": course_data,
             "tutor": tutor_data

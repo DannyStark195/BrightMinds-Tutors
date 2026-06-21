@@ -1,4 +1,5 @@
-import { getAdmin } from "../api/adminAPI.js";
+import { getAdmin, getBookings } from "../api/adminAPI.js";
+import { formatDate } from "../utils/helpers.js";
 
 const navButtons = document.querySelectorAll('.admin-nav-link');
 const sections = document.querySelectorAll('.admin-section');
@@ -18,6 +19,8 @@ const adminName = document.querySelector('.admin-name');
 const admin = await getAdmin()
 console.log(admin)
 adminName.textContent = admin.username
+
+
 const tutorOptions = {
     Mathematics: ['Mr Emeka Obi', 'Mr Tunde Bakare', 'Chika Okoro'],
     Physics: ['Mr Emeka Obi', 'Chika Okoro'],
@@ -26,68 +29,70 @@ const tutorOptions = {
     Chemistry: ['Miss Adaeze Nwosu']
 };
 
-const bookings = {
-    'BM-2847': {
-        reference: 'BM-2847',
-        student: 'Daniel Ebuka',
-        parent: 'Mrs Ebuka',
-        phone: '08092812010',
-        subject: 'Mathematics',
-        schedule: 'Mon, Wed, Fri - 4 PM',
-        location: 'Physical - Lekki',
-        date: '14 May 2026',
-        status: 'Pending',
-        notes: 'Student needs support with algebra and exam revision.'
-    },
-    'BM-2819': {
-        reference: 'BM-2819',
-        student: 'Kamsi Bello',
-        parent: 'Mr Bello',
-        phone: '08123456789',
-        subject: 'Biology',
-        schedule: 'Tue, Thu - 5 PM',
-        location: 'Online',
-        date: '12 May 2026',
-        status: 'Approved',
-        notes: 'WAEC biology preparation.'
-    },
-    'BM-2790': {
-        reference: 'BM-2790',
-        student: 'Amara Cole',
-        parent: 'Mrs Cole',
-        phone: '07045671234',
-        subject: 'English',
-        schedule: 'Sat - 10 AM',
-        location: 'Physical - Surulere',
-        date: '10 May 2026',
-        status: 'Pending',
-        notes: 'Essay writing and comprehension practice.'
-    },
-    'BM-2734': {
-        reference: 'BM-2734',
-        student: 'Tope Akin',
-        parent: 'Mr Akin',
-        phone: '08055550111',
-        subject: 'Physics',
-        schedule: 'Fri - 3 PM',
-        location: 'Physical - Yaba',
-        date: '8 May 2026',
-        status: 'Rejected',
-        notes: 'Rejected because requested time was unavailable.'
-    },
-    'BM-2688': {
-        reference: 'BM-2688',
-        student: 'Nora James',
-        parent: 'Mrs James',
-        phone: '08100023456',
-        subject: 'Chemistry',
-        schedule: 'Mon, Thu - 6 PM',
-        location: 'Online',
-        date: '2 May 2026',
-        status: 'Completed',
-        notes: 'Completed first month of lessons.'
-    }
-};
+let bookings = await getBookings()
+// {
+//     'BM-2847': {
+//         reference_code: 'BM-2847',
+//         student: 'Daniel Ebuka',
+//         parent: 'Mrs Ebuka',
+//         phone: '08092812010',
+//         subject: 'Mathematics',
+//         schedule: 'Mon, Wed, Fri - 4 PM',
+//         location: 'Physical - Lekki',
+//         date: '14 May 2026',
+//         status: 'Pending',
+//         notes: 'Student needs support with algebra and exam revision.'
+//     },
+//     'BM-2819': {
+//         reference_code: 'BM-2819',
+//         student: 'Kamsi Bello',
+//         parent: 'Mr Bello',
+//         phone: '08123456789',
+//         subject: 'Biology',
+//         schedule: 'Tue, Thu - 5 PM',
+//         location: 'Online',
+//         date: '12 May 2026',
+//         status: 'Approved',
+//         notes: 'WAEC biology preparation.'
+//     },
+//     'BM-2790': {
+//         reference_code: 'BM-2790',
+//         student: 'Amara Cole',
+//         parent: 'Mrs Cole',
+//         phone: '07045671234',
+//         subject: 'English',
+//         schedule: 'Sat - 10 AM',
+//         location: 'Physical - Surulere',
+//         date: '10 May 2026',
+//         status: 'Pending',
+//         notes: 'Essay writing and comprehension practice.'
+//     },
+//     'BM-2734': {
+//         reference_code: 'BM-2734',
+//         student: 'Tope Akin',
+//         parent: 'Mr Akin',
+//         phone: '08055550111',
+//         subject: 'Physics',
+//         schedule: 'Fri - 3 PM',
+//         location: 'Physical - Yaba',
+//         date: '8 May 2026',
+//         status: 'Rejected',
+//         notes: 'Rejected because requested time was unavailable.'
+//     },
+//     'BM-2688': {
+//         reference_code: 'BM-2688',
+//         student: 'Nora James',
+//         parent: 'Mrs James',
+//         phone: '08100023456',
+//         subject: 'Chemistry',
+//         schedule: 'Mon, Thu - 6 PM',
+//         location: 'Online',
+//         date: '2 May 2026',
+//         status: 'Completed',
+//         notes: 'Completed first month of lessons.'
+//     }
+// };
+console.log(bookings)
 
 const applications = {
     'APP-101': {
@@ -197,16 +202,16 @@ function renderBookings() {
         return;
     }
 
-    bookingsTable.innerHTML = Object.values(bookings).map((booking) => `
+    bookingsTable.innerHTML = Object.values(bookings).map((booking, index) => `
         <tr data-status="${booking.status.toLowerCase()}">
-            <td>${booking.reference}</td>
-            <td>${booking.student}</td>
-            <td>${booking.subject}</td>
-            <td>${booking.schedule}</td>
-            <td>${booking.location}</td>
-            <td>${booking.date}</td>
-            <td><span class="status ${getStatusClass(booking.status)}">${booking.status}</span></td>
-            <td><button class="table-action" type="button" data-review="booking" data-ref="${booking.reference}">Review</button></td>
+            <td>${booking.reference_code}</td>
+            <td>${booking.student.name}</td>
+            <td>${booking.course.course_name}</td>
+            <td>${booking.preferred_days}</td>
+            <td>${booking.session_type}</td>
+            <td>${formatDate(booking.start_date)}</td>
+            <td><span class="status ${booking.status}">${booking.status}</span></td>
+            <td><button class="table-action" type="button" data-review="booking" data-index="${index}">Review</button></td>
         </tr>
     `).join('');
 }
@@ -216,7 +221,7 @@ function renderApplications() {
         return;
     }
 
-    applicationsTable.innerHTML = Object.entries(applications).map(([reference, application]) => `
+    applicationsTable.innerHTML = Object.entries(applications).map(([reference_code, application]) => `
         <tr data-status="${application.status.toLowerCase()}">
             <td>${application.name}</td>
             <td>${application.subjects}</td>
@@ -224,27 +229,28 @@ function renderApplications() {
             <td>${application.experience}</td>
             <td>${application.date}</td>
             <td><span class="status ${getStatusClass(application.status)}">${application.status}</span></td>
-            <td><button class="table-action" type="button" data-review="application" data-ref="${reference}">Review</button></td>
+            <td><button class="table-action" type="button" data-review="application" data-ref="${reference_code}">Review</button></td>
         </tr>
     `).join('');
 }
 
 function bookingPanelTemplate(booking) {
+    // console.log(booking)
     return `
         <div class="panel-header">
             <p class="eyebrow">Booking review</p>
-            <h2>${booking.reference}</h2>
+            <h2>${booking.reference_code}</h2>
         </div>
         <section class="panel-block">
             <h3>Full booking details</h3>
             <dl class="detail-list">
-                <div><dt>Student</dt><dd>${booking.student}</dd></div>
-                <div><dt>Parent</dt><dd>${booking.parent}</dd></div>
-                <div><dt>Phone</dt><dd>${booking.phone}</dd></div>
-                <div><dt>Subject</dt><dd>${booking.subject}</dd></div>
-                <div><dt>Schedule</dt><dd>${booking.schedule}</dd></div>
-                <div><dt>Location</dt><dd>${booking.location}</dd></div>
-                <div><dt>Date</dt><dd>${booking.date}</dd></div>
+                <div><dt>Student</dt><dd>${booking.student.name}</dd></div>
+                <div><dt>Parent</dt><dd>${booking.parent.name}</dd></div>
+                <div><dt>Phone</dt><dd>${booking.parent.phone}</dd></div>
+                <div><dt>Subject</dt><dd>${booking.course.course_name}</dd></div>
+                <div><dt>Schedule</dt><dd>${booking.preferred_days}</dd></div>
+                <div><dt>Location</dt><dd>${booking.session_type}</dd></div>
+                <div><dt>Start Date</dt><dd>${formatDate(booking.start_date)}</dd></div>
                 <div><dt>Status</dt><dd>${booking.status}</dd></div>
             </dl>
         </section>
@@ -253,7 +259,7 @@ function bookingPanelTemplate(booking) {
             <label>
                 Tutor filtered by subject
                 <select class="form-control" data-assigned-tutor>
-                    ${createTutorOptions(booking.subject)}
+                    ${createTutorOptions(booking.course.course_name)}
                 </select>
             </label>
         </section>
@@ -268,9 +274,9 @@ function bookingPanelTemplate(booking) {
         <section class="panel-block forward-card" data-forward-card>
             <h3>WhatsApp forward card</h3>
             <p data-forward-copy>
-                Booking ${booking.reference}: ${booking.subject} for ${booking.student}. ${booking.schedule}. ${booking.location}. Parent contact: ${booking.phone}.
+                Booking ${booking.reference_code}: ${booking.course.course_name} for ${booking.student.name}. ${booking.preferred_days}. ${booking.session_type}. Parent contact: ${booking.phone}.
             </p>
-            <a class="cta-btn gold" href="https://wa.me/?text=Booking%20${booking.reference}%20approved" target="_blank" rel="noopener noreferrer">
+            <a class="cta-btn gold" href="https://wa.me/?text=Booking%20${booking.reference_code}%20approved" target="_blank" rel="noopener noreferrer">
                 Forward on WhatsApp
                 <i class="fa-brands fa-whatsapp"></i>
             </a>
@@ -346,22 +352,26 @@ filterGroups.forEach((group) => {
     });
 });
 
-document.addEventListener('click', (event) => {
+document.addEventListener('click', async (event) => {
     const reviewButton = event.target.closest('[data-review]');
-
+    bookings = await getBookings()
+    console.log(bookings)
     if (!reviewButton) {
         return;
     }
 
     const type = reviewButton.dataset.review;
-    const reference = reviewButton.dataset.ref;
+    const index = reviewButton.dataset.index;
 
+    bookings = await getBookings()
+
+    console.log(bookings[index])
     if (type === 'booking') {
-        openPanel(bookingPanelTemplate(bookings[reference]));
+        openPanel(bookingPanelTemplate(bookings[index]));
     }
 
     if (type === 'application') {
-        openPanel(applicationPanelTemplate(applications[reference]));
+        openPanel(applicationPanelTemplate(applications[reference_code]));
     }
 });
 

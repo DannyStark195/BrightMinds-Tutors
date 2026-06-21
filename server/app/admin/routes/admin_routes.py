@@ -36,3 +36,15 @@ def get_admin():
             'role': user.role,
         }
     }), 200
+
+@admin_routes.route('/bookings', methods=['GET'])
+@jwt_required()
+def get_all_bookings():
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    
+    if user.role != 'admin':
+        return jsonify({'error': 'Unauthorized'}), 403
+    
+    bookings = Booking.query.all()
+    return jsonify({'bookings':[b.to_dict() for b in bookings]})
