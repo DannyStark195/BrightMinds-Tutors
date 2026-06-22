@@ -1,4 +1,4 @@
-import { getAdmin, getBookings, getParents } from "../api/adminAPI.js";
+import { getAdmin, getBookings, getParentsAndBookings } from "../api/adminAPI.js";
 import { formatDate } from "../utils/helpers.js";
 
 const navButtons = document.querySelectorAll('.admin-nav-link');
@@ -125,9 +125,12 @@ const applications = {
     }
 };
 
-const parents = await getParents()
-
-console.log(parents)
+let parentsAndBookings = await getParentsAndBookings()
+console.log(parentsAndBookings)
+let parents = parentsAndBookings ? parentsAndBookings.parents : null;
+console.log(parents);
+let parentBookings = parentsAndBookings.bookings
+let students = parentsAndBookings.students
 
 function setActiveSection(sectionName) {
     navButtons.forEach((button) => {
@@ -244,23 +247,27 @@ function renderStudents(){
         return
     }
 
-    parentsTable.innerHTML = Object.values(parents).map((parent) => `
+    parentsTable.innerHTML = Object.values(parents, parentBookings).map((parent, index) => `
         <tr class="parent-row" data-parent="${parent.username}">
             <td>${parent.username}</td>
             <td>${parent.email}</td>
             <td>${parent.phone}</td>
-            <td></td>
-            <td>3</td>
-            <td>3 May 2026</td>
+
+            <td>${parentBookings[index].length}</td>
+            <td>${parent.children.length}</td>
+            <td>${formatDate(parent.created_at)}</td>
             <td><button class="table-action" type="button">History</button></td>
         </tr>
         <tr class="parent-history-row">
             <td colspan="6">
                 <div class="parent-history">
                     <strong>Booking history</strong>
-                    <p>BM-2847 - Mathematics - Pending</p>
-                    <p>BM-2712 - English - Completed</p>
-                    <p>BM-2650 - Biology - Completed</p>
+                    ${Object.values(parentBookings[index]).map(booking => `
+                        <p>${booking.reference_code} - ${booking.course.course_name} - ${booking.status}</p>
+
+                        `
+                    ).join('')}
+                    
                 </div>
             </td>
         </tr>

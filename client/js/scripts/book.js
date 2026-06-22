@@ -283,7 +283,7 @@ function validateStep3(){
 function validateStep4(){
     const step4 = bookingForm.querySelector('.step-4');
     const details = step4.querySelectorAll('.detail');
-    const phoneField = step4.querySelector('[name="phone"]');
+    // const phoneField = step4.querySelector('[name="phone"]');
     const studentAgeField = step4.querySelector('[name="studentAge"]');
     const termsCheckbox = step4.querySelector('.terms-checkbox');
     const errorMessages = step4.querySelectorAll('.msg.error');
@@ -292,7 +292,7 @@ function validateStep4(){
     const detailsError = step4.querySelector('.msg.error.details-error');
     const termsError = step4.querySelector('.msg.error.terms-error');
     const allDetailsFilled = [...details].every(detail => detail.value.trim());
-    const validPhone = validatePhone(phoneField.value);
+    // const validPhone = validatePhone(phoneField.value);
     const studentAge = Number(studentAgeField.value);
     const validStudentAge = Number.isInteger(studentAge) && studentAge >= 5;
 
@@ -303,11 +303,11 @@ function validateStep4(){
         return false;
     }
 
-    if(!validPhone){
-        phoneError.textContent = 'This phone number is invalid';
-        removeInactive(phoneError);
-        return false;
-    }
+    // if(!validPhone){
+    //     phoneError.textContent = 'This phone number is invalid';
+    //     removeInactive(phoneError);
+    //     return false;
+    // }
 
     if(!validStudentAge){
         ageError.textContent = 'Student must be at least 5 years old';

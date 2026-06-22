@@ -20,19 +20,18 @@ class User(db.Model):
     phone = db.Column(db.String(20), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    children = db.relationship('Student', backref='parent', lazy=True)
+    children = db.relationship('Student', back_populates='parent', lazy=True, cascade="all, delete-orphan", foreign_keys='Student.parent_id')
+
     applications = db.relationship('TutorApplication', backref='applicant', lazy=True)
 
     def to_dict(self):
-        children_data = None
-        print(self.children)
-        # if self.children:
-        #     children_data = {
-        #         "id": self.children.id,
-        #         "name": self.children.name,
-        #         "age": self.children.age,
-        #         "disabilities_or_notes": self.children.disabilities_or_notes
-        #     }
+        children_data = []
+        if self.children:
+            children_data = [{
+                "id": child.id,
+                "name": child.name,
+                "age": child.age
+            } for child in self.children]
         return {
             'id': self.id,
             'username': self.username,
@@ -41,6 +40,7 @@ class User(db.Model):
             'phone': self.phone,
             'profile_pic': self.profile_pic,
             "bio": self.bio,
+            "created_at": self.created_at.strftime('%Y-%m-%d') if self.created_at else None,
             "children": children_data
         }
 
@@ -83,10 +83,24 @@ class Student(db.Model):
     parent_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     age = db.Column(db.Integer, nullable=False)
-    disabilities_or_notes = db.Column(db.Text, nullable=True)
+    disabilities = db.Column(db.Text, nullable=True)
 
-    # parent = db.relationship('User', backref=db.backref('children', lazy=True, cascade="all, delete-orphan"))
-
+    parent = db.relationship('User', back_populates='children', foreign_keys=[parent_id])
+    def to_dict(self):
+        parent_data = None
+        if(self.parent):
+            parent_data = {
+                'parent_id': self.parent_id,
+                'parent_name': self.parent.username,
+                'parent_email': self.parent.email,
+                'parent_phone': self.parent.phone
+            }
+        return {
+                'student_id': self.id,
+                'student_name': self.name,
+                'age': self.age,
+                "parent": parent_data
+            }
 
 # ==========================================
 # 2. TUTOR & APPLICATION MODELS
@@ -155,7 +169,9 @@ class Booking(db.Model):
     time_window = db.Column(db.String(50), nullable=False)          
     session_type = db.Column(db.String(50), nullable=False)         
     address = db.Column(db.Text, nullable=True)                     
-    # notes = db.Column(db.Text, nullable=True)                       
+    # notes = db.Column(db.Text, nullable=True)
+    notes = db.Column(db.Text, nullable=True)
+                          
     
     monthly_price = db.Column(db.Numeric(10, 2), nullable=False)
     meeting_link = db.Column(db.String(255), nullable=True)         
@@ -191,7 +207,7 @@ class Booking(db.Model):
                 "id": self.student.id,
                 "name": self.student.name,
                 "age": self.student.age,
-                "disabilities_or_notes": self.student.disabilities_or_notes
+               
             }
 
         course_data = None
@@ -221,6 +237,7 @@ class Booking(db.Model):
             "address": self.address,
             "meeting_link": self.meeting_link,
             # "notes": self.notes,
+            "notes": self.notes,
             "rejection_reason": self.rejection_reason,
             "first_session_held": self.first_session_held,
             "auto_renew": self.auto_renew,

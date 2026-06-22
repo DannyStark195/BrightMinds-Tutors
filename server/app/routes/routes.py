@@ -352,13 +352,19 @@ def create_booking():
 
     student = Student.query.filter_by(parent_id=authenticated_user_id, name=student_name).first()
     
+    if student:
+        student.age = int(student_age_str)
+
+        # try:
+        #     db.session.commit()
     if not student:
         try:
             student = Student(
                 parent_id=authenticated_user_id,
                 name=student_name,
                 age=int(student_age_str),
-                disabilities_or_notes=disabilities_or_notes if disabilities_or_notes else None
+                disabilities=disabilities if disabilities else None
+
             )
             db.session.add(student)
             db.session.flush() # Yields the student.id without committing transaction pipeline yet
@@ -390,7 +396,7 @@ def create_booking():
             time_window=time_window,
             session_type=lesson_location,
             address=physical_address if lesson_location.lower() == 'physical' else None,
-            # notes=notes,
+            notes=notes,
             
             monthly_price=monthly_price,
             start_date=start_date,

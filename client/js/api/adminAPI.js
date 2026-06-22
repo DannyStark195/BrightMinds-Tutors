@@ -74,7 +74,7 @@ export async function getBookings() {
     }
 }
 
-export async function getParents() {
+export async function getParentsAndBookings() {
     const token = localStorage.getItem('brightminds-user-token')
     try {
         const request = await fetch(`${BASE_URL}parents`, {
@@ -89,7 +89,7 @@ export async function getParents() {
         if(!request.ok){
                 throw new Error(response.error || 'Failed to fetch bookings')
             }
-        return response.parents
+        return response
     }
     catch (error) {
         console.log(error.message)

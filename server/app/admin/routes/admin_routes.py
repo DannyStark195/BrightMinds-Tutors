@@ -46,7 +46,9 @@ def get_all_bookings():
     if user.role != 'admin':
         return jsonify({'error': 'Unauthorized'}), 403
     
-    bookings = Booking.query.all()
+    bookings = Booking.query.join(User, Booking.parent_id == User.id)\
+                .filter(User.role == 'parent')\
+                .all()
     return jsonify({'bookings':[b.to_dict() for b in bookings]})
 
 @admin_routes.route('/parents', methods=['GET'])
@@ -59,8 +61,11 @@ def get_parents():
             .all()
         )
         print(parents)
-        return jsonify({
-            'parents': [parent.to_dict() for parent in parents]
+        return jsonify(
+            {
+            'parents': [parent.to_dict() for parent in parents],
+            'bookings': [[b.to_dict() for b in parent.bookings] for parent in parents],
+            'students': [[s.to_dict() for s in parent.children] for parent in parents]
         }), 200
 
     except Exception as e:
