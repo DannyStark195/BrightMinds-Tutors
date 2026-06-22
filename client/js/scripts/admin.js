@@ -1,4 +1,4 @@
-import { getAdmin, getBookings, getParentsAndBookings, getStudents } from "../api/adminAPI.js";
+import { getAdmin, getBookings, getParentsAndBookings, getStudents, getTutors } from "../api/adminAPI.js";
 import { formatDate } from "../utils/helpers.js";
 
 const navButtons = document.querySelectorAll('.admin-nav-link');
@@ -18,6 +18,8 @@ const adminSidebarOverlay = document.querySelector('.admin-sidebar-overlay');
 const adminNavMenuBtn = document.querySelector('.admin-nav-btn');
 const closeAdminNavBtn = document.querySelector('.admin-close-nav-btn');
 const adminName = document.querySelector('.admin-name');
+
+
 const admin = await getAdmin()
 console.log(admin)
 adminName.textContent = admin.username
@@ -66,12 +68,15 @@ const applications = {
 
 let parentsAndBookings = await getParentsAndBookings()
 console.log(parentsAndBookings)
-let parents = parentsAndBookings ? parentsAndBookings.parents : null;
+let parents = parentsAndBookings.parents ? parentsAndBookings.parents : null;
 console.log(parents);
+
 let parentBookings = parentsAndBookings.bookings
-// let students = parentsAndBookings.students
-// console.log(students)
 let students = await getStudents();
+
+let tutors = await getTutors()
+
+console.log(tutors)
 
 pendingCount.textContent = Object.values(bookings).filter(booking => booking.status === 'pending').length;
 
@@ -231,6 +236,25 @@ function renderStudents(){
             <td>${student.parent.parent_phone}</td>
         </tr>
     `).join('');
+}
+
+function renderTutors(){
+    const tutorGrid = document.querySelector('.tutor-grid');
+    if(!tutorGrid){
+        return
+    }
+    tutorGrid.innerHTML =  Object.values(tutors).map((tutor) => `
+        <article class="admin-tutor-card surface-card">
+            <div class="admin-tutor-card-profile-pic">
+                <img src="${tutor.profile_pic || './assets/images/tutors/emeka.jpg'}" alt="${tutor.tutor_name}">
+            </div>
+            <div>
+                <h2>${tutor.tutor_name}</h2>
+                <p>Mathematics, Physics</p>
+                <strong>18 sessions assigned</strong>
+            </div>
+        </article>
+    `).join('')
 }
 
 function bookingPanelTemplate(booking) {
@@ -393,35 +417,36 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-panel.addEventListener('click', (event) => {
-    if (event.target.matches('[data-approve-booking]')) {
-        panel.querySelector('[data-forward-card]')?.classList.add('active');
-    }
+// panel.addEventListener('click', (event) => {
+//     if (event.target.matches('[data-approve-booking]')) {
+//         panel.querySelector('[data-forward-card]')?.classList.add('active');
+//     }
 
-    if (event.target.matches('[data-approve-application]')) {
-        const tutorGrid = document.querySelector('.tutor-grid');
-        const tutorName = event.target.dataset.name;
-        const tutorSubjects = event.target.dataset.subjects;
+//     if (event.target.matches('[data-approve-application]')) {
+//         const tutorGrid = document.querySelector('.tutor-grid');
+//         const tutorName = event.target.dataset.name;
+//         const tutorSubjects = event.target.dataset.subjects;
 
-        if (tutorGrid && !tutorGrid.querySelector(`[data-added-tutor="${tutorName}"]`)) {
-            tutorGrid.insertAdjacentHTML('beforeend', `
-                <article class="admin-tutor-card surface-card" data-added-tutor="${tutorName}">
-                    <img src="./assets/images/avatars/istockphoto-1254254792-612x612.jpg" alt="${tutorName}">
-                    <div>
-                        <h2>${tutorName}</h2>
-                        <p>${tutorSubjects}</p>
-                        <strong>0 sessions assigned</strong>
-                    </div>
-                </article>
-            `);
-        }
+//         if (tutorGrid && !tutorGrid.querySelector(`[data-added-tutor="${tutorName}"]`)) {
+//             tutorGrid.insertAdjacentHTML('beforeend', `
+//                 <article class="admin-tutor-card surface-card" data-added-tutor="${tutorName}">
+//                     <img src="./assets/images/avatars/istockphoto-1254254792-612x612.jpg" alt="${tutorName}">
+//                     <div>
+//                         <h2>${tutorName}</h2>
+//                         <p>${tutorSubjects}</p>
+//                         <strong>0 sessions assigned</strong>
+//                     </div>
+//                 </article>
+//             `);
+//         }
 
-        event.target.textContent = 'Approved';
-        event.target.disabled = true;
-    }
-});
+//         event.target.textContent = 'Approved';
+//         event.target.disabled = true;
+//     }
+// });
 
 renderBookings();
 renderApplications();
 renderParents();
 renderStudents();
+renderTutors();

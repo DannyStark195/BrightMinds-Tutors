@@ -75,7 +75,7 @@ export async function getBookings() {
 }
 
 export async function getParentsAndBookings() {
-    const token = localStorage.getItem('brightminds-user-token')
+    const token = localStorage.getItem('brightminds-admin-token')
     try {
         const request = await fetch(`${BASE_URL}parents`, {
             method:'GET',
@@ -87,7 +87,7 @@ export async function getParentsAndBookings() {
 
         const response = await request.json()
         if(!request.ok){
-                throw new Error(response.error || 'Failed to fetch bookings')
+                throw new Error(response.error || 'Failed to fetch parents and bookings')
             }
         return response
     }
@@ -113,6 +113,29 @@ export async function getStudents() {
                 throw new Error(response.error || 'Failed to fetch students')
             }
         return response.students
+    }
+    catch (error) {
+        console.log(error.message)
+       return null;  
+    }
+}
+
+export async function getTutors() {
+    const token = localStorage.getItem('brightminds-admin-token')
+    try {
+        const request = await fetch(`${BASE_URL}tutors`, {
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        });
+
+        const response = await request.json()
+        if(!request.ok){
+                throw new Error(response.error || 'Failed to fetch tutors')
+            }
+        return response.tutors
     }
     catch (error) {
         console.log(error.message)

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, request, url_for, current_app, jsonify, send_file
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
-from app.models import User, Booking, Review, Course, Student, Payment
+from app.models import User, Booking, Review, Course, Student, Payment, TutorApplication, TutorProfile
 from app import db
 # from app.utils.uploader import upload_profile_image
 from app.utils.pricing_model import PRICING_MATRIX
@@ -88,3 +88,21 @@ def get_students():
     except Exception as e:
         print(e)
         return jsonify({'error': 'Failed to retrieve students.'}), 500
+    
+@admin_routes.route('/tutors', methods=['GET'])
+@jwt_required()
+def get_tutors():
+    try:
+        tutors = (
+            TutorProfile.query
+            .all()
+        )
+        print(tutors)
+        return jsonify(
+            {
+            'tutors': [tutor.to_dict() for tutor in tutors]
+        }), 200
+
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Failed to retrieve parents.'}), 500

@@ -130,11 +130,18 @@ class TutorProfile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     bio = db.Column(db.Text, nullable=True)
-    is_approved = db.Column(db.Boolean, default=False)
     profile_pic = db.Column(db.String(255), nullable=True, default='default_avatar.png')
     
     user = db.relationship('User', backref='tutor_profile', lazy=True)
 
+    def to_dict(self):
+        return {
+            'tutor_id': self.id,
+            'tutor_name': self.user.username if self.user else 'Unknown',
+            'profile_pic': self.profile_pic,
+            'bio': self.bio,
+            'courses': [c.course_name for c in self.courses.all()],
+        }
 
 tutor_courses = db.Table('tutor_courses',
     db.Column('tutor_id', db.Integer, db.ForeignKey('tutor_profiles.id'), primary_key=True),

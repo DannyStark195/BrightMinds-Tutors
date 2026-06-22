@@ -371,6 +371,11 @@
     gap: 16px;
 }
 
+.admin-tutor-card-profile-pic{
+    /* width: 200px; */
+    /* height: 200p; */
+}
+
 .admin-tutor-card img{
     width: 100%;
     aspect-ratio: 4 / 3;
