@@ -4,7 +4,6 @@ import { formatDate } from "../utils/helpers.js";
 const navButtons = document.querySelectorAll('.admin-nav-link');
 const sections = document.querySelectorAll('.admin-section');
 const filterGroups = document.querySelectorAll('[data-filter-group]');
-const studentRows = document.querySelectorAll('.student-row');
 const overlay = document.querySelector('.admin-overlay');
 const panel = document.querySelector('.review-panel');
 const panelContent = document.querySelector('[data-panel-content]');
@@ -253,12 +252,12 @@ function renderStudents(){
             <td>${parent.email}</td>
             <td>${parent.phone}</td>
 
-            <td>${parentBookings[index].length}</td>
+            <td>${parentBookings[parseInt(index)].length}</td>
             <td>${parent.children.length}</td>
             <td>${formatDate(parent.created_at)}</td>
-            <td><button class="table-action" type="button">History</button></td>
+            <td><button class="table-action" type="button" data-review="parent">History</button></td>
         </tr>
-        <tr class="parent-history-row">
+        <tr class="parent-history-row inactive">
             <td colspan="6">
                 <div class="parent-history">
                     <strong>Booking history</strong>
@@ -305,7 +304,7 @@ function bookingPanelTemplate(booking) {
         </section>
         <section class="panel-block">
             <h3>Admin decision</h3>
-            <p>${booking.notes}</p>
+            <p>${booking.notes || 'No notes provided'}</p>
             <div class="panel-actions">
                 <button class="cta-btn approve-btn" type="button" data-approve-booking>Approve</button>
                 <button class="cta-btn reject-btn" type="button">Reject</button>
@@ -394,36 +393,35 @@ filterGroups.forEach((group) => {
 
 document.addEventListener('click', async (event) => {
     const reviewButton = event.target.closest('[data-review]');
-    bookings = await getBookings()
-    console.log(bookings)
     if (!reviewButton) {
         return;
     }
-
+    
     const type = reviewButton.dataset.review;
-    const index = reviewButton.dataset.index;
-
-    bookings = await getBookings()
-
-    console.log(bookings[index])
     if (type === 'booking') {
+        
+        const index = reviewButton.dataset.index;
+
+        bookings = await getBookings()
+
+        console.log(bookings[index])
         openPanel(bookingPanelTemplate(bookings[index]));
     }
 
     if (type === 'application') {
         openPanel(applicationPanelTemplate(applications[reference_code]));
     }
-});
 
-studentRows.forEach((row) => {
-    row.addEventListener('click', () => {
-        const historyRow = row.nextElementSibling;
-
-        if (historyRow?.classList.contains('student-history-row')) {
-            historyRow.classList.toggle('active');
+    if(type === 'parent'){
+        const parentRow = reviewButton.closest('.parent-row');
+        const historyRow = parentRow.nextElementSibling;
+        console.log(historyRow)
+        if (historyRow?.classList.contains('parent-history-row')) {
+            historyRow.classList.toggle('inactive');
         }
-    });
+    }
 });
+
 
 closePanelButtons.forEach((button) => {
     button.addEventListener('click', closePanel);
