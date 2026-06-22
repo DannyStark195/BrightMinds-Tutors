@@ -38,6 +38,10 @@
                         Bookings
                         <span class="nav-count">2</span>
                     </button>
+                    <button class="admin-nav-link" type="button" data-section="parents">
+                        <i class="fa-solid fa-user-group"></i>
+                        Parents
+                    </button>
                     <button class="admin-nav-link" type="button" data-section="students">
                         <i class="fa-solid fa-user-group"></i>
                         Students
@@ -165,10 +169,10 @@
                     </section>
                 </section>
 
-                <section class="admin-section" data-panel="students">
+                <section class="admin-section" data-panel="parents">
                     <div class="admin-heading">
                         <div>
-                            <p class="eyebrow">Students</p>
+                            <p class="eyebrow">Parents</p>
                             <h1>Registered Parents</h1>
                             <p>Open a parent record to view booking history and contact details.</p>
                         </div>
@@ -189,57 +193,35 @@
                                     </tr>
                                 </thead>
                                 <tbody data-parents-table>
-                                    <!-- <tr class="student-row" data-student="Daniel Ebuka">
-                                        <td>Daniel Ebuka</td>
-                                        <td>daniel@example.com</td>
-                                        <td>08092812010</td>
-                                        <td>3</td>
-                                        <td>3 May 2026</td>
-                                        <td><button class="table-action" type="button">History</button></td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </section>
+                <section class="admin-section" data-panel="students">
+                    <div class="admin-heading">
+                        <div>
+                            <p class="eyebrow">Students</p>
+                            <h1>Registered Students</h1>
+                            <p>Review Students and their Parents</p>
+                        </div>
+                    </div>
+
+                    <section class="admin-table-card surface-card">
+                        <div class="table-wrap">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Student Name</th>
+                                        <th>Age</th>
+                                        <th>Disablities</th>
+                                        <th>Parent Name</th>
+                                        <th>Parent Email</th>
+                                        <th>Parent Phone</th>
+
                                     </tr>
-                                    <tr class="student-history-row">
-                                        <td colspan="6">
-                                            <div class="student-history">
-                                                <strong>Booking history</strong>
-                                                <p>BM-2847 - Mathematics - Pending</p>
-                                                <p>BM-2712 - English - Completed</p>
-                                                <p>BM-2650 - Biology - Completed</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="student-row" data-student="Kamsi Bello">
-                                        <td>Kamsi Bello</td>
-                                        <td>kamsi@example.com</td>
-                                        <td>08123456789</td>
-                                        <td>1</td>
-                                        <td>9 May 2026</td>
-                                        <td><button class="table-action" type="button">History</button></td>
-                                    </tr>
-                                    <tr class="student-history-row">
-                                        <td colspan="6">
-                                            <div class="student-history">
-                                                <strong>Booking history</strong>
-                                                <p>BM-2819 - Biology - Approved</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="student-row" data-student="Amara Cole">
-                                        <td>Amara Cole</td>
-                                        <td>amara@example.com</td>
-                                        <td>07045671234</td>
-                                        <td>2</td>
-                                        <td>1 May 2026</td>
-                                        <td><button class="table-action" type="button">History</button></td>
-                                    </tr>
-                                    <tr class="student-history-row">
-                                        <td colspan="6">
-                                            <div class="student-history">
-                                                <strong>Booking history</strong>
-                                                <p>BM-2790 - English - Pending</p>
-                                                <p>BM-2501 - Mathematics - Completed</p>
-                                            </div>
-                                        </td>
-                                    </tr> -->
+                                </thead>
+                                <tbody data-students-table>
                                 </tbody>
                             </table>
                         </div>

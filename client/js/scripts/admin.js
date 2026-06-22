@@ -1,4 +1,4 @@
-import { getAdmin, getBookings, getParentsAndBookings } from "../api/adminAPI.js";
+import { getAdmin, getBookings, getParentsAndBookings, getStudents } from "../api/adminAPI.js";
 import { formatDate } from "../utils/helpers.js";
 
 const navButtons = document.querySelectorAll('.admin-nav-link');
@@ -11,6 +11,7 @@ const closePanelButtons = document.querySelectorAll('[data-close-panel]');
 const bookingsTable = document.querySelector('[data-bookings-table]');
 const applicationsTable = document.querySelector('[data-applications-table]');
 const parentsTable = document.querySelector('[data-parents-table]');
+const studentsTable = document.querySelector('[data-students-table]');
 const adminSidebar = document.querySelector('.admin-sidebar');
 const adminSidebarOverlay = document.querySelector('.admin-sidebar-overlay');
 const adminNavMenuBtn = document.querySelector('.admin-nav-btn');
@@ -30,68 +31,6 @@ const tutorOptions = {
 };
 
 let bookings = await getBookings()
-// {
-//     'BM-2847': {
-//         reference_code: 'BM-2847',
-//         student: 'Daniel Ebuka',
-//         parent: 'Mrs Ebuka',
-//         phone: '08092812010',
-//         subject: 'Mathematics',
-//         schedule: 'Mon, Wed, Fri - 4 PM',
-//         location: 'Physical - Lekki',
-//         date: '14 May 2026',
-//         status: 'Pending',
-//         notes: 'Student needs support with algebra and exam revision.'
-//     },
-//     'BM-2819': {
-//         reference_code: 'BM-2819',
-//         student: 'Kamsi Bello',
-//         parent: 'Mr Bello',
-//         phone: '08123456789',
-//         subject: 'Biology',
-//         schedule: 'Tue, Thu - 5 PM',
-//         location: 'Online',
-//         date: '12 May 2026',
-//         status: 'Approved',
-//         notes: 'WAEC biology preparation.'
-//     },
-//     'BM-2790': {
-//         reference_code: 'BM-2790',
-//         student: 'Amara Cole',
-//         parent: 'Mrs Cole',
-//         phone: '07045671234',
-//         subject: 'English',
-//         schedule: 'Sat - 10 AM',
-//         location: 'Physical - Surulere',
-//         date: '10 May 2026',
-//         status: 'Pending',
-//         notes: 'Essay writing and comprehension practice.'
-//     },
-//     'BM-2734': {
-//         reference_code: 'BM-2734',
-//         student: 'Tope Akin',
-//         parent: 'Mr Akin',
-//         phone: '08055550111',
-//         subject: 'Physics',
-//         schedule: 'Fri - 3 PM',
-//         location: 'Physical - Yaba',
-//         date: '8 May 2026',
-//         status: 'Rejected',
-//         notes: 'Rejected because requested time was unavailable.'
-//     },
-//     'BM-2688': {
-//         reference_code: 'BM-2688',
-//         student: 'Nora James',
-//         parent: 'Mrs James',
-//         phone: '08100023456',
-//         subject: 'Chemistry',
-//         schedule: 'Mon, Thu - 6 PM',
-//         location: 'Online',
-//         date: '2 May 2026',
-//         status: 'Completed',
-//         notes: 'Completed first month of lessons.'
-//     }
-// };
 console.log(bookings)
 
 const applications = {
@@ -129,7 +68,9 @@ console.log(parentsAndBookings)
 let parents = parentsAndBookings ? parentsAndBookings.parents : null;
 console.log(parents);
 let parentBookings = parentsAndBookings.bookings
-let students = parentsAndBookings.students
+// let students = parentsAndBookings.students
+// console.log(students)
+let students = await getStudents();
 
 function setActiveSection(sectionName) {
     navButtons.forEach((button) => {
@@ -241,7 +182,7 @@ function renderApplications() {
     `).join('');
 }
 
-function renderStudents(){
+function renderParents(){
     if(!parentsTable){
         return
     }
@@ -272,9 +213,24 @@ function renderStudents(){
         </tr>
     `).join('');
 }
+function renderStudents(){
+    if(!studentsTable){
+        return
+    }
+
+    studentsTable.innerHTML = Object.values(students).map((student, index) => `
+        <tr class="student-row" data-student="${student.name}">
+            <td>${student.name}</td>
+            <td>${student.age}</td>
+            <td>${student.disabilities}</td>
+            <td>${student.parent.parent_name}</td>
+            <td>${student.parent.parent_email}</td>
+            <td>${student.parent.parent_phone}</td>
+        </tr>
+    `).join('');
+}
 
 function bookingPanelTemplate(booking) {
-    // console.log(booking)
     return `
         <div class="panel-header">
             <p class="eyebrow">Booking review</p>
@@ -464,4 +420,5 @@ panel.addEventListener('click', (event) => {
 
 renderBookings();
 renderApplications();
+renderParents();
 renderStudents();

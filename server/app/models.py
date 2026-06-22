@@ -96,9 +96,10 @@ class Student(db.Model):
                 'parent_phone': self.parent.phone
             }
         return {
-                'student_id': self.id,
-                'student_name': self.name,
+                'id': self.id,
+                'name': self.name,
                 'age': self.age,
+                "disabilities": self.disabilities if self.disabilities else "None",
                 "parent": parent_data
             }
 

@@ -96,3 +96,26 @@ export async function getParentsAndBookings() {
        return null;  
     }
 }
+
+export async function getStudents() {
+    const token = localStorage.getItem('brightminds-admin-token')
+    try {
+        const request = await fetch(`${BASE_URL}students`, {
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        });
+
+        const response = await request.json()
+        if(!request.ok){
+                throw new Error(response.error || 'Failed to fetch students')
+            }
+        return response.students
+    }
+    catch (error) {
+        console.log(error.message)
+       return null;  
+    }
+}

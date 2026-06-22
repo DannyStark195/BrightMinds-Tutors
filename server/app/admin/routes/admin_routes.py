@@ -71,3 +71,20 @@ def get_parents():
     except Exception as e:
         print(e)
         return jsonify({'error': 'Failed to retrieve parents.'}), 500
+
+@admin_routes.route('/students', methods=['GET'])
+@jwt_required()
+def get_students():
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    
+    if user.role != 'admin':
+        return jsonify({'error': 'Unauthorized'}), 403
+    
+    try:
+        students = Student.query.all()
+    
+        return jsonify({'students':[student.to_dict() for student in students]})
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Failed to retrieve students.'}), 500
