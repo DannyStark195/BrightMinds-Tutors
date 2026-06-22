@@ -2,6 +2,7 @@ import { getAdmin, getBookings, getParentsAndBookings, getStudents } from "../ap
 import { formatDate } from "../utils/helpers.js";
 
 const navButtons = document.querySelectorAll('.admin-nav-link');
+const pendingCount = document.querySelector('.pending-count');
 const sections = document.querySelectorAll('.admin-section');
 const filterGroups = document.querySelectorAll('[data-filter-group]');
 const overlay = document.querySelector('.admin-overlay');
@@ -71,6 +72,8 @@ let parentBookings = parentsAndBookings.bookings
 // let students = parentsAndBookings.students
 // console.log(students)
 let students = await getStudents();
+
+pendingCount.textContent = Object.values(bookings).filter(booking => booking.status === 'pending').length;
 
 function setActiveSection(sectionName) {
     navButtons.forEach((button) => {
