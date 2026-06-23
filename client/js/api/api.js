@@ -305,7 +305,7 @@ export async function createReview(data){
         const response = await request.json();
 
         if(!request.ok){
-            throw new Error(response.error || 'Failed to edit user profile');
+            throw new Error(response.error || 'Failed to create review');
         }
 
         return {valid: true, message: response.message}
@@ -552,5 +552,30 @@ export async function toggleFirstSessionHeld(data){
     catch (error) {
         console.log(error.message)
        return error.message 
+    }
+}
+
+export async function createTutorApplication(data){
+    const token = localStorage.getItem('brightminds-user-token');
+    try{
+        const request = await fetch(`${BASE_URL}create-tutor-application`, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        })
+
+        const response = await request.json();
+
+        if(!request.ok){
+            throw new Error(response.error || 'Failed to create review');
+        }
+
+        return {valid: true, message: response.message}
+    }
+    catch(error){
+        return {valid: false, message:error.message}
     }
 }

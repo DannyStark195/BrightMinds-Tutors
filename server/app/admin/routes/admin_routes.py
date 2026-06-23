@@ -106,3 +106,30 @@ def get_tutors():
     except Exception as e:
         print(e)
         return jsonify({'error': 'Failed to retrieve parents.'}), 500
+
+@admin_routes.route('/tutor-applications', methods=['GET'])
+@jwt_required()
+def get_tutor_applications():
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    
+    if user.role != 'admin':
+        return jsonify({'error': 'Unauthorized'}), 403
+    
+    applications = TutorApplication.query.order_by(TutorApplication.created_at.desc()).all()
+    
+    return jsonify([{
+        'id': a.id,
+        'user_id': a.user_id,
+        'applicant_name': a.applicant.username,
+        'applicant_email': a.applicant.email,
+        'bio': a.bio,
+        'qualification': a.qualification,
+        'institution': a.institution,
+        'experience_years': a.experience_years,
+        'teaching_preference': a.teaching_preference,
+        'cv_url': a.cv_url,
+        'status': a.status,
+        'rejection_reason': a.rejection_reason,
+        'created_at': a.created_at.strftime('%Y-%m-%d')
+    } for a in applications]), 200

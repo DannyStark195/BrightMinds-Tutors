@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, request, url_for, current_app, jsonify, send_file
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
-from app.models import User, Booking, Review, Course, Student, Payment
+from app.models import User, Booking, Review, Course, Student, Payment, TutorApplication
 from app import db
 from app.utils.uploader import upload_profile_image
 from app.utils.pricing_model import PRICING_MATRIX
@@ -671,3 +671,49 @@ def toggle_first_session_held():
     except Exception as e:
         print(e)
         return jsonify({'error': 'Failed to change first session held.'}), 500
+
+@routes.route('/create-tutor-application', methods=['POST'])
+@jwt_required()
+def submit_tutor_application():
+    current_user_id = get_jwt_identity()
+    
+    existing = TutorApplication.query.filter_by(
+        user_id=current_user_id
+    ).filter(
+        TutorApplication.status.in_(['pending', 'approved'])
+    ).first()
+    
+    if existing:
+        return jsonify({'error': 'You already have an active application'}), 400
+    
+    data = request.get_json()
+    print(data)
+    bio = data.get('bio')
+    qualification = data.get('qualification')
+    experience_years = data.get('yearsExperience')
+    teaching_preference = data.get('lessonFormat')
+    level_taught =  data.get('teachingLevel')
+    subject_taught = data.get('subjectTaught')
+    experience_url = data.get('experienceUrl')
+
+    if not (bio or qualification or experience_years or teaching_preference or cv_url):
+         return jsonify({'error': 'Missing or empty required parameters.'}), 400
+    try:
+        application = TutorApplication(
+            user_id=current_user_id,
+            bio=data.get('bio'),
+            qualification=data.get('qualification'),
+            institution=data.get('institution'),
+            experience_years=data.get('experience_years'),
+            teaching_preference=data.get('teaching_preference'),
+            cv_url=data.get('cv_url'),
+            status='pending'
+        )
+        
+        db.session.add(application)
+        db.session.commit()
+        
+        return jsonify({'message': 'Application submitted successfully'}), 201
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Failed to submit application'}), 500

@@ -1,5 +1,6 @@
 import { collectData, validateEmail, validatePhone, validateFile } from "../utils/formHelpers.js";
 import { activateElement, addInactive, deactivateElement, removeInactive } from "../utils/helpers.js";
+import { createTutorApplication, uploadFile } from "../api/api.js";
 const tutorForm = document.querySelector('.tutor-form');
 const proofInput = document.querySelector('#proof-experience');
 const proofName = document.querySelector('#proof-name');
@@ -57,9 +58,12 @@ if (proofInput && proofName) {
 
 tutorForm.addEventListener('submit', (e) =>{
 	e.preventDefault();
-	const tutorData = collectData(tutorForm, {
-		selectedSubjects,
-		tutorSubjects: selectedSubjects
+	handleTutorApplication();
+});
+
+async function handleTutorApplication() {
+	let tutorData = collectData(tutorForm, {
+		'subjectsTaught': selectedSubjects
 	});
 	const tutorEmail = tutorData.tutorEmail;
 	const tutorPhone = tutorData.tutorPhone;
@@ -99,8 +103,21 @@ tutorForm.addEventListener('submit', (e) =>{
 		errorMesssage.textContent = fileError;
 		return
 	}
+	let {valid, message, secure_url } = await uploadFile(tutorProof);
+			
+			if(!(valid && secure_url)){
+				console.log(message)
+				const errorMesssage = document.querySelector('.msg.error.file');
+				removeInactive(errorMesssage);
+				errorMesssage.textContent = message
+				return
+			}
+	tutorData = collectData(tutorForm, {
+		'subjectsTaught': selectedSubjects,
+		'experienceUrl': secure_url
+	});
 	console.log(tutorData);
-	// registerTutor(tutorData) to be implemented in the api.js
-});
-
+	
+	valid, message = await createTutorApplication(tutorData);
+}
 setupSubjectOptions();

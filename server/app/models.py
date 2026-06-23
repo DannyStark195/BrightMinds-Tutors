@@ -112,12 +112,14 @@ class TutorApplication(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    bio = db.Column(db.Text, nullable=False)
+    teaching_experience = db.Column(db.Text, nullable=False)
     qualification = db.Column(db.String(150), nullable=False)
     institution = db.Column(db.String(150), nullable=False)
     experience_years = db.Column(db.Integer, nullable=False)
     teaching_preference = db.Column(db.String(50), nullable=False)  
-    cv_url = db.Column(db.String(255), nullable=False)              
+    level_taught = db.Column(db.String(50), nullable=False)          
+    subjects_taught = db.Column(db.Text, nullable=False)
+    experience_proof_url = db.Column(db.String(255), nullable=False)              
     
     status = db.Column(db.String(20), default='pending')            
     rejection_reason = db.Column(db.Text, nullable=True)
