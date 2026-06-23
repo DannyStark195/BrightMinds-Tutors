@@ -36,7 +36,7 @@ const tutorOptions = {
 let bookings = await getBookings()
 console.log(bookings)
 
-const applications = await getTutorApplications()
+let applications = await getTutorApplications()
 console.log(applications)
 // {
 //     'APP-101': {
@@ -179,7 +179,7 @@ function renderApplications() {
         return;
     }
 
-    applicationsTable.innerHTML = Object.values(applications).map((application) => `
+    applicationsTable.innerHTML = Object.values(applications).map((application, index) => `
         <tr data-status="${application.status}">
             <td>${application.applicant_name}</td>
             <td>${application.subjects_taught}</td>
@@ -187,7 +187,7 @@ function renderApplications() {
             <td>${application.experience_years}</td>
             <td>${formatDate(application.created_at)}</td>
             <td><span class="status ${application.status}">${application.status}</span></td>
-            <td><button class="table-action" type="button" data-review="application" data-application="${application}">Review</button></td>
+            <td><button class="table-action" type="button" data-review="application" data-application="${application}" data-index="${index}">Review</button></td>
         </tr>
     `).join('');
 }
@@ -323,28 +323,30 @@ function renderAdminDecison(){
     })
 }
 function applicationPanelTemplate(application) {
+    console.log(application)
     return `
         <div class="panel-header">
             <p class="eyebrow">Tutor application</p>
-            <h2>${application.name}</h2>
+            <h2>${application.applicant_name}</h2>
         </div>
         <section class="panel-block">
             <h3>Full application details</h3>
             <dl class="detail-list">
-                <div><dt>Subjects</dt><dd>${application.subjects}</dd></div>
+                <div><dt>Subjects</dt><dd>${application.subjects_taught}</dd></div>
                 <div><dt>Qualification</dt><dd>${application.qualification}</dd></div>
-                <div><dt>Experience</dt><dd>${application.experience}</dd></div>
-                <div><dt>Date applied</dt><dd>${application.date}</dd></div>
+                <div><dt>Experience years</dt><dd>${application.experience_years}</dd></div>
+                <div><dt>Teaching preference</dt><dd>${application.teaching_preference}</dd></div>
+                <div><dt>Date applied</dt><dd>${application.created_at}</dd></div>
                 <div><dt>Status</dt><dd>${application.status}</dd></div>
             </dl>
         </section>
         <section class="panel-block">
-            <h3>Bio</h3>
-            <p>${application.bio}</p>
+            <h3>Experience Summary</h3>
+            <p>${application.teaching_experience}</p>
         </section>
         <section class="panel-block">
             <h3>Documents</h3>
-            <a href="#" class="cta-btn blue">Download CV</a>
+            <a href="#" class="cta-btn blue">Download Experence proof</a>
         </section>
         <section class="panel-block">
             <h3>Decision</h3>
@@ -408,8 +410,12 @@ document.addEventListener('click', async (event) => {
     }
 
     if (type === 'application') {
+        applications = await getTutorApplications()
         const application = reviewButton.dataset.application
-        openPanel(applicationPanelTemplate(application));
+        const index = reviewButton.dataset.index;
+        console.log(index)
+
+        openPanel(applicationPanelTemplate(applications[index]));
     }
 
     if(type === 'parent'){
