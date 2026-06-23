@@ -106,12 +106,12 @@ async function handleTutorApplication() {
 	let {valid, message, secure_url } = await uploadFile(tutorProof);
 			
 			if(!(valid && secure_url)){
-				console.log(message)
+				console.log(message, secure_url)
 				
 			}
 	tutorData = collectData(tutorForm, {
-		'subjectsTaught': selectedSubjects,
-		'experienceUrl': secure_url
+		selectedSubjects,
+		secure_url
 	});
 	console.log(tutorData);
 	

@@ -316,8 +316,7 @@ def create_booking():
     student_name = data.get('studentName')
     student_age_str = data.get('studentAge')
     disabilities = data.get('disabilities', '').strip()
-    disabilities_or_notes = notes + ', ' + disabilities
-    
+   
     required_fields = [subject_name, grade_level, times_per_week_str, hrs_per_session_str, 
                        time_window, start_date_str, lesson_location, student_name, student_age_str]
     
@@ -693,13 +692,16 @@ def submit_tutor_application():
     experience_years = data.get('yearsExperience')
     teaching_preference = data.get('lessonFormat')
     level_taught =  data.get('teachingLevel')
-    subjects_taught = data.get('subjectsTaught')
-    experience_url = data.get('experienceUrl')
+    selectedSubjects = data.get('selectedSubjects',[])
+    subjects_taught = ", ".join(selectedSubjects)
+    experience_url = data.get('secure_url')
 
     if not (
         teaching_experience or qualification or experience_years or teaching_preference or 
         experience_url or subjects_taught or level_taught):
          return jsonify({'error': 'Missing or empty required parameters.'}), 400
+    if not experience_url:
+        return jsonify({'error': 'File upload failed'}), 500
     try:
         application = TutorApplication(
             user_id=current_user_id,

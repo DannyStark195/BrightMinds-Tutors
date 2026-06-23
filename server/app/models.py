@@ -118,7 +118,7 @@ class TutorApplication(db.Model):
     teaching_preference = db.Column(db.String(50), nullable=False)  
     level_taught = db.Column(db.String(50), nullable=False)          
     subjects_taught = db.Column(db.Text, nullable=False)
-    experience_proof_url = db.Column(db.String(255), nullable=False)              
+    experience_proof_url = db.Column(db.String(255), nullable=True)              
     
     status = db.Column(db.String(20), default='pending')            
     rejection_reason = db.Column(db.Text, nullable=True)
