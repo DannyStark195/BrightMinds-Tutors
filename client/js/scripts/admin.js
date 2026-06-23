@@ -1,4 +1,4 @@
-import { getAdmin, getBookings, getParentsAndBookings, getStudents, getTutors } from "../api/adminAPI.js";
+import { getAdmin, getBookings, getParentsAndBookings, getStudents, getTutors, getTutorApplications } from "../api/adminAPI.js";
 import { formatDate } from "../utils/helpers.js";
 
 const navButtons = document.querySelectorAll('.admin-nav-link');
@@ -36,35 +36,37 @@ const tutorOptions = {
 let bookings = await getBookings()
 console.log(bookings)
 
-const applications = {
-    'APP-101': {
-        name: 'Chika Okoro',
-        subjects: 'Mathematics, Physics',
-        qualification: 'B.Sc Physics',
-        experience: '4 years',
-        date: '13 May 2026',
-        status: 'Pending',
-        bio: 'Patient secondary school tutor focused on exam preparation, weekly progress checks, and confidence building.'
-    },
-    'APP-092': {
-        name: 'Femi Lawson',
-        subjects: 'English',
-        qualification: 'B.Ed English',
-        experience: '6 years',
-        date: '8 May 2026',
-        status: 'Approved',
-        bio: 'English teacher with strong reading, grammar, and writing support experience.'
-    },
-    'APP-088': {
-        name: 'Rita George',
-        subjects: 'Chemistry',
-        qualification: 'OND Science Lab Tech',
-        experience: '1 year',
-        date: '6 May 2026',
-        status: 'Rejected',
-        bio: 'Lab assistant applying to support junior chemistry lessons.'
-    }
-};
+const applications = await getTutorApplications()
+console.log(applications)
+// {
+//     'APP-101': {
+//         name: 'Chika Okoro',
+//         subjects: 'Mathematics, Physics',
+//         qualification: 'B.Sc Physics',
+//         experience: '4 years',
+//         date: '13 May 2026',
+//         status: 'Pending',
+//         bio: 'Patient secondary school tutor focused on exam preparation, weekly progress checks, and confidence building.'
+//     },
+//     'APP-092': {
+//         name: 'Femi Lawson',
+//         subjects: 'English',
+//         qualification: 'B.Ed English',
+//         experience: '6 years',
+//         date: '8 May 2026',
+//         status: 'Approved',
+//         bio: 'English teacher with strong reading, grammar, and writing support experience.'
+//     },
+//     'APP-088': {
+//         name: 'Rita George',
+//         subjects: 'Chemistry',
+//         qualification: 'OND Science Lab Tech',
+//         experience: '1 year',
+//         date: '6 May 2026',
+//         status: 'Rejected',
+//         bio: 'Lab assistant applying to support junior chemistry lessons.'
+//     }
+// };
 
 let parentsAndBookings = await getParentsAndBookings()
 console.log(parentsAndBookings)
@@ -177,15 +179,15 @@ function renderApplications() {
         return;
     }
 
-    applicationsTable.innerHTML = Object.entries(applications).map(([reference_code, application]) => `
-        <tr data-status="${application.status.toLowerCase()}">
-            <td>${application.name}</td>
-            <td>${application.subjects}</td>
+    applicationsTable.innerHTML = Object.values(applications).map((application) => `
+        <tr data-status="${application.status}">
+            <td>${application.applicant_name}</td>
+            <td>${application.subjects_taught}</td>
             <td>${application.qualification}</td>
-            <td>${application.experience}</td>
-            <td>${application.date}</td>
-            <td><span class="status ${getStatusClass(application.status)}">${application.status}</span></td>
-            <td><button class="table-action" type="button" data-review="application" data-ref="${reference_code}">Review</button></td>
+            <td>${application.experience_years}</td>
+            <td>${formatDate(application.created_at)}</td>
+            <td><span class="status ${application.status}">${application.status}</span></td>
+            <td><button class="table-action" type="button" data-review="application" data-application="${application}">Review</button></td>
         </tr>
     `).join('');
 }
@@ -305,7 +307,9 @@ function bookingPanelTemplate(booking) {
             </a>
         </section>
     `;
+}
 
+function renderAdminDecison(){
     const rejectBtn = document.querySelector('.reject-btn');
     const approveBtn = document.querySelector('.approve-btn');
     const rejectionInput = document.querySelector('.rejection-input');
@@ -317,9 +321,7 @@ function bookingPanelTemplate(booking) {
             
         }
     })
-
 }
-
 function applicationPanelTemplate(application) {
     return `
         <div class="panel-header">
@@ -406,7 +408,8 @@ document.addEventListener('click', async (event) => {
     }
 
     if (type === 'application') {
-        openPanel(applicationPanelTemplate(applications[reference_code]));
+        const application = reviewButton.dataset.application
+        openPanel(applicationPanelTemplate(application));
     }
 
     if(type === 'parent'){

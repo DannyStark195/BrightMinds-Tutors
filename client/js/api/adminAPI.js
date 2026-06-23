@@ -142,3 +142,26 @@ export async function getTutors() {
        return null;  
     }
 }
+
+export async function getTutorApplications() {
+    const token = localStorage.getItem('brightminds-admin-token')
+    try {
+        const request = await fetch(`${BASE_URL}tutor-applications`, {
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        });
+
+        const response = await request.json()
+        if(!request.ok){
+                throw new Error(response.error || 'Failed to fetch tutor applications')
+            }
+        return response.applications
+    }
+    catch (error) {
+        console.log(error.message)
+       return null;  
+    }
+}

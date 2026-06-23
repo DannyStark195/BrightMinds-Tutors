@@ -118,18 +118,4 @@ def get_tutor_applications():
     
     applications = TutorApplication.query.order_by(TutorApplication.created_at.desc()).all()
     
-    return jsonify([{
-        'id': a.id,
-        'user_id': a.user_id,
-        'applicant_name': a.applicant.username,
-        'applicant_email': a.applicant.email,
-        'bio': a.bio,
-        'qualification': a.qualification,
-        'institution': a.institution,
-        'experience_years': a.experience_years,
-        'teaching_preference': a.teaching_preference,
-        'cv_url': a.cv_url,
-        'status': a.status,
-        'rejection_reason': a.rejection_reason,
-        'created_at': a.created_at.strftime('%Y-%m-%d')
-    } for a in applications]), 200
+    return jsonify({'applications': [application.to_dict() for application in applications]}), 200

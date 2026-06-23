@@ -123,6 +123,24 @@ class TutorApplication(db.Model):
     status = db.Column(db.String(20), default='pending')            
     rejection_reason = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'applicant_name': self.applicant.username,
+            'applicant_email': self.applicant.email,
+            'teaching_experience': self.teaching_experience,
+            'qualification': self.qualification,
+            'experience_years': self.experience_years,
+            'teaching_preference': self.teaching_preference,
+            'level_taught': self.level_taught,
+            'subjects_taught': self.subjects_taught,
+            'experience_proof_url': self.experience_proof_url,
+            'status': self.status,
+            'rejection_reason': self.rejection_reason,
+            'created_at': self.created_at.strftime('%Y-%m-%d') if self.created_at else None
+        }
 
 
 class TutorProfile(db.Model):
