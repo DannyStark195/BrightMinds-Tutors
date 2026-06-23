@@ -183,7 +183,7 @@ export async function uploadFile(file){
     const data = new FormData();
     data.append('profile_pic', file);
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000);
+    const timeoutId = setTimeout(() => controller.abort(), 25000);
     try {
         const request = await fetch(`${BASE_URL}upload-file`, {
             method: 'POST',

@@ -688,32 +688,35 @@ def submit_tutor_application():
     
     data = request.get_json()
     print(data)
-    bio = data.get('bio')
+    teaching_experience = data.get('teachingExperience')
     qualification = data.get('qualification')
     experience_years = data.get('yearsExperience')
     teaching_preference = data.get('lessonFormat')
     level_taught =  data.get('teachingLevel')
-    subject_taught = data.get('subjectTaught')
+    subjects_taught = data.get('subjectsTaught')
     experience_url = data.get('experienceUrl')
 
-    if not (bio or qualification or experience_years or teaching_preference or cv_url):
+    if not (
+        teaching_experience or qualification or experience_years or teaching_preference or 
+        experience_url or subjects_taught or level_taught):
          return jsonify({'error': 'Missing or empty required parameters.'}), 400
     try:
         application = TutorApplication(
             user_id=current_user_id,
-            bio=data.get('bio'),
-            qualification=data.get('qualification'),
-            institution=data.get('institution'),
-            experience_years=data.get('experience_years'),
-            teaching_preference=data.get('teaching_preference'),
-            cv_url=data.get('cv_url'),
+            teaching_experience=teaching_experience,
+            qualification=qualification,
+            level_taught=level_taught,
+            subjects_taught=subjects_taught,
+            experience_years=experience_years,
+            teaching_preference=teaching_preference,
+            experience_proof_url=experience_url,
             status='pending'
         )
         
         db.session.add(application)
         db.session.commit()
         
-        return jsonify({'message': 'Application submitted successfully'}), 201
+        return jsonify({'message': 'Application submitted successfully!'}), 201
     except Exception as e:
         print(e)
         return jsonify({'error': 'Failed to submit application'}), 500

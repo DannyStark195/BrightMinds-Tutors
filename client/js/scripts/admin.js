@@ -274,6 +274,7 @@ function bookingPanelTemplate(booking) {
                 <div><dt>Location</dt><dd>${booking.session_type}</dd></div>
                 <div><dt>Start Date</dt><dd>${formatDate(booking.start_date)}</dd></div>
                 <div><dt>Status</dt><dd>${booking.status}</dd></div>
+                <div><dt>Notes/Message</dt><dd>${booking.note}</dd></div>
             </dl>
         </section>
         <section class="panel-block">
@@ -287,8 +288,8 @@ function bookingPanelTemplate(booking) {
         </section>
         <section class="panel-block">
             <h3>Admin decision</h3>
-            <p>${booking.notes || 'No notes provided'}</p>
             <div class="panel-actions">
+                <input type="text" class="form-control rejection-input inactive">
                 <button class="cta-btn approve-btn" type="button" data-approve-booking>Approve</button>
                 <button class="cta-btn reject-btn" type="button">Reject</button>
             </div>
@@ -304,6 +305,19 @@ function bookingPanelTemplate(booking) {
             </a>
         </section>
     `;
+
+    const rejectBtn = document.querySelector('.reject-btn');
+    const approveBtn = document.querySelector('.approve-btn');
+    const rejectionInput = document.querySelector('.rejection-input');
+
+    rejectBtn.addEventListener('click', async ()=>{
+        const rejectionReason = rejectionInput.textContent;
+
+        if(!rejectionReason){
+            
+        }
+    })
+
 }
 
 function applicationPanelTemplate(application) {

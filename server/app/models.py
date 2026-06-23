@@ -114,7 +114,6 @@ class TutorApplication(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     teaching_experience = db.Column(db.Text, nullable=False)
     qualification = db.Column(db.String(150), nullable=False)
-    institution = db.Column(db.String(150), nullable=False)
     experience_years = db.Column(db.Integer, nullable=False)
     teaching_preference = db.Column(db.String(50), nullable=False)  
     level_taught = db.Column(db.String(50), nullable=False)          

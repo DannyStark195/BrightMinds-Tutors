@@ -107,10 +107,7 @@ async function handleTutorApplication() {
 			
 			if(!(valid && secure_url)){
 				console.log(message)
-				const errorMesssage = document.querySelector('.msg.error.file');
-				removeInactive(errorMesssage);
-				errorMesssage.textContent = message
-				return
+				
 			}
 	tutorData = collectData(tutorForm, {
 		'subjectsTaught': selectedSubjects,
@@ -118,6 +115,19 @@ async function handleTutorApplication() {
 	});
 	console.log(tutorData);
 	
-	valid, message = await createTutorApplication(tutorData);
+	({valid, message} = await createTutorApplication(tutorData));
+
+	if(!valid){
+		const errorMesssage = document.querySelector('.msg.error.file');
+		removeInactive(errorMesssage);
+		errorMesssage.textContent = message
+		return
+	}
+
+	const successMessage = document.querySelector('.msg.file');
+	removeInactive(successMessage);
+	successMessage.classList.add('success');
+	successMessage.textContent = message
+	return
 }
 setupSubjectOptions();

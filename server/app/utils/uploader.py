@@ -24,7 +24,8 @@ def upload_profile_image(file_to_upload):
             crop= "thumb", 
             gravity= "face",
             quality= "auto",
-            fetch_format= "auto"
+            fetch_format= "auto",
+            resource_type='auto'
         )
         print(response.get('secure_url'))
         return response.get('secure_url')
