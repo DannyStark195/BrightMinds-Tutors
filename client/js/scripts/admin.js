@@ -332,8 +332,10 @@ function renderAdminDecision(){
         const textarea = parentBlock.querySelector('textarea');
         const msg = parentBlock.querySelector('.msg');
         console.log(textarea, action);
-        
+        const assignedTutor = panelContent.querySelector('[data-assigned-tutor]')?.value;   
+        console.log(assignedTutor)
         const rejectionReason = textarea.value;
+        let data = "";
 
         if (action === 'reject' && reasonField.classList.contains('inactive')) {
         reasonField.classList.remove('inactive');
@@ -343,10 +345,15 @@ function renderAdminDecision(){
 
         if(action === 'reject' && !rejectionReason) return
 
+        if(action === 'approve'){
+            data = assignedTutor
+        }
+        if(action === 'reject'){
+            data = rejectionReason
+        }
         if (panelType === 'booking') {
-            const assignedTutor = panelContent.querySelector('[data-assigned-tutor]')?.value;   
-            console.log(assignedTutor)
-            const {valid, message} = await bookingDecision(recordIdentifier, action, assignedTutor);
+            
+            const {valid, message} = await bookingDecision(recordIdentifier, action, data);
                 msg.classList.remove('inactive');
                 msg.textContent = message;
                 if(!valid){

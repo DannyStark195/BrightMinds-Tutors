@@ -149,11 +149,11 @@ def approveBooking(ref):
     
     if user.role != 'admin':
         return jsonify({'error': 'Unauthorized'}), 403
-    assigned_tutor = request.get_json() or {}
+    assigned_tutor = request.get_json()
     print(assigned_tutor)
 
     if not assigned_tutor:
-        return jsonify({'error': 'Please assign a tutor'})
+        return jsonify({'error': 'Please assign a tutor'}), 400
     try:
         booking = Booking.query.filter(Booking.reference_code == ref).first()
 
@@ -189,3 +189,54 @@ def rejectBooking(ref):
     except Exception as e:
         print(e)
         return jsonify({'error': 'Failed to change booking status.'}), 500
+    
+@admin_routes.route('/tutor-application-decision/<int:id>/approve', methods=['POST'])
+@jwt_required()
+def approveTutorApplication(id):
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    
+    if user.role != 'admin':
+        return jsonify({'error': 'Unauthorized'}), 403
+    try:
+        tutorApplication = TutorApplication.query.filter(TutorApplication.id==id).first()
+
+        if not tutorApplication:
+            return jsonify({'error': 'This application id does not exist'}), 400
+        tutorApplication.status = 'approved'
+
+        if tutorApplication.rejection_reason:
+            tutorApplication.rejection_reason = None
+
+        db.session.commit()
+        return jsonify({'message': f'This tutor application has been approved!'}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Failed to change application status.'}), 500
+
+
+@admin_routes.route('/tutor-application-decision/<int:id>/reject', methods=['POST'])
+@jwt_required()
+def rejectTutorApplication(id):
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    
+    if user.role != 'admin':
+        return jsonify({'error': 'Unauthorized'}), 403
+    rejection_reason = request.get_json() or {}
+    print(rejection_reason)
+
+    if not rejection_reason:
+        return jsonify({'error': 'Please provide a rejection reason'})
+    try:
+        tutorApplication = TutorApplication.query.filter(TutorApplication.id==id).first()
+
+        if not tutorApplication:
+            return jsonify({'error': 'This application id does not exist'}), 400
+        tutorApplication.status = 'rejected'
+        tutorApplication.rejection_reason = rejection_reason
+        db.session.commit()
+        return jsonify({'message': f'This tutor application has been rejected!'}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Failed to change application status.'}), 500

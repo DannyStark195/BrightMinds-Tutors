@@ -217,7 +217,7 @@ export async function bookingDecision(ref, action, data){
 export async function tutorApplicationDecision(applicationId, action, reason){
     const token = localStorage.getItem('brightminds-admin-token')
     try {
-        const request = await fetch(`${BASE_URL}/tutor-application-decision/${applicationId}/${action}`, {
+        const request = await fetch(`${BASE_URL}tutor-application-decision/${applicationId}/${action}`, {
             method:'POST',
             headers: {
                 'Content-Type': 'application/json',
