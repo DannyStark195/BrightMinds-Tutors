@@ -332,7 +332,7 @@ function renderAdminDecision(){
         const textarea = parentBlock.querySelector('textarea');
         const msg = parentBlock.querySelector('.msg');
         console.log(textarea, action);
-        const assignedTutor = panelContent.querySelector('[data-assigned-tutor]')?.value;   
+        const assignedTutor = panelContent.querySelector('[data-assigned-tutor]')?.value || "";   
         console.log(assignedTutor)
         const rejectionReason = textarea.value;
         let data = "";
@@ -411,6 +411,7 @@ function applicationPanelTemplate(application) {
             <div class="panel-actions">
                 <button class="cta-btn approve-btn" type="button" data-type="application" data-action="approve" data-id="${application.id}">Approve</button>
                 <button class="cta-btn reject-btn" type="button" data-type="application" data-action="reject" data-id="${application.id}">Reject</button>
+                <p class="msg inactive">Failed to update admin decison</p>
             </div>
         </section>
     `;
