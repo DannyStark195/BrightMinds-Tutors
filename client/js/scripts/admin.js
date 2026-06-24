@@ -1,4 +1,4 @@
-import { getAdmin, getBookings, getParentsAndBookings, getStudents, getTutors, getTutorApplications, bookingDecision, tutorApplicationDecision } from "../api/adminAPI.js";
+import { getAdmin, getBookings, getParentsAndBookings, getStudents, getTutors, getTutorApplications, bookingDecision, tutorApplicationDecision, getTutorOptions } from "../api/adminAPI.js";
 import { formatDate } from "../utils/helpers.js";
 
 const navButtons = document.querySelectorAll('.admin-nav-link');
@@ -25,13 +25,13 @@ console.log(admin)
 adminName.textContent = admin.username
 
 
-const tutorOptions = {
-    Mathematics: ['Mr Emeka Obi', 'Mr Tunde Bakare', 'Chika Okoro'],
-    Physics: ['Mr Emeka Obi', 'Chika Okoro'],
-    Biology: ['Miss Adaeze Nwosu', 'Miss Ngozi Eze'],
-    English: ['Mr Tunde Bakare', 'Miss Ngozi Eze', 'Femi Lawson'],
-    Chemistry: ['Miss Adaeze Nwosu']
-};
+// const tutorOptions = {
+//     Mathematics: ['Mr Emeka Obi', 'Mr Tunde Bakare', 'Chika Okoro'],
+//     Physics: ['Mr Emeka Obi', 'Chika Okoro'],
+//     Biology: ['Miss Adaeze Nwosu', 'Miss Ngozi Eze'],
+//     English: ['Mr Tunde Bakare', 'Miss Ngozi Eze', 'Femi Lawson'],
+//     Chemistry: ['Miss Adaeze Nwosu']
+// };
 
 let bookings = await getBookings()
 console.log(bookings)
@@ -131,7 +131,7 @@ function openPanel(content) {
     panel.classList.add('active');
     panel.setAttribute('aria-hidden', 'false');
 
-    renderAdminDecison();
+    renderAdminDecision();
 }
 
 function closePanel() {
@@ -140,10 +140,10 @@ function closePanel() {
     panel.setAttribute('aria-hidden', 'true');
 }
 
-function createTutorOptions(subject) {
-    const tutors = tutorOptions[subject] || [];
-
-    return tutors.map((tutor) => `<option>${tutor}</option>`).join('');
+async function createTutorOptions(subject) {
+    const tutors = await getTutorOptions(subject) || [];
+    console.log(tutors)
+    return Object.values(tutors).map((tutor) => `<option data-tutor-assigned value="${tutor.tutor_id}">${tutor.tutor_name}</option>`).join('');
 }
 
 function getStatusClass(status) {
@@ -261,7 +261,8 @@ function renderTutors(){
     `).join('')
 }
 
-function bookingPanelTemplate(booking) {
+async function bookingPanelTemplate(booking) {
+    const tutorOptionsHtml = await createTutorOptions(booking.course.course_name);
     return `
         <div class="panel-header">
             <p class="eyebrow">Booking review</p>
@@ -278,7 +279,7 @@ function bookingPanelTemplate(booking) {
                 <div><dt>Location</dt><dd>${booking.session_type}</dd></div>
                 <div><dt>Start Date</dt><dd>${formatDate(booking.start_date)}</dd></div>
                 <div><dt>Status</dt><dd>${booking.status}</dd></div>
-                <div><dt>Notes/Message</dt><dd>${booking.note}</dd></div>
+                <div><dt>Notes/Message</dt><dd>${booking.notes || 'no message'}</dd></div>
             </dl>
         </section>
         <section class="panel-block">
@@ -286,7 +287,7 @@ function bookingPanelTemplate(booking) {
             <label>
                 Tutor filtered by subject
                 <select class="form-control" data-assigned-tutor>
-                    ${createTutorOptions(booking.course.course_name)}
+                    ${tutorOptionsHtml}
                 </select>
             </label>
         </section>
@@ -301,7 +302,7 @@ function bookingPanelTemplate(booking) {
             <div class="panel-actions">
                 <button class="cta-btn approve-btn" type="button" data-type="booking" data-action="approve" data-ref="${booking.reference_code}">Approve</button>
                 <button class="cta-btn reject-btn" type="button" data-type="booking" data-action="reject" data-ref="${booking.reference_code}">Reject</button>
-                <p class="msg">Failed to update admin decison</p>
+                <p class="msg inactive">Failed to update admin decison</p>
             </div>
         </section>
         <section class="panel-block forward-card" data-forward-card>
@@ -317,7 +318,7 @@ function bookingPanelTemplate(booking) {
     `;
 }
 
-function renderAdminDecison(){
+function renderAdminDecision(){
     panelContent.addEventListener('click', async(e) =>{
         const btn = e.target.closest('.cta-btn');
         if (!btn) return;
@@ -330,7 +331,7 @@ function renderAdminDecison(){
         const reasonField = parentBlock.querySelector('.reason-field');
         const textarea = parentBlock.querySelector('textarea');
         const msg = parentBlock.querySelector('.msg');
-        console.log(textarea);
+        console.log(textarea, action);
         
         const rejectionReason = textarea.value;
 
@@ -340,12 +341,28 @@ function renderAdminDecison(){
         return; 
         }
 
-        if(!rejectionReason) return
+        if(action === 'reject' && !rejectionReason) return
 
         if (panelType === 'booking') {
-            const {valid, message} = await bookingDecision(recordIdentifier, action, rejectionReason);
+            const assignedTutor = panelContent.querySelector('[data-assigned-tutor]')?.value;   
+            console.log(assignedTutor)
+            const {valid, message} = await bookingDecision(recordIdentifier, action, assignedTutor);
+                msg.classList.remove('inactive');
+                msg.textContent = message;
+                if(!valid){
+                    msg.classList.add('error');
+                    return
+                }
+            msg.classList.add('success');
         } else if (panelType === 'application') {
             const {valid, message} = await tutorApplicationDecision(recordIdentifier, action, rejectionReason);
+                msg.classList.remove('inactive');
+                msg.textContent = message;
+                if(!valid){
+                    msg.classList.add('error');
+                    return
+                }
+            msg.classList.add('success');
         }
     });
 }
@@ -385,7 +402,7 @@ function applicationPanelTemplate(application) {
                 </label>
             </div>
             <div class="panel-actions">
-                <button class="cta-btn approve-btn" type="button" data-type="application data-action="approve" data-id="${application.id}">Approve</button>
+                <button class="cta-btn approve-btn" type="button" data-type="application" data-action="approve" data-id="${application.id}">Approve</button>
                 <button class="cta-btn reject-btn" type="button" data-type="application" data-action="reject" data-id="${application.id}">Reject</button>
             </div>
         </section>
@@ -436,7 +453,7 @@ document.addEventListener('click', async (event) => {
         bookings = await getBookings()
 
         console.log(bookings[index])
-        openPanel(bookingPanelTemplate(bookings[index]));
+        openPanel(await bookingPanelTemplate(bookings[index]));
     }
 
     if (type === 'application') {
@@ -455,7 +472,7 @@ document.addEventListener('click', async (event) => {
             historyRow.classList.toggle('inactive');
         }
     }
-    renderAdminDecison();
+    renderAdminDecision();
 });
 
 

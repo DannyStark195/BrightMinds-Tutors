@@ -166,16 +166,40 @@ export async function getTutorApplications() {
     }
 }
 
-export async function bookingDecision(ref, action, reason){
+export async function getTutorOptions(course) {
     const token = localStorage.getItem('brightminds-admin-token')
     try {
-        const request = await fetch(`${BASE_URL}${ref}/${action}`, {
+        const request = await fetch(`${BASE_URL}tutor-options/${course}`, {
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        });
+
+        const response = await request.json()
+        if(!request.ok){
+                throw new Error(response.error || 'Failed to fetch tutor ')
+            }
+        return response.options
+    }
+    catch (error) {
+        console.log(error.message)
+       return null;  
+    }
+}
+
+export async function bookingDecision(ref, action, data){
+    const token = localStorage.getItem('brightminds-admin-token');
+    console.log(`${BASE_URL}${ref}/${action}`)
+    try {
+        const request = await fetch(`${BASE_URL}booking-decision/${ref}/${action}`, {
             method:'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify(reason)
+            body: JSON.stringify(data)
         });
 
         const response = await request.json()
@@ -193,7 +217,7 @@ export async function bookingDecision(ref, action, reason){
 export async function tutorApplicationDecision(applicationId, action, reason){
     const token = localStorage.getItem('brightminds-admin-token')
     try {
-        const request = await fetch(`${BASE_URL}${applicationId}/${action}`, {
+        const request = await fetch(`${BASE_URL}/tutor-application-decision/${applicationId}/${action}`, {
             method:'POST',
             headers: {
                 'Content-Type': 'application/json',

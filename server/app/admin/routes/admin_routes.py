@@ -107,6 +107,27 @@ def get_tutors():
         print(e)
         return jsonify({'error': 'Failed to retrieve parents.'}), 500
 
+@admin_routes.route('/tutor-options/<string:course>', methods=['GET'])
+@jwt_required()
+def get_tutor_options(course):
+    try:
+        tutors = (
+            TutorProfile.query
+            .join(TutorProfile.courses)
+            .filter(Course.course_name==course)
+            .all()
+        )
+        print(tutors)
+        return jsonify(
+            {
+            'options': [tutor.to_dict() for tutor in tutors]
+        }), 200
+
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Failed to retrieve tutor options.'}), 500
+
+
 @admin_routes.route('/tutor-applications', methods=['GET'])
 @jwt_required()
 def get_tutor_applications():
@@ -119,3 +140,52 @@ def get_tutor_applications():
     applications = TutorApplication.query.order_by(TutorApplication.created_at.desc()).all()
     
     return jsonify({'applications': [application.to_dict() for application in applications]}), 200
+
+@admin_routes.route('/booking-decision/<string:ref>/approve', methods=['POST'])
+@jwt_required()
+def approveBooking(ref):
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    
+    if user.role != 'admin':
+        return jsonify({'error': 'Unauthorized'}), 403
+    assigned_tutor = request.get_json() or {}
+    print(assigned_tutor)
+
+    if not assigned_tutor:
+        return jsonify({'error': 'Please assign a tutor'})
+    try:
+        booking = Booking.query.filter(Booking.reference_code == ref).first()
+
+        booking.status = 'approved'
+        booking.tutor_id = assigned_tutor
+        db.session.commit()
+        return jsonify({'message': f'This booking has been approved!'}), 200
+
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Failed to change booking status.'}), 500
+    
+@admin_routes.route('/booking-decision/<string:ref>/reject', methods=['POST'])
+@jwt_required()
+def rejectBooking(ref):
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    
+    if user.role != 'admin':
+        return jsonify({'error': 'Unauthorized'}), 403
+    rejection_reason = request.get_json() or {}
+    print(rejection_reason)
+
+    if not rejection_reason:
+        return jsonify({'error': 'Please provide a rejection reason'})
+    try:
+        booking = Booking.query.filter(Booking.reference_code == ref).first()
+
+        booking.status = 'rejected'
+        booking.rejection_reason = rejection_reason
+        db.session.commit()
+        return jsonify({'message': f'This booking has been rejeced!'}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Failed to change booking status.'}), 500
