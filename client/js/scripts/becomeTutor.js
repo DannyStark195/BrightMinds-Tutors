@@ -119,6 +119,8 @@ async function handleTutorApplication() {
 
 	if(!valid){
 		const errorMesssage = document.querySelector('.msg.error.file');
+		successMessage.classList.remove('success');
+
 		removeInactive(errorMesssage);
 		errorMesssage.textContent = message
 		return

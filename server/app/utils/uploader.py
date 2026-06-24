@@ -15,6 +15,12 @@ def upload_profile_image(file_to_upload):
     """
     Uploads an image file to Cloudinary, optimizes it, and returns the secure URL string.
     """
+    filename = file_to_upload.filename.lower()
+    
+    if filename.endswith(('.pdf', '.docx', '.doc')):
+        resource_type = 'raw'
+    else:
+        resource_type = 'image'
     try:
         response = cloudinary.uploader.upload(
             file_to_upload,
@@ -25,7 +31,7 @@ def upload_profile_image(file_to_upload):
             gravity= "face",
             quality= "auto",
             fetch_format= "auto",
-            resource_type='auto'
+            resource_type=resource_type
         )
         print(response.get('secure_url'))
         return response.get('secure_url')

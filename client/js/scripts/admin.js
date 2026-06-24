@@ -1,4 +1,4 @@
-import { getAdmin, getBookings, getParentsAndBookings, getStudents, getTutors, getTutorApplications } from "../api/adminAPI.js";
+import { getAdmin, getBookings, getParentsAndBookings, getStudents, getTutors, getTutorApplications, bookingDecision, tutorApplicationDecision } from "../api/adminAPI.js";
 import { formatDate } from "../utils/helpers.js";
 
 const navButtons = document.querySelectorAll('.admin-nav-link');
@@ -130,6 +130,8 @@ function openPanel(content) {
     overlay.classList.add('active');
     panel.classList.add('active');
     panel.setAttribute('aria-hidden', 'false');
+
+    renderAdminDecison();
 }
 
 function closePanel() {
@@ -289,11 +291,17 @@ function bookingPanelTemplate(booking) {
             </label>
         </section>
         <section class="panel-block">
-            <h3>Admin decision</h3>
+            <h3>Decision</h3>
+            <div class="reason-field inactive">
+                <label>
+                    Optional rejection reason
+                    <textarea class="form-control" placeholder="Add a short reason for rejection"></textarea>
+                </label>
+            </div>
             <div class="panel-actions">
-                <input type="text" class="form-control rejection-input inactive">
-                <button class="cta-btn approve-btn" type="button" data-approve-booking>Approve</button>
-                <button class="cta-btn reject-btn" type="button">Reject</button>
+                <button class="cta-btn approve-btn" type="button" data-type="booking" data-action="approve" data-ref="${booking.reference_code}">Approve</button>
+                <button class="cta-btn reject-btn" type="button" data-type="booking" data-action="reject" data-ref="${booking.reference_code}">Reject</button>
+                <p class="msg">Failed to update admin decison</p>
             </div>
         </section>
         <section class="panel-block forward-card" data-forward-card>
@@ -310,18 +318,38 @@ function bookingPanelTemplate(booking) {
 }
 
 function renderAdminDecison(){
-    const rejectBtn = document.querySelector('.reject-btn');
-    const approveBtn = document.querySelector('.approve-btn');
-    const rejectionInput = document.querySelector('.rejection-input');
+    panelContent.addEventListener('click', async(e) =>{
+        const btn = e.target.closest('.cta-btn');
+        if (!btn) return;
 
-    rejectBtn.addEventListener('click', async ()=>{
-        const rejectionReason = rejectionInput.textContent;
+        const panelType = btn.dataset.type;
+        const action = btn.dataset.action
+        const recordIdentifier = btn.dataset.ref || btn.dataset.id
 
-        if(!rejectionReason){
-            
+        const parentBlock = btn.closest('.panel-block');
+        const reasonField = parentBlock.querySelector('.reason-field');
+        const textarea = parentBlock.querySelector('textarea');
+        const msg = parentBlock.querySelector('.msg');
+        console.log(textarea);
+        
+        const rejectionReason = textarea.value;
+
+        if (action === 'reject' && reasonField.classList.contains('inactive')) {
+        reasonField.classList.remove('inactive');
+        textarea.focus();
+        return; 
         }
-    })
+
+        if(!rejectionReason) return
+
+        if (panelType === 'booking') {
+            const {valid, message} = await bookingDecision(recordIdentifier, action, rejectionReason);
+        } else if (panelType === 'application') {
+            const {valid, message} = await tutorApplicationDecision(recordIdentifier, action, rejectionReason);
+        }
+    });
 }
+
 function applicationPanelTemplate(application) {
     console.log(application)
     return `
@@ -346,17 +374,19 @@ function applicationPanelTemplate(application) {
         </section>
         <section class="panel-block">
             <h3>Documents</h3>
-            <a href="#" class="cta-btn blue">Download Experence proof</a>
+            <a href="${application.experience_proof_url}" class="cta-btn blue">Download Experence proof</a>
         </section>
         <section class="panel-block">
             <h3>Decision</h3>
-            <label>
-                Optional rejection reason
-                <textarea class="form-control reason-field" placeholder="Add a short reason for rejection"></textarea>
-            </label>
+            <div class="reason-field inactive">
+                <label>
+                    Optional rejection reason
+                    <textarea class="form-control" placeholder="Add a short reason for rejection"></textarea>
+                </label>
+            </div>
             <div class="panel-actions">
-                <button class="cta-btn approve-btn" type="button" data-approve-application data-name="${application.name}" data-subjects="${application.subjects}">Approve</button>
-                <button class="cta-btn reject-btn" type="button">Reject</button>
+                <button class="cta-btn approve-btn" type="button" data-type="application data-action="approve" data-id="${application.id}">Approve</button>
+                <button class="cta-btn reject-btn" type="button" data-type="application" data-action="reject" data-id="${application.id}">Reject</button>
             </div>
         </section>
     `;
@@ -411,7 +441,6 @@ document.addEventListener('click', async (event) => {
 
     if (type === 'application') {
         applications = await getTutorApplications()
-        const application = reviewButton.dataset.application
         const index = reviewButton.dataset.index;
         console.log(index)
 
@@ -426,6 +455,7 @@ document.addEventListener('click', async (event) => {
             historyRow.classList.toggle('inactive');
         }
     }
+    renderAdminDecison();
 });
 
 
@@ -473,3 +503,4 @@ renderApplications();
 renderParents();
 renderStudents();
 renderTutors();
+

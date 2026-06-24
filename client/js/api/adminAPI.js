@@ -165,3 +165,51 @@ export async function getTutorApplications() {
        return null;  
     }
 }
+
+export async function bookingDecision(ref, action, reason){
+    const token = localStorage.getItem('brightminds-admin-token')
+    try {
+        const request = await fetch(`${BASE_URL}${ref}/${action}`, {
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(reason)
+        });
+
+        const response = await request.json()
+       if(!request.ok){
+            throw new Error(response.error || 'Failed to update admin decision');
+        }
+
+        return {valid: true, message: response.message}
+    }
+    catch(error){
+        return {valid: false, message:error.message}
+    }
+}
+
+export async function tutorApplicationDecision(applicationId, action, reason){
+    const token = localStorage.getItem('brightminds-admin-token')
+    try {
+        const request = await fetch(`${BASE_URL}${applicationId}/${action}`, {
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(reason)
+        });
+
+        const response = await request.json()
+        if(!request.ok){
+            throw new Error(response.error || 'Failed to update admin decision');
+        }
+
+        return {valid: true, message: response.message}
+    }
+    catch(error){
+        return {valid: false, message:error.message}
+    }
+}
