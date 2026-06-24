@@ -120,7 +120,7 @@ overlay.innerHTML =  `
                             </form>
                         </div>
                     </div>
-                    <div class="reset-password-form-container form">
+                    <div class="reset-password-form-container form active">
                         <div class="top">
                             <div class="logo">
                                 <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
@@ -137,6 +137,7 @@ overlay.innerHTML =  `
                                     </span>
                                 </div>
                                 <p class="msg error inactive"></p>
+                                <p class="resend-code">Resend code</p>
                                 <button type="submit" class="cta-btn gold">Reset password</button>
                             </form>
                         </div>
@@ -146,8 +147,7 @@ overlay.innerHTML =  `
 const signupTriggers = document.querySelectorAll('.open-signup');
 const loginTriggers = document.querySelectorAll('.open-login');
 const cancelButtons = document.querySelectorAll('.cancel-form-popup');
-const forgotPasswordTriggers = overlay?.querySelectorAll('.forgot-password') || [];
-
+const forgotPasswordTriggers = overlay.querySelectorAll('.forgot-password') || [];
 const signupFormContainer = overlay?.querySelector('.signup-form-container');
 const loginFormContainer = overlay?.querySelector('.login-form-container');
 const verifyOtpFormContainer = overlay?.querySelector('.verify-otp-form-container');
@@ -244,7 +244,15 @@ loginForm.addEventListener('submit', (e)=>{
 async function handleLogin(){
 const user = collectData(loginForm);
     const msg = loginFormContainer.querySelector('.msg.error');
+    const submitBtn = loginForm.querySelector('button');
+    console.log(submitBtn);
+    if(!submitBtn.type =="submit") return
+    
+    submitBtn.textContent = "Loading..." 
+    submitBtn.disabled = true
     const loginValid = await loginUser(user)
+    submitBtn.disabled = false
+    submitBtn.textContent = "Login"
     if(!loginValid){
         msg.classList.remove('inactive');
         return
@@ -283,7 +291,16 @@ async function handleSignup(){
         msg.classList.remove('inactive')
         return
     }
+    const submitBtn = signupForm.querySelector('button');
+    console.log(submitBtn);
+    if(!submitBtn.type =="submit") return
+    
+    submitBtn.textContent = "Loading..." 
+    submitBtn.disabled = true
+
     const valid = await signupUser(data);
+    submitBtn.disabled = false
+    submitBtn.textContent = "Sign Up"
 
     if(!valid.valid){
         console.log(valid.valid);
@@ -311,7 +328,15 @@ async function handleOtpVerification(){
     const msg = verifyOtpFormContainer.querySelector('.msg');
     msg.classList.remove('inactive');
     // msg.classList.add('success')
+    const submitBtn = verifyOtpForm.querySelector('button');
+    console.log(submitBtn);
+    if(!submitBtn.type =="submit") return
+    
+    submitBtn.textContent = "Loading..." 
+    submitBtn.disabled = true;
     const {valid, message} = await verifyOTPCode(data)
+    submitBtn.disabled = false
+    submitBtn.textContent = "Verify"
 
     console.log(valid);
     
@@ -341,7 +366,17 @@ async function handleForgotPassword(){
         return
     }
 
+    const submitBtn = forgotPasswordForm.querySelector('button');
+    console.log(submitBtn);
+    if(!submitBtn.type =="submit") return
+    
+    submitBtn.textContent = "Loading..." 
+    submitBtn.disabled = true
+
     const {valid, message, registrationToken} = await forgotPassword(data);
+    submitBtn.disabled = false
+    submitBtn.textContent = "Send Code"
+
     if(!valid){
         msg.textContent = message;
         msg.classList.remove('inactive');
@@ -367,9 +402,30 @@ resetPasswordForm.addEventListener('submit', async(e) =>{
 })
 
 async function handleResetPassword(){
-    const data = collectData(resetPasswordForm, {'registrationToken': resetPasswordToken});
+    let data = collectData(resetPasswordForm, {'registrationToken': resetPasswordToken});
     const {email, code, newPassword} = data;
     const msg = resetPasswordFormContainer.querySelector('.msg.error');
+    const resendCodeTrigger = resetPasswordForm.querySelector('.resend-code');
+
+    resendCodeTrigger.addEventListener('click', async ()=>{
+        if(!email) {
+            return
+        }
+       const {valid, message, registrationToken} = await forgotPassword(data);
+
+
+        if(!valid){
+            msg.textContent = message;
+            msg.classList.remove('inactive');
+            return;
+        }
+        resetPasswordToken = registrationToken;
+        msg.textContent = message;
+        msg.classList.remove('inactive');
+        msg.classList.add('success');
+
+        data = collectData(resetPasswordForm, {'registrationToken': resetPasswordToken});
+    })
     msg.classList.add('inactive');
     msg.classList.remove('success');
      const emailError = validateEmail(email);
@@ -396,7 +452,15 @@ async function handleResetPassword(){
         msg.classList.remove('inactive');
         return;
     }
+    const submitBtn = signupForm.querySelector('button');
+    console.log(submitBtn);
+    if(!submitBtn.type =="submit") return
+    
+    submitBtn.textContent = "Loading..." 
+    submitBtn.disabled = true
     const {valid, message} = await resetPassword(data)
+    submitBtn.disabled = false
+    submitBtn.textContent = "Reset Password"
     if(valid){
         msg.textContent = message
         msg.classList.remove('inactive');

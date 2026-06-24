@@ -251,7 +251,8 @@
     height: 18px;
 }
 
-.form-container .form .forgot-password{
+.form-container .form .forgot-password,
+.form-container .form .resend-code{
     display: block;
     font-size: 0.89rem;
     margin-block: 2px;
