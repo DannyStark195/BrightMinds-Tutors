@@ -310,8 +310,6 @@ async function handleSignup(){
         msg.classList.remove('inactive');
         return
     }   
-     //If error in fetching return error message to be done when i start backend
-    //  openForm(overlay, loginFormContainer);
     registrationToken = valid.registrationToken;
     openForm(overlay, verifyOtpFormContainer);
 }

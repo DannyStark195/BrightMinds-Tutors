@@ -1,6 +1,7 @@
 import { getAdmin, getBookings, getParentsAndBookings, getStudents, getTutors, getTutorApplications, bookingDecision, tutorApplicationDecision, getTutorOptions } from "../api/adminAPI.js";
 import { formatDate } from "../utils/helpers.js";
-
+import { showLoading, hideLoading } from "../components/loadingState.js";
+import { logoutAdmin } from "../auth/auth.js";
 const navButtons = document.querySelectorAll('.admin-nav-link');
 const pendingCount = document.querySelector('.pending-count');
 const sections = document.querySelectorAll('.admin-section');
@@ -18,57 +19,20 @@ const adminSidebarOverlay = document.querySelector('.admin-sidebar-overlay');
 const adminNavMenuBtn = document.querySelector('.admin-nav-btn');
 const closeAdminNavBtn = document.querySelector('.admin-close-nav-btn');
 const adminName = document.querySelector('.admin-name');
+const logoutBtn = document.querySelector('.logout-btn');
 
 
+showLoading()
 const admin = await getAdmin()
 console.log(admin)
 adminName.textContent = admin.username
-
-
-// const tutorOptions = {
-//     Mathematics: ['Mr Emeka Obi', 'Mr Tunde Bakare', 'Chika Okoro'],
-//     Physics: ['Mr Emeka Obi', 'Chika Okoro'],
-//     Biology: ['Miss Adaeze Nwosu', 'Miss Ngozi Eze'],
-//     English: ['Mr Tunde Bakare', 'Miss Ngozi Eze', 'Femi Lawson'],
-//     Chemistry: ['Miss Adaeze Nwosu']
-// };
 
 let bookings = await getBookings()
 console.log(bookings)
 
 let applications = await getTutorApplications()
 console.log(applications)
-// {
-//     'APP-101': {
-//         name: 'Chika Okoro',
-//         subjects: 'Mathematics, Physics',
-//         qualification: 'B.Sc Physics',
-//         experience: '4 years',
-//         date: '13 May 2026',
-//         status: 'Pending',
-//         bio: 'Patient secondary school tutor focused on exam preparation, weekly progress checks, and confidence building.'
-//     },
-//     'APP-092': {
-//         name: 'Femi Lawson',
-//         subjects: 'English',
-//         qualification: 'B.Ed English',
-//         experience: '6 years',
-//         date: '8 May 2026',
-//         status: 'Approved',
-//         bio: 'English teacher with strong reading, grammar, and writing support experience.'
-//     },
-//     'APP-088': {
-//         name: 'Rita George',
-//         subjects: 'Chemistry',
-//         qualification: 'OND Science Lab Tech',
-//         experience: '1 year',
-//         date: '6 May 2026',
-//         status: 'Rejected',
-//         bio: 'Lab assistant applying to support junior chemistry lessons.'
-//     }
-// };
-
-let parentsAndBookings = await getParentsAndBookings()
+let parentsAndBookings = await getParentsAndBookings();
 console.log(parentsAndBookings)
 let parents = parentsAndBookings.parents ? parentsAndBookings.parents : null;
 console.log(parents);
@@ -76,10 +40,10 @@ console.log(parents);
 let parentBookings = parentsAndBookings.bookings
 let students = await getStudents();
 
-let tutors = await getTutors()
-
+let tutors = await getTutors();
 console.log(tutors)
 
+hideLoading()
 pendingCount.textContent = Object.values(bookings).filter(booking => booking.status === 'pending').length;
 
 function setActiveSection(sectionName) {
@@ -145,23 +109,11 @@ async function createTutorOptions(subject) {
     console.log(tutors)
     return Object.values(tutors).map((tutor) => `<option data-tutor-assigned value="${tutor.tutor_id}">${tutor.tutor_name}</option>`).join('');
 }
-
-function getStatusClass(status) {
-    const statusClassMap = {
-        Pending: 'pending',
-        Approved: 'confirmed',
-        Rejected: 'rejected',
-        Completed: 'paid'
-    };
-
-    return statusClassMap[status] || 'pending';
-}
-
-function renderBookings() {
+async function renderBookings() {
+    bookings = await getBookings()
     if (!bookingsTable) {
         return;
     }
-
     bookingsTable.innerHTML = Object.values(bookings).map((booking, index) => `
         <tr data-status="${booking.status.toLowerCase()}">
             <td>${booking.reference_code}</td>
@@ -176,7 +128,8 @@ function renderBookings() {
     `).join('');
 }
 
-function renderApplications() {
+async function renderApplications() {
+    applications = await getTutorApplications()
     if (!applicationsTable) {
         return;
     }
@@ -194,7 +147,8 @@ function renderApplications() {
     `).join('');
 }
 
-function renderParents(){
+async function renderParents(){
+    parentsAndBookings = await getParentsAndBookings();
     if(!parentsTable){
         return
     }
@@ -225,7 +179,8 @@ function renderParents(){
         </tr>
     `).join('');
 }
-function renderStudents(){
+async function renderStudents(){
+    students = await getStudents();
     if(!studentsTable){
         return
     }
@@ -242,7 +197,8 @@ function renderStudents(){
     `).join('');
 }
 
-function renderTutors(){
+async function renderTutors(){
+    tutors = await getTutors();
     const tutorGrid = document.querySelector('.tutor-grid');
     if(!tutorGrid){
         return
@@ -361,6 +317,7 @@ function renderAdminDecision(){
                     return
                 }
             msg.classList.add('success');
+            await renderBookings()
         } else if (panelType === 'application') {
             const {valid, message} = await tutorApplicationDecision(recordIdentifier, action, rejectionReason);
                 msg.classList.remove('inactive');
@@ -370,6 +327,7 @@ function renderAdminDecision(){
                     return
                 }
             msg.classList.add('success');
+            await renderApplications()
         }
     });
 }
@@ -483,7 +441,6 @@ document.addEventListener('click', async (event) => {
     renderAdminDecision();
 });
 
-
 closePanelButtons.forEach((button) => {
     button.addEventListener('click', closePanel);
 });
@@ -494,38 +451,12 @@ document.addEventListener('keydown', (event) => {
         closeAdminSidebar();
     }
 });
-
-// panel.addEventListener('click', (event) => {
-//     if (event.target.matches('[data-approve-booking]')) {
-//         panel.querySelector('[data-forward-card]')?.classList.add('active');
-//     }
-
-//     if (event.target.matches('[data-approve-application]')) {
-//         const tutorGrid = document.querySelector('.tutor-grid');
-//         const tutorName = event.target.dataset.name;
-//         const tutorSubjects = event.target.dataset.subjects;
-
-//         if (tutorGrid && !tutorGrid.querySelector(`[data-added-tutor="${tutorName}"]`)) {
-//             tutorGrid.insertAdjacentHTML('beforeend', `
-//                 <article class="admin-tutor-card surface-card" data-added-tutor="${tutorName}">
-//                     <img src="./assets/images/avatars/istockphoto-1254254792-612x612.jpg" alt="${tutorName}">
-//                     <div>
-//                         <h2>${tutorName}</h2>
-//                         <p>${tutorSubjects}</p>
-//                         <strong>0 sessions assigned</strong>
-//                     </div>
-//                 </article>
-//             `);
-//         }
-
-//         event.target.textContent = 'Approved';
-//         event.target.disabled = true;
-//     }
-// });
-
-renderBookings();
-renderApplications();
-renderParents();
-renderStudents();
-renderTutors();
+logoutBtn.addEventListener('click', ()=>{
+            logoutAdmin()
+        })
+await renderBookings();
+await renderApplications();
+await renderParents();
+await renderStudents();
+await renderTutors();
 

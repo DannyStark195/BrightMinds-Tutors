@@ -2,10 +2,12 @@ import { activateElement, deactivateElement } from "../utils/helpers.js";
 import { getUserProfile } from "../api/api.js";
 import { logout } from "../auth/auth.js";
 const headerHtml = document.querySelector('.header');
-const userProfile = await getUserProfile();
 
-headerHtml.innerHTML = `
-                    <div class="logo">
+
+export async function renderHeader(){
+    const userProfile = await getUserProfile();
+    headerHtml.innerHTML = `
+    <div class="logo">
                         <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
                         <p>BrightMinds Tutors</p>
                     </div>
@@ -46,48 +48,52 @@ headerHtml.innerHTML = `
                                         <i class="fa-solid fa-graduation-cap"></i>
                                         <a href="become-tutor.html"><button class="">Become a tutor</button></a>
                                     </div>
-                                </div>
-                                <a class="logout-btn"><button type="submit" class="cta-btn gold">Log out</button></a>
-
+                                    </div>
+                                    <a class="logout-btn"><button type="submit" class="cta-btn gold">Log out</button></a>
                         </nav>
-                    </div>
-`
+                        </div>
+                    `
+
 const dashboardNavMenu = document.querySelector('.dashboard-navbar');
 const dashboardNavMenuBtn = document.querySelector('.dashboard-nav-btn');
 const closeDashboardNavBtn = document.querySelector('.dashboard-close-nav-btn');
 const overlay = document.querySelector('.overlay');
 const moreLinks = document.querySelector('.more-links')
 const logoutBtn = document.querySelector('.logout-btn');
-logoutBtn.addEventListener('click', ()=>{
-    logout()
-})
-function closeDashboardMenu() {
-    deactivateElement(overlay);
-    deactivateElement(dashboardNavMenu);
-    deactivateElement(closeDashboardNavBtn);
-    activateElement(dashboardNavMenuBtn);
+        logoutBtn.addEventListener('click', ()=>{
+            logout()
+        })
+        function closeDashboardMenu() {
+            deactivateElement(overlay);
+            deactivateElement(dashboardNavMenu);
+            deactivateElement(closeDashboardNavBtn);
+            activateElement(dashboardNavMenuBtn);
+        }
+        
+        dashboardNavMenuBtn.addEventListener('click', () =>{
+            activateElement(dashboardNavMenu);
+            activateElement(closeDashboardNavBtn);
+            activateElement(moreLinks)
+            deactivateElement(dashboardNavMenuBtn);
+            activateElement(overlay);
+        });
+        
+        closeDashboardNavBtn.addEventListener('click', ()=>{
+            closeDashboardMenu();
+        });
+        
+        overlay?.addEventListener('click', () => {
+            closeDashboardMenu();
+        });
+        
+        document.addEventListener('click', (event) => {
+            const clickedInsideDashboardNav = event.target.closest('.nav-btn-wrapper');
+        
+            if (!clickedInsideDashboardNav && dashboardNavMenu.classList.contains('active')) {
+                closeDashboardMenu();
+            }
+        });
 }
 
-dashboardNavMenuBtn.addEventListener('click', () =>{
-    activateElement(dashboardNavMenu);
-    activateElement(closeDashboardNavBtn);
-    activateElement(moreLinks)
-    deactivateElement(dashboardNavMenuBtn);
-    activateElement(overlay);
-});
+renderHeader();
 
-closeDashboardNavBtn.addEventListener('click', ()=>{
-    closeDashboardMenu();
-});
-
-overlay?.addEventListener('click', () => {
-    closeDashboardMenu();
-});
-
-document.addEventListener('click', (event) => {
-    const clickedInsideDashboardNav = event.target.closest('.nav-btn-wrapper');
-
-    if (!clickedInsideDashboardNav && dashboardNavMenu.classList.contains('active')) {
-        closeDashboardMenu();
-    }
-});

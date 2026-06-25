@@ -33,17 +33,17 @@
                     <a href="./my-payments.html" class="stat-card metric-card surface-card">
                         <i class="fa-solid fa-receipt icon-badge"></i>
                         <span class="dashboard-stat">Payments</span>
-                        <strong><span id="no-payments" class="dashboard-stat-no">3</span> records</strong>
+                        <strong><span id="no-payments" class="dashboard-stat-no"></span> records</strong>
                     </a>
                     <a href="book" class="stat-card metric-card surface-card">
                         <i class="fa-solid fa-book icon-badge"></i>
                         <span class="dashboard-stat">Active bookings</span>
-                        <strong><span id="no-bookings" class="dashboard-stat-no">3</span> sessions</strong>
+                        <strong><span id="no-bookings" class="dashboard-stat-no"></span> sessions</strong>
                     </a>
                     <a href="review.html" class="stat-card metric-card surface-card">
                         <i class="fa-solid fa-star icon-badge"></i>
                         <span class="dashboard-stat">Reviews</span>
-                        <strong><span id="no-reviews" class="dashboard-stat-no">2</span> shared</strong>
+                        <strong><span id="no-reviews" class="dashboard-stat-no"></span> shared</strong>
                     </a>
                 </section>
                 <section class="dashboard-layout">
@@ -75,7 +75,15 @@
                 </section>
             </main>
         </div>
-        <div class="overlay"></div>   
+        <div class="overlay"></div>  
+        <div class="loading-state inactive">
+            <div class="loading">
+                <div class="loading-bar"></div>
+                <div class="logo">
+                        <img src="./assets/icons/tutor-logo.svg" alt="BrightMind logo">
+                </div>
+            </div>
+        </div>
         <script type="module" src="./js/components/dNavMenu.js"></script>
         <script type="module" src="./js/scripts/dashboard.js"></script>     
     </body>

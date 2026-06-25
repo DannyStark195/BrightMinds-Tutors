@@ -1,5 +1,7 @@
 import { editUserProfile, getUserProfile, uploadFile, changeProfileAvatar } from "../api/api.js";
 import { collectData, setupPasswordToggle, validatePhone} from "../utils/formHelpers.js";
+import { renderHeader } from "../components/dNavMenu.js";
+import { showLoading, hideLoading } from "../components/loadingState.js";
 
 // setupPasswordToggle('toggle-new-password', 'new-password', 'new-eye-icon');
 const profileAvatarImg = document.querySelector('#profile-avatar-img');
@@ -12,11 +14,8 @@ const profileForm = document.querySelector('#profile-form');
 const profileFields = document.querySelector('#profile-fields');
 const cancelChangesBtn = document.querySelector('.cancel-changes-btn')
 const passwordForm = document.querySelector('#password-form');
-
-
 const infoAccountStatus = document.querySelector('#info-account-status');
 const infoCurrentStatus = document.querySelector('#info-current-plan');
-
 const deleteAccountBtn = document.querySelector('#delete-account-btn');
 
 changeProfileAvatarBtn.addEventListener('click', () => {
@@ -26,9 +25,7 @@ let currentAvatarImgMeta = "";
 
 async function handleAvatarUpload(inputElement){
     console.log(currentAvatarImgMeta);
-    
     const file = inputElement.files[0];
-    // If the user opens the selector pane but hits 'Cancel' without choosing, exit out safely
     if (!file) return;
     const msg = document.querySelector('.msg.error.avatar-upload-error');
     msg.textContent = "";
@@ -37,10 +34,8 @@ async function handleAvatarUpload(inputElement){
     profileAvatarLoader.classList.remove('inactive');
     changeProfileAvatarBtn.disabled = true;
 
-
     try{
         console.log(file);
-        
         const selectedFileMeta = `${file.name}-${file.size}-${file.lastModified}`;
         console.log(selectedFileMeta)
         console.log('');
@@ -81,6 +76,7 @@ async function handleAvatarUpload(inputElement){
         changeProfileAvatarBtn.disabled = false;
         inputElement.value = "";
     }
+    await renderHeader();
 }
 
 profileAvatarInput.addEventListener('change', ()=>{
@@ -92,11 +88,9 @@ async function renderUserprofile(){
     profileName.textContent = userProfile.username
     profileAvatarImg.src = userProfile.profile_pic
     console.log(userProfile.profile_pic);
-
     profileAvatarImg.alt = `${userProfile.username} profile picture` || "user's profile picture"
     profileFields.innerHTML = `
         <label class="profile-field">
-
             <span>Full name</span>
             <input type="text" class="form-control" value="${userProfile.username}" name="username" required>
         </label>
@@ -104,15 +98,26 @@ async function renderUserprofile(){
             <span>Phone number</span>
             <input type="tel" class="form-control" value="${userProfile.phone || ''}" name="phone" required>
         </label>
-        
     `
-
     currentAvatarImgMeta = localStorage.getItem(`brightminds_currentAvatar_meta_${userProfile.username}`)
     console.log(currentAvatarImgMeta);
-
 }
 
-renderUserprofile()
+async function initPage() {
+    showLoading()
+    try {  
+        await renderHeader()
+        renderUserprofile()
+    } catch (error) {
+        console.log('Failed to load page data', 'error');
+        return
+    } finally {
+        hideLoading();
+    }
+}
+
+initPage()
+
 
 profileForm.addEventListener('submit', (e)=>{
     e.preventDefault()
@@ -137,9 +142,7 @@ async function handleProfileEdit() {
         msg.classList.remove('inactive');
         return 
     }
-
     renderUserprofile()
 }
-
 
 cancelChangesBtn.addEventListener('click', renderUserprofile)
