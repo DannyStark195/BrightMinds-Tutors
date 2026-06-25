@@ -102,6 +102,11 @@ if(bookingDetails.status !== 'renew' && bookingDetails.status==='active'){
     cancelCard.classList.remove('inactive')
 }
 
+if(bookingDetails.status === 'rejected'){
+    completedCard.classList.add('inactive')
+    cancelCard.classList.add('inactive')
+}
+
 if(bookingDetails.status === 'active'){
     firstSessionHeld.classList.remove('inactive')
 }
