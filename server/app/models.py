@@ -111,7 +111,7 @@ class TutorApplication(db.Model):
     __tablename__ = 'tutor_applications'
     
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
     teaching_experience = db.Column(db.Text, nullable=False)
     qualification = db.Column(db.String(150), nullable=False)
     experience_years = db.Column(db.Integer, nullable=False)
@@ -147,7 +147,7 @@ class TutorProfile(db.Model):
     __tablename__ = 'tutor_profiles'
     
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
     bio = db.Column(db.Text, nullable=True)
     profile_pic = db.Column(db.String(255), nullable=True, default='default_avatar.png')
     

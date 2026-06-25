@@ -49,7 +49,7 @@ if (proofInput && proofName) {
 	proofInput.addEventListener('change', (e) => {
 		const file = e.target.files && e.target.files[0];
 		if (file) {
-			proofName.textContent = truncateText(file.name, 20);
+			proofName.textContent = truncateText(file.name, 8);
 		} else {
 			proofName.textContent = 'No file chosen';
 		}
@@ -65,16 +65,13 @@ async function handleTutorApplication() {
 	let tutorData = collectData(tutorForm, {
 		'subjectsTaught': selectedSubjects
 	});
-	const tutorEmail = tutorData.tutorEmail;
-	const tutorPhone = tutorData.tutorPhone;
+
 	const tutorProof = tutorData.proofExperience;
 	console.log(tutorData);
-    const emailError = validateEmail(tutorEmail);
-	const validPhone= validatePhone(tutorPhone);
 	const fileError = validateFile(tutorProof);
-
-	const errorMesssage = document.querySelectorAll('.msg.error');
-	errorMesssage.forEach(errMsg => {
+	const submitBtn = tutorForm.querySelector('button');
+	const errorMessages = document.querySelectorAll('.msg.error');
+	errorMessages.forEach(errMsg => {
 		addInactive(errMsg);
 	});
 	if(!selectedSubjects.length){
@@ -83,19 +80,6 @@ async function handleTutorApplication() {
         removeInactive(errorMesssage);
         return
     }
-	if(emailError){
-		const errorMesssage = document.querySelector('.msg.error.email');
-        errorMesssage.textContent = emailError;
-        removeInactive(errorMesssage);
-        return
-    }
-	if(!validPhone){
-		const errorMesssage = document.querySelector('.msg.error.phone');
-		console.log(errorMesssage)
-		removeInactive(errorMesssage);
-		errorMesssage.textContent = 'This phone number is invalid';
-		return
-	}
 	if(fileError){
 		const errorMesssage = document.querySelector('.msg.error.file');
 		console.log(errorMesssage)
@@ -103,24 +87,29 @@ async function handleTutorApplication() {
 		errorMesssage.textContent = fileError;
 		return
 	}
+
+	submitBtn.textContent = "Loading..." 
+	submitBtn.disabled = true
 	let {valid, message, secure_url } = await uploadFile(tutorProof);
-			
-			if(!(valid && secure_url)){
-				console.log(message, secure_url)
-				
-			}
+	
+	if(!(valid && secure_url)){
+		console.log(message, secure_url)
+		const errorMesssage = document.querySelector('.msg.error.file');
+		
+		removeInactive(errorMesssage);
+		errorMesssage.textContent = message
+		return
+	}
 	tutorData = collectData(tutorForm, {
 		selectedSubjects,
 		secure_url
 	});
-	console.log(tutorData);
 	
 	({valid, message} = await createTutorApplication(tutorData));
-
+	submitBtn.disabled = false
+	submitBtn.textContent = "Submit application"
 	if(!valid){
 		const errorMesssage = document.querySelector('.msg.error.file');
-		successMessage.classList.remove('success');
-
 		removeInactive(errorMesssage);
 		errorMesssage.textContent = message
 		return

@@ -81,22 +81,7 @@
             <h2>Tell us how you teach</h2>
           </div>
           <form class="tutor-form">
-            <label for="tutor-name">
-              Full name
-              <input type="text" class="form-control" placeholder="Your full name" id="tutor-name" name="tutorName"
-                required />
-            </label>
-            <label for="tutor-email">
-              Email address
-              <input type="email" class="form-control" placeholder="you@example.com" id="tutor-email" name="tutorEmail"
-                required />
-              <p class="msg error email inactive"></p>
-            </label>
-            <label>
-              Phone number
-              <input type="tel" class="form-control" placeholder="+234" id="tutor-phone" name="tutorPhone" required />
-              <p class="msg error phone inactive"></p>
-            </label>
+            
             <label for="teaching-level">
               Level you teach
               <select class="form-control " id="teaching-level" name="teachingLevel" required>
@@ -106,36 +91,6 @@
                 <option value="uni">University</option>
               </select>
             </label>
-            <div class="tutor-subjects">
-              <p class="field-label">Subjects you can teach</p>
-              <div class="pill-row tutor-subject-options">
-                <label class="option-pill tutor-subject-option">
-                  Maths
-                  <input type="checkbox" name="tutorSubject" value="Mathematics" class="hidden-radio tutor-subject-btn">
-                </label>
-                <label class="option-pill tutor-subject-option">
-                  English
-                  <input type="checkbox" name="tutorSubject" value="English" class="hidden-radio tutor-subject-btn">
-                </label>
-                <label class="option-pill tutor-subject-option">
-                  Physics
-                  <input type="checkbox" name="tutorSubject" value="Physics" class="hidden-radio tutor-subject-btn">
-                </label>
-                <label class="option-pill tutor-subject-option">
-                  Chemistry
-                  <input type="checkbox" name="tutorSubject" value="Chemistry" class="hidden-radio tutor-subject-btn">
-                </label>
-                <label class="option-pill tutor-subject-option">
-                  Biology
-                  <input type="checkbox" name="tutorSubject" value="Biology" class="hidden-radio tutor-subject-btn">
-                </label>
-                <label class="option-pill tutor-subject-option">
-                  Computer Science
-                  <input type="checkbox" name="tutorSubject" value="Computer Science" class="hidden-radio tutor-subject-btn">
-                </label>
-              </div>
-              <p class="msg error subject inactive"></p>
-            </div>
             <label for="qualification">
               Qualification
               <select class="form-control" id="qualification" name="qualification" required>
@@ -167,6 +122,36 @@
               <input type="number" class="form-control" placeholder="e.g. 3" id="years-experience"
                 name="yearsExperience" min="0" step="1" required />
             </label>
+            <div class="tutor-subjects">
+              <p class="field-label">Subjects you can teach</p>
+              <div class="pill-row tutor-subject-options">
+                <label class="option-pill tutor-subject-option">
+                  Maths
+                  <input type="checkbox" name="tutorSubject" value="Mathematics" class="hidden-radio tutor-subject-btn">
+                </label>
+                <label class="option-pill tutor-subject-option">
+                  English
+                  <input type="checkbox" name="tutorSubject" value="English" class="hidden-radio tutor-subject-btn">
+                </label>
+                <label class="option-pill tutor-subject-option">
+                  Physics
+                  <input type="checkbox" name="tutorSubject" value="Physics" class="hidden-radio tutor-subject-btn">
+                </label>
+                <label class="option-pill tutor-subject-option">
+                  Chemistry
+                  <input type="checkbox" name="tutorSubject" value="Chemistry" class="hidden-radio tutor-subject-btn">
+                </label>
+                <label class="option-pill tutor-subject-option">
+                  Biology
+                  <input type="checkbox" name="tutorSubject" value="Biology" class="hidden-radio tutor-subject-btn">
+                </label>
+                <label class="option-pill tutor-subject-option">
+                  Computer Science
+                  <input type="checkbox" name="tutorSubject" value="Computer Science" class="hidden-radio tutor-subject-btn">
+                </label>
+              </div>
+              <p class="msg error subject inactive"></p>
+            </div>
             <label class="wide" for="teaching-experience">
               Teaching experience
               <textarea class="form-control"
