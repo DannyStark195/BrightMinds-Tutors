@@ -20,7 +20,13 @@ def create_app():
 
     app.config.from_object(Config)
     
-    CORS(app, resources={r"/api/*": {"origins": BASE_URL}})
+    CORS(app, resources={
+        r"/api/*": {
+            "origins": ["https://brightminds-tutors.vercel.app"],
+            "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+            "allow_headers": ["Content-Type", "Authorization"]
+        }
+    })
 
     db.init_app(app)
     migrate.init_app(app, db)
