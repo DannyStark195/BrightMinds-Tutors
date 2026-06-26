@@ -26,7 +26,7 @@ payments.forEach(payment => {
                     <span>${payment.payment_method}</span>
                 </div>
                 <div class="receipt-actions">
-                    <a href="receipt.html?reff=${payment.payment_ref}" class="cta-btn gold" id="view-receipt">
+                    <a href="receipt?reff=${payment.payment_ref}" class="cta-btn gold" id="view-receipt">
                         View receipt
                     </a>
                 </div>

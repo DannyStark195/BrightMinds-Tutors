@@ -45,7 +45,7 @@ async function initPage() {
                 <div class="step ${booking.status === 'active'||booking.status==='active'||booking.status==='completed'?'active':''}"><span>4</span><p>Active</p></div>
             `
             html += `
-                <a href="booking-details.html?reff=${booking.reference_code}" class="booking-card surface-card">
+                <a href="booking-details?reff=${booking.reference_code}" class="booking-card surface-card">
                     <div class="card-header">
                         <div>
                             <span class="card-subject">${booking.course.course_name}</span>
@@ -58,8 +58,8 @@ async function initPage() {
                     </div>
                     <div class="card-footer">
                         <span class="reference">${booking.reference_code}</span>
-                        ${booking.status === 'approved'?`<a href="make-payment.html?reff=${booking.reference_code}" class="cta-btn proceed-payment">Proceed to payment <i class="fa-solid fa-arrow-right"></i></a>`:''}
-                        ${booking.status === 'renew'?`<a href="make-payment.html?reff=${booking.reference_code}" class="cta-btn proceed-payment">Renew Booking<i class="fa-solid fa-arrow-right"></i></a>`:''}
+                        ${booking.status === 'approved'?`<a href="make-payment?reff=${booking.reference_code}" class="cta-btn proceed-payment">Proceed to payment <i class="fa-solid fa-arrow-right"></i></a>`:''}
+                        ${booking.status === 'renew'?`<a href="make-payment?reff=${booking.reference_code}" class="cta-btn proceed-payment">Renew Booking<i class="fa-solid fa-arrow-right"></i></a>`:''}
                         <span class="date">Submitted ${formatDate(booking.created_at)}</span>
                     </div>
                 </a>

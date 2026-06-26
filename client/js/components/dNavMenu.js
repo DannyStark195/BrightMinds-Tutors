@@ -25,7 +25,7 @@ export async function renderHeader(){
                                     </div>
                                     <div class="profile-info">
                                         <p class="profile-name">${userProfile.username}</p>
-                                        <a href="profile.html">
+                                        <a href="profile">
                                             My profile 
                                             <i class="fa-solid fa-arrow-right"></i>
                                         </a>
@@ -34,19 +34,19 @@ export async function renderHeader(){
                                 <div class="more-links d">
                                     <div class="link">
                                         <i class="fa-solid fa-book"></i>
-                                        <a href="book.html"><button class="">Book a tutor</button></a>
+                                        <a href="book"><button class="">Book a tutor</button></a>
                                     </div>
                                     <div class="link">
                                         <i class="fa-solid fa-receipt"></i>
-                                        <a href="./my-payments.html"><button class="">My payments</button></a>
+                                        <a href="./my-payments"><button class="">My payments</button></a>
                                     </div>
                                     <div class="link">
                                         <i class="fa-solid fa-star"></i>
-                                        <a href="review.html"><button class="">Review</button></a>
+                                        <a href="review"><button class="">Review</button></a>
                                     </div>
                                     <div class="link">
                                         <i class="fa-solid fa-graduation-cap"></i>
-                                        <a href="become-tutor.html"><button class="">Become a tutor</button></a>
+                                        <a href="become-tutor"><button class="">Become a tutor</button></a>
                                     </div>
                                     </div>
                                     <a class="logout-btn"><button type="submit" class="cta-btn gold">Log out</button></a>

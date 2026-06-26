@@ -73,13 +73,13 @@ if(bookingDetails.status === 'pending'){
 else if(bookingDetails.status === 'approved'){
     bookingStatusMessage.innerHTML= `
         Your request has been approved, please make your payment and activate your booking. When this booking reaches auto-renew, the plan will update and you can renew it directly.
-        <a href="make-payment.html?reff=${bookingDetails.reference_code}" class="cta-btn proceed-payment">Proceed to payment</a>
+        <a href="make-payment?reff=${bookingDetails.reference_code}" class="cta-btn proceed-payment">Proceed to payment</a>
         `
 }
 else if(bookingDetails.status === 'renew'){
     bookingStatusMessage.innerHTML= `
         Renew your plan to continue lessons!.
-        <a href="make-payment.html?reff=${bookingDetails.reference_code}" class="cta-btn proceed-payment">Renew Booking</a>
+        <a href="make-payment?reff=${bookingDetails.reference_code}" class="cta-btn proceed-payment">Renew Booking</a>
         `
 }
 else if(bookingDetails.status === 'active'){

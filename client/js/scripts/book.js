@@ -374,7 +374,7 @@ function displayBookingError(){
                 <h2 style="color: var(--Danger);">Error</h2>
                 <p style="color: var(--Danger);">There was an error during booking. We apologize for the inconvenience, please try again.</p>
                 <div class="hero-actions">
-                    <a href="book.html" class="cta-btn gold">
+                    <a href="book" class="cta-btn gold">
                         Back to booking
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
@@ -396,7 +396,7 @@ function displayPendingMessage(){
                 <h2>Pending</h2>
                 <p>Your request is being reviewed. You will get an approval in less than 24 hours</p>
                 <div class="hero-actions">
-                    <a href="dashboard.html" class="cta-btn gold">
+                    <a href="dashboard" class="cta-btn gold">
                         Back to dashboard
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>

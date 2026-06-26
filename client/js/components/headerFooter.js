@@ -14,8 +14,8 @@ headerHtml.innerHTML = `
                     <button class="open-login phone-active"><div></div>Log In</button>
 
                     <div class="more-links">
-                        <a href="become-tutor.html"><button><div></div>Become a tutor</button></a>
-                        <a href="pricing.html"><button><div></div>See Pricing</button></a>
+                        <a href="become-tutor"><button><div></div>Become a tutor</button></a>
+                        <a href="pricing"><button><div></div>See Pricing</button></a>
                         <div class="call-container">
                             <p>Prefer to speak with us?</p>
                             <a href="tel:+2348092812010" class="call-btn">
@@ -46,8 +46,8 @@ footerHtml.innerHTML = `
                         <ul>
                             <li><a href="./index" class="footer-link">Home</a></li>
                             <li><a href="./pricing" class="footer-link">Pricing</a></li>
-                            <li><a href="./terms-of-use.html" class="footer-link">Terms of Use</a></li>
-                            <li><a href="./privacy-policy.html" class="footer-link">Privacy Policy</a></li>
+                            <li><a href="./terms-of-use" class="footer-link">Terms of Use</a></li>
+                            <li><a href="./privacy-policy" class="footer-link">Privacy Policy</a></li>
                         </ul>
                     </div>
                     <div class="footer-right">

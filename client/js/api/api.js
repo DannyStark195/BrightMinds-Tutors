@@ -58,7 +58,7 @@ export async function testAPI(){
 
 async function Logout(){
     await localStorage.removeItem('brightminds_token');
-    window.location.replace('index.html?auth=required');
+    window.location.replace('index?auth=required');
 }
 
 

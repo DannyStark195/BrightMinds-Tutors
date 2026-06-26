@@ -134,7 +134,7 @@ function displayPaymentError(message){
                 <h2 style="color: var(--Danger);">Error</h2>
                 <p style="color: var(--Danger);">${message}</p>
                 <div class="hero-actions">
-                    <a href="dashboard.html" class="cta-btn gold">
+                    <a href="dashboard" class="cta-btn gold">
                         Back to dashboard
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
@@ -172,7 +172,7 @@ async function handleCardPayment(){
    if(!valid){
       displayPaymentError(message)
   }
-  viewReceiptBtn.href = `receipt.html?reff=${reference}`
+  viewReceiptBtn.href = `receipt?reff=${reference}`
   if(txRef) txRef.textContent = reference;
   setTimeout(()=>{
     displayPaymentSucess();
@@ -192,7 +192,7 @@ async function handlePaystackPayment() {
   const data = {payment_method: 'paystack', reference_code: paymentDetails.reference_code}
   const {valid,message, reference} = await makePayment(data);
   if(!valid) displayPaymentError(message)
-  viewReceiptBtn.href = `receipt.html?reff=${reference}`
+  viewReceiptBtn.href = `receipt?reff=${reference}`
   if(txRef) txRef.textContent = reference;
   setTimeout(()=> displayPaymentSucess(), 700);
 }
