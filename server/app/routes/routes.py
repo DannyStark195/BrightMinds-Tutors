@@ -48,7 +48,7 @@ def edit_profile():
     print(data)
     new_username = data.get('username')
     new_phone = data.get('phone')
-    new_bio = data.het('bio')
+    new_bio = data.get('bio')
     current_user_id = get_jwt_identity() 
     user = User.query.get(current_user_id)
     
