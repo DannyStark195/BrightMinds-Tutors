@@ -67,7 +67,7 @@ async function handleTutorApplication() {
 	});
 
 	const tutorProof = tutorData.proofExperience;
-	console.log(tutorData);
+	// console.log(tutorData);
 	const fileError = validateFile(tutorProof);
 	const submitBtn = tutorForm.querySelector('button');
 	const errorMessages = document.querySelectorAll('.msg.error');
@@ -82,7 +82,6 @@ async function handleTutorApplication() {
     }
 	if(fileError){
 		const errorMesssage = document.querySelector('.msg.error.file');
-		console.log(errorMesssage)
 		removeInactive(errorMesssage);
 		errorMesssage.textContent = fileError;
 		return
@@ -93,7 +92,7 @@ async function handleTutorApplication() {
 	let {valid, message, secure_url } = await uploadFile(tutorProof);
 	
 	if(!(valid && secure_url)){
-		console.log(message, secure_url)
+		// console.log(message, secure_url)
 		const errorMesssage = document.querySelector('.msg.error.file');
 		
 		removeInactive(errorMesssage);

@@ -24,24 +24,23 @@ const logoutBtn = document.querySelector('.logout-btn');
 
 showLoading()
 const admin = await getAdmin()
-console.log(admin)
+
 adminName.textContent = admin.username
 
 let bookings = await getBookings()
-console.log(bookings)
 
 let applications = await getTutorApplications()
-console.log(applications)
+
 let parentsAndBookings = await getParentsAndBookings();
-console.log(parentsAndBookings)
+
 let parents = parentsAndBookings.parents ? parentsAndBookings.parents : null;
-console.log(parents);
+
 
 let parentBookings = parentsAndBookings.bookings
 let students = await getStudents();
 
 let tutors = await getTutors();
-console.log(tutors)
+// console.log(tutors)
 
 hideLoading()
 pendingCount.textContent = Object.values(bookings).filter(booking => booking.status === 'pending').length;
@@ -106,7 +105,7 @@ function closePanel() {
 
 async function createTutorOptions(subject) {
     const tutors = await getTutorOptions(subject) || [];
-    console.log(tutors)
+    // console.log(tutors)
     return Object.values(tutors).map((tutor) => `<option data-tutor-assigned value="${tutor.tutor_id}">${tutor.tutor_name}</option>`).join('');
 }
 async function renderBookings() {
@@ -300,7 +299,7 @@ function renderAdminDecision(){
         const reasonField = parentBlock.querySelector('.reason-field');
         const textarea = parentBlock.querySelector('textarea');
         const msg = parentBlock.querySelector('.msg');
-        console.log(textarea, action);
+        // console.log(textarea, action);
         const assignedTutor = panelContent.querySelector('[data-assigned-tutor]')?.value || "";   
         console.log(assignedTutor)
         const rejectionReason = textarea.value;
@@ -347,7 +346,7 @@ function renderAdminDecision(){
 }
 
 function applicationPanelTemplate(application) {
-    console.log(application)
+    // console.log(application)
     return `
         <div class="panel-header">
             <p class="eyebrow">Tutor application</p>
@@ -432,14 +431,14 @@ document.addEventListener('click', async (event) => {
 
         bookings = await getBookings()
 
-        console.log(bookings[index])
+        // console.log(bookings[index])
         openPanel(await bookingPanelTemplate(bookings[index]));
     }
 
     if (type === 'application') {
         applications = await getTutorApplications()
         const index = reviewButton.dataset.index;
-        console.log(index)
+        // console.log(index)
 
         openPanel(applicationPanelTemplate(applications[index]));
     }
@@ -447,7 +446,7 @@ document.addEventListener('click', async (event) => {
     if(type === 'parent'){
         const parentRow = reviewButton.closest('.parent-row');
         const historyRow = parentRow.nextElementSibling;
-        console.log(historyRow)
+        // console.log(historyRow)
         if (historyRow?.classList.contains('parent-history-row')) {
             historyRow.classList.toggle('inactive');
         }

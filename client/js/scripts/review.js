@@ -54,8 +54,8 @@ const msg = reviewForm.querySelector('.msg.error');
 
 let bookingsForReview = await getBookingsForReview()
 let reviewedBookings = await getReviewedBookings()
-console.log(bookingsForReview)
-console.log(reviewedBookings)
+// console.log(bookingsForReview)
+// console.log(reviewedBookings)
 
 async function renderReviewedBookings(){
 const reviewList = document.querySelector('.review-list');
@@ -63,7 +63,7 @@ const reviewList = document.querySelector('.review-list');
         reviewedBookings.forEach(booking =>{
                 let starHtml = "";
                 const rating = booking.review.rating;
-                console.log(rating)
+                // console.log(rating)
                 for(let i = 0; i < rating; i++){
                         starHtml += '<i class="fa-solid fa-star"></i>'
                 }
@@ -112,12 +112,12 @@ renderUnReviewedBookings();
 
 function initStarPickers(){
 const ratings = document.querySelectorAll('.rating-btn');
-console.log(ratings);
+// console.log(ratings);
 let currentRating = 0;
 ratings.forEach(ratingBtn =>{
         ratingBtn.addEventListener('click', ()=>{
                 const rating = Number(ratingBtn.dataset.star);
-                console.log(rating);
+                // console.log(rating);
                 currentRating = rating;
                 ratings.forEach(ratingBtn =>{
                         const rating = Number(ratingBtn.dataset.star);
@@ -143,7 +143,7 @@ async function handleCreateReview(){
                 return
         }
         const data = collectData(reviewForm);
-        console.log(data)
+        // console.log(data)
         const {valid, message} = await createReview(data)
 
         if(!valid){

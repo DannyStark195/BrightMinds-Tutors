@@ -5,8 +5,8 @@ const reff = getQueryParamValue('reff')
 const receiptDetails = await getReceipt(reff);
 const receipt = document.querySelector('.receipt')
 const downloadBtn = document.querySelector('.download-btn')
-console.log(receiptDetails)
-console.log(receiptDetails.amount)
+// console.log(receiptDetails)
+// console.log(receiptDetails.amount)
 if(receipt){
     receipt.innerHTML = `
     <header class="header">

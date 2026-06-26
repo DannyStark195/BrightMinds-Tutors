@@ -1,4 +1,4 @@
-import {isAuthenticated, loginRequired} from '../auth/auth.js';
+import {isAuthenticated, loginRequired, logout} from '../auth/auth.js';
 import {calculateFileHash} from '../utils/helpers.js'
 
 
@@ -15,16 +15,16 @@ export async function signupUser(data){
             body: JSON.stringify(data)
         })
         const response = await request.json();
-        console.log(response);
+        // console.log(response);
         if(!request.ok){
             throw new Error(response.error || 'Signup failed');
         }
-        console.log(response.reg_token);
+        // console.log(response.reg_token);
         
         return {valid: true, registrationToken: response.reg_token}
     }
     catch(error){
-        console.log(error.message)
+        // console.log(error.message)
        return {valid: false, message:error.message};
     }
 }
@@ -38,14 +38,14 @@ export async function loginUser(user){
             body: JSON.stringify(user)
         })
         const response = await request.json();
-        console.log(response);
+        // console.log(response);
         if(!request.ok){
             throw new Error(response.error || 'Login failed');
         }
         return response
     }
     catch(error){
-        console.log(error.message)
+        // console.log(error.message)
        return null;
     }
 }
@@ -53,19 +53,14 @@ export async function loginUser(user){
 export async function testAPI(){
     const request = await fetch(`${BASE_URL}`)
     const response = request.json()
-    console.log(response);
+    // console.log(response);
 }
 
-async function Logout(){
-    await localStorage.removeItem('brightminds_token');
-    window.location.replace('index?auth=required');
-}
 
 
 export async function verifyOTPCode(data){
     const {email, code, registrationToken } = data
-    
-    console.log(data, registrationToken)
+    // console.log(data, registrationToken)
     try{
         const request = await fetch(`${BASE_URL}auth/verify-code` , {
                     method: 'POST',
@@ -108,7 +103,7 @@ export async function forgotPassword(data){
 export async function resetPassword(data){
     const {email, code, newPassword, registrationToken} = data
     
-    console.log(data)
+    // console.log(data)
     try{
         const request = await fetch(`${BASE_URL}auth/reset-password` , {
                     method: 'POST',
@@ -138,18 +133,18 @@ export async function getUserProfile(){
             }
         })
         const response = await request.json();
-        console.log(response);
+        // console.log(response);
         if(!request.ok){
-        console.log(request.status)
+        // console.log(request.status)
             if (request.status === 401) {
-                Logout(); // Clear data and boot them to login
+                logout(); // Clear data and boot them to login
             }
             throw new Error(response.error || 'Failed to fetch user profile');
         }
         return response.user
     }
     catch(error){
-        console.log(error.message)
+        // console.log(error.message)
        return null;
     }
 }
@@ -216,7 +211,7 @@ export async function uploadFile(file){
 
 export async function changeProfileAvatar(secure_url) {
     const token = localStorage.getItem('brightminds-user-token');
-    console.log(secure_url, typeof secure_url);
+    // console.log(secure_url, typeof secure_url);
     
     try {
         const response = await fetch(`${BASE_URL}upload-avatar`, {
@@ -256,14 +251,14 @@ export async function getBookingsForReview(){
         const response = await request.json()
         if(!request.ok){
             if (request.status === 401) {
-                Logout(); 
+                logout(); 
             }
                 throw new Error(response.error || 'Failed to fetch reviews')
             }
         return response.bookings_for_review
     }
     catch (error) {
-        console.log(error.message)
+        // console.log(error.message)
        return null;  
     }
 }
@@ -281,14 +276,14 @@ export async function getReviewedBookings(){
         const response = await request.json()
         if(!request.ok){
             if (request.status === 401) {
-                Logout(); 
+                logout(); 
             }
                 throw new Error(response.error || 'Failed to fetch reviews')
             }
         return response.reviewed_bookings
     }
     catch (error) {
-        console.log(error.message)
+        // console.log(error.message)
        return null;  
     }
 }
@@ -330,7 +325,7 @@ export async function getFeaturedTestimonials() {
 
         return response.testimonials
     } catch (error) {
-        console.error("Failed executing homepage testimonials fetch:", error);
+        // console.error("Failed executing homepage testimonials fetch:", error);
         return null
     }
 }
@@ -378,7 +373,7 @@ export async function getBookings() {
         return response.bookings
     }
     catch (error) {
-        console.log(error.message)
+        // console.log(error.message)
        return null;  
     }
 }
@@ -400,7 +395,7 @@ export async function getBookingDetails(reff) {
         return response.bookings
     }
     catch (error) {
-        console.log(error.message)
+        // console.log(error.message)
        return null;  
     }
 }
@@ -422,7 +417,7 @@ export async function getPaymentDetails(reff) {
         return response.payment_details
     }
     catch (error) {
-        console.log(error.message)
+        // console.log(error.message)
        return null;  
     }
 }
@@ -445,7 +440,7 @@ export async function  makePayment(data) {
         return {'valid': true, 'message': response.message, 'reference':response.payment_reference}
     }
     catch (error) {
-        console.log(error.message)
+        // console.log(error.message)
        return {'valid': false, 'message': error.message};  
     }
 }
@@ -468,7 +463,7 @@ export async function getPayments() {
         return response.payments
     }
     catch (error) {
-        console.log(error.message)
+        // console.log(error.message)
        return null;  
     }
 }
@@ -490,7 +485,7 @@ export async function getReceipt(ref) {
         return response.receipt
     }
     catch (error) {
-        console.log(error.message)
+        // console.log(error.message)
        return null;  
     }
 }
@@ -530,7 +525,7 @@ export async function downloadReceipt(payment_ref){
         
     }
     catch (error) {
-        console.log(error.message)
+        // console.log(error.message)
         return null;  
     }
 }
@@ -553,7 +548,7 @@ export async function toggleFirstSessionHeld(data){
         return response.first_session_held
     }
     catch (error) {
-        console.log(error.message)
+        // console.log(error.message)
        return error.message 
     }
 }

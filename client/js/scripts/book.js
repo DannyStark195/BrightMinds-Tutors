@@ -351,10 +351,10 @@ async function handleBooking() {
         selectedPhysicalAddress
     });
 
-    console.log(data);
+    // console.log(data);
     const {valid, message} = await createBooking(data);
     if(!valid){
-        console.log(message);
+        // console.log(message);
         booking.classList.add('inactive')
         displayBookingError();
         return

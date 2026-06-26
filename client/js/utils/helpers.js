@@ -21,7 +21,7 @@ export function addInactive(element){
 
 export function getHourOfDay(){
     const hour = new Date().getHours();
-    console.log(hour);
+    // console.log(hour);
 
     if(hour > 0 && hour < 12){
         return "morning";
@@ -81,7 +81,7 @@ export function formatDateTime(date){
 export function getQueryParamValue(key){
     const params = new URLSearchParams(window.location.search);
     const value = params.get(key)
-    console.log(value)
+    // console.log(value)
     if(value) return value
 }
 

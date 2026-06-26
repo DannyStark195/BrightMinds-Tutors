@@ -245,7 +245,7 @@ async function handleLogin(){
 const user = collectData(loginForm);
     const msg = loginFormContainer.querySelector('.msg.error');
     const submitBtn = loginForm.querySelector('button');
-    console.log(submitBtn);
+    // console.log(submitBtn);
     if(!submitBtn.type =="submit") return
     
     submitBtn.textContent = "Loading..." 
@@ -258,10 +258,10 @@ const user = collectData(loginForm);
         return
     }
     const loggedInUser = loginValid
-    console.log(loggedInUser)
+    // console.log(loggedInUser)
     // const fakeToken = 'blah20919';
     const token = loggedInUser.token
-    console.log(token);
+    // console.log(token);
     localStorage.setItem("brightminds-user-token", token);
     window.location.href = "dashboard";
 }
@@ -292,7 +292,7 @@ async function handleSignup(){
         return
     }
     const submitBtn = signupForm.querySelector('button');
-    console.log(submitBtn);
+    // console.log(submitBtn);
     if(!submitBtn.type =="submit") return
     
     submitBtn.textContent = "Loading..." 
@@ -303,7 +303,7 @@ async function handleSignup(){
     submitBtn.textContent = "Sign Up"
 
     if(!valid.valid){
-        console.log(valid.valid);
+        // console.log(valid.valid);
         
         msg.textContent = valid.message;
         // activateElement(msg);
@@ -321,13 +321,13 @@ verifyOtpForm.addEventListener('submit', async(e) =>{
 
 async function handleOtpVerification(){
     const data = collectData(verifyOtpForm, {'registrationToken' :registrationToken});
-    console.log(data);
+    // console.log(data);
     
     const msg = verifyOtpFormContainer.querySelector('.msg');
     msg.classList.remove('inactive');
     // msg.classList.add('success')
     const submitBtn = verifyOtpForm.querySelector('button');
-    console.log(submitBtn);
+    // console.log(submitBtn);
     if(!submitBtn.type =="submit") return
     
     submitBtn.textContent = "Loading..." 
@@ -335,8 +335,7 @@ async function handleOtpVerification(){
     const {valid, message} = await verifyOTPCode(data)
     submitBtn.disabled = false
     submitBtn.textContent = "Verify"
-
-    console.log(valid);
+    // console.log(valid);
     
     if(valid){
         msg.textContent = message
@@ -365,7 +364,7 @@ async function handleForgotPassword(){
     }
 
     const submitBtn = forgotPasswordForm.querySelector('button');
-    console.log(submitBtn);
+    // console.log(submitBtn);
     if(!submitBtn.type =="submit") return
     
     submitBtn.textContent = "Loading..." 
@@ -451,7 +450,7 @@ async function handleResetPassword(){
         return;
     }
     const submitBtn = signupForm.querySelector('button');
-    console.log(submitBtn);
+    // console.log(submitBtn);
     if(!submitBtn.type =="submit") return
     
     submitBtn.textContent = "Loading..." 

@@ -5,20 +5,17 @@ const overlay = document.querySelector('.dark-overlay');
 const loginFormContainer = overlay?.querySelector('.login-form-container');
 
 
-// document.addEventListener('DOMContentLoaded', ()=>{
-    const params = new URLSearchParams(window.location.search);
+const params = new URLSearchParams(window.location.search);
     if(params.get('auth') === 'required'){
         openForm(overlay, loginFormContainer);
     }
 
-// });
-// redirectIfLoggedIn()
 
 const testimonialList = document.querySelector('.testimonial-list');
 
 async function renderFeaturedTestimonals(){
     const testimonials = await getFeaturedTestimonials();
-    console.log(testimonials);
+    // console.log(testimonials);
     
     if(!testimonials || testimonials.length === 0 || testimonials.length < 3) return
     let html = ""

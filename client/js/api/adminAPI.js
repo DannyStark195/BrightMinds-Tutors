@@ -12,14 +12,14 @@ export async function loginUser(user){
             body: JSON.stringify(user)
         })
         const response = await request.json();
-        console.log(response);
+        // console.log(response);
         if(!request.ok){
             throw new Error(response.error || 'Login failed');
         }
         return response
     }
     catch(error){
-        console.log(error.message)
+        // console.log(error.message)
        return null;
     }
 }
@@ -35,9 +35,9 @@ export async function getAdmin(){
             }
         })
         const response = await request.json();
-        console.log(response);
+        // console.log(response);
         if(!request.ok){
-        console.log(request.status)
+        // console.log(request.status)
             if (request.status === 401) {
                 logoutAdmin(); // Clear data and boot them to login
             }
@@ -46,7 +46,7 @@ export async function getAdmin(){
         return response.admin
     }
     catch(error){
-        console.log(error.message)
+        // console.log(error.message)
        return null;
     }
 }
@@ -69,7 +69,7 @@ export async function getBookings() {
         return response.bookings
     }
     catch (error) {
-        console.log(error.message)
+        // console.log(error.message)
        return null;  
     }
 }
@@ -92,7 +92,7 @@ export async function getParentsAndBookings() {
         return response
     }
     catch (error) {
-        console.log(error.message)
+        // console.log(error.message)
        return null;  
     }
 }
@@ -115,7 +115,7 @@ export async function getStudents() {
         return response.students
     }
     catch (error) {
-        console.log(error.message)
+        // console.log(error.message)
        return null;  
     }
 }
@@ -138,7 +138,7 @@ export async function getTutors() {
         return response.tutors
     }
     catch (error) {
-        console.log(error.message)
+        // console.log(error.message)
        return null;  
     }
 }
@@ -161,7 +161,7 @@ export async function getTutorApplications() {
         return response.applications
     }
     catch (error) {
-        console.log(error.message)
+        // console.log(error.message)
        return null;  
     }
 }
@@ -184,14 +184,14 @@ export async function getTutorOptions(course) {
         return response.options
     }
     catch (error) {
-        console.log(error.message)
+        // console.log(error.message)
        return null;  
     }
 }
 
 export async function bookingDecision(ref, action, data){
     const token = localStorage.getItem('brightminds-admin-token');
-    console.log(`${BASE_URL}${ref}/${action}`)
+    // console.log(`${BASE_URL}${ref}/${action}`)
     try {
         const request = await fetch(`${BASE_URL}booking-decision/${ref}/${action}`, {
             method:'POST',

@@ -37,10 +37,7 @@ async function initPage() {
             getQueryParamValue('reff'),
         ]);
 
-        const bookingDetails = await getBookingDetails(reff)
-
-        console.log(userProfile)
-        console.log(bookingDetails);
+        const bookingDetails = await getBookingDetails(reff);
 
         bookingRef.textContent = bookingDetails.reference_code
         bookingStatusBadge.classList.add(bookingDetails.status)

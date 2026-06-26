@@ -15,9 +15,9 @@ async function handleAdminLogin(){
         }
 
         const loggedInUser = loginValid
-        console.log(loggedInUser)
+        // console.log(loggedInUser)
         const token = loggedInUser.token
-        console.log(token);
+        // console.log(token);
         localStorage.setItem("brightminds-admin-token", token);
         window.location.href = "admin.html";
 }

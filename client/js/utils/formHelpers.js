@@ -24,7 +24,7 @@ export function validatePassword(password) {
   return null; // null means no error, password is valid
 }
 export function validateFile(file) {
-  console.log(file, file.name);
+  // console.log(file, file.name);
   const fileName = file.name;
   if (!/\.(docs|docx|pdf|png|jpeg|jpg)$/i.test(fileName)) {
     return "Invalid document format";

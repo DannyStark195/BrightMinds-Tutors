@@ -24,7 +24,7 @@ changeProfileAvatarBtn.addEventListener('click', () => {
 let currentAvatarImgMeta = "";
 
 async function handleAvatarUpload(inputElement){
-    console.log(currentAvatarImgMeta);
+    // console.log(currentAvatarImgMeta);
     const file = inputElement.files[0];
     if (!file) return;
     const msg = document.querySelector('.msg.error.avatar-upload-error');
@@ -35,11 +35,11 @@ async function handleAvatarUpload(inputElement){
     changeProfileAvatarBtn.disabled = true;
 
     try{
-        console.log(file);
+        // console.log(file);
         const selectedFileMeta = `${file.name}-${file.size}-${file.lastModified}`;
-        console.log(selectedFileMeta)
+        // console.log(selectedFileMeta)
         console.log('');
-        console.log(currentAvatarImgMeta);
+        // console.log(currentAvatarImgMeta);
         
         if (selectedFileMeta === currentAvatarImgMeta) {
             return
@@ -47,7 +47,7 @@ async function handleAvatarUpload(inputElement){
         const {valid, message, secure_url } = await uploadFile(file);
         
         if(!(valid && secure_url)){
-            console.log(message)
+            // console.log(message)
             msg.textContent = message;
             // activateElement(msg);
             msg.classList.remove('inactive');
@@ -55,7 +55,7 @@ async function handleAvatarUpload(inputElement){
         }
         const avatarResponse = await changeProfileAvatar(secure_url);
         if(!(avatarResponse.valid && avatarResponse.profile_pic_url)){
-            console.log(avatarResponse.message);
+            // console.log(avatarResponse.message);
             msg.textContent = avatarResponse.message;
             // activateElement(msg);
             msg.classList.remove('inactive');
@@ -67,7 +67,7 @@ async function handleAvatarUpload(inputElement){
         const username = profileName.textContent
         localStorage.setItem(`brightminds_currentAvatar_meta_${username}`, currentAvatarImgMeta)
     }catch(error){
-        console.error(error);
+        // console.error(error);
         msg.textContent = "Avatar upload failed. Please try again.";
         msg.classList.remove('inactive');
     }finally{
@@ -87,7 +87,7 @@ async function renderUserprofile(){
     const userProfile = await getUserProfile();
     profileName.textContent = userProfile.username
     profileAvatarImg.src = userProfile.profile_pic
-    console.log(userProfile.profile_pic);
+    // console.log(userProfile.profile_pic);
     profileAvatarImg.alt = `${userProfile.username} profile picture` || "user's profile picture"
     profileFields.innerHTML = `
         <label class="profile-field">
@@ -104,7 +104,7 @@ async function renderUserprofile(){
         </label>
     `
     currentAvatarImgMeta = localStorage.getItem(`brightminds_currentAvatar_meta_${userProfile.username}`)
-    console.log(currentAvatarImgMeta);
+    // console.log(currentAvatarImgMeta);
 }
 
 async function initPage() {
@@ -130,7 +130,7 @@ profileForm.addEventListener('submit', (e)=>{
 
 async function handleProfileEdit() {
     const data = collectData(profileForm)
-    console.log(data);
+    // console.log(data);
     const msg = profileForm.querySelector('.msg.error');
     const phoneError = validatePhone(data.phone)
 

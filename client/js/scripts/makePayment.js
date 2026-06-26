@@ -5,7 +5,7 @@ import { getPaymentDetails, makePayment } from "../api/api.js";
 
 const reff = getQueryParamValue('reff');
 const paymentDetails = await getPaymentDetails(reff);
-console.log(paymentDetails)
+// console.log(paymentDetails)
 const paymentAmount = formatCurrency(paymentDetails.monthly_price)
 const paymentAmountHtml = document.querySelector('.amount');
 const bankTab = document.querySelector('#bank');
@@ -149,7 +149,7 @@ function displayPaymentError(message){
 // Card pay button
 const cardForm = document.querySelector('#card-form');
 const payBtn = document.querySelector('#pay-btn')
-console.log(cardForm)
+// console.log(cardForm)
 if(cardForm) {
   cardForm.addEventListener('submit', (e)=>{
       e.preventDefault()
