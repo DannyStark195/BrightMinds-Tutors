@@ -16,9 +16,11 @@ routes = Blueprint('routes',__name__)
 @routes.route('/')
 def index():
     return jsonify({"message": "Hello World!"})
+
 @routes.route('/health')
 def health():
-    return jsonify({'status': 'ok', 'message': 'BrightMinds API is live'})
+    return jsonify({'status': 'ok', 'message': 'BrightMinds API is live'}), 200
+
 @routes.route('/profile', methods=['GET'])
 @jwt_required()
 def get_profile():
