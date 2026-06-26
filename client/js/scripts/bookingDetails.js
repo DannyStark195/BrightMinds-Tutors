@@ -1,5 +1,6 @@
 import { getBookingDetails, getUserProfile, toggleFirstSessionHeld } from "../api/api.js";
 import { formatDate, formatCurrency, getQueryParamValue } from "../utils/helpers.js";
+import { showLoading, hideLoading } from "../components/loadingState.js";
 const bookingRef = document.querySelector('#booking-ref');
 const bookingStatusBadge = document.querySelector('#status-badge');
 const bookingTutorImg = document.querySelector('#booking-tutor-img');
