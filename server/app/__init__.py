@@ -11,7 +11,7 @@ jwt = JWTManager()
 mail = Mail()
 
 # BASE_URL = "http://127.0.0.1:5500"
-BASE_URL = "https://brightminds-tutors.vercel.app/"
+BASE_URL = "https://brightminds-tutors.vercel.app"
 
 def create_app():
     app = Flask(__name__)
