@@ -233,12 +233,25 @@ async function bookingPanelTemplate(booking) {
                 <div><dt>Subject</dt><dd>${booking.course.course_name}</dd></div>
                 <div><dt>Schedule</dt><dd>${booking.preferred_days}</dd></div>
                 <div><dt>Location</dt><dd>${booking.session_type}</dd></div>
+                ${booking.session_type === 'online' ? `
+                    <div>
+                        <dt>Meeting Link</dt>
+                        <dd>${booking.meeting_link || 'no meeting link'}</dd>
+                    </div>
+                ` : ''}
                 <div><dt>Start Date</dt><dd>${formatDate(booking.start_date)}</dd></div>
                 <div><dt>Status</dt><dd>${booking.status}</dd></div>
                 <div><dt>Notes/Message</dt><dd>${booking.notes || 'no message'}</dd></div>
             </dl>
         </section>
         <section class="panel-block">
+            ${(booking.session_type === 'online' && !booking.meeting_link) ? 
+            `<h3>Set Meeting Link</h3>
+            <label>
+                <input type="url" class="form-control" data-meeting-link placeholder="https://meet.google.com/...">
+            </label>`: ''
+            }
+
             <h3>Assign tutor</h3>
             <label>
                 Tutor filtered by subject
@@ -291,6 +304,7 @@ function renderAdminDecision(){
         const assignedTutor = panelContent.querySelector('[data-assigned-tutor]')?.value || "";   
         console.log(assignedTutor)
         const rejectionReason = textarea.value;
+        const meetingLink = panelContent.querySelector('[data-meeting-link]')?.value || "";
         let data = "";
 
         if (action === 'reject' && reasonField.classList.contains('inactive')) {
@@ -302,7 +316,7 @@ function renderAdminDecision(){
         if(action === 'reject' && !rejectionReason) return
 
         if(action === 'approve'){
-            data = assignedTutor
+            data = {assignedTutor, meetingLink}
         }
         if(action === 'reject'){
             data = rejectionReason

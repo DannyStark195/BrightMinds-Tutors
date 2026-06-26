@@ -149,14 +149,22 @@ def approveBooking(ref):
     
     if user.role != 'admin':
         return jsonify({'error': 'Unauthorized'}), 403
-    assigned_tutor = request.get_json()
-    print(assigned_tutor)
+    data = request.get_json()
+    assigned_tutor = data.get('assignedTutor')
+    print(data, assigned_tutor)
 
     if not assigned_tutor:
         return jsonify({'error': 'Please assign a tutor'}), 400
+
     try:
         booking = Booking.query.filter(Booking.reference_code == ref).first()
 
+        if booking.session_type == 'online':
+            meeting_link = data.get('meetingLink')
+            if not meeting_link:
+                return jsonify({'error': 'Please put a meeting link for online session type'}), 400
+
+            booking.meeting_link = meeting_link
         booking.status = 'approved'
         booking.tutor_id = assigned_tutor
         db.session.commit()

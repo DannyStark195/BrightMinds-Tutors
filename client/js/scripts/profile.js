@@ -98,6 +98,10 @@ async function renderUserprofile(){
             <span>Phone number</span>
             <input type="tel" class="form-control" value="${userProfile.phone || ''}" name="phone" required>
         </label>
+         <label class="profile-field">
+            <span>Bio</span>
+            <input type="tel" class="form-control" value="${userProfile.bio || ''}" name="bio">
+        </label>
     `
     currentAvatarImgMeta = localStorage.getItem(`brightminds_currentAvatar_meta_${userProfile.username}`)
     console.log(currentAvatarImgMeta);

@@ -5,7 +5,7 @@ from app import db
 from app.utils.uploader import upload_profile_image
 from app.utils.pricing_model import PRICING_MATRIX
 from app.utils.reference_generator import generate_reference_code, generate_payment_reference
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from io import BytesIO
@@ -26,6 +26,17 @@ def get_profile():
     if not user:
         return jsonify({'error': 'Your login session has expired. Please login again.'}), 400
     
+    due_bookings = Booking.query.filter(
+        Booking.parent_id == user.id,
+        Booking.status == 'active',
+        Booking.auto_renew == True,
+        Booking.next_billing_date <= date.today()
+    ).all()
+
+    for booking in due_bookings:
+        booking.status = 'renew'
+
+    db.session.commit()
     return jsonify({
         'user': user.to_dict()
     }), 200
@@ -33,11 +44,11 @@ def get_profile():
 @routes.route('/edit-profile', methods=['POST'])
 @jwt_required()
 def edit_profile():
-    data = request.get_json() or {}
+    data = request.get_json()
     print(data)
     new_username = data.get('username')
     new_phone = data.get('phone')
-    print(new_phone)
+    new_bio = data.het('bio')
     current_user_id = get_jwt_identity() 
     user = User.query.get(current_user_id)
     
@@ -46,7 +57,7 @@ def edit_profile():
 
     user.username = new_username
     user.phone = new_phone
-
+    user.bio = new_bio
     try:
         db.session.commit()
     
@@ -134,7 +145,6 @@ def get_bookings_for_review():
                 'tutor_name': tutor_name,
                 'status': booking.status
             })
-
         return jsonify({
             'success': True,
             'count': len(payload),
@@ -353,9 +363,6 @@ def create_booking():
     
     if student:
         student.age = int(student_age_str)
-
-        # try:
-        #     db.session.commit()
     if not student:
         try:
             student = Student(
@@ -363,7 +370,6 @@ def create_booking():
                 name=student_name,
                 age=int(student_age_str),
                 disabilities=disabilities if disabilities else None
-
             )
             db.session.add(student)
             db.session.flush() # Yields the student.id without committing transaction pipeline yet
@@ -538,6 +544,7 @@ def make_payment():
     try:
         
         booking.status = 'active'
+        booking.next_billing_date = datetime.utcnow() + timedelta(days=30)
         new_payment = Payment(
                       booking_id=booking.id,
                       reference= generate_payment_reference(payment_method),
