@@ -1,14 +1,37 @@
+from threading import Thread
+from flask import current_app
 from flask_mail import Message
-from app import mail # 🔑 Import the initialized mail instance from your app package
+from app import mail  # Import your initialized mail instance
+import socket
+
+def send_async_email(app, msg, target_email, verification_code):
+    """
+    Executes inside a background thread context. 
+    It will attempt to deliver the email but won't hold up the main client request loop.
+    """
+    # 🌟 Bind the active app context to this background thread
+    with app.app_context():
+        try:
+            # Prevent endless blocking by enforcing a 10-second connection timeout ceiling
+            socket.setdefaulttimeout(10.0)
+            mail.send(msg)
+            print(f"✅ Email delivered via background thread to {target_email}!")
+        except Exception as e:
+            print(f"❌ Flask-Mail Thread Failure: {str(e)}")
+            # Fallback log stays active inside your server logs for local testing references
+            print(f"Fallback verification code for {target_email}: {verification_code}")
 
 def send_verification_email(target_email, verification_code):
-    # 1. Create the Message wrapper
+    # 1. Capture the true native Flask app instance context proxy
+    app = current_app._get_current_object()
+
+    # 2. Create the Message wrapper
     msg = Message(
         subject="Verify Your BrightMinds Account",
         recipients=[target_email]
     )
     
-    # 2. Build out your layout copies
+    # 3. Build out your layout copies
     msg.body = f"Welcome! Your verification code is: {verification_code}"
     msg.html = f"""
     <html>
@@ -23,13 +46,10 @@ def send_verification_email(target_email, verification_code):
     </html>
     """
 
-    try:
-        # 3. Fire it off using the app's global mail configurations
-        mail.send(msg)
-        print(f"✅ Email delivered via Flask-Mail to {target_email}!")
-        return True
-    except Exception as e:
-        print(f"❌ Flask-Mail Failure: {str(e)}")
-        # Keeping our fallback log so your manual frontend tests never get locked out
-        print(f"Fallback verification code for {target_email}: {verification_code}")
-        return False
+    # 4. 🚀 SPIN UP SIDE-WORKER THREAD
+    # Passes the app context instance, email message entity, and fallback data parameters
+    Thread(target=send_async_email, args=(app, msg, target_email, verification_code)).start()
+
+    # 5. INSTANT COMPLETED SIGNAL
+    # We immediately return True so your auth signup route finishes processing instantly!
+    return True
