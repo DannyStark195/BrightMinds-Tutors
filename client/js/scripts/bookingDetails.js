@@ -125,7 +125,7 @@ async function initPage() {
         })
             
     } catch (error) {
-        console.log('Failed to load page data', 'error');
+        console.log(error.message);
         return
     } finally {
         hideLoading();
