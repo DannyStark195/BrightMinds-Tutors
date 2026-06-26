@@ -6,11 +6,11 @@ export function isAuthenticated(){
 
 export function loginRequired(){
     if(!isAuthenticated()){
-        window.location.replace('index.html?auth=required');
+        window.location.replace('index?auth=required');
     }
 }
 export function redirectIfLoggedIn(){
-    if(isAuthenticated()) window.location.replace('dashboard.html');
+    if(isAuthenticated()) window.location.replace('dashboard');
 }
 
 export function isAdminLoggedIn(){
@@ -19,16 +19,16 @@ export function isAdminLoggedIn(){
 }
 export function adminLoginRequired(){
     if(!isAdminLoggedIn()){
-        window.location.replace('admin-login.html');
+        window.location.replace('admin-login');
     }
 }
 
 export function logout(){
     localStorage.removeItem('brightminds-user-token');
-    window.location.replace('index.html')
+    window.location.replace('index')
 }
 
 export function logoutAdmin(){
     localStorage.removeItem('brightminds-admin-token');
-    window.location.replace('admin-login.html')
+    window.location.replace('admin-login')
 }
