@@ -32,11 +32,12 @@ async function initPage() {
     showLoading()
     
     try {
-        const [userProfile, reff, bookingDetails] = await Promise.all([
+        const [userProfile, reff] = await Promise.all([
             getUserProfile(),
             getQueryParamValue('reff'),
-            getBookingDetails(reff),
         ]);
+
+        const bookingDetails = await getBookingDetails(reff)
 
         console.log(userProfile)
         console.log(bookingDetails);
