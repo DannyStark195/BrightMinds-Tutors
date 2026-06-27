@@ -160,7 +160,7 @@ def approveBooking(ref):
     try:
         booking = Booking.query.filter(Booking.reference_code == ref).first()
 
-        if booking.session_type == 'online':
+        if booking.session_type == 'online' and not booking.meeting_link:
             meeting_link = data.get('meetingLink')
             if not meeting_link:
                 return jsonify({'error': 'Please put a meeting link for online session type'}), 400
@@ -168,14 +168,17 @@ def approveBooking(ref):
             booking.meeting_link = meeting_link
         booking.status = 'approved'
         booking.tutor_id = assigned_tutor
-        db.session.commit()
 
+        print("About to send email...")
         send_booking_confirmation_email(
             booking.parent.email, booking.parent.username, 
             booking.tutor_profile.user.username,
             booking.course.course_name,
             f"{booking.preferred_days}, {booking.time_window}"
             )
+        db.session.commit()
+
+        
         return jsonify({'message': f'This booking has been approved!'}), 200
 
     except Exception as e:
