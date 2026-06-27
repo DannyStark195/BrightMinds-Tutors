@@ -100,7 +100,7 @@ async function renderUserprofile(){
         </label>
          <label class="profile-field">
             <span>Bio</span>
-            <input type="tel" class="form-control" value="${userProfile.bio || ''}" name="bio">
+            <input type="text" class="form-control" value="${userProfile.bio || ''}" name="bio">
         </label>
     `
     currentAvatarImgMeta = localStorage.getItem(`brightminds_currentAvatar_meta_${userProfile.username}`)

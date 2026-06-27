@@ -205,7 +205,7 @@ async function renderTutors(){
     tutorGrid.innerHTML =  Object.values(tutors).map((tutor) => `
         <article class="admin-tutor-card surface-card">
             <div class="admin-tutor-card-profile-pic">
-                <img src="${tutor.profile_pic || './assets/images/tutors/emeka.jpg'}" alt="${tutor.tutor_name}">
+                <img src="${tutor.profile_pic || '.assets/images/avatars/default_avatar.png'}" alt="${tutor.tutor_name}">
             </div>
             <div>
                 <h2>${tutor.tutor_name}</h2>
