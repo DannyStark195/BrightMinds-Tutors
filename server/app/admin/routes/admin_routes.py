@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from io import BytesIO
-from email import send_booking_confirmation_email
+from app.utils.email import send_booking_confirmation_email
 
 
 admin_routes = Blueprint('admin_routes', __name__)
