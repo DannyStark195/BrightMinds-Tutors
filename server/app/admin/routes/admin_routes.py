@@ -168,6 +168,7 @@ def approveBooking(ref):
             booking.meeting_link = meeting_link
         booking.status = 'approved'
         booking.tutor_id = assigned_tutor
+        db.session.commit()
 
         print("About to send email...")
         send_booking_confirmation_email(
@@ -176,7 +177,6 @@ def approveBooking(ref):
             booking.course.course_name,
             f"{booking.preferred_days}, {booking.time_window}"
             )
-        db.session.commit()
 
         
         return jsonify({'message': f'This booking has been approved!'}), 200
