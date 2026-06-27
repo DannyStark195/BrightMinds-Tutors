@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from io import BytesIO
+from email import send_booking_confirmation_email
 
 
 admin_routes = Blueprint('admin_routes', __name__)
@@ -168,6 +169,13 @@ def approveBooking(ref):
         booking.status = 'approved'
         booking.tutor_id = assigned_tutor
         db.session.commit()
+
+        send_booking_confirmation_email(
+            booking.parent.email, booking.parent.username, 
+            booking.tutor_profile.user.username,
+            booking.course.course_name,
+            f"{booking.preferred_days}, {booking.time_window}"
+            )
         return jsonify({'message': f'This booking has been approved!'}), 200
 
     except Exception as e:
