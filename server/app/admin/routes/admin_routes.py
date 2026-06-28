@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, redirect, request, url_for, current_app, jsonify, send_file
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
-from app.models import User, Booking, Review, Course, Student, Payment, TutorApplication, TutorProfile
+from app.models import User, Booking, Review, Course, Student, Payment, TutorApplication, TutorProfile, PushSubscription
 from app import db
 # from app.utils.uploader import upload_profile_image
 from app.utils.pricing_model import PRICING_MATRIX
-# from app.utils.reference_generator import generate_reference_code, generate_payment_reference
+from app.utils.push import send_push_notification
 from datetime import datetime, timedelta
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
@@ -170,6 +170,7 @@ def approveBooking(ref):
         booking.tutor_id = assigned_tutor
         db.session.commit()
 
+        #Send email notification
         print("About to send email...")
         send_booking_confirmation_email(
             booking.parent.email, booking.parent.username, 
@@ -177,6 +178,13 @@ def approveBooking(ref):
             booking.course.course_name,
             f"{booking.preferred_days}, {booking.time_window}"
             )
+
+        #Send web notification
+        send_push_notification(
+            user_id=booking.parent_id,
+            title="Booking Confirmed ✅",
+            body=f"Your booking has been approved. Log in to complete your payment."
+        )
 
         
         return jsonify({'message': f'This booking has been approved!'}), 200
@@ -228,6 +236,13 @@ def approveTutorApplication(id):
             tutorApplication.rejection_reason = None
 
         db.session.commit()
+
+        send_push_notification(
+        user_id=tutorApplication.user_id,
+        title="Application Approved 🎉",
+        body="""Congratulations! Your tutor application has been approved.
+                Check your email for more information!!"""
+    )
         return jsonify({'message': f'This tutor application has been approved!'}), 200
     except Exception as e:
         print(e)
@@ -255,6 +270,12 @@ def rejectTutorApplication(id):
         tutorApplication.status = 'rejected'
         tutorApplication.rejection_reason = rejection_reason
         db.session.commit()
+
+        send_push_notification(
+        user_id=tutorApplication.user_id,
+        title="Application Update",
+        body="Your tutor application was unsuccessful. Please check your email for details."
+    )
         return jsonify({'message': f'This tutor application has been rejected!'}), 200
     except Exception as e:
         print(e)

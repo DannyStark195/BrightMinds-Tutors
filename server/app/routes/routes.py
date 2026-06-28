@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, request, url_for, current_app, jsonify, send_file
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
-from app.models import User, Booking, Review, Course, Student, Payment, TutorApplication
+from app.models import User, Booking, Review, Course, Student, Payment, TutorApplication, PushSubscription
 from app import db
 from app.utils.uploader import upload_profile_image
 from app.utils.pricing_model import PRICING_MATRIX
@@ -686,6 +686,14 @@ def toggle_first_session_held():
 @jwt_required()
 def submit_tutor_application():
     current_user_id = get_jwt_identity()
+    try:
+        authenticated_user_id = int(current_user_id)
+    except (ValueError, TypeError):
+        return jsonify({'error': 'Invalid user identity token format.'}), 401
+    
+    user = User.query.get(authenticated_user_id)
+    if not user:
+        return jsonify({'error': 'This account does not exist'}), 400
     
     existing = TutorApplication.query.filter_by(
         user_id=current_user_id
@@ -733,3 +741,38 @@ def submit_tutor_application():
     except Exception as e:
         print(e)
         return jsonify({'error': 'Failed to submit application'}), 500
+
+@routes.route('/notifications/subscribe', methods=['POST'])
+@jwt_required()
+def subscribe():
+    current_user_id = get_jwt_identity()
+    data = request.get_json()
+    try:
+        authenticated_user_id = int(current_user_id)
+    except (ValueError, TypeError):
+        return jsonify({'error': 'Invalid user identity token format.'}), 401
+    
+    user = User.query.get(authenticated_user_id)
+    if not user:
+        return jsonify({'error': 'This account does not exist'}), 400
+    subscription_json = str(data)
+    
+    # avoid duplicate subscriptions for same user/device
+    existing = PushSubscription.query.filter_by(
+        user_id=user.id,
+        subscription_json=subscription_json
+    ).first()
+    
+    if not existing:
+        sub = PushSubscription(
+            user_id=user.id,
+            subscription_json=subscription_json
+        )
+        try:
+            db.session.add(sub)
+            db.session.commit()
+    
+            return jsonify({"message": "Subscribed successfully"}), 201
+        except Exception as e:
+            print(e)
+            return jsonify({'error': 'Failed to save subscription'}), 500
