@@ -1,3 +1,4 @@
+import {urlBase64ToUint8Array} from './utils/helpers.js';
 const PUBLIC_VAPID_KEY = '<cryptography.hazmat.bindings._rust.openssl.ec.ECPublicKey object at 0x7f73cf2b35b0>'; // we'll fill this in a moment
 
 export async function subscribeUserToPush() {
@@ -16,7 +17,7 @@ export async function subscribeUserToPush() {
 
     const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: PUBLIC_VAPID_KEY
+        applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
     });
 
     // Send subscription to your backend
