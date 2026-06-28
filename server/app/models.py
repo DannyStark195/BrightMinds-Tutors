@@ -297,9 +297,8 @@ class Payment(db.Model):
     amount = db.Column(db.Numeric(10, 2), nullable=False)
     status = db.Column(db.String(20), default='pending')               # paid, refunded
     payment_method = db.Column(db.String(50), nullable=True)           # card, bank_transfer, ussd
-    
     paid_at = db.Column(db.DateTime, default=datetime.utcnow)
-    # created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
     
     booking = db.relationship('Booking', backref=db.backref('payments', lazy=True))
 
@@ -321,3 +320,14 @@ class Payment(db.Model):
             'hours_per_session': float(self.booking.hours_per_session),
             'booking_status': self.booking.status
         }
+
+class PushSubscription(db.Model):
+    __tablename__ = 'push_subscriptions'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
+    subscription_json = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    user = db.relationship('User', foreign_keys=[user_id], backref=db.backref('push_subscriptions', lazy=True))
+
+    
