@@ -1,7 +1,7 @@
 import { activateElement, addInactive, deactivateElement, removeInactive } from "../utils/helpers.js";
 import { collectData, validatePhone } from "../utils/formHelpers.js";
 import { createBooking } from "../api/api.js";
-
+import subscribeUserToPush from "../push.js";
 const booking= document.querySelector('#booking');
 const bookingForm = document.querySelector('.booking-form');
 const backBtn = bookingForm.querySelector('.back-btn');
@@ -361,6 +361,7 @@ async function handleBooking() {
     }
     booking.classList.add('inactive')
     displayPendingMessage();
+    subscribeUserToPush();
 }
 
 const alert = document.querySelector('.alert');

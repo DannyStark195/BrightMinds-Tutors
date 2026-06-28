@@ -1,6 +1,6 @@
 const PUBLIC_VAPID_KEY = '<cryptography.hazmat.bindings._rust.openssl.ec.ECPublicKey object at 0x7f73cf2b35b0>'; // we'll fill this in a moment
 
-async function subscribeUserToPush() {
+export async function subscribeUserToPush() {
     if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
         console.log('Push not supported in this browser');
         return;
