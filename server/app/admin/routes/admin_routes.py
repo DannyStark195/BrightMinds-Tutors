@@ -178,7 +178,8 @@ def approveBooking(ref):
             booking.course.course_name,
             f"{booking.preferred_days}, {booking.time_window}"
             )
-
+        
+        print(booking.parent_id)
         #Send web notification
         send_push_notification(
             user_id=booking.parent_id,
