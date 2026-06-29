@@ -224,7 +224,7 @@ def rejectBooking(ref):
             title="Booking Rejected ❗",
             body=f"Your booking has been rejected. Please log in to view rejection reasons."
         )
-        return jsonify({'message': f'This booking has been rejeced!'}), 200
+        return jsonify({'message': f'This booking has been rejected!'}), 200
     except Exception as e:
         print(e)
         return jsonify({'error': 'Failed to change booking status.'}), 500
