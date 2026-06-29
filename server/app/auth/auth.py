@@ -14,7 +14,7 @@ google_bp = make_google_blueprint(
     client_id=os.environ.get('GOOGLE_CLIENT_ID'),
     client_secret=os.environ.get('GOOGLE_CLIENT_SECRET'),
     scope=["openid", "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"],
-    redirect_url="/auth/google/callback"
+    redirect_url="/api/auth/google/callback"
 )
 
 auth = Blueprint('auth',__name__)
@@ -239,7 +239,7 @@ def reset_password():
     
     
 #Oauth
-@auth.route('/auth/google/callback')
+@auth.route('/google/callback')
 def google_callback():
     if not google.authorized:
         return redirect(url_for('google.login'))
@@ -267,8 +267,11 @@ def google_callback():
         db.session.commit()
 
     # Generate JWT
-    token = create_access_token(identity=user.id)
+    token = create_access_token(
+        identity=str(user.id),
+        additional_claims={"role": user.role}
+    )
     
     # Redirect to frontend with token
     frontend_url = os.environ.get('FRONTEND_URL', 'https://brightminds-tutors.vercel.app')
-    return redirect(f"{frontend_url}/dashboard.html?token={token}&role={user.role}")
+    return redirect(f"{frontend_url}/dashboard.html?token={token}")
