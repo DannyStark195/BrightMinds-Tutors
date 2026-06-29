@@ -289,6 +289,8 @@ async function bookingPanelTemplate(booking) {
 function renderAdminDecision(){
     panelContent.addEventListener('click', async(e) =>{
         const btn = e.target.closest('.cta-btn');
+        btn.disabled = true;
+        btn.textContent = "Processing..."
         if (!btn) return;
 
         const panelType = btn.dataset.type;
@@ -341,6 +343,14 @@ function renderAdminDecision(){
                 }
             msg.classList.add('success');
             await renderApplications()
+
+            btn.disabled = false;
+            if(action === 'approve'){
+                btn.textContent = "Approve"
+            }
+            if(action === 'reject'){
+                btn.textContent = "Reject"
+            }
         }
     });
 }
