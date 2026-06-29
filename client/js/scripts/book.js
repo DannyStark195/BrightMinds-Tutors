@@ -361,7 +361,7 @@ async function handleBooking() {
     }
     booking.classList.add('inactive')
     displayPendingMessage();
-    subscribeUserToPush();
+    await subscribeUserToPush();
 }
 
 const alert = document.querySelector('.alert');
