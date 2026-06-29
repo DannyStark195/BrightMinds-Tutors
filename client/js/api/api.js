@@ -2,7 +2,7 @@ import {isAuthenticated, loginRequired, logout} from '../auth/auth.js';
 import {calculateFileHash} from '../utils/helpers.js'
 
 
-const BASE_URL = "https://brightminds-tutors.onrender.com/api/"
+export const BASE_URL = "https://brightminds-tutors.onrender.com/api/"
 // const BASE_URL = "http://127.0.0.1:5000/api/"
 
 export async function signupUser(data){
