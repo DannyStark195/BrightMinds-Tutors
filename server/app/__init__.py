@@ -37,8 +37,10 @@ def create_app():
     from .routes.routes import routes
     app.register_blueprint(routes, url_prefix='/api')
 
-    from .auth.auth import auth
+    from .auth.auth import auth, google_bp
     app.register_blueprint(auth, url_prefix='/api/auth')
+    app.register_blueprint(google_bp, url_prefix='/api/auth')
+
 
     from .admin.routes.admin_routes import admin_routes
     app.register_blueprint(admin_routes, url_prefix='/api/admin')
@@ -46,4 +48,5 @@ def create_app():
     from .admin.auth.admin_auth import admin_auth
     app.register_blueprint(admin_auth, url_prefix='/api/admin/auth')
 
+    
     return app

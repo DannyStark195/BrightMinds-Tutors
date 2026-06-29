@@ -1,15 +1,23 @@
 from flask import Blueprint, render_template, redirect, request, url_for, current_app, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, decode_token
+from flask_dance.contrib.google import make_google_blueprint, google
 from app.models import User
 from app import db
 from app.utils.email import send_verification_email
 import random
 from datetime import datetime, timedelta, timezone
+import os
 
+
+google_bp = make_google_blueprint(
+    client_id=os.environ.get('GOOGLE_CLIENT_ID'),
+    client_secret=os.environ.get('GOOGLE_CLIENT_SECRET'),
+    scope=["openid", "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"],
+    redirect_url="/auth/google/callback"
+)
 
 auth = Blueprint('auth',__name__)
-
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -230,3 +238,37 @@ def reset_password():
         return jsonify({'error': 'Your verification session has expired. Please sign up again.'}), 400
     
     
+#Oauth
+@auth.route('/auth/google/callback')
+def google_callback():
+    if not google.authorized:
+        return redirect(url_for('google.login'))
+    
+    resp = google.get("/oauth2/v2/userinfo")
+    if not resp.ok:
+        return jsonify({'error': 'Failed to fetch user info from Google'}), 400
+    
+    info = resp.json()
+    email = info['email']
+    name = info.get('name', email.split('@')[0])
+
+    # Check if user exists
+    user = User.query.filter_by(email=email).first()
+    
+    if not user:
+        # Create new account
+        user = User(
+            email=email,
+            username=name,
+            role='parent',
+            password_hash= generate_password_hash("blah@ihc#1", method='pbkdf2:sha256'), # random password
+        )
+        db.session.add(user)
+        db.session.commit()
+
+    # Generate JWT
+    token = create_access_token(identity=user.id)
+    
+    # Redirect to frontend with token
+    frontend_url = os.environ.get('FRONTEND_URL', 'https://brightminds-tutors.vercel.app')
+    return redirect(f"{frontend_url}/dashboard.html?token={token}&role={user.role}")

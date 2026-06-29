@@ -12,6 +12,14 @@ const paymentStatusDescription = document.querySelector('#payment-status-desc');
 const paymentStatusBalance = document.querySelector('#payment-status-balance');
 const bookingList = document.querySelector('.booking-list');
 
+const params = new URLSearchParams(window.location.search);
+const token = params.get('token');
+
+if (token) {
+    localStorage.setItem('brightminds-token', token);
+    // clean the URL so token isn't visible
+    window.history.replaceState({}, document.title, window.location.pathname);
+}
 
 async function initPage() {
     showLoading()
