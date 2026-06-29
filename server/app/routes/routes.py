@@ -763,16 +763,18 @@ def subscribe():
         subscription_json=subscription_json
     ).first()
     
-    if not existing:
-        sub = PushSubscription(
+    if existing:
+        return jsonify({"message": "Already Subscribed!"}), 201
+    
+    sub = PushSubscription(
             user_id=user.id,
             subscription_json=subscription_json
         )
-        try:
+    try:
             db.session.add(sub)
             db.session.commit()
     
             return jsonify({"message": "Subscribed successfully"}), 201
-        except Exception as e:
+    except Exception as e:
             print(e)
             return jsonify({'error': 'Failed to save subscription'}), 500
