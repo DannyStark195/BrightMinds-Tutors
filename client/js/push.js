@@ -1,5 +1,5 @@
 import {urlBase64ToUint8Array} from './utils/helpers.js';
-const PUBLIC_VAPID_KEY = '<cryptography.hazmat.bindings._rust.openssl.ec.ECPublicKey object at 0x7f73cf2b35b0>'; // we'll fill this in a moment
+const PUBLIC_VAPID_KEY = 'BARhvkQPQpADSiSjYpth7wpcYJETGfMXLMVj_rpp-6FAI1RcIU7-Y2nVdO4jHqVEB4WPfFZfrbCfBG4d-gd5jTE'; // we'll fill this in a moment
 
 export async function subscribeUserToPush() {
     if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
