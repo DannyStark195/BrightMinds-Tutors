@@ -1,5 +1,5 @@
 import { collectData, validateEmail, validatePassword, setupPasswordToggle } from "../utils/formHelpers.js";
-import { loginUser, signupUser, verifyOTPCode, forgotPassword, resetPassword } from "../api/api.js";
+import { loginUser, signupUser, verifyOTPCode, forgotPassword, resetPassword, BASE_URL } from "../api/api.js";
 const overlay = document.querySelector('.dark-overlay');
 overlay.innerHTML =  `
      <div class="form-container">
@@ -27,13 +27,13 @@ overlay.innerHTML =  `
                                 <p class="msg error inactive"></p>
                                 <button type="submit" class="cta-btn gold">Sign Up</button>
                                 <div>or</div>
-                                <button class="oauth-btn">
+                                <button class="oauth-btn google-btn">
                                     <div>
                                         <img src="./assets/icons/google.svg" alt="google icon">
                                         Sign up with Google
                                     </div>
                                 </button>
-                                <button class="oauth-btn">
+                                <button class="oauth-btn facebook-btn">
                                     <div>
                                         <img src="./assets/icons/facebook.svg" alt="facebook icon">
                                         Sign up with Facebook
@@ -66,13 +66,13 @@ overlay.innerHTML =  `
                                 <p class="msg error inactive">The email or password you have entered is incorrect.</p>
                                 <button type="submit" class="cta-btn gold">Login</button>
                                 <div>or</div>
-                                <button class="oauth-btn">
+                                <button class="oauth-btn google-btn">
                                     <div>
                                         <img src="./assets/icons/google.svg" alt="google icon">
                                         Log in with Google
                                     </div>
                                 </button>
-                                <button class="oauth-btn">
+                                <button class="oauth-btn facebook-btn">
                                     <div>
                                         <img src="./assets/icons/facebook.svg" alt="facebook icon">
                                         Log in with Facebook
@@ -153,14 +153,13 @@ const loginFormContainer = overlay?.querySelector('.login-form-container');
 const verifyOtpFormContainer = overlay?.querySelector('.verify-otp-form-container');
 const forgotPasswordFormContainer = overlay?.querySelector('.forgot-password-form-container');
 const resetPasswordFormContainer = overlay?.querySelector('.reset-password-form-container');
-
 const loginForm = overlay?.querySelector('.login-form');
 const signupForm = overlay?.querySelector('.signup-form');
 const verifyOtpForm = overlay?.querySelector('.verify-otp-form');
 const forgotPasswordForm = overlay?.querySelector('.forgot-password-form');
 const resetPasswordForm = overlay?.querySelector('.reset-password-form');
-
 const signupPassword = document.querySelector('#signup-password');
+
 
 signupPassword.addEventListener('input', (e) =>{
     const password = e.target.value
@@ -471,3 +470,24 @@ async function handleResetPassword(){
         msg.classList.remove('inactive');
     }
 }
+
+
+const googleBtns = overlay.querySelectorAll('.google-btn');
+googleBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        btn.disabled = true;
+        btn.innerHTML = "Redirecting..."
+        window.location.href = `${BASE_URL}auth/google/login`;
+        btn.disabled = false;
+        btn.innerHTML = ` <img src="./assets/icons/google.svg" alt="google icon">
+                             Log in with Google
+                            `;
+    });
+});
+
+const facebookBtns = overlay.querySelectorAll('.facebook-btn');
+facebookBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        window.location.href = "/auth/facebook";
+    });
+});
