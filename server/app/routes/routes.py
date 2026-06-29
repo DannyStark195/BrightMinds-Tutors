@@ -9,7 +9,7 @@ from datetime import datetime, timedelta, date
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from io import BytesIO
-
+import json
 
 routes = Blueprint('routes',__name__)
 
@@ -755,7 +755,7 @@ def subscribe():
     user = User.query.get(authenticated_user_id)
     if not user:
         return jsonify({'error': 'This account does not exist'}), 400
-    subscription_json = str(data)
+    subscription_json = json.dumps(data)
     
     # avoid duplicate subscriptions for same user/device
     existing = PushSubscription.query.filter_by(
