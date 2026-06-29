@@ -19,7 +19,6 @@ def create_app():
     from config import Config
 
     app.config.from_object(Config)
-    
     CORS(app, resources={
         r"/api/*": {
             "origins": ["https://brightminds-tutors.vercel.app"],

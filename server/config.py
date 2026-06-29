@@ -20,5 +20,8 @@ class Config:
     MAIL_PASSWORD = os.environ.get('EMAIL_PASS')
     MAIL_DEFAULT_SENDER = os.environ.get('EMAIL_USER')
 
+ 
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+
 config = Config()
 # print(config.SQLALCHEMY_DATABASE_URI)
