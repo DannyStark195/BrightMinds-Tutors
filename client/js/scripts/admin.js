@@ -343,15 +343,14 @@ function renderAdminDecision(){
                     return
                 }
             msg.classList.add('success');
-
-            btn.disabled = false;
-            if(action === 'approve'){
-                btn.textContent = "Approve"
-            }
-            if(action === 'reject'){
-                btn.textContent = "Reject"
-            }
             await renderApplications()
+        }
+        btn.disabled = false;
+        if(action === 'approve'){
+            btn.textContent = "Approve"
+        }
+        if(action === 'reject'){
+            btn.textContent = "Reject"
         }
     });
 }
