@@ -9,6 +9,9 @@ VAPID_CLAIM_EMAIL = os.environ.get('VAPID_CLAIM_EMAIL')
 def send_push_notification(user_id, title, body):
     subscriptions = PushSubscription.query.filter_by(user_id=user_id).all()
     print("VAPID KEY:", os.environ.get('VAPID_PRIVATE_KEY'))
+    print(subscriptions)
+    print(f"VAPID_PRIVATE_KEY: {VAPID_PRIVATE_KEY}")
+    print(f"VAPID_CLAIM_EMAIL: {VAPID_CLAIM_EMAIL}")
     for sub in subscriptions:
         try:
             webpush(
