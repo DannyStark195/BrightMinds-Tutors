@@ -1,7 +1,7 @@
 import { getAdmin, getBookings, getParentsAndBookings, getStudents, getTutors, getTutorApplications, bookingDecision, tutorApplicationDecision, getTutorOptions } from "../api/adminAPI.js";
 import { formatDate } from "../utils/helpers.js";
 import { showLoading, hideLoading } from "../components/loadingState.js";
-import { logoutAdmin } from "../auth/auth.js";
+import { logoutAdmin, adminLoginRequired } from "../auth/auth.js";
 const navButtons = document.querySelectorAll('.admin-nav-link');
 const pendingCount = document.querySelector('.pending-count');
 const sections = document.querySelectorAll('.admin-section');
@@ -21,7 +21,7 @@ const closeAdminNavBtn = document.querySelector('.admin-close-nav-btn');
 const adminName = document.querySelector('.admin-name');
 const logoutBtn = document.querySelector('.logout-btn');
 
-
+adminLoginRequired()
 showLoading()
 const admin = await getAdmin()
 
