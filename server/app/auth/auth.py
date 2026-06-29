@@ -274,4 +274,4 @@ def google_callback():
     
     # Redirect to frontend with token
     frontend_url = os.environ.get('FRONTEND_URL', 'https://brightminds-tutors.vercel.app')
-    return redirect(f"{frontend_url}/dashboard.html?token={token}")
+    return redirect(f"{frontend_url}/dashboard?token={token}")

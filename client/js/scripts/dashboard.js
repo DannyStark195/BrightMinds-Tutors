@@ -16,7 +16,7 @@ const params = new URLSearchParams(window.location.search);
 const token = params.get('token');
 
 if (token) {
-    localStorage.setItem('brightminds-token', token);
+    localStorage.setItem('brightminds-user-token', token);
     // clean the URL so token isn't visible
     window.history.replaceState({}, document.title, window.location.pathname);
 }
