@@ -477,10 +477,13 @@ googleBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
         btn.disabled = true;
         btn.innerHTML = "Redirecting..."
-        window.location.href = `${BASE_URL}auth/google/login`;
+        window.location.href = `${BASE_URL}auth/google`;
         btn.disabled = false;
-        btn.innerHTML = ` <img src="./assets/icons/google.svg" alt="google icon">
-                             Log in with Google
+
+        btn.innerHTML = `  <div>
+                                <img src="./assets/icons/google.svg" alt="google icon">
+                                Log in with Google
+                            </div>
                             `;
     });
 });
