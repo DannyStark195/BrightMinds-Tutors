@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from io import BytesIO
-from app.utils.email import send_booking_confirmation_email
+from app.utils.email import send_booking_approved_email, send_booking_rejected_email, send_application_approved_email, send_application_rejected_email
 
 
 admin_routes = Blueprint('admin_routes', __name__)
@@ -172,7 +172,7 @@ def approveBooking(ref):
 
         #Send email notification
         print("About to send email...")
-        send_booking_confirmation_email(
+        send_booking_approved_email(
             booking.parent.email, booking.parent.username, 
             booking.tutor_profile.user.username,
             booking.course.course_name,
@@ -213,6 +213,17 @@ def rejectBooking(ref):
         booking.status = 'rejected'
         booking.rejection_reason = rejection_reason
         db.session.commit()
+
+        send_booking_rejected_email(
+            target_email=booking.parent.email,
+            parent_name=booking.parent.username,
+            reason=rejection_reason
+        )
+        send_push_notification(
+            user_id=booking.parent_id,
+            title="Booking Rejected ❗",
+            body=f"Your booking has been rejected. Please log in to view rejection reasons."
+        )
         return jsonify({'message': f'This booking has been rejeced!'}), 200
     except Exception as e:
         print(e)
@@ -237,6 +248,11 @@ def approveTutorApplication(id):
             tutorApplication.rejection_reason = None
 
         db.session.commit()
+
+        send_application_approved_email(
+            target_email=tutorApplication.applicant.email, 
+            tutor_name=tutorApplication.applicant.username
+        )
 
         send_push_notification(
         user_id=tutorApplication.user_id,
@@ -271,6 +287,12 @@ def rejectTutorApplication(id):
         tutorApplication.status = 'rejected'
         tutorApplication.rejection_reason = rejection_reason
         db.session.commit()
+
+        send_application_rejected_email(
+            target_email=tutorApplication.applicant.email, 
+            tutor_name=tutorApplication.applicant.username,
+            reason=rejection_reason
+        )
 
         send_push_notification(
         user_id=tutorApplication.user_id,

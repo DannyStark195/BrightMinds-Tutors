@@ -53,7 +53,7 @@ def send_verification_email(target_email, verification_code):
     return True
 
 
-def send_booking_confirmation_email(target_email, parent_name, tutor_name, subject_name, schedule):
+def send_booking_approved_email(target_email, parent_name, tutor_name, subject_name, schedule):
     """Sent to parent when their booking is confirmed by admin"""
     payload = {
         "sender": {"name": "BrightMinds Tutors", "email": SENDER_EMAIL},
@@ -87,6 +87,37 @@ def send_booking_confirmation_email(target_email, parent_name, tutor_name, subje
     }
     Thread(target=send_async_email, args=(payload,)).start()
     return True
+
+
+
+def send_booking_rejected_email(target_email, parent_name, reason=None):
+    """Sent to parent when their booking is rejected by admin"""
+
+    reason_block = f"""
+        <div style="background: #fff3f3; border-left: 4px solid #e53935; padding: 12px 16px; margin: 20px 0; border-radius: 0 6px 6px 0;">
+          <p style="margin: 0; color: #b71c1c; font-size: 14px;"><strong>Reason:</strong> {reason}</p>
+        </div>
+    """ if reason else ""
+    payload = {
+        "sender": {"name": "BrightMinds Tutors", "email": SENDER_EMAIL},
+        "to": [{"email": target_email}],
+        "subject": "Your Booking is Confirmed — BrightMinds Tutors",
+        "htmlContent": f"""
+        <html>
+          <body style="font-family: Arial, sans-serif; padding: 32px; max-width: 560px; margin: 0 auto;">
+            <h2 style="color: #0D1B2A;">Booking Rejected.</h2>
+            <p>Hi {parent_name},</p>
+            <p>Thank you for applying to join the BrightMinds tutor network. After reviewing your booking, we're unable to move forward at this time.</p>
+            {reason_block}
+            <p>We encourage you to book again. Thank you</p>
+            <p style="color: #888; font-size: 13px; margin-top: 32px;">— The BrightMinds Team</p>
+          </body>
+        </html>
+        """
+    }
+    Thread(target=send_async_email, args=(payload,)).start()
+    return True
+
 
 
 def send_application_approved_email(target_email, tutor_name):

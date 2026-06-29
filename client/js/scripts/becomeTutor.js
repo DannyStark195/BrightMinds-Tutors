@@ -1,6 +1,7 @@
 import { collectData, validateEmail, validatePhone, validateFile } from "../utils/formHelpers.js";
 import { activateElement, addInactive, deactivateElement, removeInactive } from "../utils/helpers.js";
 import { createTutorApplication, uploadFile } from "../api/api.js";
+import { subscribeUserToPush } from "../push.js";
 const tutorForm = document.querySelector('.tutor-form');
 const proofInput = document.querySelector('#proof-experience');
 const proofName = document.querySelector('#proof-name');
@@ -118,6 +119,8 @@ async function handleTutorApplication() {
 	removeInactive(successMessage);
 	successMessage.classList.add('success');
 	successMessage.textContent = message
+
+	await subscribeUserToPush();
 	return
 }
 setupSubjectOptions();
