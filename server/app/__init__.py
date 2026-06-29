@@ -41,6 +41,8 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/api/auth')
     app.register_blueprint(google_bp, url_prefix='/api/auth')
 
+    with app.app_context():
+        print(app.url_map)  
 
     from .admin.routes.admin_routes import admin_routes
     app.register_blueprint(admin_routes, url_prefix='/api/admin')
