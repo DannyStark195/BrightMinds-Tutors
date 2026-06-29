@@ -26,6 +26,7 @@ export function adminLoginRequired(){
 export function logout(){
     localStorage.removeItem('brightminds-user-token');
     window.location.replace('index')
+    console.log('logout')
 }
 
 export function logoutAdmin(){

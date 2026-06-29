@@ -14,9 +14,10 @@ const bookingList = document.querySelector('.booking-list');
 
 const params = new URLSearchParams(window.location.search);
 const token = params.get('token');
+console.log(token)
 
 if (token) {
-    localStorage.setItem('brightminds-user-token', token);
+    localStorage.setItem("brightminds-user-token", token);
     // clean the URL so token isn't visible
     window.history.replaceState({}, document.title, window.location.pathname);
 }
