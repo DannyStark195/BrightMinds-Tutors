@@ -289,10 +289,9 @@ async function bookingPanelTemplate(booking) {
 function renderAdminDecision(){
     panelContent.addEventListener('click', async(e) =>{
         const btn = e.target.closest('.cta-btn');
-        btn.disabled = true;
-        btn.textContent = "Processing..."
+       
         if (!btn) return;
-
+       
         const panelType = btn.dataset.type;
         const action = btn.dataset.action
         const recordIdentifier = btn.dataset.ref || btn.dataset.id
@@ -322,6 +321,8 @@ function renderAdminDecision(){
         if(action === 'reject'){
             data = rejectionReason
         }
+        btn.disabled = true;
+        btn.textContent = "Processing..."
         if (panelType === 'booking') {
             
             const {valid, message} = await bookingDecision(recordIdentifier, action, data);
@@ -342,7 +343,6 @@ function renderAdminDecision(){
                     return
                 }
             msg.classList.add('success');
-            await renderApplications()
 
             btn.disabled = false;
             if(action === 'approve'){
@@ -351,6 +351,7 @@ function renderAdminDecision(){
             if(action === 'reject'){
                 btn.textContent = "Reject"
             }
+            await renderApplications()
         }
     });
 }
