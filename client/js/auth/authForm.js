@@ -477,7 +477,7 @@ googleBtns.forEach((btn) => {
         btn.disabled = true;
         btn.innerHTML = "Redirecting..."
         window.location.href = `${BASE_URL}auth/google`;
-        btn.disabled = false;
+        // btn.disabled = false;
     });
 });
 
@@ -487,6 +487,6 @@ facebookBtns.forEach((btn) => {
         btn.disabled = true;
         btn.innerHTML = "Redirecting..."
         window.location.href = `${BASE_URL}auth/facebook`;
-        btn.disabled = false;
+        // btn.disabled = false;
     });
 });
