@@ -6,9 +6,11 @@ A full-stack tutoring platform for a Nigerian tutoring agency.
 - Admin dashboard for managing bookings and tutor applications
 - Simulated payment system with refund logic
 - JWT authentication for parents and admins
-- Cloudinary file uploads for tutor CVs
+- Cloudinary file uploads for profile pictures and tutor CVs
 - PDF receipt generation and download
 - Email notifications via Brevo
+- Web notifications 
+- Oauth with Google and Facebook
 
 ## Tech Stack
 **Frontend:** HTML, CSS, Vanilla JavaScript  
