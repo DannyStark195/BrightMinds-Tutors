@@ -77,7 +77,6 @@ overlay.innerHTML =  `
                                         <img src="./assets/icons/facebook.svg" alt="facebook icon">
                                         Log in with Facebook
                                     </div>
-                                    
                                 </button>
                             </form>
                         </div>
@@ -479,7 +478,6 @@ googleBtns.forEach((btn) => {
         btn.innerHTML = "Redirecting..."
         window.location.href = `${BASE_URL}auth/google`;
         btn.disabled = false;
-
         btn.innerHTML = `  <div>
                                 <img src="./assets/icons/google.svg" alt="google icon">
                                 Log in with Google
@@ -491,6 +489,14 @@ googleBtns.forEach((btn) => {
 const facebookBtns = overlay.querySelectorAll('.facebook-btn');
 facebookBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
-        window.location.href = "/auth/facebook";
+        btn.disabled = true;
+        btn.innerHTML = "Redirecting..."
+        window.location.href = `${BASE_URL}auth/facebook`;
+        btn.disabled = false;
+        btn.innerHTML = `   <div>
+                                <img src="./assets/icons/facebook.svg" alt="facebook icon">
+                                Log in with Facebook
+                            </div>
+                            `;
     });
 });

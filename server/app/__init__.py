@@ -36,9 +36,10 @@ def create_app():
     from .routes.routes import routes
     app.register_blueprint(routes, url_prefix='/api')
 
-    from .auth.auth import auth, google_bp
+    from .auth.auth import auth, google_bp, facebook_bp
     app.register_blueprint(auth, url_prefix='/api/auth')
     app.register_blueprint(google_bp, url_prefix='/api/auth')
+    app.register_blueprint(facebook_bp, url_prefix='/api/auth')
 
     with app.app_context():
         print(app.url_map)  

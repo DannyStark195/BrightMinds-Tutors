@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, request, url_for, curren
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, decode_token
 from flask_dance.contrib.google import make_google_blueprint, google
+from flask_dance.contrib.facebook import make_facebook_blueprint, facebook
 from app.models import User
 from app import db
 from app.utils.email import send_verification_email
@@ -9,7 +10,7 @@ import random
 from datetime import datetime, timedelta, timezone
 import os
 
-
+#google auth
 google_bp = make_google_blueprint(
     client_id=os.environ.get('GOOGLE_CLIENT_ID'),
     client_secret=os.environ.get('GOOGLE_CLIENT_SECRET'),
@@ -17,6 +18,13 @@ google_bp = make_google_blueprint(
     redirect_to="auth.google_callback"
 )
 
+#facebook auth
+facebook_bp = make_facebook_blueprint(
+    client_id=os.environ.get('FACEBOOK_CLIENT_ID'),
+    client_secret=os.environ.get('FACEBOOK_CLIENT_SECRET'),
+    scope=["email", "public_profile"],
+    redirect_to="auth.facebook_callback"
+)
 auth = Blueprint('auth',__name__)
 
 @auth.route('/signup', methods=['GET', 'POST'])
@@ -239,6 +247,7 @@ def reset_password():
     
     
 #Oauth
+#google auth
 @auth.route('/google/callback')
 def google_callback():
     if not google.authorized:
@@ -272,6 +281,43 @@ def google_callback():
         additional_claims={"role": user.role}
     )
     
+    # Redirect to frontend with token
+    frontend_url = os.environ.get('FRONTEND_URL', 'https://brightminds-tutors.vercel.app')
+    return redirect(f"{frontend_url}/dashboard?token={token}")
+
+#facebook auth
+@auth.route('/facebook/callback')
+def facebook_callback():
+    if not facebook.authorized:
+        return redirect(url_for('facebook.login'))
+
+    resp = facebook.get("/me?fields=id,name,email")
+
+    if not resp.ok:
+        return jsonify({'error': 'Failed to fetch user info from Facebook'}), 400
+    
+    info = resp.json()
+    email = info['email']
+    name = info.get('name', email.split('@')[0])
+
+    # Check if user exists
+    user = User.query.filter_by(email=email).first()
+    
+    if not user:
+        # Create new account
+        user = User(
+            email=email,
+            username=name,
+            role='parent',
+            password_hash= generate_password_hash("blah@ihc#1", method='pbkdf2:sha256'), # random password
+        )
+        db.session.add(user)
+        db.session.commit()
+
+    token = create_access_token(
+        identity=str(user.id),
+        additional_claims={"role": user.role}
+    )
     # Redirect to frontend with token
     frontend_url = os.environ.get('FRONTEND_URL', 'https://brightminds-tutors.vercel.app')
     return redirect(f"{frontend_url}/dashboard?token={token}")
