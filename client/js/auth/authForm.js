@@ -478,11 +478,6 @@ googleBtns.forEach((btn) => {
         btn.innerHTML = "Redirecting..."
         window.location.href = `${BASE_URL}auth/google`;
         btn.disabled = false;
-        btn.innerHTML = `  <div>
-                                <img src="./assets/icons/google.svg" alt="google icon">
-                                Log in with Google
-                            </div>
-                            `;
     });
 });
 
@@ -493,10 +488,5 @@ facebookBtns.forEach((btn) => {
         btn.innerHTML = "Redirecting..."
         window.location.href = `${BASE_URL}auth/facebook`;
         btn.disabled = false;
-        btn.innerHTML = `   <div>
-                                <img src="./assets/icons/facebook.svg" alt="facebook icon">
-                                Log in with Facebook
-                            </div>
-                            `;
     });
 });

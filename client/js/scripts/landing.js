@@ -1,6 +1,7 @@
 import { openForm } from "../auth/authForm.js";
 import { getFeaturedTestimonials } from "../api/api.js";
 import { redirectIfLoggedIn } from "../auth/auth.js";
+import { getQueryParamValue } from "../utils/helpers.js";
 const overlay = document.querySelector('.dark-overlay');
 const loginFormContainer = overlay?.querySelector('.login-form-container');
 
@@ -10,6 +11,13 @@ const params = new URLSearchParams(window.location.search);
         openForm(overlay, loginFormContainer);
     }
 
+const oauthError = getQueryParamValue('oauth_error');
+if(oauthError){
+    const msg = overlay.querySelector('.msg.error');
+    msg.textContent = oauthError;
+    msg.classList.remove('inactive');
+    // openForm(overlay, loginFormContainer);
+}
 
 const testimonialList = document.querySelector('.testimonial-list');
 

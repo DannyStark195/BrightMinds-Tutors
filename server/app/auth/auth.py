@@ -25,6 +25,8 @@ facebook_bp = make_facebook_blueprint(
     scope=["email", "public_profile"],
     redirect_to="auth.facebook_callback"
 )
+frontend_url = os.environ.get('FRONTEND_URL', 'https://brightminds-tutors.vercel.app')
+
 auth = Blueprint('auth',__name__)
 
 @auth.route('/signup', methods=['GET', 'POST'])
@@ -255,7 +257,7 @@ def google_callback():
     
     resp = google.get("/oauth2/v2/userinfo")
     if not resp.ok:
-        return jsonify({'error': 'Failed to fetch user info from Google'}), 400
+        redirect(f"{frontend_url}index?auth=required&oauth_error='Failed to fetch user info from Google'")
     
     info = resp.json()
     email = info['email']
@@ -282,7 +284,6 @@ def google_callback():
     )
     
     # Redirect to frontend with token
-    frontend_url = os.environ.get('FRONTEND_URL', 'https://brightminds-tutors.vercel.app')
     return redirect(f"{frontend_url}/dashboard?token={token}")
 
 #facebook auth
@@ -294,7 +295,7 @@ def facebook_callback():
     resp = facebook.get("/me?fields=id,name,email")
 
     if not resp.ok:
-        return jsonify({'error': 'Failed to fetch user info from Facebook'}), 400
+        redirect(f"{frontend_url}index?auth=required&oauth_error='Failed to fetch user info from Facebook'")
     
     info = resp.json()
     email = info['email']
@@ -319,5 +320,4 @@ def facebook_callback():
         additional_claims={"role": user.role}
     )
     # Redirect to frontend with token
-    frontend_url = os.environ.get('FRONTEND_URL', 'https://brightminds-tutors.vercel.app')
     return redirect(f"{frontend_url}/dashboard?token={token}")
