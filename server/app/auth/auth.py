@@ -257,7 +257,7 @@ def google_callback():
     
     resp = google.get("/oauth2/v2/userinfo")
     if not resp.ok:
-        redirect(f"{frontend_url}index?auth=required&oauth_error='Failed to fetch user info from Google'")
+        return redirect(f"{frontend_url}index?auth=required&oauth_error='Failed to fetch user info from Google'")
     
     info = resp.json()
     email = info['email']
@@ -295,7 +295,7 @@ def facebook_callback():
     resp = facebook.get("/me?fields=id,name,email")
 
     if not resp.ok:
-        redirect(f"{frontend_url}index?auth=required&oauth_error='Failed to fetch user info from Facebook'")
+        return redirect(f"{frontend_url}index?auth=required&oauth_error='Failed to fetch user info from Facebook'")
     
     info = resp.json()
     email = info['email']
