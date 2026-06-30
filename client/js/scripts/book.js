@@ -328,7 +328,7 @@ continueBtn.addEventListener('click', () => {
     if(currentStep === 4){
         continueBtn.disabled = true;
         bookingForm.requestSubmit();
-        continueBtn.disabled = false;
+        // continueBtn.disabled = false;
         return;
     }
 
