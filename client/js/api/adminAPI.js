@@ -1,7 +1,7 @@
 import { logoutAdmin } from "../auth/auth.js";
-import { BASE_URL } from "./api.js";
+// import { BASE_URL } from "./api.js";
 // const BASE_URL = "http://127.0.0.1:5000/api/admin/"
-// const BASE_URL = "https://brightminds-tutors.onrender.com/api/admin/"
+const BASE_URL = "https://brightminds-tutors.onrender.com/api/admin/"
 
 export async function loginUser(user){
     try{
