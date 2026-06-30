@@ -86,8 +86,7 @@ profileAvatarInput.addEventListener('change', ()=>{
 async function renderUserprofile(){
     const userProfile = await getUserProfile();
     profileName.textContent = userProfile.username
-    profileAvatarImg.src = userProfile.profile_pic
-    // console.log(userProfile.profile_pic);
+    profileAvatarImg.src = userProfile.profile_pic || './assets/images/avatars/default_avatar.png';
     profileAvatarImg.alt = `${userProfile.username} profile picture` || "user's profile picture"
     profileFields.innerHTML = `
         <label class="profile-field">
