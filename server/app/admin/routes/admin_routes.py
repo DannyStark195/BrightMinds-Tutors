@@ -29,6 +29,7 @@ def get_admin():
     if user.role != 'admin':  # ← this check is critical
         return jsonify({'error': 'Unauthorized'}), 403
     
+    
     return jsonify({
         'admin': {
             'id': user.id,
