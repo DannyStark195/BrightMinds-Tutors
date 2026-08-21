@@ -21,7 +21,7 @@ def create_app():
     app.config.from_object(Config)
     CORS(app, resources={
         r"/api/*": {
-            "origins": ["http://localhost:5173"],
+            "origins": ["https://brightminds-tutors.vercel.app"],
             "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
             "allow_headers": ["Content-Type", "Authorization"]
         }
