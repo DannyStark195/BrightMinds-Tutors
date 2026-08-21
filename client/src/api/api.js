@@ -13,7 +13,7 @@
 import { getUserToken, logout } from '../auth/auth.js'
 
 export const BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:5000/api/'
+  import.meta.env.VITE_API_BASE_URL || 'https://brightminds-tutors.onrender.com/api/'
 
 const jsonHeaders = { 'Content-Type': 'application/json' }
 

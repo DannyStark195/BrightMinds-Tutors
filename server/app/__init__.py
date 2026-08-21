@@ -4,6 +4,10 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_mail import Mail
+import os 
+from dotenv import load_env
+
+load_dotenv()
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -11,7 +15,7 @@ jwt = JWTManager()
 mail = Mail()
 
 
-BASE_URL = "http://127.0.0.1:5173"
+BASE_URL = os.environ.get("CLIENT_BASE_URL") or "https://brightminds-tutors.vercel.app"
 
 def create_app():
     app = Flask(__name__)
