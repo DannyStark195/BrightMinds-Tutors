@@ -8,7 +8,7 @@ import { getUserToken } from './auth/auth.js'
  */
 
 const PUBLIC_VAPID_KEY =
-  'BARhvkQPQpADSiSjYpth7wpcYJETGfMXLMVj_rpp-6FAI1RcIU7-Y2nVdO4jHqVEB4WPfFZfrbCfBG4d-gd5jTE'
+  'BFCo9PmHNZ28TZ6tckiEviFUrh_66r5nmiNbWLEST0hO3aDGmBXW_gzlp3oM0NM13qeEXaOhFnB65pXIFdimAZA'
 
 export async function subscribeUserToPush() {
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
