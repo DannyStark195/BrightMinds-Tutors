@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 
 import { AuthModalProvider } from './auth/AuthModalContext.jsx'
 import AdminRoute from './components/AdminRoute.jsx'
@@ -28,15 +28,25 @@ import AdminLogin from './pages/AdminLogin.jsx'
  * already served extensionless paths like /book and /my-payments).
  *
  * `/index` is kept as an alias for `/` because the original footer and
- * logout redirect both pointed at `./index`.
+ * logout redirect both pointed at `./index`. It carries its query string
+ * across, since the server's OAuth-failure redirect is
+ * `{frontend_url}index?auth=required&oauth_error=...` — dropping the query
+ * there would swallow both the error message and the flag that pops the
+ * login form.
  */
+/** Redirect to the landing page without losing the query string. */
+function ToLanding() {
+  const { search } = useLocation()
+  return <Navigate to={`/${search}`} replace />
+}
+
 export default function App() {
   return (
     <AuthModalProvider>
       <Routes>
         {/* Public */}
         <Route path="/" element={<Landing />} />
-        <Route path="/index" element={<Navigate to="/" replace />} />
+        <Route path="/index" element={<ToLanding />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/terms-of-use" element={<TermsOfUse />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />

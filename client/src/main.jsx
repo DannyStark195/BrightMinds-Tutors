@@ -38,16 +38,39 @@ import './styles/receipt.css'
  *
  * The original relied on script order for this: dashboard.js (which read the
  * token) was loaded before dAuth.js (which enforced the login check).
+ *
+ * The path is normalised first because the server builds its redirect as
+ * `f"{frontend_url}/dashboard?token=..."` — if FRONTEND_URL carries a trailing
+ * slash that lands us on `//dashboard`, which React Router does not match
+ * against `/dashboard`, so the router would fall through to `*` and bounce the
+ * (now signed-in) visitor to the landing page. Static hosting tolerated this;
+ * a client-side router does not. Same for a stray `.html`, which the original
+ * URLs used to carry.
  */
+function normalisePath(pathname) {
+  return pathname.replace(/\/{2,}/g, '/').replace(/\.html$/, '')
+}
+
 function consumeOAuthToken() {
   const params = new URLSearchParams(window.location.search)
   const token = params.get('token')
+  let path = normalisePath(window.location.pathname)
+
+  // Nothing to store and nothing to straighten out.
+  if (!token && path === window.location.pathname) return
 
   if (token) {
     setUserToken(token)
-    // Keep the token out of the visible URL and out of history.
-    window.history.replaceState({}, document.title, window.location.pathname)
+    // Keep the token out of the visible URL and out of history, but preserve
+    // any other params the redirect carried.
+    params.delete('token')
+    // A token only ever accompanies the post-OAuth hand-off, so if the path
+    // got mangled down to the root there is still only one place to be.
+    if (path === '/' || path === '/index') path = '/dashboard'
   }
+
+  const query = params.toString()
+  window.history.replaceState({}, document.title, query ? `${path}?${query}` : path)
 }
 
 consumeOAuthToken()
