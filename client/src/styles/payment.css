@@ -1,0 +1,228 @@
+/* ============================================================================
+   /make-payment  —  ported from the original client's css/payment.css
+   ============================================================================
+
+   Scoped to `.payment-page`. This file leans on very generic names — `.label`,
+   `.value`, `.form-row`, `.tab-btn`, `.tab-panel`, `.two-cols` — which was safe
+   when make-payment.html was the only document that linked it. In the SPA every
+   stylesheet is live on every route, so `.label { color: #666 }` and
+   `.value { font-weight: 600 }` would repaint form labels and table cells on
+   pages that never asked for them. The scope is what keeps them here.
+
+   `.cta-btn.full { width: 100% }` is the one rule not carried over: it is
+   already in src/index.css (from css/components.css, which this page also
+   loaded), identical, so repeating it would only add noise.
+
+   Selectors keep the original file's order.
+   ========================================================================= */
+
+@layer components {
+  .payment-page {
+    /* The original had no `.payment-page { … }` rule; the class is just the
+       hook the rules below hang off. */
+
+    .payment-section {
+      border-radius: 28px;
+      padding: 30px;
+      max-width: 700px;
+      margin-inline: auto;
+    }
+
+    .tab-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      inline-size: 80%;
+      border-radius: 10px;
+      padding: 17px 15px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      background-color: rgb(247, 247, 247);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #f5d890, #f8c56c);
+    }
+
+    .tab-btn .tab-icon {
+      width: 20px;
+    }
+
+    /* Applies twice over: the markup nests a `.payment-amount` (icon + figure)
+       inside the outer `.payment-amount` row, so the inner one picks up the
+       border-top and padding too. Kept as the original rendered it. */
+    .payment-amount {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-inline: 10px;
+      padding-top: 20px;
+      border-top: 1px solid rgb(239, 239, 239);
+    }
+
+    .payment-amount .amount {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .secure-note {
+      color: #666;
+      margin: 0;
+      font-size: 13px;
+    }
+
+    .payment-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tab-panel {
+      margin-top: 8px;
+    }
+
+    .form-row {
+      margin-bottom: 12px;
+    }
+
+    .form-row label {
+      display: block;
+      margin-bottom: 6px;
+      margin-left: 10px;
+      font-weight: 600;
+    }
+
+    .form-row input {
+      font-size: 0.95rem;
+    }
+
+    .card-input-wrap {
+      position: relative;
+    }
+
+    .card-brand {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-brand img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .two-cols {
+      display: flex;
+      gap: 12px;
+    }
+
+    .two-cols > div {
+      flex: 1;
+    }
+
+    .bank-card {
+      border: 1px solid #e9e9e9;
+      padding: 12px;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .bank-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px dashed #f0f0f0;
+    }
+
+    .bank-row:last-child {
+      border-bottom: 0;
+    }
+
+    .label {
+      color: #666;
+    }
+
+    .value {
+      font-weight: 600;
+    }
+
+    .mini-btn {
+      margin-left: 8px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      background: #fafafa;
+      cursor: pointer;
+    }
+
+    .ussd-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ussd-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px;
+      border-radius: 6px;
+      background: #fbfbfb;
+    }
+
+    .payment-success {
+      text-align: center;
+      padding: 24px;
+    }
+
+    .payment-success .payment-success-icon {
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+    }
+
+    .success-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .payment-section {
+        border-radius: 20px;
+        padding: 20px;
+      }
+
+      /* `.payment-form` is already a block and `.tabs` matches nothing on this
+         page — only `.payment-tabs` and `.success-actions` are flex. Group kept
+         intact so the file still reads like its source. */
+      .payment-form,
+      .tabs,
+      .payment-tabs,
+      .success-actions {
+        flex-direction: column;
+      }
+
+      .tab-btn {
+        inline-size: 100%;
+      }
+
+      /* Dead in the original: no element carried `payment-success-hero`. */
+      .payment-success-hero {
+        align-items: start;
+        gap: 0px;
+        padding: 20px;
+      }
+    }
+  }
+}

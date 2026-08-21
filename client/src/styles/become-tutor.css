@@ -1,0 +1,297 @@
+/* ============================================================================
+   /become-tutor  —  ported from the original client's css/become-tutor.css
+   ============================================================================
+
+   become-tutor.html had its `css/dashboard.css` <link> commented out, so this
+   page never saw a single dashboard rule. Nothing from dashboard.css is pulled
+   in here either.
+
+   Scoped to `.tutor-page` because most of the original selectors are generic
+   enough to collide now that every stylesheet is live at once:
+   `.hero-content h1`, `.hero-actions a`, `.section-heading`, `.upload-btn`,
+   `.option-pill` (book.css defines its own) and `.hidden-radio` (index.css
+   defines its own, which this file overrode).
+
+   Three rules in the original were byte-for-byte duplicates of components.css
+   and are therefore *not* repeated here — index.css already carries them:
+     - `.hero-content p:not(.eyebrow)`   identical declarations
+     - `.hero-actions`                   identical declarations (only the added
+                                         `a { text-decoration: none }` is ported)
+     - `.section-heading h2 { color }`   identical (only font-size differs)
+   ========================================================================= */
+
+@layer components {
+  .tutor-page {
+    .tutor-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+      gap: 36px;
+      align-items: center;
+      margin-bottom: 36px;
+      padding: 34px;
+      border-radius: 28px;
+    }
+
+    /* This page's hero heading is an <h1>; index.css only styles
+       `.hero-content h2` (used by the success alert lower down) and
+       `.page-hero h1`, which this hero is not. */
+    .hero-content h1 {
+      color: var(--Primary);
+      font-size: clamp(2.25rem, 5vw, 4.8rem);
+      line-height: 0.98;
+      max-width: 760px;
+    }
+
+    /* The only thing this file added to the shared `.hero-actions`. Redundant
+       in practice — `.cta-btn` already clears the underline — but kept so the
+       cascade matches the original. */
+    .hero-actions a {
+      text-decoration: none;
+    }
+
+    .hero-panel {
+      position: relative;
+      min-height: 420px;
+      border-radius: 28px;
+      overflow: hidden;
+      background: var(--Primary);
+      box-shadow: 0 25px 60px rgba(13, 27, 42, 0.14);
+    }
+
+    .hero-panel img {
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .panel-stat {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 20px 50px rgba(13, 27, 42, 0.18);
+    }
+
+    .panel-stat span {
+      color: var(--Primary);
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .panel-stat p {
+      color: rgba(45, 45, 45, 0.68);
+      font-weight: 700;
+    }
+
+    .tutor-process {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+
+    .tutor-process article {
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    .tutor-process i {
+      margin-bottom: 18px;
+    }
+
+    /* `color` came from the original's `.tutor-process h2, .section-heading h2`
+       rule; the `.section-heading h2` half already sets the same colour in
+       index.css, so only this half is ported. */
+    .tutor-process h2 {
+      color: var(--Primary);
+      font-size: 1.18rem;
+      margin-bottom: 8px;
+    }
+
+    .tutor-process p {
+      color: rgba(45, 45, 45, 0.68);
+      line-height: 1.7;
+    }
+
+    .application-section {
+      border-radius: 28px;
+      padding: 30px;
+    }
+
+    /* Deltas against the shared `.section-heading` in index.css (22px / 1.55rem). */
+    .section-heading {
+      margin-bottom: 24px;
+    }
+
+    .section-heading h2 {
+      font-size: 1.7rem;
+    }
+
+    .tutor-form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .tutor-form label {
+      display: grid;
+      gap: 8px;
+      color: var(--Primary);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    /* Beats `.form-control`'s font-weight: 700 in index.css, as it did before. */
+    .tutor-form input,
+    .tutor-form select,
+    .tutor-form textarea {
+      font-weight: 600;
+    }
+
+    .tutor-form .tutor-subjects {
+      display: grid;
+      gap: 10px;
+      grid-column: 1 / -1;
+    }
+
+    .tutor-form .field-label {
+      color: var(--Primary);
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .tutor-form .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tutor-form .option-pill {
+      min-width: 86px;
+      min-height: 46px;
+      border: 1px solid rgba(13, 27, 42, 0.1);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--Primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      font: inherit;
+      font-weight: 800;
+      position: relative;
+      text-align: center;
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+    }
+
+    .tutor-form .tutor-subject-option {
+      border-radius: 0;
+      width: auto;
+    }
+
+    .tutor-form .option-pill:hover,
+    .tutor-form .option-pill.active {
+      border-color: rgba(245, 168, 35, 0.65);
+      box-shadow: 0 20px 45px rgba(245, 168, 35, 0.16);
+      transform: translateY(-2px);
+    }
+
+    .tutor-form .option-pill.active {
+      background: linear-gradient(135deg, #f5d890, #f8c56c);
+    }
+
+    /* Overrides the shared `.hidden-radio` in index.css: here the checkbox is
+       taken out of the flow and made unclickable, so the wrapping
+       `.option-pill` label is what receives the click. index.css's `left`,
+       `top`, `inline-size`, `height` and `cursor` still apply. */
+    .tutor-form .hidden-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .tutor-form textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .tutor-form .wide,
+    .tutor-form button {
+      grid-column: 1 / -1;
+    }
+
+    .tutor-form button {
+      width: min(100%, 300px);
+    }
+
+    .tutor-form .upload-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* The invisible <input type="file"> sits on top of the `.upload-label`
+       pill, which is what makes clicking the pill open the file picker. */
+    .upload-btn input[type='file'] {
+      position: absolute;
+      left: 0%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    @media (max-width: 860px) {
+      .tutor-hero,
+      .tutor-process,
+      .tutor-form {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-panel,
+      .hero-panel img {
+        min-height: 360px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .tutor-hero {
+        padding: 20px;
+      }
+
+      .hero-content h1 {
+        font-size: 2.45rem;
+      }
+
+      .hero-actions .cta-btn,
+      .tutor-form button {
+        width: 100%;
+      }
+
+      .application-section,
+      .tutor-process article {
+        border-radius: 20px;
+        padding: 20px;
+      }
+
+      .hero-panel {
+        border-radius: 20px;
+      }
+
+      .upload-btn .upload-filename {
+        inline-size: 20%;
+      }
+    }
+  }
+}

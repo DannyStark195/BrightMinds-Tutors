@@ -11,7 +11,7 @@ jwt = JWTManager()
 mail = Mail()
 
 
-BASE_URL = "https://brightminds-tutors.vercel.app"
+BASE_URL = "http://127.0.0.1:5173"
 
 def create_app():
     app = Flask(__name__)
@@ -21,7 +21,7 @@ def create_app():
     app.config.from_object(Config)
     CORS(app, resources={
         r"/api/*": {
-            "origins": ["https://brightminds-tutors.vercel.app"],
+            "origins": ["http://localhost:5173"],
             "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
             "allow_headers": ["Content-Type", "Authorization"]
         }

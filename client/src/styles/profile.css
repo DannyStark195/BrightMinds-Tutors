@@ -1,0 +1,348 @@
+/* ============================================================================
+   /profile  —  ported from the original client's css/profile.css
+   ============================================================================
+
+   Scoped to `.profile-page` because several selectors here are generic enough
+   to collide now that every stylesheet is live at once: `.section-heading h2`
+   (this file's `.profile-card h2` used to win purely on <link> order),
+   `.cancel-card` (index.css styles its `i`) and the `.msg` / `.inactive`
+   overrides.
+
+   Not repeated here, because src/index.css already carries them:
+     - `.profile-main { padding: 18px 20px 90px }` — byte-identical to
+       `.page-main`, and the same element carries both classes
+       (`class="profile-main page-main"`). Its 560px `padding-inline: 16px`
+       override is likewise identical and omitted.
+     - `@keyframes profile-avatar-spin` — moved to index.css with the rest of
+       the keyframes; `.profile-avatar-loader span` still references it.
+
+   Four rules DO repeat declarations found in index.css, and are kept: they are
+   spelled with this page's own class names (`.profile-hero` / `.profile-layout`
+   rather than `.page-hero` / `.content-layout`), which the markup uses, so the
+   shared rules never matched anything here.
+
+   Dropped: the original's commented-out `.profile-avatar.is-uploading img`
+   filter and its commented `prefers-reduced-motion` block. The JS still adds
+   `is-uploading` while an upload runs; it styles nothing, exactly as before.
+   ========================================================================= */
+
+@layer components {
+  .profile-page {
+    .profile-hero {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 24px;
+      padding: 34px;
+      border-radius: 28px;
+    }
+
+    .profile-avatar {
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
+      padding: 5px;
+      position: relative;
+    }
+
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .profile-avatar-loader {
+      position: absolute;
+      inset: 5px;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(13, 27, 42, 0.42);
+      backdrop-filter: blur(2px);
+    }
+
+    .profile-avatar-loader span {
+      width: 34px;
+      height: 34px;
+      border: 3px solid rgba(255, 255, 255, 0.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: profile-avatar-spin 1.5s linear infinite;
+    }
+
+    /* Needed because the `display: grid` above would otherwise beat the shared
+       `.inactive { display: none }` on source order. */
+    .profile-avatar-loader.inactive {
+      display: none;
+    }
+
+    .profile-avatar-camera {
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      z-index: 3;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      background: var(--Primary);
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(13, 27, 42, 0.18);
+    }
+
+    .profile-avatar-camera i {
+      font-size: 0.86rem;
+    }
+
+    .profile-avatar-camera:disabled {
+      cursor: wait;
+      opacity: 0.72;
+    }
+
+    .profile-avatar-input {
+      display: none;
+    }
+
+    /* Placed by hand in the hero grid so it hangs under the avatar. */
+    .profile-hero .msg.avatar-upload-error {
+      grid-column: 1;
+      grid-row: 2;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: min(220px, 100%);
+      margin: -40px 0 0;
+      color: var(--Danger);
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .profile-hero .msg.avatar-upload-error::before {
+      content: '!';
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--Danger);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .profile-hero .msg.avatar-upload-error.inactive {
+      display: none;
+    }
+
+    .profile-hero h1 {
+      color: var(--Primary);
+      font-size: clamp(2.25rem, 5vw, 4.6rem);
+      line-height: 1;
+    }
+
+    .profile-hero p:not(.eyebrow) {
+      color: rgba(45, 45, 45, 0.72);
+      line-height: 1.7;
+      max-width: 620px;
+      margin-top: 14px;
+    }
+
+    .profile-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    /* Beats `.cta-btn`'s min-width/padding in index.css, as it did before. */
+    .profile-actions .cta-btn {
+      min-width: 0;
+      padding: 14px 22px;
+      text-decoration: none;
+    }
+
+    .profile-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .profile-stack,
+    .profile-side {
+      display: grid;
+      gap: 18px;
+    }
+
+    .profile-card,
+    .profile-summary-card,
+    .profile-note {
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    /* The form's heading sits inside `.section-heading`; this rule outranks the
+       shared `.section-heading h2` on both order and specificity, so 1.35rem /
+       18px is what renders — unchanged from the original. */
+    .profile-card h2,
+    .profile-summary-card h2,
+    .profile-note h2 {
+      color: var(--Primary);
+      font-size: 1.35rem;
+      margin-bottom: 18px;
+    }
+
+    .profile-fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .profile-field {
+      display: grid;
+      gap: 7px;
+    }
+
+    /* Unused: none of the three fields the JS rendered carried `full`. Kept so
+       the stylesheet still matches the original. */
+    .profile-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .profile-field span {
+      color: rgba(45, 45, 45, 0.62);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Overrides `.form-control`'s flat 16px padding in index.css. */
+    .profile-field strong,
+    .profile-field input,
+    .profile-field select,
+    .profile-field textarea {
+      min-height: 50px;
+      padding: 14px 16px;
+    }
+
+    .profile-field textarea {
+      min-height: 112px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .profile-card-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(13, 27, 42, 0.08);
+    }
+
+    .profile-card-footer .cta-btn {
+      min-width: 0;
+      padding: 14px 22px;
+    }
+
+    .profile-summary-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .profile-summary-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* Gives the shared `.icon-badge` (width/height: auto) a fixed box here. */
+    .profile-summary-item i {
+      width: 44px;
+      height: 44px;
+      flex: 0 0 auto;
+    }
+
+    .profile-summary-item p {
+      color: rgba(45, 45, 45, 0.64);
+      font-size: 0.86rem;
+      margin-bottom: 3px;
+    }
+
+    .profile-summary-item strong {
+      color: var(--Primary);
+    }
+
+    .profile-note p {
+      color: rgba(45, 45, 45, 0.7);
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .profile-note .cta-btn {
+      width: 100%;
+      min-width: 0;
+      padding: 14px 18px;
+      text-decoration: none;
+    }
+
+    .profile-note .blue {
+      box-shadow: none;
+    }
+
+    @media (max-width: 900px) {
+      .profile-hero,
+      .profile-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-actions {
+        justify-content: flex-start;
+      }
+
+      .profile-hero .msg.avatar-upload-error {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        width: 100%;
+        margin-top: -8px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .profile-fields {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .profile-hero,
+      .profile-card,
+      .profile-summary-card,
+      .profile-note {
+        border-radius: 20px;
+        padding: 20px;
+      }
+
+      .profile-actions,
+      .profile-card-footer {
+        flex-direction: column;
+      }
+
+      .profile-actions .cta-btn,
+      .profile-card-footer .cta-btn {
+        width: 100%;
+      }
+    }
+  }
+}

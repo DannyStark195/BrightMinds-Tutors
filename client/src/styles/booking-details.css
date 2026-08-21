@@ -1,0 +1,276 @@
+/* ============================================================================
+   /booking-details  —  ported from the original client's css/booking-details.css
+   ============================================================================
+
+   Scoped to `.booking-details-page`, because in the SPA every stylesheet is live
+   at once and three of this file's selectors are claimed elsewhere:
+
+     .side-card     css/dashboard.css sizes it 24px padding / 24px radius, this
+                    file 28px / 28px. Each is now scoped to the pages that used
+                    to <link> it — dashboard.css to :is(.dashboard-page,
+                    .review-page), this one to .booking-details-page.
+     .hero-actions  also defined in src/index.css (from css/components.css) with
+                    gap: 14px and margin-top: 26px. The original loaded both
+                    files here with this one last, so gap: 12px won while
+                    margin-top: 26px still leaked through. Scoping reproduces
+                    exactly that: the rule below overrides the gap and stays
+                    silent about the margin.
+     .hidden        a bare `display: none !important`, generic enough to hit any
+                    page in a SPA. Nothing in this page's markup ever used it.
+
+   Selectors keep the original file's order, so their relative specificity — and
+   therefore which one wins — is unchanged.
+   ========================================================================= */
+
+@layer components {
+  .booking-details-page {
+    /* The original had no `.booking-details-page { … }` rule; the class exists
+       purely as the <body> hook every selector below now hangs off. */
+
+    /* Overrides the shared `.page-main` padding (18px top) on this page only. */
+    .booking-details-main {
+      padding: 20px 20px 90px;
+    }
+
+    .booking-details-hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      padding: 30px;
+      margin-bottom: 28px;
+      border-radius: 28px;
+    }
+
+    .booking-details-hero h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 3vw, 3.4rem);
+      line-height: 1.05;
+      color: var(--Primary);
+    }
+
+    .booking-details-hero p:not(.eyebrow) {
+      max-width: 620px;
+      color: var(--Text);
+      margin-top: 14px;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-actions a {
+      text-decoration: none;
+    }
+
+    .booking-details-layout {
+      display: grid;
+      grid-template-columns: 1.5fr 0.9fr;
+      gap: 24px;
+    }
+
+    .booking-summary-panel,
+    .booking-details-aside {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .info-card,
+    .side-card {
+      padding: 28px;
+      border-radius: 28px;
+    }
+
+    .booking-overview-card .card-heading,
+    .booking-details-card .card-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 26px;
+    }
+
+    .card-heading h2,
+    .booking-details-card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .booking-overview-card .eyebrow,
+    .booking-details-card .eyebrow {
+      margin-bottom: 10px;
+    }
+
+    .booking-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: rgb(247, 247, 247);
+    }
+
+    .booking-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .meta-grid div {
+      display: grid;
+      gap: 6px;
+    }
+
+    .meta-label {
+      color: rgb(106, 116, 139);
+      font-size: 0.9rem;
+    }
+
+    .booking-overview-card strong,
+    .booking-details-card dd,
+    .side-card strong {
+      font-size: 1rem;
+      color: var(--Text);
+    }
+
+    /* Second `.booking-details-card h2` in the original: the font-size above
+       stands, the margin-bottom is replaced and a colour added. */
+    .booking-details-card h2 {
+      margin-bottom: 18px;
+      color: var(--Primary);
+    }
+
+    .details-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .details-list dt,
+    .details-list dd {
+      margin: 0;
+    }
+
+    .details-list dt {
+      color: rgb(106, 116, 139);
+      font-size: 0.9rem;
+    }
+
+    .details-list dd {
+      font-weight: 700;
+      color: var(--Text);
+    }
+
+    .side-card i {
+      margin-bottom: 16px;
+    }
+
+    .side-card h2 {
+      margin: 0 0 12px;
+      font-size: 1.2rem;
+    }
+
+    .side-card p {
+      margin: 0 0 16px;
+      color: rgba(45, 45, 45, 0.68);
+      line-height: 1.7;
+    }
+
+    /* Repeats the font-size/colour set in the group above and adds display —
+       kept as the original wrote it. */
+    .side-card strong {
+      display: block;
+      font-size: 1rem;
+      color: var(--Text);
+    }
+
+    .status-card i {
+      color: var(--Accent);
+    }
+
+    .booking-status {
+      margin-block: 15px;
+    }
+
+    /* Dead in the original: no element on this page carried `hidden`. Kept for
+       parity, scoped so it cannot reach any other page. */
+    .hidden {
+      display: none !important;
+    }
+
+    /* Also dead: the auto-renew wording ended up inline in the status message
+       that bookingDetails.js writes, not in a `.auto-renew-note` element. */
+    .auto-renew-note {
+      margin: 0 0 16px;
+      color: rgb(80, 90, 112);
+      line-height: 1.7;
+    }
+
+    /* `.renew-btn` is dead too — the renew action is a `.cta-btn
+       .proceed-payment` link. The two `.cta-btn` selectors are live: they widen
+       the cancel/complete buttons in the aside. */
+    .renew-btn,
+    .cta-btn.danger,
+    .cta-btn.primary {
+      width: 100%;
+      margin-top: 16px;
+    }
+
+    .first-session {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+    }
+
+    /* Needed because the rule above (one class, and later in the cascade than
+       the shared `.inactive`) would otherwise win the display battle. */
+    .first-session.inactive {
+      display: none;
+    }
+
+    @media (max-width: 980px) {
+      .booking-details-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .booking-details-main {
+        padding: 16px 16px 90px;
+      }
+
+      .booking-details-hero {
+        flex-direction: column;
+        text-align: left;
+        padding: 24px;
+      }
+
+      .hero-actions {
+        justify-content: flex-start;
+        width: 100%;
+      }
+
+      .meta-grid,
+      .details-list {
+        grid-template-columns: 1fr;
+      }
+
+      .booking-overview-card,
+      .booking-details-card,
+      .side-card {
+        padding: 22px;
+      }
+    }
+  }
+}

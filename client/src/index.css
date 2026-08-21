@@ -1,0 +1,1492 @@
+/* ============================================================================
+   BrightMinds Tutors — global stylesheet
+   ============================================================================
+
+   Ported from the original client's css/global.css + css/layout.css +
+   css/components.css. Everything in here is *repeatable*: tokens, the base
+   reset, and the shared design-system classes used across more than one page.
+   Page-specific rules live in src/styles/<page>.css, scoped to that page's
+   root class (mirroring the original css/ folder).
+
+   Two deliberate choices worth knowing about:
+
+   1. Tailwind's Preflight is NOT imported. Preflight would change how this
+      design renders: it sets `font-size/font-weight: inherit` on h1-h6 (the
+      original relies on browser defaults for several headings), `font: inherit`
+      on button/input, `display: block; max-width: 100%` on images, and
+      `list-style: none` on lists. The original's entire reset is the three
+      lines in `@layer base` below, so that is what we reproduce.
+
+   2. Most ported declarations are plain CSS rather than `@apply`. The original
+      design uses off-scale values (15px, 18px, 22px, 34px, 62px gaps; exact
+      rgba shadows; clamp(); clip-path; backdrop-filter). Writing those as
+      `@apply gap-[15px] p-[34px] shadow-[0_25px_60px_rgba(13,27,42,0.08)]`
+      is strictly less readable than the CSS it compiles to, so `@apply` is
+      used only where the values land on Tailwind's scale. Tailwind utilities
+      are used freely inline in JSX for one-off layout.
+   ========================================================================= */
+
+@layer theme, base, components, utilities;
+
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+/* The vendored copy of the pre-React client is kept for reference only. It is
+   not gitignored, so Tailwind's automatic content detection would otherwise
+   scan its markup and emit utilities for class names this app no longer uses
+   (notably the old `w-<number>` progress widths, now `progress-w-<number>`). */
+@source not '../_original-client-reference';
+
+/* ============================================================================
+   1. DESIGN TOKENS
+   ========================================================================= */
+
+@theme {
+  /* Brand palette — canonical source. Exposes bg-primary, text-accent, etc.
+     Tailwind prunes @theme variables that are never referenced; each of these
+     is referenced by its legacy alias below, which keeps them all emitted. */
+  --color-primary: #0d1b2a;
+  --color-accent: #f5a623;
+  --color-background: #f9f8f4;
+  --color-text: #2d2d2d;
+  --color-success: #2ecc71;
+  --color-danger: #e74c3c;
+  --color-pending: #f59e0b;
+}
+
+:root {
+  /* Legacy aliases so the ported rules below read exactly like the original
+     CSS (var(--Primary) rather than var(--color-primary)). The values live in
+     @theme above — this is just naming. */
+  --Primary: var(--color-primary);
+  --Accent: var(--color-accent);
+  --Background: var(--color-background);
+  --Text: var(--color-text);
+  --Success: var(--color-success);
+  --Danger: var(--color-danger);
+  --Pending: var(--color-pending);
+
+  /* Fonts, reproduced verbatim from the original — deliberately NOT in @theme:
+     they generate no useful utility, and --font-headings is referenced by no
+     rule at all, so @theme would prune it.
+
+     - 'Inter' is named but never actually loaded by the original (no @font-face,
+       no stylesheet link), so body text falls back to the system sans-serif.
+       Loading Inter here would change how every page renders.
+     - --font-headings is dead in the original: nothing references it. Kept so
+       the token set matches. */
+  --font-body: 'Inter';
+  --font-headings: 'Playfair Display';
+}
+
+/* ============================================================================
+   2. BASE RESET  (original css/global.css)
+   ========================================================================= */
+
+@layer base {
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    width: 100%;
+    min-height: 100%;
+  }
+
+  *:focus-visible {
+    outline: none;
+  }
+
+  body {
+    font-family: var(--font-body), sans-serif;
+    width: 100%;
+    min-height: 100svh;
+  }
+
+  @supports (min-height: 100dvh) {
+    body {
+      min-height: 100dvh;
+    }
+  }
+}
+
+/* ============================================================================
+   3. KEYFRAMES
+   ========================================================================= */
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-logo {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.09);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Renamed from the original `spin` to avoid colliding with Tailwind's own
+   `spin` keyframes (which power animate-spin). Used by the subject marquee. */
+@keyframes subjects-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes adminFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes profile-avatar-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================================================
+   4. UTILITY HELPERS
+   Small shared classes the original JS toggled by hand.
+   ========================================================================= */
+
+@layer components {
+  .white-bg {
+    background-color: rgba(249, 248, 244, 0.96);
+    box-shadow: 0 25px 60px rgba(13, 27, 42, 0.08);
+  }
+
+  .inactive {
+    display: none;
+  }
+
+  /* ==========================================================================
+     5. HEADER / NAV  (original css/layout.css)
+     ======================================================================= */
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 30px 20px;
+    padding-inline: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+  }
+
+  .logo {
+    @apply flex items-center gap-3;
+  }
+
+  .header .logo {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .logo img {
+    width: 35px;
+    height: 35px;
+    flex: 0 0 auto;
+  }
+
+  .logo p {
+    color: var(--Primary);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    min-width: 0;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .navbar {
+    display: flex;
+    gap: 15px;
+    flex: 0 0 auto;
+  }
+
+  .navbar button {
+    border: none;
+    background-color: transparent;
+    border-radius: 30px;
+    color: var(--Text);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .navbar button:hover {
+    background-color: var(--Primary);
+    color: #fff;
+  }
+
+  .nav-btn {
+    display: none;
+    width: 20px;
+    height: 20px;
+  }
+
+  .cross-btn.close-nav-btn {
+    display: none;
+  }
+
+  .more-links {
+    display: none;
+  }
+
+  /* ==========================================================================
+     6. DASHBOARD HEADER  (original css/layout.css)
+     ======================================================================= */
+
+  .navbar.d {
+    display: none;
+  }
+
+  .nav-btn.d {
+    display: none;
+  }
+
+  .dashboard-nav-btn {
+    display: none;
+  }
+
+  .dashboard-nav-btn.active {
+    display: initial;
+  }
+
+  .dashboard-close-nav-btn {
+    opacity: 0;
+    transition: 0.3s transform ease;
+  }
+
+  .dashboard-close-nav-btn.active {
+    opacity: 1;
+    z-index: 9999;
+    position: absolute;
+    top: 8px;
+    right: 0px;
+  }
+
+  .dashboard-nav-btn,
+  .dashboard-close-nav-btn {
+    width: 20px;
+    height: 20px;
+  }
+
+  .dashboard-close-nav-btn {
+    transform: translateX(50%);
+  }
+
+  .profile-img {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: rgb(247, 247, 247);
+    transition: all 0.3s ease;
+  }
+
+  .profile-img:hover {
+    background: linear-gradient(135deg, #f5d890, #f8c56c);
+  }
+
+  .profile-img img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+
+  .profile {
+    @apply flex gap-2.5;
+  }
+
+  .profile .profile-name {
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 3px;
+  }
+
+  .profile .profile-info a {
+    font-size: 0.8rem;
+    color: currentColor;
+    text-decoration: none;
+  }
+
+  .more-links.d.active {
+    display: grid;
+  }
+
+  .link {
+    padding: 6px 6px 6px 15px;
+    display: flex;
+    align-items: center;
+  }
+
+  .link i {
+    font-size: 1rem;
+    color: var(--Text);
+    font-weight: 600;
+    opacity: 0.9;
+  }
+
+  .link a button {
+    padding: 10px;
+    color: var(--Text);
+    font-weight: 500;
+    font-size: 1rem;
+  }
+
+  .link a button:hover {
+    color: var(--Primary);
+    background: none;
+  }
+
+  .nav-btn-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    border-radius: 28px;
+    position: relative;
+    flex: 0 0 auto;
+  }
+
+  .dashboard-navbar {
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 25px 60px rgba(13, 27, 42, 0.08);
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    right: 0px;
+    width: 240px;
+    padding: 20px;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+    transform: scale(0);
+    transform-origin: top right;
+    z-index: 999;
+  }
+
+  .dashboard-navbar.active {
+    transform: scale(1);
+  }
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100svh;
+    display: none;
+    z-index: 4;
+  }
+
+  @supports (height: 100dvh) {
+    .overlay {
+      height: 100dvh;
+    }
+  }
+
+  .overlay.active {
+    display: block;
+  }
+
+  /* ==========================================================================
+     7. MOBILE NAV  (original css/layout.css @media blocks)
+     ======================================================================= */
+
+  @media (max-width: 860px) {
+    .header {
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .logo {
+      gap: 8px;
+    }
+
+    .logo img {
+      width: 25px;
+      height: 25px;
+    }
+
+    .logo p {
+      color: var(--Primary);
+      font-size: 1rem;
+    }
+
+    .navbar {
+      position: fixed;
+      inset-block-start: 0;
+      inset-inline: 0;
+      opacity: 0;
+      visibility: hidden;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.99);
+      min-height: 100svh;
+      height: 100svh;
+      flex-direction: column;
+      padding-top: 20px;
+      padding-inline: 50px;
+      text-align: start;
+      gap: 20px;
+      transition:
+        clip-path 0.2s ease,
+        opacity 0.2s ease,
+        visibility 0s linear 0.2s;
+      clip-path: inset(0 0 0 100%);
+      pointer-events: none;
+      overflow-y: auto;
+      overflow-x: hidden;
+      overscroll-behavior: contain;
+    }
+
+    @supports (height: 100dvh) {
+      .navbar {
+        min-height: 100dvh;
+        height: 100dvh;
+      }
+    }
+
+    .navbar.active {
+      clip-path: inset(0);
+      opacity: 1;
+      visibility: visible;
+      transition-delay: 0s;
+      pointer-events: auto;
+    }
+
+    .navbar button.phone-active {
+      background-color: rgb(239, 239, 239);
+      border-radius: 15px;
+    }
+
+    .navbar button.gold {
+      background: linear-gradient(135deg, #f5d890, #f8c56c);
+      color: var(--Primary);
+      border: 1px solid rgba(245, 168, 35, 0.4);
+    }
+
+    .nav-btn {
+      display: block;
+    }
+
+    .cross-btn.close-nav-btn {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .cross-btn.close-nav-btn i {
+      padding: 10px 0px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s transform ease;
+      transform: rotate(-90deg);
+    }
+
+    .more-links.active {
+      display: grid;
+      margin-top: 20px;
+      border-top: 1px solid rgb(239, 239, 239);
+    }
+
+    .more-links a button {
+      text-decoration: none;
+    }
+
+    .call-container {
+      padding: 15px 20px;
+      color: var(--Text);
+      font-size: 0.93rem;
+      font-weight: 600;
+    }
+
+    .call-btn {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+      gap: 8px;
+      margin-top: 15px;
+      padding: 8px 12px;
+      border-radius: 30px;
+      background-color: rgb(239, 239, 239);
+      text-decoration: none;
+      color: #000;
+      font-weight: 500;
+    }
+
+    .call-btn:hover {
+      background-color: var(--Primary);
+      color: #fff;
+    }
+
+    /* Dashboard header, mobile */
+    .navbar.d {
+      display: flex;
+    }
+
+    .nav-btn.d {
+      display: block;
+    }
+
+    .dashboard-navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      transform: none;
+      transition:
+        clip-path 0.2s ease,
+        opacity 0.2s ease,
+        visibility 0s linear 0.2s;
+      background: rgba(255, 255, 255, 0.99);
+      padding-top: 60px;
+    }
+
+    .dashboard-navbar .more-links {
+      margin-top: 0;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .header {
+      padding: 24px 16px 16px;
+    }
+
+    .navbar {
+      padding-inline: 20px;
+    }
+
+    .logo p {
+      display: none;
+    }
+  }
+
+  /* ==========================================================================
+     8. FOOTER  (original css/layout.css)
+     ======================================================================= */
+
+  footer {
+    padding: 80px 30px 38px;
+    background-color: var(--Primary);
+    color: #fff;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr) minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .footer-left .logo {
+    margin-bottom: 18px;
+  }
+
+  .footer-left .logo p {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .footer-left > p {
+    margin-left: 35px;
+    line-height: 1.8;
+    font-size: 0.95rem;
+    max-width: 380px;
+  }
+
+  .footer-middle ul,
+  .footer-right {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+    font-size: 0.95rem;
+  }
+
+  .footer-link {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s ease;
+  }
+
+  .footer-link:hover {
+    color: var(--Accent);
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 56px;
+    font-size: 0.84rem;
+    opacity: 0.96;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 860px) {
+    .footer-top {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .footer-left > p {
+      font-size: 0.98rem;
+    }
+  }
+
+  /* ==========================================================================
+     9. CTA BUTTONS  (original css/components.css)
+     ======================================================================= */
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 180px;
+    padding: 20px 32px;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease,
+      background-color 0.25s ease;
+    box-shadow: 0 18px 45px rgba(13, 27, 42, 0.1);
+    text-decoration: none;
+  }
+
+  .cta-btn i {
+    margin-left: 10px;
+    transition: transform 0.25s ease;
+  }
+
+  .cta-btn:hover {
+    transform: translateY(-3px);
+  }
+
+  .cta-btn:hover i {
+    transform: translateX(5px);
+  }
+
+  .cta-btn.blue {
+    background-color: #ffffff;
+    color: var(--Primary);
+    border: 1px solid rgba(13, 27, 42, 0.12);
+  }
+
+  .cta-btn.blue:hover {
+    background-color: #f4f7fb;
+  }
+
+  .cta-btn.gold {
+    background: linear-gradient(135deg, #f5d890, #f8c56c);
+    color: var(--Primary);
+    border: 1px solid rgba(245, 168, 35, 0.4);
+  }
+
+  .cta-btn.gold:hover {
+    background: linear-gradient(135deg, #f7de9f, #ffedb4);
+  }
+
+  .cta-btn.danger {
+    background: var(--Danger);
+    color: #fff;
+    border-color: rgba(231, 76, 60, 0.3);
+  }
+
+  .cta-btn.primary {
+    background-color: var(--Primary);
+    color: #fff;
+  }
+
+  .cta-btn.full {
+    width: 100%;
+  }
+
+  .proceed-payment {
+    padding: 15px;
+    border: 1px solid rgba(245, 168, 35, 0.65);
+    background: linear-gradient(135deg, #f7de9f, #ffedb4);
+    color: var(--Primary);
+    box-shadow: 0 20px 45px rgba(245, 168, 35, 0.16);
+  }
+
+  /* ==========================================================================
+     10. CTA BANNER
+     ======================================================================= */
+
+  .cta-banner {
+    text-align: center;
+    border: 1px solid rgba(13, 27, 42, 0.08);
+    max-width: 860px;
+    margin: 60px auto 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 42px 32px;
+    border-radius: 32px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(245, 248, 255, 0.85));
+    box-shadow: 0 28px 80px rgba(13, 27, 42, 0.08);
+  }
+
+  .cta-banner h2 {
+    margin: 0;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+  }
+
+  /* ==========================================================================
+     11. AUTH MODAL / FORMS  (original css/components.css)
+     ======================================================================= */
+
+  .dark-overlay {
+    inset: 0;
+    position: fixed;
+    min-height: 100svh;
+    height: 100svh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    animation: fadeIn 0.4s ease alternate;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  @supports (height: 100dvh) {
+    .dark-overlay {
+      min-height: 100dvh;
+      height: 100dvh;
+    }
+  }
+
+  .dark-overlay.fade-out {
+    animation: fadeOut 0.4s ease forwards;
+  }
+
+  .dark-overlay.active {
+    display: flex;
+  }
+
+  .form-container {
+    background-color: #fff;
+    padding: 25px 25px;
+    border-radius: 20px;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    max-height: 100svh;
+    position: relative;
+    animation: fadeIn 0.4s ease-in-out alternate;
+  }
+
+  @supports (max-height: 100dvh) {
+    .form-container {
+      max-height: 100dvh;
+    }
+  }
+
+  .form {
+    display: none;
+    animation: fadeIn 0.4s ease-in-out alternate;
+  }
+
+  .form.active {
+    display: block;
+  }
+
+  .form-container .logo {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .form-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  .form-container input,
+  .form-container button {
+    inline-size: 80%;
+    border-radius: 15px;
+    padding: 17px 15px;
+    margin: 8px auto;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.87rem;
+    background-color: rgb(247, 247, 247);
+  }
+
+  .form-container input {
+    border: 1px solid rgba(13, 27, 42, 0.12);
+    background: #fff;
+    color: var(--Text);
+  }
+
+  .form-container input:focus-visible,
+  .form-container button:focus-visible {
+    outline: none;
+  }
+
+  .form-container .bottom p {
+    color: var(--Text);
+    font-weight: 600;
+    margin-block: 10px 5px;
+    font-size: 0.9rem;
+  }
+
+  .form-container .bottom:nth-child(2) {
+    text-decoration: none;
+    color: currentColor;
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-block: 0;
+  }
+
+  .form-container button div {
+    display: flex;
+    place-items: center;
+    gap: 70px;
+  }
+
+  .form-container button img {
+    width: 25px;
+  }
+
+  .condition {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(45, 45, 45, 0.72);
+    font-weight: 700;
+  }
+
+  .condition a {
+    color: inherit;
+    text-decoration: none;
+    margin-left: 2px;
+  }
+
+  .condition input[type='checkbox'] {
+    accent-color: var(--Primary);
+    width: 34px;
+    height: 20px;
+    cursor: pointer;
+    inline-size: 10%;
+  }
+
+  .form-container .age-confirmation {
+    inline-size: 80%;
+    margin: 0px auto;
+    font-size: 0.87rem;
+  }
+
+  .age-confirmation input[type='checkbox'] {
+    margin-inline: 0px;
+    height: 18px;
+  }
+
+  .form-container .form .forgot-password,
+  .form-container .form .resend-code {
+    display: block;
+    font-size: 0.89rem;
+    margin-block: 2px;
+    text-align: end;
+    padding-right: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    color: currentColor;
+  }
+
+  .cross-btn.cancel-form-popup {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 24px;
+    height: 24px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .cross-btn i {
+    font-size: 1.1rem;
+    color: var(--Text);
+    width: 10px;
+  }
+
+  .msg {
+    font-size: 0.87rem;
+    margin-block: 4px;
+  }
+
+  .msg.error {
+    color: var(--Danger);
+  }
+
+  .msg.success {
+    color: var(--Success);
+  }
+
+  .or-divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0;
+  }
+
+  .or-divider::before,
+  .or-divider::after {
+    content: '';
+    background-color: rgb(239, 239, 239);
+    inline-size: 50%;
+    block-size: 1px;
+    color: rgb(239, 239, 239);
+    margin: 0 5px;
+  }
+
+  .password-wrapper {
+    position: relative;
+  }
+
+  .password-wrapper input {
+    padding-right: 55px;
+  }
+
+  .toggle-password {
+    position: absolute;
+    right: 65px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #9ca3af;
+    display: flex;
+    align-items: center;
+  }
+
+  .toggle-password:hover {
+    color: #f5a623;
+  }
+
+  @media (max-width: 860px) {
+    .toggle-password {
+      right: 40px;
+    }
+
+    .form-container {
+      min-height: 100svh;
+      padding-inline: 15px;
+    }
+
+    @supports (min-height: 100dvh) {
+      .form-container {
+        min-height: 100dvh;
+      }
+    }
+
+    .form-container input,
+    .form-container button {
+      inline-size: 90%;
+    }
+  }
+
+  /* ==========================================================================
+     12. PROGRESS TRACKER
+     ======================================================================= */
+
+  .progress-tracker {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 24px;
+  }
+
+  .progress-tracker::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    right: auto;
+    height: 4px;
+    width: 75%;
+    background: #e8e2d9;
+    z-index: 0;
+    transform: translateX(-50%);
+  }
+
+  .progress-tracker .progress {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    right: auto;
+    height: 4px;
+    width: 75%;
+    background: var(--Primary);
+    z-index: 0;
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: left center;
+  }
+
+  /* Prefixed `progress-w-*` rather than the original client's bare width names:
+     the utilities layer outranks this components layer, so Tailwind's own width
+     utility would win and blow away the 75% width set above. */
+  .progress.progress-w-0 {
+    transform: translateX(-50%) scaleX(0);
+  }
+
+  .progress.progress-w-25 {
+    transform: translateX(-50%) scaleX(0.25);
+  }
+
+  .progress.progress-w-50 {
+    transform: translateX(-50%) scaleX(0.5);
+  }
+
+  .progress.progress-w-75 {
+    transform: translateX(-50%) scaleX(0.75);
+  }
+
+  .progress.progress-w-100 {
+    transform: translateX(-50%) scaleX(1);
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    z-index: 1;
+    flex: 1;
+  }
+
+  .step span {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #e8e2d9;
+    color: #9ca3af;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .step p {
+    font-size: 0.65rem;
+    color: #9ca3af;
+    text-align: center;
+    margin: 0;
+  }
+
+  .step.active span {
+    background: var(--Primary);
+    color: #ffffff;
+  }
+
+  .step.active p {
+    color: var(--Primary);
+    font-weight: 600;
+  }
+
+  /* ==========================================================================
+     13. ALERT HERO
+     ======================================================================= */
+
+  .alert__hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(13, 27, 42, 0.08);
+    box-shadow: 0 25px 60px rgba(13, 27, 42, 0.08);
+    padding: 34px;
+    border-radius: 28px;
+  }
+
+  .alert__icon {
+    border-radius: 50%;
+    width: 350px;
+    height: 350px;
+  }
+
+  .alert__icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+  }
+
+  @media (max-width: 600px) {
+    .alert__icon {
+      display: none;
+    }
+  }
+
+  /* ==========================================================================
+     14. EYEBROW + HERO CONTENT
+     ======================================================================= */
+
+  .eyebrow {
+    color: var(--Accent);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .hero-content h2 {
+    font-size: 2.8rem;
+  }
+
+  .hero-content p:not(.eyebrow) {
+    color: rgba(45, 45, 45, 0.72);
+    font-size: 1rem;
+    line-height: 1.75;
+    max-width: 620px;
+    margin-top: 18px;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 26px;
+  }
+
+  /* ==========================================================================
+     15. SHARED PAGE SHELL
+     ======================================================================= */
+
+  .page-shell {
+    min-height: 100svh;
+    background: var(--Background);
+  }
+
+  @supports (min-height: 100dvh) {
+    .page-shell {
+      min-height: 100dvh;
+    }
+  }
+
+  .page-main {
+    width: min(1120px, 100%);
+    margin-inline: auto;
+    padding: 18px 20px 90px;
+  }
+
+  .surface-card {
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(13, 27, 42, 0.08);
+    box-shadow: 0 25px 60px rgba(13, 27, 42, 0.08);
+  }
+
+  .page-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px;
+    align-items: center;
+    margin-bottom: 24px;
+    padding: 34px;
+    border-radius: 28px;
+  }
+
+  .page-hero h1 {
+    color: var(--Primary);
+    font-size: clamp(2.25rem, 5vw, 4.6rem);
+    line-height: 1;
+  }
+
+  .page-hero p:not(.eyebrow) {
+    color: rgba(45, 45, 45, 0.72);
+    line-height: 1.7;
+    max-width: 640px;
+    margin-top: 14px;
+  }
+
+  .content-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .section-heading {
+    margin-bottom: 22px;
+  }
+
+  .section-heading h2 {
+    color: var(--Primary);
+    font-size: 1.55rem;
+    margin-bottom: 6px;
+  }
+
+  .section-heading p:not(.eyebrow) {
+    color: rgba(45, 45, 45, 0.62);
+  }
+
+  .icon-badge {
+    width: auto;
+    height: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--Accent);
+    font-size: 1.75rem;
+  }
+
+  /* ==========================================================================
+     16. STATUS PILLS
+     ======================================================================= */
+
+  .status {
+    padding: 9px 14px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .pending,
+  .approved,
+  .renew {
+    background: #fef3c7;
+    color: var(--Pending);
+  }
+
+  .confirmed,
+  .status.active {
+    background: #d1fae5;
+    color: var(--Success);
+  }
+
+  .rejected,
+  .failed,
+  .cancelled {
+    background: #fee2e2;
+    color: var(--Danger);
+  }
+
+  .completed {
+    background: var(--Primary);
+    color: #fff;
+  }
+
+  /* ==========================================================================
+     17. FORM CONTROL + METRIC CARDS
+     ======================================================================= */
+
+  .form-control {
+    width: 100%;
+    border: 1px solid rgba(13, 27, 42, 0.12);
+    border-radius: 16px;
+    background: #fff;
+    color: var(--Text);
+    font: inherit;
+    font-weight: 700;
+    padding: 16px;
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 18px;
+  }
+
+  .metric-card {
+    min-height: 140px;
+    padding: 24px;
+    border-radius: 24px;
+    display: grid;
+    align-content: space-between;
+    cursor: pointer;
+  }
+
+  .metric-card .dashboard-stat {
+    color: rgba(45, 45, 45, 0.68);
+    font-weight: 700;
+  }
+
+  .metric-card strong {
+    color: var(--Primary);
+    font-size: 1.45rem;
+  }
+
+  .dashboard-stat-no {
+    color: var(--Primary);
+  }
+
+  .cancel-card i {
+    color: var(--Danger);
+    background: transparent;
+  }
+
+  .completed-card i {
+    color: var(--Primary);
+  }
+
+  @media (max-width: 900px) {
+    .page-hero,
+    .content-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .page-main {
+      padding-inline: 16px;
+    }
+
+    .page-hero,
+    .metric-card {
+      border-radius: 20px;
+      padding: 20px;
+    }
+  }
+
+  /* ==========================================================================
+     18. LOADING STATE
+     ======================================================================= */
+
+  .loading-state {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    background-color: #fff;
+  }
+
+  .loading-state.inactive {
+    display: none;
+  }
+
+  .loading {
+    position: relative;
+  }
+
+  .loading-bar {
+    border-radius: 100%;
+    border-top: 10px solid #000;
+    border-left: 10px solid #ffffff00;
+    border-right: 10px solid #ffffff00;
+    border-bottom: 10px solid #000;
+    padding: 80px;
+    animation: rotate 0.9s infinite;
+  }
+
+  .loading .logo img {
+    top: 37%;
+    left: 37%;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    animation: pulse-logo 0.9s alternate infinite;
+  }
+
+  /* ==========================================================================
+     19. MISC SHARED BITS
+     ======================================================================= */
+
+  .stars {
+    display: flex;
+    gap: 4px;
+    color: var(--Accent);
+  }
+
+  .hidden-radio {
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+    inline-size: 100%;
+    height: 100%;
+    left: 0;
+    top: 0%;
+  }
+
+  .toggle {
+    display: flex;
+    align-items: center;
+    background: var(--Primary);
+    position: relative;
+    padding: 2px;
+    border-radius: 20px;
+    inline-size: 40px;
+    block-size: 22px;
+    cursor: pointer;
+  }
+
+  .toggle-slide {
+    background: rgba(255, 255, 255, 0.96);
+    inline-size: 18px;
+    block-size: 18px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+  }
+
+  .toggle.on {
+    background: linear-gradient(135deg, #f5d890, #f8c56c);
+  }
+
+  .toggle.on .toggle-slide {
+    transform: translateX(18px);
+  }
+}

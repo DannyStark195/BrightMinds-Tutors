@@ -1,0 +1,71 @@
+/* ============================================================================
+   /admin-login  —  ported from the original client's css/admin-login.css
+   ============================================================================
+
+   The original admin-login.html loaded css/book.css *before* this file, and the
+   page wrapper carries `booking-page` for exactly that reason: the form's
+   layout (`.booking-form`, `.booking-step`, `.step-heading`, `.details`,
+   `.date-field`, `.booking-actions`) all comes from book.css, which is scoped to
+   `.booking-page`. Nothing from book.css is duplicated here; this file only
+   carries the admin-login overrides, and main.jsx imports it after book.css so
+   the override order matches the original <link> order.
+   ========================================================================= */
+
+@layer components {
+  .admin-login-page {
+    /* Overrides `.page-shell`'s background/min-height with the same values, and
+       centres the single card inside `.booking-page`'s flex column. */
+    background: var(--Background);
+    min-height: 100svh;
+    align-items: center;
+    justify-content: center;
+
+    @supports (min-height: 100dvh) {
+      & {
+        min-height: 100dvh;
+      }
+    }
+
+    /* `.admin-login-hero` never existed in the markup — the original rule
+       grouped it with the form. Only the form half is reachable, so only that
+       is ported. */
+    .admin-login-form {
+      border-radius: 28px;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .admin-login-fields {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .admin-login-fields .date-field {
+      margin-bottom: 0;
+    }
+
+    /* Undoes book.css's sticky pill treatment of `.booking-actions`. */
+    .admin-login-actions {
+      position: static;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .admin-login-actions .cta-btn {
+      min-width: 150px;
+    }
+
+    @media (max-width: 720px) {
+      /* `.admin-login-header` / `.admin-login-main` are not in the markup
+         either, so that half of the original media query is dropped. */
+      .admin-login-actions {
+        flex-direction: column-reverse;
+      }
+
+      .admin-login-actions .cta-btn {
+        width: 100%;
+      }
+    }
+  }
+}
