@@ -13,7 +13,7 @@ A full-stack tutoring platform for a Nigerian tutoring agency.
 - Oauth with Google and Facebook
 
 ## Tech Stack
-**Frontend:** HTML, CSS, Vanilla JavaScript  
+**Frontend:** ReactJs, Tailwind CSS v4 
 **Backend:** Python Flask, SQLAlchemy  
 **Database:** PostgreSQL (Supabase)  
 **Storage:** Cloudinary  
