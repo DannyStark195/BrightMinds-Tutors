@@ -314,7 +314,7 @@ export default function Profile() {
                 Contact BrightMinds Tutors if your child changes school level, location, or
                 subject needs before the next billing cycle.
               </p>
-              <a href="https://wa.me/2348092812010" className="cta-btn blue">
+              <a href="https://wa.me/2348101836183" className="cta-btn blue">
                 Chat on WhatsApp
               </a>
             </article>

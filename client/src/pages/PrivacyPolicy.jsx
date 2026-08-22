@@ -167,7 +167,7 @@ export default function PrivacyPolicy() {
               Email - <a href="mailto:info@brightmindstutors.com">info@brightmindstutors.com</a>
             </li>
             <li>
-              Phone - <a href="tel:+2348092812010">08092812010</a>
+              Phone - <a href="tel:+2348101836183">08101836183</a>
             </li>
           </ul>
           <div className="legal-actions">

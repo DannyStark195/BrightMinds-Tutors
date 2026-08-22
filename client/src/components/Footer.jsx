@@ -45,7 +45,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-right">
-          <p>Phone - 08092812010</p>
+          <p>Phone - 08101836183</p>
           <p>
             Email -{' '}
             <a href="mailto:support@brightmindstutors.com" className="footer-link">
@@ -53,7 +53,7 @@ export default function Footer() {
             </a>
           </p>
           <p>
-            <a href="https://wa.me/2348092812010" className="footer-link">
+            <a href="https://wa.me/2348101836183" className="footer-link">
               Chat Us on Whatsapp
             </a>
           </p>

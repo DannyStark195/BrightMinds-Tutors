@@ -116,7 +116,7 @@ export default function MyPayments() {
                 Contact support if a receipt is missing or a transfer has not been
                 confirmed.
               </p>
-              <a href="https://wa.me/2348092812010" className="cta-btn blue">
+              <a href="https://wa.me/2348101836183" className="cta-btn blue">
                 Chat on WhatsApp
               </a>
             </article>

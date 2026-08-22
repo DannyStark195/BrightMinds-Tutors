@@ -242,10 +242,10 @@ export default function TermsOfUse() {
               Email - <a href="mailto:info@brightmindstutors.com">info@brightmindstutors.com</a>
             </li>
             <li>
-              Phone - <a href="tel:+2348092812010">08092812010</a>
+              Phone - <a href="tel:+2348101836183">08101836183</a>
             </li>
             <li>
-              WhatsApp - <a href="https://wa.me/2348092812010">08092812010</a>
+              WhatsApp - <a href="https://wa.me/2348101836183">08101836183</a>
             </li>
           </ul>
           <div className="legal-actions">
