@@ -9,7 +9,7 @@ import { getAdminToken, logoutAdmin } from '../auth/auth.js'
 export const ADMIN_BASE_URL =
   import.meta.env.VITE_API_BASE_URL
     ? `${import.meta.env.VITE_API_BASE_URL}admin/`
-    : 'http://127.0.0.1:5000/api/admin/'
+    : 'https://brightminds-tutors.onrender.com/api/admin/'
 
 const jsonHeaders = { 'Content-Type': 'application/json' }
 
