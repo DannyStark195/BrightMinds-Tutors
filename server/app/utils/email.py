@@ -101,11 +101,11 @@ def send_booking_rejected_email(target_email, parent_name, reason=None):
     payload = {
         "sender": {"name": "BrightMinds Tutors", "email": SENDER_EMAIL},
         "to": [{"email": target_email}],
-        "subject": "Your Booking is Confirmed — BrightMinds Tutors",
+        "subject": "Your Booking is Rejected — BrightMinds Tutors",
         "htmlContent": f"""
         <html>
           <body style="font-family: Arial, sans-serif; padding: 32px; max-width: 560px; margin: 0 auto;">
-            <h2 style="color: #0D1B2A;">Booking Rejected.</h2>
+            <h2 style="color: #0D1B2A;">Booking Rejected ❌</h2>
             <p>Hi {parent_name},</p>
             <p>Thank you for applying to join the BrightMinds tutor network. After reviewing your booking, we're unable to move forward at this time.</p>
             {reason_block}
